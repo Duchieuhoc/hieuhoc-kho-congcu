@@ -1,0 +1,11 @@
+KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
+=====================================
+Mốc kho      : 2026-08-16
+Phạm vi hàm  : HH6_CH08 (Hình học lớp 6, Chương VIII) — 40 hàm (BAN_TRICH 15/08)
+Template     : hieuhoc_template.js v10.11 (13/08)
+Deps (npm)   : docx ^9.7.1 · adm-zip ^0.6.0   (tự cài bằng: npm install)
+Python       : chỉ dùng stdlib (render qua tikz/pdflatex — cài ở máy, KHÔNG trong kho)
+
+QUY TẮC ĐỐI CHIẾU (chống lệch):
+- Luật trong Project ghi "mốc kho yêu cầu". Đầu mỗi thread, OB/AI Soạn so dòng "Mốc kho"
+  ở trên với mốc trong luật. KHỚP → chạy tiếp. LỆCH → DỪNG, báo thầy cập nhật.
