@@ -10,6 +10,11 @@ import math
 import hinh_coban
 import hinh_tron          # nạp gói luật (tự đăng ký 'diem_tren_tron','goc_o_tam')
 
+# Hướng nhãn 12 số mặt đồng hồ (hạ tầng — prefix _, cửa quét bỏ qua): số toả RA NGOÀI vành.
+_NHAN_DONGHO = {12:'above',    1:'above right', 2:'right',      3:'right',
+                4:'right',     5:'below right', 6:'below',      7:'below left',
+                8:'left',      9:'left',        10:'left',      11:'above left'}
+
 class HinhTron(hinh_coban.HinhCoBan):
     def duong_tron(self, tam, ban_kinh=2.0, mau=None, net='lien', hien_tam=True):
         """ĐƯỜNG TRÒN tâm 'tam', bán kính 'ban_kinh' (đơn vị vẽ). Nếu 'tam' chưa đặt →
@@ -80,3 +85,35 @@ class HinhTron(hinh_coban.HinhCoBan):
         if danh_dau:
             self.tikz.append(('goc', [A, tam, B], do, do is not None))
         return self
+
+    def kim(self, R, vi_tri, la_kim_gio=True, tam='O'):
+        """Vẽ MỘT kim đồng hồ từ tâm 'tam' ra hướng 'vi_tri' (thang 12 giờ, cho phép LẺ:
+        vd 3.5 = giữa số 3 và 4). la_kim_gio=True → kim GIỜ ngắn+đậm (bán kính R*0.52,
+        rong='dam'); False → kim PHÚT dài+mảnh (R*0.86, rong='manh'). Mút kim là điểm ẩn
+        (hien=False, không nhãn). Thường gọi qua mat_dong_ho(); tách phơi để dựng kim lẻ.
+        Phân biệt 2 kim = ĐỘ DÀI + BỀ DÀY (Đ trình bày), KHÔNG đặt tên mút, KHÔNG cung góc."""
+        goc = 90 - 30*vi_tri
+        if la_kim_gio:
+            self.diem_ban_kinh('_kimG', tam, goc, R*0.52, hien=False)
+            self.doan(tam, '_kimG', rong='dam')
+        else:
+            self.diem_ban_kinh('_kimP', tam, goc, R*0.86, hien=False)
+            self.doan(tam, '_kimP', rong='manh')
+        return self
+
+    def mat_dong_ho(self, gio=None, phut=0, R=2.4, tam='O'):
+        """ĐỒNG HỒ chuẩn HH6 — MỘT hàm ra đồng hồ hoàn chỉnh: vành tròn tâm 'tam' + 12 số
+        (đặt bằng diem_tren_tron, nhãn toả ra ngoài) + tuỳ chọn 2 kim.
+          · gio=None            → chỉ vẽ MẶT (vành + số), không kim.
+          · gio∈1..12, phut∈0..59 → vẽ kèm kim GIỜ (ngắn+đậm, tự dịch theo phút)
+                                      + kim PHÚT (dài+mảnh).
+        Bài thường hỏi = GÓC giữa kim giờ và kim phút tại một giờ. KHÔNG đặt tên điểm A/B/C
+        trên mặt, KHÔNG vẽ cung góc trên mặt đồng hồ (chỉ hỏi số đo, không đánh dấu cung).
+        Trả về R để gọi kim() thủ công nếu cần. (Số đặt qua diem_tren_tron — KHÔNG so_quanh_tam.)"""
+        self.duong_tron(tam, ban_kinh=R, hien_tam=True)
+        for k in range(1, 13):
+            self.diem_tren_tron(str(k), tam, goc_o_tam=90-30*k, nhan=_NHAN_DONGHO[k])
+        if gio is not None:
+            self.kim(R, (gio % 12) + phut/60.0, la_kim_gio=True,  tam=tam)   # kim giờ
+            self.kim(R, phut/5.0,               la_kim_gio=False, tam=tam)   # kim phút
+        return R

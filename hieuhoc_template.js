@@ -276,6 +276,33 @@ function taoTaiLieu({ soBai, tenBai, lop, children }) {
   });
 }
 
+// ─────────────────────────────────────────────────────────────
+// taoTaiLieuDeKT — dựng Document cho ĐỀ KIỂM TRA (thay khối Document
+//   tự dựng trong build script mỗi đề). Header/footer đề KT tự gắn.
+//   Dùng: const doc = H.taoTaiLieuDeKT({ tenDe: 'ĐỀ KIỂM TRA ... (ĐỀ A)', children: C });
+//   · tenDe        — hiện ở header chạy mỗi trang (nhận diện đề, tránh lẫn A/B).
+//   · banGV=true   — footer ghi "BẢN GV (có đáp án)" đỏ, chống phát nhầm cho HS.
+//   · headerFooter=false — tắt header/footer trang (nếu muốn tờ trắng như 45' cũ).
+//   Khối "ĐỀ KIỂM TRA…/họ tên/điểm" đầu trang vẫn do headerDeKiemTra() đẩy vào children.
+// ─────────────────────────────────────────────────────────────
+function taoTaiLieuDeKT({ tenDe, children, banGV = true, headerFooter = true }) {
+  const { Document } = require("docx");
+  if (!Array.isArray(children)) throw new Error("[taoTaiLieuDeKT] 'children' phải là mảng Paragraph/Table đã dựng sẵn.");
+  const sec = {
+    properties: { page: { size: PAGE_SIZE, margin: PAGE_MARGIN } },
+    children,
+  };
+  if (headerFooter) {
+    const { header, footer } = headerFooterDeKT({ tenDe, banGV });
+    sec.headers = { default: header };
+    sec.footers = { default: footer };
+  }
+  return new Document({
+    sections: [sec],
+    styles: { default: { document: { run: { font: TNR, size: SZ_CONTENT } } } },
+  });
+}
+
 // [v9.4] CỬA RA DUY NHẤT — gộp mọi kiểm tra + vá id.
 // AI Soạn CHỈ gọi hàm này để xuất file, KHÔNG tự Packer.toBuffer + ghi file.
 // [v9.4] BỘ KIỂM TRÌNH BÀY — quét document.xml tìm lỗi trình bày CHUNG.
@@ -1640,6 +1667,50 @@ function headerFooterBaiHoc({ soBai, tenBai, lop }) {
   return { header, footer };
 }
 
+// ─────────────────────────────────────────────────────────────
+// header/footer trang Word cho ĐỀ KIỂM TRA (bản GV). Cùng phong cách
+//   headerFooterBaiHoc: header xám nhỏ có viền, footer © + slogan + SỐ TRANG.
+//   Khác: header phải in TÊN ĐỀ (không phải "Bài n"); footer đánh dấu BẢN GV.
+// ─────────────────────────────────────────────────────────────
+function headerFooterDeKT({ tenDe, banGV = true }) {
+  const header = new Header({
+    children: [
+      new Paragraph({
+        border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: C_GRAY, space: 2 } },
+        spacing: { before: 0, after: 60 },
+        tabStops: [{ type: "right", position: TOTAL_W }],
+        children: [
+          new TextRun({ text: "HỆ THỐNG PHÁT TRIỂN NGUỒN LỰC HIẾU HỌC", font: TNR, size: SZ_SMALL - 2, color: C_GRAY }),
+          new TextRun({ text: "\t", font: TNR, size: SZ_SMALL - 2 }),
+          new TextRun({ text: tenDe, font: TNR, size: SZ_SMALL - 2, color: C_GRAY }),
+        ],
+      }),
+    ],
+  });
+  const footer = new Footer({
+    children: [
+      new Paragraph({
+        border: { top: { style: BorderStyle.SINGLE, size: 4, color: C_GRAY, space: 2 } },
+        spacing: { before: 60, after: 0 },
+        tabStops: [
+          { type: "center", position: Math.round(TOTAL_W / 2) },
+          { type: "right", position: TOTAL_W },
+        ],
+        children: [
+          new TextRun({ text: banGV ? "© Hiếu Học - BẢN GV (có đáp án)" : "© Hiếu Học - TL nội bộ",
+            font: TNR, italic: true, size: SZ_SMALL - 2, color: banGV ? C_RED : C_GRAY }),
+          new TextRun({ text: "\t", font: TNR, size: SZ_SMALL - 2 }),
+          new TextRun({ text: "Tập trung - Tự Tin - Chiến thắng", font: TNR, italic: true, size: SZ_SMALL - 2, color: C_GRAY }),
+          new TextRun({ text: "\t", font: TNR, size: SZ_SMALL - 2 }),
+          new TextRun({ text: "Trang ", font: TNR, italic: true, size: SZ_SMALL - 2, color: C_GRAY }),
+          new TextRun({ children: [PageNumber.CURRENT], font: TNR, italic: true, size: SZ_SMALL - 2, color: C_GRAY }),
+        ],
+      }),
+    ],
+  });
+  return { header, footer };
+}
+
 // ═════════════════════════════════════════════════════════════
 // 18. TỜ PHÂN CHƯƠNG (dành cho AI QC — sau khi gộp file tổng)
 // ═════════════════════════════════════════════════════════════
@@ -2576,7 +2647,7 @@ module.exports = {
   THO_RONG, THO_VUA, THO_HEP,
   PAGE_SIZE, PAGE_MARGIN,
   // patch docPr id — gọi sau Packer.toBuffer()
-  patchDocPrIds, xuatFile, taoTaiLieu,
+  patchDocPrIds, xuatFile, taoTaiLieu, taoTaiLieuDeKT,
   // helpers cơ sở
   run, para, tabLine, toInline, paraInline, approxLen,
   // phần 1 — bài học
@@ -2586,8 +2657,8 @@ module.exports = {
   tieuDeDang, nhanDang, phuongPhapGiai, phanTich, dangToanDayDu,
   baiTapTaiLop, cauTracNghiem, bangDapAnPhanI, bangDungSai, traLoiNgan,
   headerDeKiemTra,
-  // phần 3 — header/footer file bài học
-  headerFooterBaiHoc,
+  // phần 3 — header/footer file bài học + đề kiểm tra
+  headerFooterBaiHoc, headerFooterDeKT,
   // phần 4 — tờ phân chương (AI QC dùng)
   toPhanChuong, footerTPC, headerRong,
   // phần 5 — tự luận BTVN + tiêu đề các khối

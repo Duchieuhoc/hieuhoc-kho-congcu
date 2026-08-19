@@ -1,8 +1,21 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-19
-Phạm vi hàm  : HH6_CH08 (Hình học lớp 6, Chương VIII) — 40 hàm (BAN_TRICH 19/08)
-Template     : hieuhoc_template.js v10.11 (13/08)
+Mốc kho      : 2026-08-19b
+Phạm vi hàm  : HH6_CH08 (Hình học lớp 6, Chương VIII) — 43 hàm (BAN_TRICH 19/08b)
+Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b)
+
+CHANGELOG 2026-08-19b:
+- mat_dong_ho(gio=None, phut=0, R=2.4, tam='O') [hinh_tron_ve.py] — đóng PHƠI: MỘT hàm
+  ra đồng hồ hoàn chỉnh (vành + 12 số qua diem_tren_tron + tuỳ chọn 2 kim). gio=None →
+  chỉ mặt. gio+phut → kim giờ (ngắn+đậm, tự dịch theo phút) + kim phút (dài+mảnh). Chuẩn
+  hoá từ _mat_dong_ho chép tay ở B36/fig_45A (khớp 100% bản duyệt) + mở rộng giờ:phút.
+- kim(R, vi_tri, la_kim_gio=True, tam='O') [hinh_tron_ve.py] — đóng PHƠI: vẽ 1 kim
+  (vi_tri thang 12 giờ, cho phép lẻ). Tách phơi để dựng kim lẻ khi cần.
+- taoTaiLieuDeKT({tenDe, children, banGV, headerFooter}) + headerFooterDeKT({tenDe, banGV})
+  [hieuhoc_template.js] — đóng khối Document đề KT (thay khối tự dựng trong build script
+  mỗi đề). Header chạy tên trường + tên đề; footer © BẢN GV (có đáp án) đỏ + slogan +
+  SỐ TRANG (PageNumber.CURRENT — tự chạy theo vị trí khi gộp file). Tương thích ngược.
+- BAN_TRICH_HAM_HH6_CH08.md + API_REFERENCE.md regenerate.
 
 CHANGELOG 2026-08-19:
 - so_do_goc(): thêm 2 tham số tùy chọn mau='orange', ban_kinh=7 (mm). Tương thích

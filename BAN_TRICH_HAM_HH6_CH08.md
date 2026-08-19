@@ -41,7 +41,9 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `hai_duong(ten1, ten2, quan_he)` | quan_he ∈ {'cat','song_song','trung'}. Máy đặt thỏa quan hệ + PHANH kiểm. |
 | `hinh_thang(A, B, Cc, D, day_tren=3.0, day_duoi=5.0, cao=2.5, lech=0.8)` | !/usr/bin/env python3 |
 | `hinh_vuong(M, N, P_, Q, canh=3.0)` | !/usr/bin/env python3 |
+| `kim(R, vi_tri, la_kim_gio=True, tam='O')` | Vẽ MỘT kim đồng hồ từ tâm 'tam' ra hướng 'vi_tri' (thang 12 giờ, cho phép LẺ: vd 3.5 = giữa số 3 và 4). la_kim_gio=True → kim GIỜ ngắn+đậm (bán kính R*0.52, rong='dam'); False → kim PHÚT dài+mảnh (R*0.86, rong='manh'). Mút kim là điểm ẩn (hien=False, không nhãn). Thường gọi qua mat_dong_ho(); tách phơi để dựng kim lẻ. Phân biệt 2 kim = ĐỘ DÀI + BỀ DÀY (Đ trình bày), KHÔNG đặt tên mút, KHÔNG cung góc. |
 | `luoi(cot, hang)` | Lưới nền cot×hang ô (xám nhạt). |
+| `mat_dong_ho(gio=None, phut=0, R=2.4, tam='O')` | ĐỒNG HỒ chuẩn HH6 — MỘT hàm ra đồng hồ hoàn chỉnh: vành tròn tâm 'tam' + 12 số (đặt bằng diem_tren_tron, nhãn toả ra ngoài) + tuỳ chọn 2 kim. · gio=None → chỉ vẽ MẶT (vành + số), không kim. · gio∈1..12, phut∈0..59 → vẽ kèm kim GIỜ (ngắn+đậm, tự dịch theo phút) + kim PHÚT (dài+mảnh). Bài thường hỏi = GÓC giữa kim giờ và kim phút tại một giờ. KHÔNG đặt tên điểm A/B/C trên mặt, KHÔNG vẽ cung góc trên mặt đồng hồ (chỉ hỏi số đo, không đánh dấu cung). Trả về R để gọi kim() thủ công nếu cần. (Số đặt qua diem_tren_tron — KHÔNG so_quanh_tam.) |
 | `noi(*diem, kin=False, mau=None)` | Nối các điểm ĐÃ ĐẶT thành đoạn/gấp khúc. kin=True→đa giác đóng. mau=màu đường. |
 | `so_do_goc(ten, do, hien_so=True, mau='orange', ban_kinh=7)` | mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC + bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh). |
 | `so_quanh_tam(tam, ban_kinh, danh_sach, goc_dau=90, chieu=-1)` | Rải các nhãn 'danh_sach' ĐỀU quanh tâm 'tam' trên vòng bán kính 'ban_kinh', bắt đầu ở hướng 'goc_dau'° (mặc định 90 = trên đỉnh), bước 'chieu'*360/n (chieu=-1 = thuận chiều kim). Dùng ghi SỐ 1–12 mặt đồng hồ, mặt số công-tơ-mét, xúc xắc quanh. |
@@ -68,4 +70,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 40 hàm khai nghĩa (phơi) · 1 cửa render · 8 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 42 hàm khai nghĩa (phơi) · 1 cửa render · 8 hàm hạ tầng (ẩn khỏi bản phát).
