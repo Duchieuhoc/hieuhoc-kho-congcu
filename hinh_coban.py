@@ -77,9 +77,11 @@ class HinhCoBan:
         self.tikz.append(('doan', A, B, False))
         self.tikz.append(('gach_bang', A, M)); self.tikz.append(('gach_bang', M, B))
         return self
-    def so_do_goc(self, ten, do, hien_so=True):
+    def so_do_goc(self, ten, do, hien_so=True, mau='orange', ban_kinh=7):
+        """mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC +
+        bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh)."""
         self.rb.append({'loai':'goc','ten':list(ten),'do':do})
-        self.tikz.append(('goc', list(ten), do, hien_so)); return self
+        self.tikz.append(('goc', list(ten), do, hien_so, mau, ban_kinh)); return self
     def goc_vuong(self, ten):
         self.rb.append({'loai':'goc','ten':list(ten),'do':90})
         self.tikz.append(('goc_vuong', list(ten))); return self
@@ -564,9 +566,11 @@ class HinhCoBan:
                 L.append(f'  \\node at ({px:.3f},{py:.3f}) {{${ten}$}};')
             elif k=='goc':
                 ten,do,hien = el[1],el[2],el[3]
+                mau = el[4] if len(el)>4 else 'orange'
+                br  = el[5] if len(el)>5 else 7
                 tt = P._thu_tu(self.V, ten); srt='--'.join(C._san(z) for z in tt)
                 lbl = f'"${do}^\\circ$",' if hien else ''
-                L.append(f'  \\draw pic[{lbl}draw=orange,thick,angle radius=7mm,'
+                L.append(f'  \\draw pic[{lbl}draw={mau},thick,angle radius={br}mm,'
                          f'angle eccentricity=1.35]{{angle={srt}}};')
         # nhãn đầu nét (tự hất ra ngoài)
         nhan_net_da = set()

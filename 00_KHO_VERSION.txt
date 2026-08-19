@@ -1,8 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-16
-Phạm vi hàm  : HH6_CH08 (Hình học lớp 6, Chương VIII) — 40 hàm (BAN_TRICH 15/08)
+Mốc kho      : 2026-08-19
+Phạm vi hàm  : HH6_CH08 (Hình học lớp 6, Chương VIII) — 40 hàm (BAN_TRICH 19/08)
 Template     : hieuhoc_template.js v10.11 (13/08)
+
+CHANGELOG 2026-08-19:
+- so_do_goc(): thêm 2 tham số tùy chọn mau='orange', ban_kinh=7 (mm). Tương thích
+  ngược (mọi lời gọi cũ giữ nguyên cam/7mm). Dùng để PHÂN BIỆT cung góc lồng nhau
+  trong cùng 1 hình: cung trong nhỏ cam, cung ngoài lớn xanh (blue). Renderer cung
+  đọc màu + bán kính từ tikz thay vì cứng. (Yêu cầu của thầy 19/08 — hình góc 2 cung
+  cùng màu/bán kính bị chồng, khó đọc.)
+- BAN_TRICH_HAM_HH6_CH08.md regenerate theo so_do_goc mới.
 Deps (npm)   : docx ^9.7.1 · adm-zip ^0.6.0   (tự cài bằng: npm install)
 Python       : chỉ dùng stdlib (render qua tikz/pdflatex — cài ở máy, KHÔNG trong kho)
 Tool khác    : sinh_apiref.js (16/08) — tự sinh API_REFERENCE từ template
