@@ -278,14 +278,14 @@ function taoTaiLieu({ soBai, tenBai, lop, children }) {
 
 // ─────────────────────────────────────────────────────────────
 // taoTaiLieuDeKT — dựng Document cho ĐỀ KIỂM TRA (thay khối Document
-//   tự dựng trong build script mỗi đề). Header/footer đề KT tự gắn.
-//   Dùng: const doc = H.taoTaiLieuDeKT({ tenDe: 'ĐỀ KIỂM TRA ... (ĐỀ A)', children: C });
-//   · tenDe        — hiện ở header chạy mỗi trang (nhận diện đề, tránh lẫn A/B).
-//   · banGV=true   — footer ghi "BẢN GV (có đáp án)" đỏ, chống phát nhầm cho HS.
-//   · headerFooter=false — tắt header/footer trang (nếu muốn tờ trắng như 45' cũ).
+//   tự dựng trong build script mỗi đề). Header/footer đề KT tự gắn
+//   (ĐÚNG MẪU headerFooterBaiHoc).
+//   Dùng: const doc = H.taoTaiLieuDeKT({ tenDe: 'Đề kiểm tra ... (Đề A)', children: C });
+//   · tenDe        — hiện ở header chạy mỗi trang (dạng thường, nhận diện đề/tránh lẫn A/B).
+//   · headerFooter=false — tắt header/footer trang (nếu muốn tờ trắng).
 //   Khối "ĐỀ KIỂM TRA…/họ tên/điểm" đầu trang vẫn do headerDeKiemTra() đẩy vào children.
 // ─────────────────────────────────────────────────────────────
-function taoTaiLieuDeKT({ tenDe, children, banGV = true, headerFooter = true }) {
+function taoTaiLieuDeKT({ tenDe, children, headerFooter = true }) {
   const { Document } = require("docx");
   if (!Array.isArray(children)) throw new Error("[taoTaiLieuDeKT] 'children' phải là mảng Paragraph/Table đã dựng sẵn.");
   const sec = {
@@ -293,7 +293,7 @@ function taoTaiLieuDeKT({ tenDe, children, banGV = true, headerFooter = true }) 
     children,
   };
   if (headerFooter) {
-    const { header, footer } = headerFooterDeKT({ tenDe, banGV });
+    const { header, footer } = headerFooterDeKT({ tenDe });
     sec.headers = { default: header };
     sec.footers = { default: footer };
   }
@@ -1668,11 +1668,12 @@ function headerFooterBaiHoc({ soBai, tenBai, lop }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// header/footer trang Word cho ĐỀ KIỂM TRA (bản GV). Cùng phong cách
-//   headerFooterBaiHoc: header xám nhỏ có viền, footer © + slogan + SỐ TRANG.
-//   Khác: header phải in TÊN ĐỀ (không phải "Bài n"); footer đánh dấu BẢN GV.
+// header/footer trang Word cho ĐỀ KIỂM TRA — ĐÚNG MẪU headerFooterBaiHoc,
+//   KHÔNG làm khác. Chỉ thay định danh: "Bài n. Tên | Lớp" → tên đề (dạng
+//   thường, truyền sẵn). Footer y hệt mẫu: © Hiếu Học - TL nội bộ + slogan
+//   + số trang (PageNumber.CURRENT — tự chạy theo vị trí khi gộp file).
 // ─────────────────────────────────────────────────────────────
-function headerFooterDeKT({ tenDe, banGV = true }) {
+function headerFooterDeKT({ tenDe }) {
   const header = new Header({
     children: [
       new Paragraph({
@@ -1697,8 +1698,7 @@ function headerFooterDeKT({ tenDe, banGV = true }) {
           { type: "right", position: TOTAL_W },
         ],
         children: [
-          new TextRun({ text: banGV ? "© Hiếu Học - BẢN GV (có đáp án)" : "© Hiếu Học - TL nội bộ",
-            font: TNR, italic: true, size: SZ_SMALL - 2, color: banGV ? C_RED : C_GRAY }),
+          new TextRun({ text: "© Hiếu Học - TL nội bộ", font: TNR, italic: true, size: SZ_SMALL - 2, color: C_GRAY }),
           new TextRun({ text: "\t", font: TNR, size: SZ_SMALL - 2 }),
           new TextRun({ text: "Tập trung - Tự Tin - Chiến thắng", font: TNR, italic: true, size: SZ_SMALL - 2, color: C_GRAY }),
           new TextRun({ text: "\t", font: TNR, size: SZ_SMALL - 2 }),

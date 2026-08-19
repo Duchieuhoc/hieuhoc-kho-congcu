@@ -11,10 +11,11 @@ CHANGELOG 2026-08-19b:
   hoá từ _mat_dong_ho chép tay ở B36/fig_45A (khớp 100% bản duyệt) + mở rộng giờ:phút.
 - kim(R, vi_tri, la_kim_gio=True, tam='O') [hinh_tron_ve.py] — đóng PHƠI: vẽ 1 kim
   (vi_tri thang 12 giờ, cho phép lẻ). Tách phơi để dựng kim lẻ khi cần.
-- taoTaiLieuDeKT({tenDe, children, banGV, headerFooter}) + headerFooterDeKT({tenDe, banGV})
+- taoTaiLieuDeKT({tenDe, children, headerFooter}) + headerFooterDeKT({tenDe})
   [hieuhoc_template.js] — đóng khối Document đề KT (thay khối tự dựng trong build script
-  mỗi đề). Header chạy tên trường + tên đề; footer © BẢN GV (có đáp án) đỏ + slogan +
-  SỐ TRANG (PageNumber.CURRENT — tự chạy theo vị trí khi gộp file). Tương thích ngược.
+  mỗi đề). Header/footer ĐÚNG MẪU headerFooterBaiHoc (KHÔNG làm khác): header tên trường
+  + tên đề (dạng thường); footer © Hiếu Học - TL nội bộ + slogan + SỐ TRANG
+  (PageNumber.CURRENT — tự chạy theo vị trí khi gộp file). Tương thích ngược.
 - BAN_TRICH_HAM_HH6_CH08.md + API_REFERENCE.md regenerate.
 
 CHANGELOG 2026-08-19:
