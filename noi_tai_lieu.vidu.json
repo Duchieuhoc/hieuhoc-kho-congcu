@@ -1,0 +1,33 @@
+{
+  "_ghi_chu": "VÍ DỤ manifest cho noi_tai_lieu.js. Thay <...> bằng đường dẫn thật của job. Xem mô tả đầy đủ ở đầu noi_tai_lieu.js.",
+  "out": "/mnt/user-data/outputs/<TEN_FILE_TONG>.docx",
+  "sections": [
+    { "loai": "phanChuong",
+      "logo": "<logo_hieuhoc.png — PNG THẬT>",
+      "lop": "TOÁN 6",
+      "tenChuong": "CHƯƠNG <SỐ>. <TÊN CHƯƠNG>",
+      "danhSachBai": [
+        { "soBai": 1, "ten": "<Tên bài 1>" },
+        { "soBai": 2, "ten": "<Tên bài 2>" }
+      ],
+      "coTongKet": true, "co45": true, "co90": true },
+
+    { "loai": "buildBai", "soBai": 1, "tenBai": "<Tên bài 1>", "lop": "Lớp 6",
+      "script": "<.../build_b01.js>", "cwd": "<thư mục chạy script>",
+      "stage": [ { "fromGlob": "<.../fig/*.png>", "toDir": "/tmp", "suffix": "-1" } ] },
+
+    { "loai": "anh",
+      "png": "<.../sodo_tongket.png>",
+      "tieuDe": "SƠ ĐỒ TỔNG KẾT CHƯƠNG <SỐ>",
+      "headerTitle": "Tổng kết chương <SỐ>",
+      "rongCm": 12 },
+
+    { "loai": "buildDe", "capture": "document",
+      "headerTitle": "Đề kiểm tra 45 phút - chương <SỐ> (Đề A)",
+      "script": "<.../build_45A.js>", "cwd": "<...>" },
+
+    { "loai": "buildDe",
+      "headerTitle": "Đề kiểm tra cuối chương <SỐ> (Đề A)",
+      "script": "<.../build_90A.js>", "cwd": "<...>" }
+  ]
+}

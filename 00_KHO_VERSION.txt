@@ -1,8 +1,22 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-19b
+Mốc kho      : 2026-08-20
 Phạm vi hàm  : HH6_CH08 (Hình học lớp 6, Chương VIII) — 43 hàm (BAN_TRICH 19/08b)
-Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b)
+Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
+Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
+
+CHANGELOG 2026-08-20:
+- toPhanChuong(...): THÊM tham số coTongKet=false [hieuhoc_template.js]. Bật true →
+  chèn dòng "✦ Tổng kết chương" vào tờ phân chương, SAU danh sách bài, TRƯỚC các đề.
+  Mặc định false ⟹ tương thích ngược, AI QC và mọi chỗ đang gọi KHÔNG đổi hành vi.
+  KHÔNG bump minor template (theo tiền lệ thêm hàm/tham số tương thích ngược).
+- noi_tai_lieu.js [MỚI]: công cụ nối tài liệu manifest-driven. Bắt children từ build
+  script (patch taoTaiLieu/taoTaiLieuDeKT + tráo docx.Document cho đề bản cũ), gắn
+  header/footer đúng loại (phanChuong/buildBai/buildDe/anh), docx tự cấp rId/tên ảnh
+  duy nhất (KHÔNG cần prefix ảnh), số trang tự chạy. GUARD xmllint tích hợp: chặn xuất
+  nếu bất kỳ .xml nào hỏng (đóng việc treo §5 "guard XML well-formed"). Dùng:
+  node noi_tai_lieu.js <manifest.json> — mô tả manifest ở đầu file tool.
+- API_REFERENCE.md regenerate (có coTongKet).
 
 CHANGELOG 2026-08-19b:
 - mat_dong_ho(gio=None, phut=0, R=2.4, tam='O') [hinh_tron_ve.py] — đóng PHƠI: MỘT hàm

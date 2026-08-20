@@ -1725,7 +1725,7 @@ function headerFooterDeKT({ tenDe }) {
  * @param {string}  [p.capCho=""] - để trống, GV tự điền tay
  * Trả về mảng children — dùng riêng 1 section KHÔNG có header/footer, KHÔNG số trang.
  */
-function toPhanChuong({ logoBuffer, lop, tenChuong, danhSachBai, co45 = true, co90 = true }) {
+function toPhanChuong({ logoBuffer, lop, tenChuong, danhSachBai, coTongKet = false, co45 = true, co90 = true }) {
   const { ImageRun } = require("docx");
   const logoWidth = 2880000;
   const logoHeight = Math.round(logoWidth * 1024 / 1280); // tỉ lệ logo gốc 1280×1024
@@ -1796,6 +1796,17 @@ function toPhanChuong({ logoBuffer, lop, tenChuong, danhSachBai, co45 = true, co
       ],
     }));
   });
+
+  // Tổng kết chương (sơ đồ hệ thống hoá) — sau các bài, trước đề
+  if (coTongKet) {
+    out.push(new Paragraph({
+      spacing: { before: 10, after: 10, line: 220 }, indent: { left: 400 },
+      children: [
+        new TextRun({ text: "✦  ", font: TNR, color: "1565C0", size: 28 }),
+        new TextRun({ text: "Tổng kết chương", font: TNR, bold: true, size: 28 }),
+      ],
+    }));
+  }
 
   // Đề kiểm tra — 1 đề 45' + 1 đề 90' / chương, KHÔNG ghi mã
   if (co45) {
