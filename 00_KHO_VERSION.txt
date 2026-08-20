@@ -1,11 +1,24 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-20c
-Phạm vi hàm  : HH6_CH08 (Chương VIII) — 43 hàm (BAN_TRICH 19/08b)
+Mốc kho      : 2026-08-20d
+Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
+               HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
-               +hinh_thang_can, +da_giac_vuong (BAN_TRICH 20/08c)
+               +hinh_thang_can, +da_giac_vuong (BAN_TRICH 20/08d)
 Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
+
+CHANGELOG 2026-08-20d:
+- sinh_bantrich.py: SỬA alias — suy theo mã chương (CH04→H4, CH08→H8), hết hardcode "as H8";
+  chặn dòng shebang lọt vào cột mô tả (đai an toàn _mo_ta_tu_comment).
+- hinh_coban.py: +docstring cho trung_diem, goc_vuong, tia, tia_doi, chum_duong, ve (cửa render).
+- hinh_dagiac.py: +docstring cho tam_giac_deu, hinh_vuong, hinh_thang.
+  → Bản trích CH04+CH08 hết 9 hàm "mô tả shebang"; AI Soạn có mô tả đầy đủ.
+- BAN_TRICH_HAM_HH6_CH04.md + _CH08.md regenerate (alias đúng + 9 mô tả mới). Regression 10/10 PASS.
+  · CH08 tăng 43→48 hàm phơi: 5 hàm CH04 (thoi/thang cân/lục giác/đa giác đều/đa giác vuông)
+    hiện qua HinhDaGiac chung. A↔C vẫn đúng (hàm có thật). Phạm vi vẽ CH08 do PHIẾU chốt.
+  · GHI CHÚ KIẾN TRÚC: 2 bản trích CH04/CH08 nay gần trùng hệt (cùng API base). Cân nhắc
+    hợp nhất 1 file BAN_TRICH_HAM_HINH.md sau — CHƯA làm, chờ thầy quyết.
 
 CHANGELOG 2026-08-20c:
 - hinh_dagiac.py: +hinh_thoi(A..D,canh,goc,cheo,tam) — thoi kim cương, 2 chéo + tâm;

@@ -9,18 +9,24 @@ import hinh_coban
 
 class HinhDaGiac(hinh_coban.HinhCoBan):
     def tam_giac_deu(self, A, B, Cc, canh=3.0, xoay=0):
+        """Tam giác ĐỀU 3 đỉnh: B dưới-trái, C dưới-phải, A đỉnh trên. canh = độ dài cạnh
+        (mặc định 3.0). Ba cạnh bằng nhau (PHANH canh_bang). Dùng nhận dạng / hình nền."""
         self._diem(B, 0, 0, 'below left')
         self._diem(Cc, canh, 0, 'below right')
         self._diem(A, canh/2, canh*math.sqrt(3)/2, 'above')
         self._da_giac(A, B, Cc)
         self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(B,Cc),(Cc,A)]}); return self
     def hinh_vuong(self, M, N, P_, Q, canh=3.0):
+        """Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải. canh = độ dài cạnh.
+        PHANH: 4 cạnh bằng nhau + góc tại M vuông (90°)."""
         self._diem(M, 0, 0, 'below left'); self._diem(N, 0, canh, 'above left')
         self._diem(P_, canh, canh, 'above right'); self._diem(Q, canh, 0, 'below right')
         self._da_giac(M, N, P_, Q)
         self.rb.append({'loai':'canh_bang','cac_doan':[(M,N),(N,P_),(P_,Q),(Q,M)]})
         self.rb.append({'loai':'goc','ten':[Q,M,N],'do':90}); return self
     def hinh_thang(self, A, B, Cc, D, day_tren=3.0, day_duoi=5.0, cao=2.5, lech=0.8):
+        """Hình THANG thường: A,B = đáy trên (day_tren); D,C = đáy dưới (day_duoi); AB ∥ DC
+        (PHANH song_song). cao = chiều cao; lech = dời ngang đáy trên. Thang CÂN dùng hinh_thang_can."""
         self._diem(A, lech, cao, 'above left'); self._diem(B, lech+day_tren, cao, 'above right')
         self._diem(Cc, day_duoi, 0, 'below right'); self._diem(D, 0, 0, 'below left')
         self._da_giac(A, B, Cc, D)

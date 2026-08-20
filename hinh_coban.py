@@ -67,6 +67,8 @@ class HinhCoBan:
     def _mot_diem_duong(self, ten):     # 2 điểm mốc của 1 đường (để kiểm/giao)
         return self.duong_data[ten]
     def trung_diem(self, M, A, B, mau=None):
+        """M = TRUNG ĐIỂM đoạn AB. M chưa đặt → tự đặt tại chính giữa A,B. Vẽ đoạn AB + gạch bằng
+        2 nửa (A–M = M–B) + ràng buộc thẳng hàng A,M,B (PHANH). mau='red' → chấm đỏ (điểm dựng ở lời giải)."""
         if M not in self.V:            # [12/08 vá lỗi cũ] tự đặt M tại trung điểm nếu chưa đặt
             (ax,ay),(bx,by) = self.V[A], self.V[B]
             self._diem(M, (ax+bx)/2, (ay+by)/2, 'above', moc=True, mau=mau)
@@ -83,9 +85,14 @@ class HinhCoBan:
         self.rb.append({'loai':'goc','ten':list(ten),'do':do})
         self.tikz.append(('goc', list(ten), do, hien_so, mau, ban_kinh)); return self
     def goc_vuong(self, ten):
+        """Đánh dấu GÓC VUÔNG (90°) trên góc 'ten' = (cạnh1, đỉnh, cạnh2) đã khai — vẽ Ô VUÔNG nhỏ
+        thay cung số. PHANH kiểm góc = 90°. Chỉ đánh dấu; 2 cạnh phải khai trước qua tia/chum_tia."""
         self.rb.append({'loai':'goc','ten':list(ten),'do':90})
         self.tikz.append(('goc_vuong', list(ten))); return self
     def tia(self, goc_O, ten_dau, xoay=0, mui_ten=False, nhan='auto', mau=None, net='lien'):
+        """TIA gốc 'goc_O' hướng tới 'ten_dau', nghiêng 'xoay'° so ngang (0 = sang phải). Gốc chưa đặt
+        → đặt tại (0,0). mui_ten=True → mũi tên đầu tia (ký hiệu tia). nhan: vị trí nhãn mút ('auto' tự chọn).
+        mau/net: style phân biệt (đường phụ lời giải = 'red'/'dut'). Tia đơn: 1 gốc, 1 hướng."""
         if goc_O not in self.V: self._diem(goc_O, 0, 0, 'below left', moc=True)
         Ox, Oy = self.V[goc_O]; a = math.radians(xoay)
         self._diem(ten_dau, Ox+DAI_CHUAN*math.cos(a), Oy+DAI_CHUAN*math.sin(a), moc=False)
@@ -156,6 +163,8 @@ class HinhCoBan:
         """KHAI các điểm THẲNG HÀNG → PHANH kiểm độ lệch, sai thì dừng."""
         self.rb.append({'loai':'thang_hang','diem':list(diem)}); return self
     def tia_doi(self, O, t1, t2, xoay=0):
+        """HAI TIA ĐỐI chung gốc O: t1 và t2 hai phía đối nhau qua O, nghiêng 'xoay'° so ngang.
+        Vẽ đoạn t1–t2 + PHANH kiểm góc t1-O-t2 = 180° và t1,O,t2 thẳng hàng. Dùng bài 'hai tia đối nhau'."""
         if O not in self.V: self._diem(O, 0, 0, 'below', moc=True)
         Ox, Oy = self.V[O]; a = math.radians(xoay)
         self._diem(t1, Ox+DAI_CHUAN*math.cos(a), Oy+DAI_CHUAN*math.sin(a), moc=False)
@@ -176,6 +185,8 @@ class HinhCoBan:
             self.so_do_goc((c1, dinh, c2), do)
         return self
     def chum_duong(self, tam, danh_sach, dai=3.0):
+        """CHÙM ĐƯỜNG THẲNG đồng quy tại 'tam'. danh_sach=[(tên, xoay°), …] — mỗi đường qua tâm,
+        nghiêng 'xoay'° so ngang, dài 'dai' về mỗi phía. Nhãn cạnh 1 đầu. Dùng nhiều đường cắt nhau tại 1 điểm."""
         if tam not in self.V: self._diem(tam, 0, 0, 'below', moc=True)
         Ox, Oy = self.V[tam]
         for ten, xoay in danh_sach:
@@ -429,6 +440,9 @@ class HinhCoBan:
         self.tikz.append(('to_mien', list(diem), mau)); return self
 
     def ve(self, out='hinh', tra_bytes=False):
+        """CỬA RENDER — gọi CUỐI cùng. Chạy PHANH verify (sai hình → DỪNG tại đây) rồi xuất TikZ→PNG.
+        out = tên file (không đuôi). tra_bytes=True → trả bytes PNG (nhúng docx qua template); False → ghi file.
+        Mọi hàm khai nghĩa phải gọi TRƯỚC ve()."""
         # gom nhóm dấu-bằng → ràng buộc canh_bang trước khi PHANH
         for dau, segs in self._nhom_bang.items():
             if len(segs) >= 2:

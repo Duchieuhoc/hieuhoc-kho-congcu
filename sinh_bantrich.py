@@ -22,7 +22,7 @@ def _mo_ta_tu_comment(src_lines, def_lineno):
     i = def_lineno - 2
     while i >= 0 and src_lines[i].strip().startswith('#'):
         t = src_lines[i].strip().lstrip('#').strip().strip('─').strip()
-        if t and not t.startswith('='):
+        if t and not t.startswith('=') and not t.startswith('!'):
             out.append(t)
         i -= 1
     return ' '.join(reversed(out))
@@ -86,7 +86,10 @@ def sinh(ten_module, ma_chuong=None, noi_bo=False):
              f"vá kho → chạy lại → khớp. KHÔNG sửa tay file này.")
     L.append(f"> Sinh ngày {ngay}. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.")
     L.append("")
-    L.append(f"Import trong script bài: `import {ten_module} as H8` rồi `h = H8.Hinh()`.")
+    import re as _re
+    _mal = _re.search(r'CH0*(\d+)', ma_chuong or '')
+    _alias = f"H{int(_mal.group(1))}" if _mal else 'H'
+    L.append(f"Import trong script bài: `import {ten_module} as {_alias}` rồi `h = {_alias}.Hinh()`.")
     L.append("Gọi các method KHAI NGHĨA (mục 1) theo phiếu; cuối cùng `png = h.ve(out=..., tra_bytes=True)`.")
     L.append("")
     L.append("---")
