@@ -49,3 +49,112 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
             self._diem(A,0.5,2,'above left'); self._diem(B,3.5,2,'above right')
             self._diem(Cc,4,0,'below right'); self._diem(D,0,0,'below left')
         self._da_giac(A, B, Cc, D); return self
+    def luc_giac_deu(self, A, B, Cc, D, E, F, canh=2.0, xoay=0, cheo=None, tam=None):
+        """Lục giác đều 6 đỉnh, thứ tự A→B→C→D→E→F theo chiều kim đồng hồ.
+        Khi xoay=0: cạnh AB (trên) và ED (dưới) nằm ngang; C ở phải, F ở trái.
+        canh   = độ dài cạnh (= bán kính đường tròn ngoại tiếp).
+        xoay   = góc xoay cả hình (độ).
+        cheo   = None | 'chinh' (AD,BE,CF) | 'phu' (AC,BD,CE,DF,EA,FB) | 'tatca'.
+        tam    = tên tâm O (đặt → chấm tâm; 3 đường chéo chính đồng quy tại O)."""
+        ten    = [A, B, Cc, D, E, F]
+        goc0   = [120, 60, 0, -60, -120, 180]                  # A..F, cùng chiều kim đồng hồ
+        anchor = ['above left','above right','right','below right','below left','left']
+        cx, cy = canh, canh                                    # tâm (giữ toạ độ dương, gọn)
+        for t, g, anc in zip(ten, goc0, anchor):
+            th = math.radians(g + xoay)
+            self._diem(t, cx + canh*math.cos(th), cy + canh*math.sin(th), anc)
+        self._da_giac(*ten)
+        self.rb.append({'loai':'canh_bang',
+                        'cac_doan':[(ten[i], ten[(i+1)%6]) for i in range(6)]})
+        for i in range(6):
+            self.rb.append({'loai':'goc',
+                            'ten':[ten[(i-1)%6], ten[i], ten[(i+1)%6]],
+                            'do':120, 'dungsai':0.5})
+        if tam:
+            self._diem(tam, cx, cy, 'below', mau='red')
+        chinh = [(A,D),(B,E),(Cc,F)]
+        phu   = [(A,Cc),(B,D),(Cc,E),(D,F),(E,A),(F,B)]
+        ds = ([] if cheo is None else
+              chinh if cheo=='chinh' else
+              phu   if cheo=='phu'   else
+              chinh+phu)
+        for P_, Q in ds:
+            self.tikz.append(('noi', [P_, Q], False, None))
+        return self
+    def da_giac_deu(self, *ten, canh=2.0, xoay=0, to=None):
+        """Đa giác đều n cạnh (n = số tên truyền vào ≥ 3), đỉnh theo chiều kim đồng hồ,
+        một cạnh nằm ngang phía trên khi xoay=0. Dùng cho hình NHẬN DẠNG / gây nhiễu
+        (ngũ giác, bát giác,…) — KHÔNG vẽ đường chéo. to = màu tô miền (None = không tô).
+        Lục giác đều dùng riêng luc_giac_deu (có đường chéo chính/phụ, tâm)."""
+        n = len(ten)
+        if n < 3:
+            raise ValueError('da_giac_deu cần ≥ 3 đỉnh')
+        R  = canh / (2*math.sin(math.pi/n))            # bán kính ngoại tiếp từ cạnh
+        cx, cy = R, R
+        g0 = 90 - 180.0/n                              # cạnh đầu nằm ngang phía trên
+        for k, t in enumerate(ten):
+            th = math.radians(g0 - k*360.0/n + xoay)   # chiều kim đồng hồ
+            x, y = cx + R*math.cos(th), cy + R*math.sin(th)
+            ax = 'right' if math.cos(th) > 0.30 else ('left' if math.cos(th) < -0.30 else '')
+            ay = 'above' if math.sin(th) > 0.30 else ('below' if math.sin(th) < -0.30 else '')
+            self._diem(t, x, y, (ay + ' ' + ax).strip() or 'above')
+        self._da_giac(*ten)
+        self.rb.append({'loai':'canh_bang',
+                        'cac_doan':[(ten[i], ten[(i+1)%n]) for i in range(n)]})
+        if to:
+            self.tikz.append(('to_mien', list(ten), to))
+        return self
+    def hinh_thoi(self, A, B, Cc, D, canh=3.0, goc=60, cheo=False, tam=None):
+        """Hình thoi dạng "kim cương": A trái, B trên, C phải, D dưới.
+        canh = độ dài cạnh; goc = góc tại đỉnh A (và C), độ (mặc định 60°).
+        cheo=True → vẽ 2 đường chéo (AC ngang, BD dọc). tam = tên tâm (chấm)."""
+        th = math.radians(goc/2.0)
+        p, q = canh*math.cos(th), canh*math.sin(th)          # nửa chéo ngang / dọc
+        self._diem(A, 0, q, 'left');    self._diem(B, p, 2*q, 'above')
+        self._diem(Cc, 2*p, q, 'right'); self._diem(D, p, 0, 'below')
+        self._da_giac(A, B, Cc, D)
+        self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(B,Cc),(Cc,D),(D,A)]})
+        self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)})
+        self.rb.append({'loai':'song_song','doan1':(A,D),'doan2':(B,Cc)})
+        if cheo:
+            self.tikz.append(('noi', [A, Cc], False, None))
+            self.tikz.append(('noi', [B, D],  False, None))
+        if tam:
+            self._diem(tam, p, q, 'below right', mau='red')
+        return self
+    def hinh_thang_can(self, A, B, Cc, D, day_nho=3.0, day_lon=5.0, cao=2.5, cheo=False):
+        """Hình thang cân đối xứng qua trục dọc: A,B = đáy nhỏ (trên); D,C = đáy lớn (dưới).
+        A trên-trái, B trên-phải, C dưới-phải, D dưới-trái.
+        cheo=True → vẽ 2 đường chéo (AC, BD — bằng nhau)."""
+        lech = (day_lon - day_nho)/2.0
+        self._diem(D, 0, 0, 'below left');   self._diem(Cc, day_lon, 0, 'below right')
+        self._diem(A, lech, cao, 'above left'); self._diem(B, lech+day_nho, cao, 'above right')
+        self._da_giac(A, B, Cc, D)
+        self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)})   # 2 đáy //
+        self.rb.append({'loai':'canh_bang','cac_doan':[(A,D),(B,Cc)]})      # 2 cạnh bên =
+        if cheo:
+            self.tikz.append(('noi', [A, Cc], False, None))
+            self.tikz.append(('noi', [B, D],  False, None))
+            self.rb.append({'loai':'canh_bang','cac_doan':[(A,Cc),(B,D)]})  # 2 đường chéo =
+        return self
+    def da_giac_vuong(self, ten, buoc, nhan='below right'):
+        """Đa giác mọi cạnh song song trục (góc vuông) — hình chữ L, bậc thang, mặt bằng.
+        ten  = list tên đỉnh (n đỉnh), đi quanh chu vi.
+        buoc = list n (huong, dai) — huong ∈ {'phai','trai','len','xuong'}, dai>0.
+               Đỉnh sinh cộng dồn từ ten[0]=(0,0); TỔNG vector phải = 0 (khép kín).
+        (Nhãn cạnh/kích thước AI thêm bằng doan(..., dodai=...).)"""
+        huong = {'phai':(1,0), 'trai':(-1,0), 'len':(0,1), 'xuong':(0,-1)}
+        n = len(ten)
+        if len(buoc) != n:
+            raise ValueError('da_giac_vuong: số bước phải bằng số đỉnh (bước cuối khép về đỉnh đầu)')
+        x = y = 0.0; toa_do = [(x, y)]
+        for hg, dai in buoc[:-1]:
+            ux, uy = huong[hg]; x += ux*dai; y += uy*dai; toa_do.append((x, y))
+        # kiểm khép kín
+        hgc, daic = buoc[-1]; ux, uy = huong[hgc]
+        if abs(x + ux*daic) > 1e-6 or abs(y + uy*daic) > 1e-6:
+            raise ValueError('da_giac_vuong: chuỗi bước KHÔNG khép kín (tổng vector ≠ 0)')
+        for t, (px, py) in zip(ten, toa_do):
+            self._diem(t, px, py, nhan)
+        self._da_giac(*ten)
+        return self

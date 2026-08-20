@@ -1,9 +1,26 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-20
-Phạm vi hàm  : HH6_CH08 (Hình học lớp 6, Chương VIII) — 43 hàm (BAN_TRICH 19/08b)
+Mốc kho      : 2026-08-20c
+Phạm vi hàm  : HH6_CH08 (Chương VIII) — 43 hàm (BAN_TRICH 19/08b)
+               HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
+               +hinh_thang_can, +da_giac_vuong (BAN_TRICH 20/08c)
 Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
+
+CHANGELOG 2026-08-20c:
+- hinh_dagiac.py: +hinh_thoi(A..D,canh,goc,cheo,tam) — thoi kim cương, 2 chéo + tâm;
+  +hinh_thang_can(A..D,day_nho,day_lon,cao,cheo) — thang cân đối xứng, 2 chéo bằng;
+  +da_giac_vuong(ten,buoc) — đa giác cạnh vuông góc (chữ L/bậc thang, guard khép kín).
+  Cả ba PHANH pass, render khớp SGK. Đóng trọn A↔C Chương IV (Bài 18–20 + cuối chương).
+- BAN_TRICH_HAM_HH6_CH04.md regenerate (đủ 5 hàm chương IV).
+
+CHANGELOG 2026-08-20b:
+- hinh_ch4.py [MỚI]: entry Chương IV (compose HinhDaGiac + HinhTron), class Hinh.
+- hinh_dagiac.py: +luc_giac_deu(A..F,canh,xoay,cheo,tam) — lục giác đều, đường chéo
+  chính/phụ/tatca + tâm; +da_giac_deu(*ten,canh,xoay,to) — đa giác đều n cạnh
+  (ngũ/bát giác… nhận dạng, không đường chéo). Cả hai PHANH pass, test render OK.
+- BAN_TRICH_HAM_HH6_CH04.md [MỚI] sinh từ hinh_ch4 (mô hình X — bản phát AI Soạn).
+- Tương thích ngược: HH6_CH08 + template + noi_tai_lieu KHÔNG đổi.
 
 CHANGELOG 2026-08-20:
 - toPhanChuong(...): THÊM tham số coTongKet=false [hieuhoc_template.js]. Bật true →
