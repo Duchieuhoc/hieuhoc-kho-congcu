@@ -1,12 +1,18 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-20d
+Mốc kho      : 2026-08-20e
 Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
                HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
                +hinh_thang_can, +da_giac_vuong (BAN_TRICH 20/08d)
 Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
+
+CHANGELOG 2026-08-20e:
+- hinh_dagiac.py: luc_giac_deu + hinh_thoi — tâm 'tam=' đổi ĐỎ→ĐEN (Đ40: đỏ chỉ cho yếu tố
+  cần tìm; tâm là giao điểm cho sẵn → đen, nhất quán với O đen qua giao() ở hcn/bình hành).
+  Phát hiện ở QC Vòng 2 B19 (Hình 2/BT2/TL2/D4). Lỗi công cụ, không phải lỗi bài.
+- Bản trích KHÔNG đổi (sửa màu không đụng chữ ký/docstring). B19 render lại + rebuild sạch.
 
 CHANGELOG 2026-08-20d:
 - sinh_bantrich.py: SỬA alias — suy theo mã chương (CH04→H4, CH08→H8), hết hardcode "as H8";

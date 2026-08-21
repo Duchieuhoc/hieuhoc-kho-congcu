@@ -77,7 +77,7 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
                             'ten':[ten[(i-1)%6], ten[i], ten[(i+1)%6]],
                             'do':120, 'dungsai':0.5})
         if tam:
-            self._diem(tam, cx, cy, 'below', mau='red')
+            self._diem(tam, cx, cy, 'below')   # tâm = giao điểm cho sẵn → ĐEN (Đ40; đỏ chỉ cho yếu tố cần tìm)
         chinh = [(A,D),(B,E),(Cc,F)]
         phu   = [(A,Cc),(B,D),(Cc,E),(D,F),(E,A),(F,B)]
         ds = ([] if cheo is None else
@@ -126,7 +126,7 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
             self.tikz.append(('noi', [A, Cc], False, None))
             self.tikz.append(('noi', [B, D],  False, None))
         if tam:
-            self._diem(tam, p, q, 'below right', mau='red')
+            self._diem(tam, p, q, 'below right')   # tâm = giao điểm cho sẵn → ĐEN (Đ40; đỏ chỉ cho yếu tố cần tìm)
         return self
     def hinh_thang_can(self, A, B, Cc, D, day_nho=3.0, day_lon=5.0, cao=2.5, cheo=False):
         """Hình thang cân đối xứng qua trục dọc: A,B = đáy nhỏ (trên); D,C = đáy lớn (dưới).
