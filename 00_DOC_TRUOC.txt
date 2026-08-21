@@ -1,0 +1,3 @@
+GÓI: CAPNHAT_KHO__2026-08-22 (mốc 20h) → PUSH GITHUB, Commit changes
+UPLOAD ĐÈ: gop_chuong.js + logo_hieuhoc.png + 00_KHO_VERSION.txt. node_modules KHÔNG đẩy.
+Tên file tổng ra: TONGHOP_HH6_CH04_GV.docx (1 gạch).

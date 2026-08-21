@@ -1,0 +1,4 @@
+00_DANH_MUC — CAPNHAT_KHO (20h)
+gop_chuong.js — THÊM (tên tổng TONGHOP_<ma>_GV, 1 gạch)
+logo_hieuhoc.png — THÊM (PNG thật)
+00_KHO_VERSION.txt — THAY (20e→20h)

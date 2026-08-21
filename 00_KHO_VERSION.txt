@@ -1,12 +1,39 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-20e
+Mốc kho      : 2026-08-20h
 Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
                HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
                +hinh_thang_can, +da_giac_vuong (BAN_TRICH 20/08d)
 Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
+Gộp chương   : gop_chuong.js (22/08) — GHÉP MẢNH: quét thư mục chương, mỗi gói mang sẵn
+               00_MANIFEST_MANH.json → tự dựng bìa + xếp thứ tự → gọi noi_tai_lieu. Nối chương
+               = thả gói vào 1 thư mục, chạy 1 lệnh (khỏi dựng manifest tay). Xem §8 QUY_UOC.
+Logo         : logo_hieuhoc.png (22/08) — PNG THẬT, bản chuẩn dựng bìa chương (toPhanChuong).
+               Mọi bìa/nối trỏ VÀO ĐÂY (~/kho/logo_hieuhoc.png), KHÔNG dùng logo Project (JPEG đội đuôi .png → guard chặn).
+
+CHANGELOG 2026-08-20h:
+- gop_chuong.js: tên file ra MẶC ĐỊNH = TONGHOP_<ma>_GV.docx (ma lấy từ 00_CHUONG.json)
+  — tên chuẩn "file tổng" để thầy lưu thư mục Ban_Dung. Không truyền out → tự đặt tên này.
+- GHI CHÚ (package-side, không thuộc kho): make_bang.js trong LƯU_BÀI tổng-kết phải để bảng
+  rộng ≤ content doc tổng (A4 lề H.PAGE_MARGIN 737 → content 10432 DXA). Bảng cũ 11100 DXA
+  TRÀN ~668 twips khi nối → đã co 10400 (2 cột 5200). Đứng một mình vẫn đẹp.
+
+CHANGELOG 2026-08-20g:
+- +gop_chuong.js [MỚI] — nối chương bằng GHÉP MẢNH. Mỗi gói LƯU_BÀI mang 00_MANIFEST_MANH.json
+  (section của chính nó, đường dẫn tương đối); tool gom mảnh → giải path tuyệt đối → TỰ suy tờ
+  phân chương (danhSachBai theo soBai · coTongKet/co45/co90 theo nhóm mảnh) → xếp thứ tự chuẩn
+  (bìa·bài·tổng kết·đề45 A/B·đề90 A/B) → noi_tai_lieu. Dùng: node gop_chuong.js <chương> [out].
+  ĐÃ KIỂM: ghép Chương IV từ 6 mảnh ra docx KHỚP HỆT bản nối tay (9 section·81 ảnh·95 drawing·
+  37 trang). Ăn theo noi_tai_lieu (không đổi engine). Đóng §8⑥ QUY_UOC (TÙY CHỌN → CHỐT).
+
+CHANGELOG 2026-08-20f:
+- +logo_hieuhoc.png [MỚI] — bản chuẩn PNG THẬT (1232×980, RGB) cho bìa chương. Nguồn logo trong
+  Project là JPEG đội-đuôi-.png (magic FF D8) → noi_tai_lieu/toPhanChuong guard chặn. Chuẩn hoá 1 lần,
+  đặt trong kho làm nguồn duy nhất (cùng chỗ template). Từ nay bìa chương trỏ ~/kho/logo_hieuhoc.png →
+  hết vấp logo, khỏi convert mỗi lần. ASSET-ONLY: hàm/bản trích/template KHÔNG đổi, tương thích ngược
+  hoàn toàn (mốc yêu cầu trong luật KHÔNG cần đổi — kho 20f mới hơn, không gây LỆCH-halt).
 
 CHANGELOG 2026-08-20e:
 - hinh_dagiac.py: luc_giac_deu + hinh_thoi — tâm 'tam=' đổi ĐỎ→ĐEN (Đ40: đỏ chỉ cho yếu tố
