@@ -48,6 +48,9 @@ def _san(t): return t.replace("'","p")
 # ─────────── RENDER TikZ → PNG (biên dịch thuần, KHÔNG hard-code 2D) ───────────
 def _render(tikz, out, tra_bytes=False):
     tex=(r'\documentclass[border=4pt]{standalone}\usepackage{tikz}\usepackage{amsmath}'
+         r'\usepackage{newunicodechar}'
+         r'\newunicodechar{′}{\ensuremath{{}^{\prime}}}'      # U+2032 prime  → x′
+         r'\newunicodechar{″}{\ensuremath{{}^{\prime\prime}}}' # U+2033 dprime → x″
          r'\usetikzlibrary{angles,quotes,intersections,calc}\begin{document}'
          +tikz+r'\end{document}')
     open(f'/tmp/{out}.tex','w').write(tex)
