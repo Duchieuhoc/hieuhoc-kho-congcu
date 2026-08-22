@@ -1,10 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-20h
+Mốc kho      : 2026-08-22a
 Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
                HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
                +hinh_thang_can, +da_giac_vuong (BAN_TRICH 20/08d)
+               HH7_CH03 (Chương III lớp 7 — Góc & đường thẳng song song) — +hinh_gocdt.py, entry
+               hinh_gocdt.Hinh (kế thừa HinhCoBan, KHÔNG đụng file lõi). 2 hàm mô-típ:
+               hai_duong_cat_4goc (đối đỉnh/kề bù) + cat_tuyen_2duong (so le trong/đồng vị/trong
+               cùng phía). Đánh số góc theo PHẦN TƯ I–IV; nhãn tên 2 đầu (x trái/x′ phải, y trên/
+               y′ dưới); đường thẳng KHÔNG mũi tên; nhãn ra ngoài đầu nét. Dùng chung lớp 7→9.
+               (BAN_TRICH_HAM_HH7_CH03.md 22/08)
 Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
 Gộp chương   : gop_chuong.js (22/08) — GHÉP MẢNH: quét thư mục chương, mỗi gói mang sẵn
