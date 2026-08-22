@@ -9,15 +9,17 @@
 # CS2627. Tạo 2026-08-22 (Ông Bụt) cho HH7 Chương III, kế thừa cho các chương sau.
 # ═══════════════════════════════════════════════════════════════════
 import math
-import hinh_coban
-from hinh_coban import HinhCoBan
+import hinh_dagiac
+from hinh_dagiac import HinhDaGiac
 
 
-class Hinh(HinhCoBan):
-    """Mạch góc & đường thẳng. Hai hàm dựng chuyên:
+class Hinh(HinhDaGiac):
+    """Mạch góc & đường thẳng. Kế thừa HinhDaGiac (⊃ HinhCoBan) → có sẵn cả
+       tam_giac/tu_giac/đa giác lẫn primitive điểm·đường·tia·góc. Hai hàm dựng chuyên:
        • hai_duong_cat_4goc  — hai đường thẳng cắt nhau tại 1 đỉnh, đánh số 4 góc.
        • cat_tuyen_2duong    — một cát tuyến cắt hai đường thẳng (song song hoặc cắt),
-                               đánh số 4 góc tại mỗi đỉnh (A1–A4, B1–B4)."""
+                               đánh số 4 góc tại mỗi đỉnh (A1–A4, B1–B4).
+       • nhan_goc            — ghi nhãn số/ký hiệu (1,2,3…) tại phân giác trong 1 góc."""
 
     # ── nội bộ: tách tên đường thành nhãn 2 đầu ──
     #    "xx′"→['x',"x'"] · "yy′"→['y',"y'"] · "mn"→['m','n'] · "a"→['a'] (1 nhãn)
@@ -83,6 +85,46 @@ class Hinh(HinhCoBan):
             mr = math.radians(mid)
             x = Ox + r * math.cos(mr); y = Oy + r * math.sin(mr)
             self.tikz.append(('so_o', x, y, f'{prefix}{so}'))
+        return self
+
+    # ═══════════════════════════════════════════════════════════════
+    # NHÃN SỐ THỨ TỰ GÓC (Ô₁, Ô₂, Ô₃…) — cho Tập suy luận / hình đối đỉnh đánh số riêng
+    # ═══════════════════════════════════════════════════════════════
+    def nhan_goc(self, goc, chu, r=0.44):
+        """Ghi nhãn 'chu' (số thứ tự '1','2','3'… hoặc ký hiệu) tại phân giác TRONG của góc.
+        goc = (canh1, dinh, canh2): tên 3 điểm ĐÃ đặt (qua tia/tia_doi…). Dùng cho các hình
+        đánh số góc KHÔNG theo phần tư liên tục (vd H3.5: Ô₁–Ô₂ đối đỉnh). Không vẽ cung."""
+        A, O, B = goc
+        ox, oy = self.V[O]; ax, ay = self.V[A]; bx, by = self.V[B]
+        a1 = math.atan2(ay - oy, ax - ox)
+        a2 = math.atan2(by - oy, bx - ox)
+        da = (a2 - a1) % (2 * math.pi)
+        mid = a1 + da / 2 if da <= math.pi else a1 - (2 * math.pi - da) / 2   # phân giác trong
+        x = ox + r * math.cos(mid); y = oy + r * math.sin(mid)
+        self.tikz.append(('so_o', x, y, chu))
+        return self
+
+    def dau_goc_bang(self, goc, so_gach=1, ban_kinh=7, mau='orange', do=None):
+        """Đánh dấu GÓC (cung + 'so_gach' gạch tick) → thể hiện HAI GÓC BẰNG NHAU.
+        Các góc bằng nhau (vd 2 nửa của góc bị tia phân giác chia) dùng CÙNG so_gach.
+        goc = (canh1, dinh, canh2) đã đặt. do: số đo thật (None → tự tính từ toạ độ). PHANH kiểm."""
+        A, O, B = goc
+        ox, oy = self.V[O]; ax, ay = self.V[A]; bx, by = self.V[B]
+        a1 = math.atan2(ay - oy, ax - ox); a2 = math.atan2(by - oy, bx - ox)
+        d = (a2 - a1) % (2 * math.pi)
+        do_thuc = do if do is not None else round(math.degrees(d if d <= math.pi else 2 * math.pi - d), 4)
+        self.so_do_goc(goc, do_thuc, hien_so=False, mau=mau, ban_kinh=ban_kinh)   # cung (PHANH kiểm)
+        mid = a1 + d / 2 if d <= math.pi else a1 - (2 * math.pi - d) / 2           # phân giác trong
+        R = ban_kinh / 10.0
+        spread = math.radians(7)
+        base = -(so_gach - 1) / 2.0
+        for i in range(so_gach):
+            ang = mid + (base + i) * spread
+            ux, uy = math.cos(ang), math.sin(ang)
+            t1, t2 = f'_gb{O}{A}{B}{i}a', f'_gb{O}{A}{B}{i}b'
+            self._diem(t1, ox + (R - 0.09) * ux, oy + (R - 0.09) * uy, nhan=None, moc=False)
+            self._diem(t2, ox + (R + 0.09) * ux, oy + (R + 0.09) * uy, nhan=None, moc=False)
+            self.tikz.append(('doan', t1, t2, mau))
         return self
 
     # ═══════════════════════════════════════════════════════════════
