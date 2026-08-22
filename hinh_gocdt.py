@@ -26,6 +26,9 @@ class Hinh(HinhDaGiac):
     @staticmethod
     def _tach_ten(ten):
         t = ten.replace('′', "'")
+        # [VÁ 22/08f] tên 2 gốc ĐỀU prime: "x′y′" → ['x′','y′'] (H3.21/H3.23: xy // x′y′; góc ABy′)
+        if len(t) == 4 and t[1] == "'" and t[3] == "'" and t[0].isalpha() and t[2].isalpha():
+            return [t[0] + '′', t[2] + '′']
         if t.endswith("'") and len(t) >= 3:
             return [t[0], t[1:]]        # gốc, gốc+prime
         if len(t) == 2 and not t.endswith("'"):

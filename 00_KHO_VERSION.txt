@@ -1,6 +1,6 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-22e
+Mốc kho      : 2026-08-22f
 Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
                HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
@@ -28,6 +28,10 @@ Gộp chương   : gop_chuong.js (22/08) — GHÉP MẢNH: quét thư mục chư
                = thả gói vào 1 thư mục, chạy 1 lệnh (khỏi dựng manifest tay). Xem §8 QUY_UOC.
 Logo         : logo_hieuhoc.png (22/08) — PNG THẬT, bản chuẩn dựng bìa chương (toPhanChuong).
                Mọi bìa/nối trỏ VÀO ĐÂY (~/kho/logo_hieuhoc.png), KHÔNG dùng logo Project (JPEG đội đuôi .png → guard chặn).
+               [22f] VÁ NHÃN: hinh_gocdt._tach_ten thêm nhánh tên 2 gốc ĐỀU prime
+               "x′y′" → ['x′','y′'] (trước 22f rơi vào nhánh endswith("'") → ['x',"'y'"] SAI:
+               đầu trái trùng 'x', đầu phải in "′y′"). Cần cho H3.21/H3.23 (xy // x′y′; góc ABy′).
+               Regression: xy, xx′, mn, yy′, a giữ NGUYÊN. Prime render đúng nhờ map U+2032 (22c).
 
 CHANGELOG 2026-08-20h:
 - gop_chuong.js: tên file ra MẶC ĐỊNH = TONGHOP_<ma>_GV.docx (ma lấy từ 00_CHUONG.json)
