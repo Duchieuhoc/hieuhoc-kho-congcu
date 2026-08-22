@@ -2488,6 +2488,7 @@ function hinhVeTextBox({ imageBuffer, rongCm = 6, tiLeGoc, chuThich }) {
     type: "png",   // BẮT BUỘC
     docId: _nextImgId(),
     floating: {
+      allowOverlap: false,   // [22e] Word TỰ chống đè: 2 hình neo phải không leo lên nhau, tự đẩy xuống
       horizontalPosition: {
         relative: HorizontalPositionRelativeFrom.MARGIN,
         align: HorizontalPositionAlign.RIGHT,   // hình neo PHẢI, chữ wrap trái (HP Điều 18)

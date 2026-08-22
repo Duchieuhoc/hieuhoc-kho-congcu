@@ -1,6 +1,6 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-22c
+Mốc kho      : 2026-08-22e
 Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
                HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
@@ -16,6 +16,11 @@ Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; 
                [22c] VÁ RENDERER: hinh_core._render preamble +newunicodechar map ′(U+2032)→
                prime, ″(U+2033)→dprime. Trước 22c pdflatex rớt glyph prime (nhãn x′/y′ in ra x/y).
                Nay mọi tên điểm/tia có prime (x′,A′,d′…) render đúng — dùng chung lớp 7→9.
+               [22e] NHÃN HÌNH + CHỐNG ĐÈ (theo yêu cầu thầy): (1) ve(nhan="Hình N") nướng caption
+               căn giữa dưới ảnh — nhãn nhận biết hình neo phải mục ③+ (mục ② vẫn dùng chuThich).
+               Preamble +inputenc utf8 +fontenc T1 để render chữ Việt "Hình". (2) hinhVeTextBox floating
+               +allowOverlap:false → Word TỰ chống đè, 2 hình neo phải không leo lên nhau (tự đẩy xuống).
+               Tự động toàn hệ thống, verify ở XML (allowOverlap="0"). (kheHinh 22d đã GỠ — thừa.)
 Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
 Gộp chương   : gop_chuong.js (22/08) — GHÉP MẢNH: quét thư mục chương, mỗi gói mang sẵn

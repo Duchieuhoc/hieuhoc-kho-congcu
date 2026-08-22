@@ -439,10 +439,10 @@ class HinhCoBan:
         Miền được tô NẰM DƯỚI mọi nét (không che hình). mau: màu tô nhạt."""
         self.tikz.append(('to_mien', list(diem), mau)); return self
 
-    def ve(self, out='hinh', tra_bytes=False):
+    def ve(self, out='hinh', tra_bytes=False, nhan=None):
         """CỬA RENDER — gọi CUỐI cùng. Chạy PHANH verify (sai hình → DỪNG tại đây) rồi xuất TikZ→PNG.
         out = tên file (không đuôi). tra_bytes=True → trả bytes PNG (nhúng docx qua template); False → ghi file.
-        Mọi hàm khai nghĩa phải gọi TRƯỚC ve()."""
+        nhan = caption "Hình N" nướng CĂN GIỮA DƯỚI ảnh (cho hình neo phải mục ③+). Mọi hàm khai nghĩa phải gọi TRƯỚC ve()."""
         # gom nhóm dấu-bằng → ràng buộc canh_bang trước khi PHANH
         for dau, segs in self._nhom_bang.items():
             if len(segs) >= 2:
@@ -606,5 +606,8 @@ class HinhCoBan:
                 L.append(f'  {fill} ({C._san(tn)}) circle(1.6pt) {lbl};')
             elif not an_nhan:
                 L.append(f'  \\node[{pos}] at ({C._san(tn)}) {{${tn}$}};')
+        if nhan:
+            # caption "Hình N" căn giữa dưới toàn hình (nhãn nhận biết hình trong bài)
+            L.append(f'  \\node[below=3mm,font=\\itshape] at (current bounding box.south) {{{nhan}}};')
         L.append('\\end{tikzpicture}')
         return C._render('\n'.join(L), out, tra_bytes)
