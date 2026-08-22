@@ -15,7 +15,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 
 | Hàm (chữ ký) | Dùng khi |
 |---|---|
-| `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B. song_song=True → a // b (PHANH kiểm). xoay_ab: nghiêng chung a,b; xoay_c: nghiêng c. khoang: khoảng dọc giữa a và b. danh_so → A1–A4 tại A, B1–B4 tại B (phần tư). danh_dau_ss: mặc định TẮT (đường thẳng không đặt dấu trên đường); bật khi bài cần nhấn ký hiệu song song. |
+| `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False, rut_c_tren=0.5)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B. song_song=True → a // b (PHANH kiểm). xoay_ab: nghiêng chung a,b; xoay_c: nghiêng c. khoang: khoảng dọc giữa a và b. danh_so → A1–A4 tại A, B1–B4 tại B (phần tư). danh_dau_ss: mặc định TẮT (đường thẳng không đặt dấu trên đường); bật khi bài cần nhấn ký hiệu song song. rut_c_tren: tỉ lệ GIỮ LẠI của nhánh cát tuyến c PHÍA TRÊN A (mặc định 0.5 = cắt bỏ nửa phần thò lên trên A cho gọn; đặt 1.0 để giữ nhánh trên dài như nhánh dưới). |
 | `chum_duong(tam, danh_sach, dai=3.0)` | CHÙM ĐƯỜNG THẲNG đồng quy tại 'tam'. danh_sach=[(tên, xoay°), …] — mỗi đường qua tâm, nghiêng 'xoay'° so ngang, dài 'dai' về mỗi phía. Nhãn cạnh 1 đầu. Dùng nhiều đường cắt nhau tại 1 điểm. |
 | `chum_tia(dinh, danh_sach, cung=None)` | cung=[(canh1,canh2,số_đo), ...] để vẽ + kiểm góc giữa 2 tia. |
 | `da_giac_deu(*ten, canh=2.0, xoay=0, to=None)` | Đa giác đều n cạnh (n = số tên truyền vào ≥ 3), đỉnh theo chiều kim đồng hồ, một cạnh nằm ngang phía trên khi xoay=0. Dùng cho hình NHẬN DẠNG / gây nhiễu (ngũ giác, bát giác,…) — KHÔNG vẽ đường chéo. to = màu tô miền (None = không tô). Lục giác đều dùng riêng luc_giac_deu (có đường chéo chính/phụ, tâm). |
@@ -63,7 +63,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 
 | Hàm (chữ ký) | Dùng khi |
 |---|---|
-| `ve(out='hinh', tra_bytes=False)` | CỬA RENDER — gọi CUỐI cùng. Chạy PHANH verify (sai hình → DỪNG tại đây) rồi xuất TikZ→PNG. out = tên file (không đuôi). tra_bytes=True → trả bytes PNG (nhúng docx qua template); False → ghi file. Mọi hàm khai nghĩa phải gọi TRƯỚC ve(). |
+| `ve(out='hinh', tra_bytes=False, nhan=None)` | CỬA RENDER — gọi CUỐI cùng. Chạy PHANH verify (sai hình → DỪNG tại đây) rồi xuất TikZ→PNG. out = tên file (không đuôi). tra_bytes=True → trả bytes PNG (nhúng docx qua template); False → ghi file. nhan = caption "Hình N" nướng CĂN GIỮA DƯỚI ảnh (cho hình neo phải mục ③+). Mọi hàm khai nghĩa phải gọi TRƯỚC ve(). |
 
 ## 3. HÀM HẠ TẦNG — máy dùng nội bộ, **AI Soạn KHÔNG gọi**
 

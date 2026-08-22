@@ -1,6 +1,6 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-22f
+Mốc kho      : 2026-08-22g
 Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
                HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
@@ -21,6 +21,13 @@ Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; 
                Preamble +inputenc utf8 +fontenc T1 để render chữ Việt "Hình". (2) hinhVeTextBox floating
                +allowOverlap:false → Word TỰ chống đè, 2 hình neo phải không leo lên nhau (tự đẩy xuống).
                Tự động toàn hệ thống, verify ở XML (allowOverlap="0"). (kheHinh 22d đã GỠ — thừa.)
+               [22g] GỌN CÁT TUYẾN (theo yêu cầu thầy): cat_tuyen_2duong +rut_c_tren=0.5 (mặc định)
+               → RÚT NỬA nhánh cát tuyến c PHÍA TRÊN A (phần thò lên trên đường a chỉ có nét+nhãn,
+               phí chỗ). Chiều cao hình −20%, cân đối hơn. Cơ chế: _duong_qua_diem +ti_duong/ti_am
+               (mặc định 1.0 = như cũ) → CÔ LẬP: chỉ nhánh c đổi; a,b giữ nguyên; hai_duong_cat_4goc
+               + mọi đa giác (hình thang/tam giác/tứ giác) KHÔNG đổi (chúng không gọi _duong_qua_diem).
+               Tự dò nhánh trên theo dấu sin(xoay_c) → đúng cả ca vuông góc (z⊥, xoay_c=90) và góc thoải.
+               Regression B09: đúng 15 hình cát-tuyến gọn lại, 9 hình còn lại byte y nguyên. Dùng chung 7→9.
 Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
 Gộp chương   : gop_chuong.js (22/08) — GHÉP MẢNH: quét thư mục chương, mỗi gói mang sẵn

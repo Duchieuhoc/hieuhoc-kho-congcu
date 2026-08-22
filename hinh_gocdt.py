@@ -61,12 +61,16 @@ class Hinh(HinhDaGiac):
         self._dat_nhan(parts[1], kia_mut, tam)
 
     # ── nội bộ: vẽ 1 đường thẳng qua điểm 'O' theo góc 'theta' (độ) — NÉT THẲNG, KHÔNG mũi tên ──
-    def _duong_qua_diem(self, ten, O, theta, dai=2.7, nhan_ten=True, mau=None, net='lien'):
+    def _duong_qua_diem(self, ten, O, theta, dai=2.7, nhan_ten=True, mau=None, net='lien',
+                        ti_duong=1.0, ti_am=1.0):
+        # ti_duong: hệ số dài NHÁNH DƯƠNG (đầu e1, theo +theta); ti_am: nhánh ÂM (đầu e0).
+        # Mặc định 1.0/1.0 = đối xứng như cũ. Rút 1 nhánh để bớt phần thò thừa (VD cát tuyến).
         Ox, Oy = self.V[O]
         a = math.radians(theta); dx, dy = math.cos(a), math.sin(a)
+        dd, da = dai * ti_duong, dai * ti_am
         e0, e1 = f'_{ten}A', f'_{ten}B'
-        self._diem(e0, Ox - dx * dai, Oy - dy * dai, nhan=None, moc=False)
-        self._diem(e1, Ox + dx * dai, Oy + dy * dai, nhan=None, moc=False)
+        self._diem(e0, Ox - dx * da, Oy - dy * da, nhan=None, moc=False)
+        self._diem(e1, Ox + dx * dd, Oy + dy * dd, nhan=None, moc=False)
         self.tikz.append(('duong', e0, e1, mau, net))     # đường thẳng: 2 đầu KHÔNG mũi tên
         if nhan_ten:
             self._nhan_ten_duong(ten, e0, e1, O, theta)
@@ -156,12 +160,14 @@ class Hinh(HinhDaGiac):
     def cat_tuyen_2duong(self, a='a', b='b', c='c', A='A', B='B',
                          song_song=True, xoay_ab=8, xoay_c=108,
                          khoang=1.9, danh_so=True, nhan_dinh=True,
-                         danh_dau_ss=False):
+                         danh_dau_ss=False, rut_c_tren=0.5):
         """Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B.
         song_song=True → a // b (PHANH kiểm). xoay_ab: nghiêng chung a,b; xoay_c: nghiêng c.
         khoang: khoảng dọc giữa a và b. danh_so → A1–A4 tại A, B1–B4 tại B (phần tư).
         danh_dau_ss: mặc định TẮT (đường thẳng không đặt dấu trên đường); bật khi bài cần
-        nhấn ký hiệu song song."""
+        nhấn ký hiệu song song.
+        rut_c_tren: tỉ lệ GIỮ LẠI của nhánh cát tuyến c PHÍA TRÊN A (mặc định 0.5 = cắt bỏ nửa
+        phần thò lên trên A cho gọn; đặt 1.0 để giữ nhánh trên dài như nhánh dưới)."""
         # đỉnh A trên đường a (đặt gốc), B trên đường b — cùng nằm trên c
         self._diem(A, 0.0, khoang / 2, nhan=('above left' if nhan_dinh else None), moc=nhan_dinh)
         # B = giao của c với đường b: đi từ A theo hướng c xuống dưới quãng đủ để hạ 'khoang'
@@ -174,8 +180,12 @@ class Hinh(HinhDaGiac):
         # đường a qua A, đường b qua B — cùng nghiêng xoay_ab
         ea = self._duong_qua_diem(a, A, xoay_ab)
         eb = self._duong_qua_diem(b, B, xoay_ab)
-        # cát tuyến c qua A và B (nhãn ở đầu trên)
-        ec = self._duong_qua_diem(c, A, xoay_c)
+        # cát tuyến c qua A và B (nhãn ở đầu trên). Rút nhánh PHÍA TRÊN A cho gọn:
+        # nhánh dương (e1 = A + hướng) hướng lên khi sin(xoay_c) > 0 → rút đầu dương; ngược lại rút đầu âm.
+        if math.sin(math.radians(xoay_c)) >= 0:
+            ec = self._duong_qua_diem(c, A, xoay_c, ti_duong=rut_c_tren)
+        else:
+            ec = self._duong_qua_diem(c, A, xoay_c, ti_am=rut_c_tren)
         # ── ràng buộc PHANH ──
         self.rb.append({'loai': 'diem_tren_duong', 'diem': A, 'qua': ea})
         self.rb.append({'loai': 'diem_tren_duong', 'diem': B, 'qua': eb})

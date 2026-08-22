@@ -1,0 +1,8 @@
+CẬP NHẬT KHO → mốc 2026-08-22g (thầy push đè lên 22f)
+File thay đổi (3):
+  1. hinh_gocdt.py            — cat_tuyen_2duong +rut_c_tren=0.5 (rút nửa nhánh c trên A);
+                                _duong_qua_diem +ti_duong/ti_am (mặc định 1.0 = như cũ). CÔ LẬP.
+  2. 00_KHO_VERSION.txt       — bump 22f→22g + changelog [22g].
+  3. BAN_TRICH_HAM_HH7_CH03.md — sinh lại (chữ ký cat_tuyen_2duong có rut_c_tren).
+Regression: 15 hình cát-tuyến B09 gọn -20%; 9 hình khác byte y nguyên; z⊥ (Hình 7) cũng cắt. quet_stamp SẠCH V11.6.
+Cách áp: giải nén, copy đè 3 file vào kho, commit "kho 22g: cat_tuyen gọn nhánh c trên", push → lấy SHA cho 00_HOSO_BAI.
