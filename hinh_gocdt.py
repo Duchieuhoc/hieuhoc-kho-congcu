@@ -30,7 +30,7 @@ class Hinh(HinhDaGiac):
         if len(t) == 4 and t[1] == "'" and t[3] == "'" and t[0].isalpha() and t[2].isalpha():
             return [t[0] + '′', t[2] + '′']
         if t.endswith("'") and len(t) >= 3:
-            return [t[0], t[1:]]        # gốc, gốc+prime
+            return [t[0], t[1:-1] + '′']   # gốc, gốc+prime (dùng ′ U+2032 khớp SGK, không apostrophe)
         if len(t) == 2 and not t.endswith("'"):
             return [t[0], t[1]]         # hai chữ khác nhau (mn, pq)
         return [t]                       # tên 1 phần (a, b, c)
@@ -139,15 +139,15 @@ class Hinh(HinhDaGiac):
     # ═══════════════════════════════════════════════════════════════
     def hai_duong_cat_4goc(self, ten1='xx′', ten2='yy′', O='O',
                            xoay1=10, xoay2=105, danh_so=True,
-                           nhan_dinh=True, prefix=''):
+                           nhan_dinh=True, prefix='', dai=2.2):
         """Hai đường thẳng ten1, ten2 cắt nhau tại đỉnh O.
         xoay1/xoay2: góc nghiêng (độ) của mỗi đường so phương ngang.
         danh_so=True → đánh số 4 góc theo phần tư I–IV (prefix để ghi 'O' nếu cần).
         PHANH: O ∈ cả hai đường (buộc 2 đường thực sự cắt tại O)."""
         if O not in self.V:
             self._diem(O, 0, 0, nhan=('below left' if nhan_dinh else None), moc=nhan_dinh)
-        a1 = self._duong_qua_diem(ten1, O, xoay1)
-        a2 = self._duong_qua_diem(ten2, O, xoay2)
+        a1 = self._duong_qua_diem(ten1, O, xoay1, dai=dai)
+        a2 = self._duong_qua_diem(ten2, O, xoay2, dai=dai)
         self.rb.append({'loai': 'diem_tren_duong', 'diem': O, 'qua': a1})
         self.rb.append({'loai': 'diem_tren_duong', 'diem': O, 'qua': a2})
         if danh_so:
@@ -160,7 +160,7 @@ class Hinh(HinhDaGiac):
     def cat_tuyen_2duong(self, a='a', b='b', c='c', A='A', B='B',
                          song_song=True, xoay_ab=8, xoay_c=108,
                          khoang=1.9, danh_so=True, nhan_dinh=True,
-                         danh_dau_ss=False, rut_c_tren=0.5):
+                         danh_dau_ss=False, rut_c_tren=0.5, dai=2.2):
         """Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B.
         song_song=True → a // b (PHANH kiểm). xoay_ab: nghiêng chung a,b; xoay_c: nghiêng c.
         khoang: khoảng dọc giữa a và b. danh_so → A1–A4 tại A, B1–B4 tại B (phần tư).
@@ -178,14 +178,21 @@ class Hinh(HinhDaGiac):
         By = khoang / 2 - math.sin(ac) * t
         self._diem(B, Bx, By, nhan=('below left' if nhan_dinh else None), moc=nhan_dinh)
         # đường a qua A, đường b qua B — cùng nghiêng xoay_ab
-        ea = self._duong_qua_diem(a, A, xoay_ab)
-        eb = self._duong_qua_diem(b, B, xoay_ab)
+        ea = self._duong_qua_diem(a, A, xoay_ab, dai=dai)
+        eb = self._duong_qua_diem(b, B, xoay_ab, dai=dai)
         # cát tuyến c qua A và B (nhãn ở đầu trên). Rút nhánh PHÍA TRÊN A cho gọn:
         # nhánh dương (e1 = A + hướng) hướng lên khi sin(xoay_c) > 0 → rút đầu dương; ngược lại rút đầu âm.
-        if math.sin(math.radians(xoay_c)) >= 0:
-            ec = self._duong_qua_diem(c, A, xoay_c, ti_duong=rut_c_tren)
-        else:
-            ec = self._duong_qua_diem(c, A, xoay_c, ti_am=rut_c_tren)
+        # cát tuyến c qua A và B: nhánh QUA B phải đủ dài để CHẠM B rồi thò lề đặt nhãn z′
+        # (khoảng A→B dọc theo c = khoang/|sin(xoay_c)| — nghiêng càng nhiều càng dài).
+        # Nhánh TRÊN A rút gọn theo rut_c_tren. Sửa 22h: trước đây để dai cố định → nghiêng
+        # nhiều thì vẽ hụt, chưa tới B (lỗi H3.35 khoang lớn/góc thoải).
+        t_AB = khoang / max(abs(math.sin(math.radians(xoay_c))), 1e-6)
+        len_qua_B = t_AB + 0.7                  # chạm B rồi thò 0.7 đặt nhãn z′
+        len_tren  = 0.55 + 0.9 * rut_c_tren     # nhánh phía trên A (gọn)
+        if math.sin(math.radians(xoay_c)) >= 0:       # +theta hướng LÊN  → trên A = ti_duong
+            ec = self._duong_qua_diem(c, A, xoay_c, dai=1.0, ti_duong=len_tren, ti_am=len_qua_B)
+        else:                                         # +theta hướng XUỐNG → qua B = ti_duong
+            ec = self._duong_qua_diem(c, A, xoay_c, dai=1.0, ti_duong=len_qua_B, ti_am=len_tren)
         # ── ràng buộc PHANH ──
         self.rb.append({'loai': 'diem_tren_duong', 'diem': A, 'qua': ea})
         self.rb.append({'loai': 'diem_tren_duong', 'diem': B, 'qua': eb})

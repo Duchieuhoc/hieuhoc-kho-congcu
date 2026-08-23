@@ -890,7 +890,7 @@ function _dapAnViDu(dapAn) {
   if (!dapAn) return [];
   const nhan = "abcdefgh".split("");
   let noi;
-  if (Array.isArray(dapAn)) {
+  if (Array.isArray(dapAn) && dapAn.length > 1) {
     noi = [];
     dapAn.forEach((d, i) => {
       if (i) noi.push(run("   ", { size: SZ_CONTENT }));
@@ -898,7 +898,7 @@ function _dapAnViDu(dapAn) {
       noi.push(...toInline(d, { size: SZ_CONTENT }));
     });
   } else {
-    noi = toInline(dapAn, { size: SZ_CONTENT });
+    noi = toInline(Array.isArray(dapAn) ? dapAn[0] : dapAn, { size: SZ_CONTENT });
   }
   return [ paraInline([ run("Trả lời: ", { bold: true, italic: true, size: SZ_CONTENT }), ...noi ],
     { before: 0, after: 0 }) ];
@@ -2314,17 +2314,28 @@ function kyHieuGoc(tenGoc) {
       `  ĐÚNG: kyHieuGoc("x\u2032Oy\u2032")`
     );
   }
-  const acc = new BuilderElement({
+  // [23b] Góc đánh số 1 gốc + chỉ số (A1, B2, E1, x′1…) → mũ cong TRÊN GỐC + chỉ
+  //       số dưới (∠A₁ chuẩn SGK). Tên nhiều điểm (AOB, x′Oy′) giữ mũ cong cả chuỗi.
+  const accCua = (noiDung) => new BuilderElement({
     name: "m:acc",
     children: [
       new BuilderElement({
         name: "m:accPr",
         children: [createMathAccentCharacter({ accent: "\u0302" })],
       }),
-      createMathBase({ children: [new MathRunSized(String(tenGoc))] }),
+      createMathBase({ children: [new MathRunSized(String(noiDung))] }),
     ],
   });
-  return new DMath({ children: [acc] });
+  const mSub = t.match(/^([A-Za-z\u0391-\u03A9\u03B1-\u03C9]\u2032?)(\d+)$/);
+  if (mSub) {
+    return new DMath({
+      children: [new MathSubScript({
+        children: [accCua(mSub[1])],
+        subScript: [new MathRunSized(mSub[2])],
+      })],
+    });
+  }
+  return new DMath({ children: [accCua(t)] });
 }
 
 

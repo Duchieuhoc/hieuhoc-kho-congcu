@@ -1,6 +1,6 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-22g
+Mốc kho      : 2026-08-23c
 Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
                HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,
@@ -39,6 +39,33 @@ Logo         : logo_hieuhoc.png (22/08) — PNG THẬT, bản chuẩn dựng bì
                "x′y′" → ['x′','y′'] (trước 22f rơi vào nhánh endswith("'") → ['x',"'y'"] SAI:
                đầu trái trùng 'x', đầu phải in "′y′"). Cần cho H3.21/H3.23 (xy // x′y′; góc ABy′).
                Regression: xy, xx′, mn, yy′, a giữ NGUYÊN. Prime render đúng nhờ map U+2032 (22c).
+
+CHANGELOG 2026-08-23c:
+- hieuhoc_template.js — _dapAnViDu: đáp án CHỈ 1 ý → KHÔNG đánh nhãn a) (trước: mảng 1 phần tử vẫn
+  ra "a)"). Chỉ đánh a),b),c) khi có ≥2 ý. Khớp đề không chia câu (VD2 B10). Tương thích ngược.
+
+CHANGELOG 2026-08-23b:
+- hieuhoc_template.js — kyHieuGoc() HẠ CHỈ SỐ (subscript): tên góc đánh số 1 gốc + chữ số
+  (A1, B2, E1, x′1…) nay dựng mũ cong TRÊN GỐC + chỉ số dưới → ∠A₁ chuẩn SGK (trước: mũ cong
+  cả chuỗi "A1", 1 không hạ). Tên nhiều điểm (AOB, x′Oy′) GIỮ mũ cong cả chuỗi. Regex tách
+  ^([chữ]′?)(\d+)$; dùng MathSubScript bọc m:acc. Tương thích ngược (chữ ký kyHieuGoc(tenGoc)
+  KHÔNG đổi → API_REFERENCE giữ nguyên). Verify: rebuild B10 → 69 m:sSub, mẫu Ê₁ đúng, xmllint SẠCH.
+- base 3.35/3.36/3.37 (hinh_gocdt): dựng lại per-bài (khép cụm lý thuyết CH03) — KHÔNG vào kho,
+  đóng trong packet nguồn. Khớp PNG canonical cụm-1.
+
+CHANGELOG 2026-08-23a:
+- hinh_gocdt.py — 3 chỉnh (Pha A HH7_CH03_B10, tương thích ngược):
+  (1) cat_tuyen_2duong + hai_duong_cat_4goc: THÊM tham số dai (mặc định 2.7→2.2), forward vào
+      _duong_qua_diem → hình gọn, hết "thò dài". Lời gọi cũ không truyền dai vẫn chạy (default).
+  (2) _tach_ten: ca ĐƠN-PRIME trả ký hiệu ′ (U+2032) thay apostrophe — return [t[0], t[1:-1]+'′'].
+      Nhãn x′/y′/z′ khớp SGK. (Bổ sung cho VÁ 22f both-prime.) HỆ QUẢ: khoá nhãn 'x'' → 'x′';
+      tham chiếu góc dùng 'x′' (vd goc_vuong(('x′','A','z'))).
+  (3) Cát tuyến c chạm-B: nhánh qua B tính theo khoảng THẬT t_AB=khoang/|sin(xoay_c)|,
+      len_qua_B=t_AB+0.7 → nghiêng nhiều vẫn vẽ tới B (sửa lỗi H3.35: trước để dai cố định → vẽ hụt).
+- Regression: _tach_ten 8/8 ca thực dùng (xx′,yy′,zz′,tt′,xy,AB,mn,pq) + smoke cat_tuyen(dai,prime,
+  danh_so) PASS. quet_stamp SẠCH V11.6. BAN_TRICH_HAM_HH7_CH03.md regenerate (cat_tuyen có dai).
+- GHI CHÚ: bug "đường ngang mất" gặp khi dựng H3.40/3.41/3.43 là ở SCRIPT BUILD của OB (khoá toạ độ
+  chứa -/. → TikZ lỗi tên coordinate), KHÔNG phải kho. (Gợi ý để dành: _san() lọc luôn -/. — chưa làm.)
 
 CHANGELOG 2026-08-20h:
 - gop_chuong.js: tên file ra MẶC ĐỊNH = TONGHOP_<ma>_GV.docx (ma lấy từ 00_CHUONG.json)
