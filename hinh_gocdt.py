@@ -31,9 +31,9 @@ class Hinh(HinhDaGiac):
             return [t[0] + '′', t[2] + '′']
         if t.endswith("'") and len(t) >= 3:
             return [t[0], t[1:-1] + '′']   # gốc, gốc+prime (dùng ′ U+2032 khớp SGK, không apostrophe)
-        if len(t) == 2 and not t.endswith("'"):
+        if len(t) == 2 and not t.endswith("'") and t[1] not in ("'", '″'):
             return [t[0], t[1]]         # hai chữ khác nhau (mn, pq)
-        return [t]                       # tên 1 phần (a, b, c)
+        return [t]                       # tên 1 phần (a, b, c, d″, x″…) — ″ gắn vào gốc
 
     # ── nội bộ: đặt nhãn tên đường ở 2 ĐẦU theo quy ước, RA NGOÀI đầu nét (không bị đường cắt) ──
     #    gốc (không prime) ở đầu TRÁI (đường ngang) / TRÊN (đường dọc);

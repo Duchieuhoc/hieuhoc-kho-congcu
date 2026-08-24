@@ -2,7 +2,7 @@
 
 > **Cho AI Soạn.** Đây là *CÁCH vẽ* (chữ ký hàm + tham số). *VẼ CÁI GÌ* nằm ở **phiếu khai nghĩa** Ông Bụt giao kèm nguồn.
 > Tự sinh bằng introspect `hinh_gocdt.py` qua `sinh_bantrich.py` — vá kho → chạy lại → khớp. KHÔNG sửa tay file này.
-> Sinh ngày 22/08/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
+> Sinh ngày 24/08/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
 
 Import trong script bài: `import hinh_gocdt as H3` rồi `h = H3.Hinh()`.
 Gọi các method KHAI NGHĨA (mục 1) theo phiếu; cuối cùng `png = h.ve(out=..., tra_bytes=True)`.
@@ -15,7 +15,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 
 | Hàm (chữ ký) | Dùng khi |
 |---|---|
-| `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False, rut_c_tren=0.5)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B. song_song=True → a // b (PHANH kiểm). xoay_ab: nghiêng chung a,b; xoay_c: nghiêng c. khoang: khoảng dọc giữa a và b. danh_so → A1–A4 tại A, B1–B4 tại B (phần tư). danh_dau_ss: mặc định TẮT (đường thẳng không đặt dấu trên đường); bật khi bài cần nhấn ký hiệu song song. rut_c_tren: tỉ lệ GIỮ LẠI của nhánh cát tuyến c PHÍA TRÊN A (mặc định 0.5 = cắt bỏ nửa phần thò lên trên A cho gọn; đặt 1.0 để giữ nhánh trên dài như nhánh dưới). |
+| `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False, rut_c_tren=0.5, dai=2.2)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B. song_song=True → a // b (PHANH kiểm). xoay_ab: nghiêng chung a,b; xoay_c: nghiêng c. khoang: khoảng dọc giữa a và b. danh_so → A1–A4 tại A, B1–B4 tại B (phần tư). danh_dau_ss: mặc định TẮT (đường thẳng không đặt dấu trên đường); bật khi bài cần nhấn ký hiệu song song. rut_c_tren: tỉ lệ GIỮ LẠI của nhánh cát tuyến c PHÍA TRÊN A (mặc định 0.5 = cắt bỏ nửa phần thò lên trên A cho gọn; đặt 1.0 để giữ nhánh trên dài như nhánh dưới). |
 | `chum_duong(tam, danh_sach, dai=3.0)` | CHÙM ĐƯỜNG THẲNG đồng quy tại 'tam'. danh_sach=[(tên, xoay°), …] — mỗi đường qua tâm, nghiêng 'xoay'° so ngang, dài 'dai' về mỗi phía. Nhãn cạnh 1 đầu. Dùng nhiều đường cắt nhau tại 1 điểm. |
 | `chum_tia(dinh, danh_sach, cung=None)` | cung=[(canh1,canh2,số_đo), ...] để vẽ + kiểm góc giữa 2 tia. |
 | `da_giac_deu(*ten, canh=2.0, xoay=0, to=None)` | Đa giác đều n cạnh (n = số tên truyền vào ≥ 3), đỉnh theo chiều kim đồng hồ, một cạnh nằm ngang phía trên khi xoay=0. Dùng cho hình NHẬN DẠNG / gây nhiễu (ngũ giác, bát giác,…) — KHÔNG vẽ đường chéo. to = màu tô miền (None = không tô). Lục giác đều dùng riêng luc_giac_deu (có đường chéo chính/phụ, tâm). |
@@ -38,7 +38,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `goc(dinh, canh1, canh2, do, xoay=0, vuong=False, hien_so=True)` | AI Soạn chỉ khai: đỉnh, tên 2 cạnh, số đo. Máy đặt 2 cạnh BẰNG NHAU (DAI_CHUAN), cạnh1 nghiêng 'xoay'° so ngang, cạnh2 = cạnh1 + do. vuong=True → vẽ ô vuông thay cung số. hien_so=False → vẽ cung góc NHƯNG ẩn số đo (hình ĐỀ đo-góc / minh hoạ so sánh: chỉ hiện cung, không lộ đáp án — Đ35). |
 | `goc_vuong(ten)` | Đánh dấu GÓC VUÔNG (90°) trên góc 'ten' = (cạnh1, đỉnh, cạnh2) đã khai — vẽ Ô VUÔNG nhỏ thay cung số. PHANH kiểm góc = 90°. Chỉ đánh dấu; 2 cạnh phải khai trước qua tia/chum_tia. |
 | `hai_duong(ten1, ten2, quan_he)` | quan_he ∈ {'cat','song_song','trung'}. Máy đặt thỏa quan hệ + PHANH kiểm. |
-| `hai_duong_cat_4goc(ten1='xx′', ten2='yy′', O='O', xoay1=10, xoay2=105, danh_so=True, nhan_dinh=True, prefix='')` | Hai đường thẳng ten1, ten2 cắt nhau tại đỉnh O. xoay1/xoay2: góc nghiêng (độ) của mỗi đường so phương ngang. danh_so=True → đánh số 4 góc theo phần tư I–IV (prefix để ghi 'O' nếu cần). PHANH: O ∈ cả hai đường (buộc 2 đường thực sự cắt tại O). |
+| `hai_duong_cat_4goc(ten1='xx′', ten2='yy′', O='O', xoay1=10, xoay2=105, danh_so=True, nhan_dinh=True, prefix='', dai=2.2)` | Hai đường thẳng ten1, ten2 cắt nhau tại đỉnh O. xoay1/xoay2: góc nghiêng (độ) của mỗi đường so phương ngang. danh_so=True → đánh số 4 góc theo phần tư I–IV (prefix để ghi 'O' nếu cần). PHANH: O ∈ cả hai đường (buộc 2 đường thực sự cắt tại O). |
 | `hinh_thang(A, B, Cc, D, day_tren=3.0, day_duoi=5.0, cao=2.5, lech=0.8)` | Hình THANG thường: A,B = đáy trên (day_tren); D,C = đáy dưới (day_duoi); AB ∥ DC (PHANH song_song). cao = chiều cao; lech = dời ngang đáy trên. Thang CÂN dùng hinh_thang_can. |
 | `hinh_thang_can(A, B, Cc, D, day_nho=3.0, day_lon=5.0, cao=2.5, cheo=False)` | Hình thang cân đối xứng qua trục dọc: A,B = đáy nhỏ (trên); D,C = đáy lớn (dưới). A trên-trái, B trên-phải, C dưới-phải, D dưới-trái. cheo=True → vẽ 2 đường chéo (AC, BD — bằng nhau). |
 | `hinh_thoi(A, B, Cc, D, canh=3.0, goc=60, cheo=False, tam=None)` | Hình thoi dạng "kim cương": A trái, B trên, C phải, D dưới. canh = độ dài cạnh; goc = góc tại đỉnh A (và C), độ (mặc định 60°). cheo=True → vẽ 2 đường chéo (AC ngang, BD dọc). tam = tên tâm (chấm). |
@@ -47,7 +47,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `luoi(cot, hang)` | Lưới nền cot×hang ô (xám nhạt). |
 | `nhan_goc(goc, chu, r=0.44)` | Ghi nhãn 'chu' (số thứ tự '1','2','3'… hoặc ký hiệu) tại phân giác TRONG của góc. goc = (canh1, dinh, canh2): tên 3 điểm ĐÃ đặt (qua tia/tia_doi…). Dùng cho các hình đánh số góc KHÔNG theo phần tư liên tục (vd H3.5: Ô₁–Ô₂ đối đỉnh). Không vẽ cung. |
 | `noi(*diem, kin=False, mau=None)` | Nối các điểm ĐÃ ĐẶT thành đoạn/gấp khúc. kin=True→đa giác đóng. mau=màu đường. |
-| `so_do_goc(ten, do, hien_so=True, mau='orange', ban_kinh=7)` | mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC + bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh). |
+| `so_do_goc(ten, do=None, hien_so=True, mau='orange', ban_kinh=7)` | mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC + bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh). do=None → TỰ ĐO từ toạ độ (vẽ cung đánh dấu góc mà không assert số đo cho trước). |
 | `tam_giac(A, B, Cc, noi=True)` | Tam giác 3 đỉnh (không thẳng hàng). Thứ tự A→B→C chiều kim đồng hồ. noi=False → chỉ ĐẶT 3 điểm (không nối cạnh) — dùng cho 'ba điểm không thẳng hàng'. |
 | `tam_giac_deu(A, B, Cc, canh=3.0, xoay=0)` | Tam giác ĐỀU 3 đỉnh: B dưới-trái, C dưới-phải, A đỉnh trên. canh = độ dài cạnh (mặc định 3.0). Ba cạnh bằng nhau (PHANH canh_bang). Dùng nhận dạng / hình nền. |
 | `thang_hang(*diem)` | KHAI các điểm THẲNG HÀNG → PHANH kiểm độ lệch, sai thì dừng. |

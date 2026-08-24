@@ -1,6 +1,12 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-23c
+Mốc kho      : 2026-08-24a
+[24a] HH7_CH03 · Ông Bụt 2026-08-24 (Pha A hình B11):
+      (1) hinh_gocdt._tach_ten: tên có dấu phẩy kép ″ (d″, x″) giữ nguyên 1 nhãn
+          (trước 24a bị tách nhầm thành 2 đầu). Tương thích ngược.
+      (2) hinh_coban.so_do_goc(ten, do=None,…): do=None → TỰ ĐO từ toạ độ (vẽ cung
+          đánh dấu góc không cần khai số, không đụng h.V trong script → qua cổng AST).
+          Tương thích ngược. Bản trích tái sinh theo chữ ký mới.
 Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; +5 hàm CH04 hiện qua
                HinhDaGiac chung — vô hại, phạm vi vẽ do PHIẾU chốt, không do bản trích)
                HH6_CH04 (Chương IV) — entry hinh_ch4.Hinh; +luc_giac_deu, +da_giac_deu, +hinh_thoi,

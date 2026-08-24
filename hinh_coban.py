@@ -79,9 +79,16 @@ class HinhCoBan:
         self.tikz.append(('doan', A, B, False))
         self.tikz.append(('gach_bang', A, M)); self.tikz.append(('gach_bang', M, B))
         return self
-    def so_do_goc(self, ten, do, hien_so=True, mau='orange', ban_kinh=7):
+    def so_do_goc(self, ten, do=None, hien_so=True, mau='orange', ban_kinh=7):
         """mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC +
-        bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh)."""
+        bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh).
+        do=None → TỰ ĐO từ toạ độ (vẽ cung đánh dấu góc mà không assert số đo cho trước)."""
+        if do is None:
+            A, O, B = ten
+            ox, oy = self.V[O]; ax, ay = self.V[A]; bx, by = self.V[B]
+            a1 = math.atan2(ay - oy, ax - ox); a2 = math.atan2(by - oy, bx - ox)
+            dd = (a2 - a1) % (2 * math.pi)
+            do = round(math.degrees(dd if dd <= math.pi else 2 * math.pi - dd), 4)
         self.rb.append({'loai':'goc','ten':list(ten),'do':do})
         self.tikz.append(('goc', list(ten), do, hien_so, mau, ban_kinh)); return self
     def goc_vuong(self, ten):
