@@ -1,6 +1,21 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-24a
+Mốc kho      : 2026-08-25a
+[25a] ÁP PATCH §D treo (van mũi tên + duong dai) sau MẺ 1 rà nền base hinh_coban ·
+      Ông Bụt 2026-08-25. Rà trọn hinh_coban đối chiếu SGK CH8 (6 bài) + 4 bài soạn thật
+      (B32/B33/B34/B36): nền ĐỦ — cột (a) không thiếu đối tượng, cột (b) không cần thêm hàm.
+      (1) [Van §D-a] Chặn "đường thẳng có mũi tên": tia_diem(hai_dau=True) -> raise;
+          _phanh_khong_hai_mui() trong ve() dừng khi 2 tia CÓ MŨI cùng gốc đối ~180°.
+          Van prefix _ -> không phơi. Nét kéo dài phía âm không còn mũi.
+      (2) [§D-b] duong(..., dai=None): độ dài BIỂU DIỄN của nét (cân bố cục);
+          dai=None -> giữ 6.0 (tương thích ngược). _dat_duong nhận nua_dai.
+      GHI CHÚ RÀ: OB từng thử thêm W1/W1b (cho diem_tren bám tia/cạnh góc) nhưng ĐÃ RÚT —
+          bài soạn thật (B33 tia, B36 cạnh góc) cho thấy AI Soạn đặt điểm trên tia/cạnh
+          bằng diem_giua(gốc, mút, ti_le) — lối CHÍNH DANH chạy sẵn ở 24a, không kẹt.
+          diem_tren giữ nguyên chỉ cho ĐƯỜNG THẲNG. Điểm metric thẳng hàng -> diem_luoi
+          (toạ_độ = số_đo) hoặc tia_diem. Nền không thiếu hàm.
+      Đã test: regression B32 18/18 + B33 14/14 + phủ CH8 (B34/B36 lối thật) render OK ·
+          van chặn đúng 2 ca, không đụng oan · duong dai 4/6/8 đúng · bản trích + AST + stamp sạch.
 [24a] HH7_CH03 · Ông Bụt 2026-08-24 (Pha A hình B11):
       (1) hinh_gocdt._tach_ten: tên có dấu phẩy kép ″ (d″, x″) giữ nguyên 1 nhãn
           (trước 24a bị tách nhầm thành 2 đầu). Tương thích ngược.

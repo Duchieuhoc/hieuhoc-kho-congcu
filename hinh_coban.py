@@ -56,12 +56,12 @@ class HinhCoBan:
         self.tikz.append(('doan', A, B, gach_bang)); return self
     def _da_giac(self, *dinh):
         self.tikz.append(('dagiac', list(dinh))); return self
-    def _dat_duong(self, ten, goc_do, anchor):
+    def _dat_duong(self, ten, goc_do, anchor, nua_dai=3.0):
         rA, rB = f'R{ten}0', f'R{ten}1'
         a = math.radians(goc_do); dx,dy = math.cos(a), math.sin(a)
         ax,ay = anchor
-        self._diem(rA, ax-dx*3.0, ay-dy*3.0, nhan=None, moc=False)
-        self._diem(rB, ax+dx*3.0, ay+dy*3.0, nhan=None, moc=False)
+        self._diem(rA, ax-dx*nua_dai, ay-dy*nua_dai, nhan=None, moc=False)
+        self._diem(rB, ax+dx*nua_dai, ay+dy*nua_dai, nhan=None, moc=False)
         self.duong_data[ten] = (rA, rB); self._tren[ten] = 0
         return rA, rB, (dx,dy), (ax,ay)
     def _mot_diem_duong(self, ten):     # 2 điểm mốc của 1 đường (để kiểm/giao)
@@ -99,7 +99,8 @@ class HinhCoBan:
     def tia(self, goc_O, ten_dau, xoay=0, mui_ten=False, nhan='auto', mau=None, net='lien'):
         """TIA gốc 'goc_O' hướng tới 'ten_dau', nghiêng 'xoay'° so ngang (0 = sang phải). Gốc chưa đặt
         → đặt tại (0,0). mui_ten=True → mũi tên đầu tia (ký hiệu tia). nhan: vị trí nhãn mút ('auto' tự chọn).
-        mau/net: style phân biệt (đường phụ lời giải = 'red'/'dut'). Tia đơn: 1 gốc, 1 hướng."""
+        mau/net: style phân biệt (đường phụ lời giải = 'red'/'dut'). Tia đơn: 1 gốc, 1 hướng.
+        [Điểm trên tia] đặt bằng diem_giua(gốc, ten_dau, ti_le) — vd diem_giua('B','A','m',0.6)."""
         if goc_O not in self.V: self._diem(goc_O, 0, 0, 'below left', moc=True)
         Ox, Oy = self.V[goc_O]; a = math.radians(xoay)
         self._diem(ten_dau, Ox+DAI_CHUAN*math.cos(a), Oy+DAI_CHUAN*math.sin(a), moc=False)
@@ -108,9 +109,14 @@ class HinhCoBan:
     def tia_diem(self, goc_O, ds, xoay=0, ten_tia=None, hai_dau=False, nhan_dodai=False, mau=None, net='lien'):
         """TIA gốc 'goc_O' mang các điểm ĐO ĐƯỢC (metric). ds=[(tên, vị_trí), …] · vị_trí =
         khoảng cách từ gốc theo ĐƠN VỊ BÀI; vị_trí ÂM = điểm trên TIA ĐỐI. Máy chuẩn hoá tỉ lệ,
-        đặt gốc O, vẽ mũi tên đầu dương (hai_dau=True → mũi tên cả hai đầu), ràng buộc thẳng hàng
-        (PHANH). ten_tia: nhãn cạnh mũi tên (vd 'x' cho tia Ox). nhan_dodai=True → ghi khoảng cách
-        từ gốc dưới mỗi điểm. (Song sinh với duong_diem, nhưng cho TIA + vị trí metric.)"""
+        đặt gốc O, vẽ mũi tên đầu dương, ràng buộc thẳng hàng (PHANH). ten_tia: nhãn cạnh mũi
+        tên (vd 'x' cho tia Ox). nhan_dodai=True → ghi khoảng cách từ gốc dưới mỗi điểm.
+        (Song sinh với duong_diem, nhưng cho TIA + vị trí metric.)
+        [VAN] hai_dau=True bị CHẶN: nét 2 mũi = đường thẳng, mà đường thẳng KHÔNG có mũi.
+        Đường thẳng mang điểm 2 đầu → dùng duong_diem."""
+        if hai_dau:
+            raise ValueError("[PHANH DỪNG] tia_diem(hai_dau=True) tạo nét 2 MŨI = đường thẳng "
+                             "(đường thẳng KHÔNG có mũi tên). Đường thẳng mang điểm 2 đầu → dùng duong_diem.")
         a = math.radians(xoay); dx, dy = math.cos(a), math.sin(a)
         if goc_O not in self.V: self._diem(goc_O, 0.0, 0.0, 'below left', moc=True)
         Ox, Oy = self.V[goc_O]
@@ -127,10 +133,10 @@ class HinhCoBan:
         self._diem(tip, Ox+dx*(vpos*k+0.8), Oy+dy*(vpos*k+0.8), nhan=None, moc=False)
         self.tikz.append(('tia', goc_O, tip, True, mau, net))
         if ten_tia: self.tikz.append(('nhan_mut', tip, ten_tia))
-        if vneg < 0 or hai_dau:
+        if vneg < 0:
             neg = '_tipn_'+key; d2 = min(vneg, 0.0)*k - 0.8
             self._diem(neg, Ox+dx*d2, Oy+dy*d2, nhan=None, moc=False)
-            self.tikz.append(('tia', goc_O, neg, hai_dau, mau, net))
+            self.tikz.append(('tia', goc_O, neg, False, mau, net))   # nét kéo dài phía âm: KHÔNG mũi
         self.duong_data[key] = (goc_O, tip); self._tren[key] = 0
         for t, _ in ds:
             self.rb.append({'loai':'diem_tren_duong','diem':t,'qua':(goc_O, tip)})
@@ -203,14 +209,17 @@ class HinhCoBan:
             self.tikz.append(('doan', e1, e2, False))
             self.tikz.append(('nhan_duong', ten, e1, tam))
         return self
-    def duong(self, ten, nhan2dau=None, mau=None, net='lien', an_nhan=False):
+    def duong(self, ten, nhan2dau=None, mau=None, net='lien', an_nhan=False, dai=None):
         """ĐƯỜNG THẲNG tên 'ten' (d,a,b,m…). nhan2dau=('x','y') → nhãn 2 đầu (đường xy).
         mau/net: style phân biệt (đường phụ lời giải = mau='red', net='dut').
-        an_nhan=True → KHÔNG hiện nhãn đường (đường trần, vd bài 'lấy điểm')."""
+        an_nhan=True → KHÔNG hiện nhãn đường (đường trần, vd bài 'lấy điểm').
+        dai = độ dài BIỂU DIỄN của nét vẽ (đơn vị vẽ, để cân bố cục hình); KHÔNG phải
+        số đo toán. dai=None → giữ 6.0 (tương thích ngược)."""
         goc_do = [0, 68, 124, 40, 100, 156][self._nduong % 6]
         off    = [0, 0.4, -0.4, 0.8, -0.8, 1.2][self._nduong % 6]
         self._nduong += 1
-        rA, rB, _, _ = self._dat_duong(ten, goc_do, (0, off))
+        nua = (dai/2.0) if dai else 3.0
+        rA, rB, _, _ = self._dat_duong(ten, goc_do, (0, off), nua_dai=nua)
         self.tikz.append(('duong', rA, rB, mau, net))
         if not an_nhan:
             if nhan2dau:
@@ -446,6 +455,28 @@ class HinhCoBan:
         Miền được tô NẰM DƯỚI mọi nét (không che hình). mau: màu tô nhạt."""
         self.tikz.append(('to_mien', list(diem), mau)); return self
 
+    def _phanh_khong_hai_mui(self):
+        """[VAN] Lưới mỏng phụ: chặn 'đường thẳng có mũi tên'. Hai tia CÓ MŨI cùng gốc, đối
+        hướng ~180° = nét 2 mũi = đường thẳng có mũi (SGK: đường thẳng KHÔNG có mũi). DỪNG."""
+        theo_goc = {}
+        for el in self.tikz:
+            if el[0] == 'tia' and len(el) > 3 and el[3]:          # mui_ten=True
+                O, P_ = el[1], el[2]
+                if O in self.V and P_ in self.V:
+                    theo_goc.setdefault(O, []).append(P_)
+        for O, ds in theo_goc.items():
+            ox, oy = self.V[O]
+            for i in range(len(ds)):
+                for j in range(i + 1, len(ds)):
+                    (ax, ay), (bx, by) = self.V[ds[i]], self.V[ds[j]]
+                    a1 = math.degrees(math.atan2(ay - oy, ax - ox))
+                    a2 = math.degrees(math.atan2(by - oy, bx - ox))
+                    lech = abs((a1 - a2 + 180) % 360 - 180)       # góc giữa 2 tia (0..180)
+                    if abs(lech - 180) < 5:
+                        raise ValueError(f"[PHANH DỪNG] hai tia CÓ MŨI cùng gốc '{O}' đối hướng "
+                                         f"~180° = đường thẳng có mũi tên. Đường thẳng KHÔNG có "
+                                         f"mũi → dùng duong/duong_diem.")
+
     def ve(self, out='hinh', tra_bytes=False, nhan=None):
         """CỬA RENDER — gọi CUỐI cùng. Chạy PHANH verify (sai hình → DỪNG tại đây) rồi xuất TikZ→PNG.
         out = tên file (không đuôi). tra_bytes=True → trả bytes PNG (nhúng docx qua template); False → ghi file.
@@ -455,6 +486,7 @@ class HinhCoBan:
             if len(segs) >= 2:
                 self.rb.append({'loai':'canh_bang','cac_doan':segs})
         C.phanh(self.V, self.rb)                 # ← CỬA VERIFY: sai là dừng ở đây
+        self._phanh_khong_hai_mui()              # [VAN] lưới mỏng: chặn đường thẳng có mũi
         s = self.scale
         L = [f'\\begin{{tikzpicture}}[scale={s},>=latex]']
         for tn,(x,y) in self.V.items():
