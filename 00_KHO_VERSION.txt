@@ -1,6 +1,38 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-25a
+Mốc kho      : 2026-08-25c
+[25c] MẠCH ĐỐI XỨNG L6 (Chương V) — 2 tiện ích chuẩn hoá + entry · Ông Bụt 2026-08-25.
+      Nguồn: SGK Toán 6 T1 Chương V (Bài 21 trục · Bài 22 tâm · luyện tập · cuối chương) —
+      thầy cấp. Kê hình cả chương + đối chiếu kho: PHẦN LỚN tái dùng hàm sẵn có (luoi·
+      diem_luoi·noi·đa giác·duong_qua net='dut'·giao·cheo). L6 CHỈ nhận biết/đánh dấu/vẽ-
+      thêm — KHÔNG dựng ảnh qua phép đối xứng (đó là LỚP 8) → KHÔNG đẻ hàm nặng doi_xung_*.
+      (1) +hinh_doixung.py [MỚI] — class HinhDoiXung(HinhDaGiac). 2 tiện ích CHUẨN HOÁ:
+          · truc_doi_xung(diem1, diem2, nhan, net) — trục nét đứt ĐEN, thò đều 15%, KHÔNG
+            tick/dot. Mỗi đối số = tên điểm HOẶC tuple (A,B)=qua trung điểm cạnh AB (ẩn).
+          · tam_doi_xung(O, *cặp_đỉnh_đối, ve_cheo, net) — chấm+nhãn O = giao chéo; chéo =
+            đoạn nét đứt (không thò). Tứ giác 2 cặp / lục giác đều 3 cặp / đoạn 1 cặp.
+      (2) +hinh_ch5.py [MỚI] — entry Chương V: Hinh(HinhDoiXung, HinhTron). MRO Hinh→
+          HinhDoiXung→HinhDaGiac→HinhTron→HinhCoBan. Có đường tròn (tròn+trục qua tâm).
+      (3) +BAN_TRICH_HAM_HH6_CH05.md [MỚI] — tự sinh từ hinh_ch5 (alias H5).
+      Đã test bằng BÀI THẬT (hình SGK): chữ nhật 2 trục (sạch) · thoi 2 trục=chéo · lục
+          giác đều tâm (3 chéo chính) · đường tròn + trục qua tâm — render đúng chuẩn.
+      Smoke 11 module import sạch. quet_stamp SẠCH (chỉ quét .md, .py không mang banner).
+[25b] KIM GIÂY + RÀ TRỌN hinh_tron_ve (bài thật = Hình 5 đồng hồ, mạch góc L6 CH8) ·
+      Ông Bụt 2026-08-25. Trọng tài: bài Vận dụng đồng hồ (câu a kim giờ–phút, câu b kim
+      giây–phút) — thầy cấp. Rà: kho dựng đủ ĐỀ (3 kim) + LỜI GIẢI (đánh dấu vạch trong góc).
+      (1) kim(R, vi_tri, loai='gio'|'phut'|'giay', tam) — ĐỔI chữ ký: bỏ cờ la_kim_gio, thay
+          bằng 'loai'. Thêm kiểu 'giay' = dài nhất (R*0.92) + mảnh + ĐỎ. Chuẩn hoá tại hàm để
+          mọi bài đồng hồ ra ĐỒNG NHẤT — AI Soạn KHÔNG tự ghép primitive vẽ kim giây.
+      (2) mat_dong_ho(gio, phut, giay=None, R, tam) — THÊM tham số 'giay' (0..59) → ra thẳng
+          3 kim. Không truyền giay → như cũ (tương thích ngược cho lời gọi 2 kim).
+      LỜI GIẢI "vạch nào trong góc 2 kim": dùng HÀM SẴN CÓ (cung đỏ ôm vành + diem_tren_tron
+          mau='red' làm nổi vạch) — KHÔNG đẻ hàm mới. (Cân nhắc để dành: nếu sau cần MIỀN QUẠT
+          tô kín arc-bounded thì to_mien chỉ tô đa giác, chưa có 'to_quat' — chờ bài thật đòi.)
+      RÀ 8 hàm hinh_tron_ve: duong_tron·diem_tren_tron·diem_ban_kinh·cung·kim·mat_dong_ho ĐÃ
+          kiểm qua bài thật; so_quanh_tam·goc_o_tam giữ nguyên (bài đồng hồ này không dùng, chờ
+          bài thật khác — luật goc_o_tam đã rà 8/8 ca ở mốc rà nền 25).
+      Đã test: import 9 module + render đồng hồ 3 kim (mat_dong_ho giay=) + lời giải câu a sạch ·
+          la_kim_gio 0 sót · bản trích CH04+CH08 tái sinh (kim loai=, mat_dong_ho giay=) · stamp SẠCH.
 [25a] ÁP PATCH §D treo (van mũi tên + duong dai) sau MẺ 1 rà nền base hinh_coban ·
       Ông Bụt 2026-08-25. Rà trọn hinh_coban đối chiếu SGK CH8 (6 bài) + 4 bài soạn thật
       (B32/B33/B34/B36): nền ĐỦ — cột (a) không thiếu đối tượng, cột (b) không cần thêm hàm.

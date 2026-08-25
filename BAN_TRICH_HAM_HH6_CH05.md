@@ -1,10 +1,10 @@
-# BẢN TRÍCH HÀM VẼ — HH6_CH04 (Hình học lớp 6) — tự sinh từ `hinh_ch4.py`
+# BẢN TRÍCH HÀM VẼ — HH6_CH05 (Hình học lớp 6) — tự sinh từ `hinh_ch5.py`
 
 > **Cho AI Soạn.** Đây là *CÁCH vẽ* (chữ ký hàm + tham số). *VẼ CÁI GÌ* nằm ở **phiếu khai nghĩa** Ông Bụt giao kèm nguồn.
-> Tự sinh bằng introspect `hinh_ch4.py` qua `sinh_bantrich.py` — vá kho → chạy lại → khớp. KHÔNG sửa tay file này.
+> Tự sinh bằng introspect `hinh_ch5.py` qua `sinh_bantrich.py` — vá kho → chạy lại → khớp. KHÔNG sửa tay file này.
 > Sinh ngày 25/08/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
 
-Import trong script bài: `import hinh_ch4 as H4` rồi `h = H4.Hinh()`.
+Import trong script bài: `import hinh_ch5 as H5` rồi `h = H5.Hinh()`.
 Gọi các method KHAI NGHĨA (mục 1) theo phiếu; cuối cùng `png = h.ve(out=..., tra_bytes=True)`.
 
 ---
@@ -52,6 +52,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `noi(*diem, kin=False, mau=None)` | Nối các điểm ĐÃ ĐẶT thành đoạn/gấp khúc. kin=True→đa giác đóng. mau=màu đường. |
 | `so_do_goc(ten, do=None, hien_so=True, mau='orange', ban_kinh=7)` | mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC + bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh). do=None → TỰ ĐO từ toạ độ (vẽ cung đánh dấu góc mà không assert số đo cho trước). |
 | `so_quanh_tam(tam, ban_kinh, danh_sach, goc_dau=90, chieu=-1)` | Rải các nhãn 'danh_sach' ĐỀU quanh tâm 'tam' trên vòng bán kính 'ban_kinh', bắt đầu ở hướng 'goc_dau'° (mặc định 90 = trên đỉnh), bước 'chieu'*360/n (chieu=-1 = thuận chiều kim). Dùng ghi SỐ 1–12 mặt đồng hồ, mặt số công-tơ-mét, xúc xắc quanh. |
+| `tam_doi_xung(O, *cap_doi_dinh, nhan='O', ve_cheo=True, net='dut')` | TÂM ĐỐI XỨNG O = giao các đường chéo (chấm + nhãn O). cap_doi_dinh = các CẶP đỉnh ĐỐI đã đặt: · tứ giác (bình hành/thoi/vuông/cn) → ('A','C'), ('B','D') · lục giác đều → ('A','D'), ('B','E'), ('C','F') ve_cheo=True → vẽ mỗi cặp thành ĐƯỜNG CHÉO nét đứt đen (đoạn ĐÚNG 2 đỉnh, không thò). O đặt tại trung điểm cặp chéo đầu (các chéo đồng quy — Đ5.9). Đoạn thẳng có tâm đối xứng là trung điểm: tam_doi_xung('I', ('A','B')) với ve_cheo=False. |
 | `tam_giac(A, B, Cc, noi=True)` | Tam giác 3 đỉnh (không thẳng hàng). Thứ tự A→B→C chiều kim đồng hồ. noi=False → chỉ ĐẶT 3 điểm (không nối cạnh) — dùng cho 'ba điểm không thẳng hàng'. |
 | `tam_giac_deu(A, B, Cc, canh=3.0, xoay=0)` | Tam giác ĐỀU 3 đỉnh: B dưới-trái, C dưới-phải, A đỉnh trên. canh = độ dài cạnh (mặc định 3.0). Ba cạnh bằng nhau (PHANH canh_bang). Dùng nhận dạng / hình nền. |
 | `thang_hang(*diem)` | KHAI các điểm THẲNG HÀNG → PHANH kiểm độ lệch, sai thì dừng. |
@@ -60,6 +61,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `tia_diem(goc_O, ds, xoay=0, ten_tia=None, hai_dau=False, nhan_dodai=False, mau=None, net='lien')` | TIA gốc 'goc_O' mang các điểm ĐO ĐƯỢC (metric). ds=[(tên, vị_trí), …] · vị_trí = khoảng cách từ gốc theo ĐƠN VỊ BÀI; vị_trí ÂM = điểm trên TIA ĐỐI. Máy chuẩn hoá tỉ lệ, đặt gốc O, vẽ mũi tên đầu dương, ràng buộc thẳng hàng (PHANH). ten_tia: nhãn cạnh mũi tên (vd 'x' cho tia Ox). nhan_dodai=True → ghi khoảng cách từ gốc dưới mỗi điểm. (Song sinh với duong_diem, nhưng cho TIA + vị trí metric.) [VAN] hai_dau=True bị CHẶN: nét 2 mũi = đường thẳng, mà đường thẳng KHÔNG có mũi. Đường thẳng mang điểm 2 đầu → dùng duong_diem. |
 | `tia_doi(O, t1, t2, xoay=0)` | HAI TIA ĐỐI chung gốc O: t1 và t2 hai phía đối nhau qua O, nghiêng 'xoay'° so ngang. Vẽ đoạn t1–t2 + PHANH kiểm góc t1-O-t2 = 180° và t1,O,t2 thẳng hàng. Dùng bài 'hai tia đối nhau'. |
 | `to_mien(*diem, mau='cyan!18')` | TÔ MÀU một miền = đa giác qua các điểm ĐÃ ĐẶT (theo thứ tự). Dùng tô: • miền trong 1 góc: to_mien(P1, đỉnh, P2) — P1,P2 trên 2 cạnh; • giao/hợp nhiều góc (miền trong tam giác — 8.30): to_mien(A, B, C). Miền được tô NẰM DƯỚI mọi nét (không che hình). mau: màu tô nhạt. |
+| `truc_doi_xung(diem1, diem2, nhan=None, net='dut')` | TRỤC ĐỐI XỨNG: đường thẳng NÉT ĐỨT màu ĐEN, tự kéo dài đều ~15% ra ngoài mỗi đầu (thò ra như SGK). KHÔNG đỏ, KHÔNG tick trung điểm. diem1, diem2 — mỗi cái là: · TÊN điểm đã đặt (trục đi qua điểm đó: đỉnh, nút lưới…), HOẶC · tuple ('A','B') → trục đi qua TRUNG ĐIỂM cạnh AB (điểm giữa ẩn: không chấm, không nhãn — tránh dây bẩn trục). Ví dụ: chữ nhật ABCD 2 trục → truc_doi_xung(('A','B'),('D','C')) và truc_doi_xung(('A','D'),('B','C')); thoi → truc_doi_xung('A','C') (trùng đường chéo); tam giác cân đỉnh A đáy BC → truc_doi_xung('A',('B','C')). nhan='d' → ghi tên trục ở đầu. A,B đã kín nghĩa qua con đường đặt → KHÔNG thêm ràng buộc (Đ5.9). |
 | `trung_diem(M, A, B, mau=None)` | M = TRUNG ĐIỂM đoạn AB. M chưa đặt → tự đặt tại chính giữa A,B. Vẽ đoạn AB + gạch bằng 2 nửa (A–M = M–B) + ràng buộc thẳng hàng A,M,B (PHANH). mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `tu_giac(A, B, Cc, D, loai=None)` | Tứ giác 4 đỉnh lồi, chiều kim đồng hồ. loai∈{None,'binh_hanh','chu_nhat'}. |
 
@@ -75,4 +77,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 47 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 49 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
