@@ -36,6 +36,11 @@ class HinhCoBan:
         self.mau_diem = {}     # [13/08 Nhóm A] ten_diem → màu chấm (điểm dựng ở lời giải = 'red')
         self._ndoanle = 0      # [14/08] đếm đoạn thẳng ĐƠN LẺ (doan_le) → xếp mỗi đoạn 1 dòng
         self.tron = {}         # [15/08] ten_tam → bán kính (đơn vị vẽ) — mạch hinh_tron_ve dùng
+        # ── [26a] NỀN Ô LƯỚI 4mm (mờ) phủ CẢ khung — áp cho MỌI hình ──
+        self._nen_luoi = True        # True → tự vẽ nền ô lưới cho mọi hình
+        self._nen_mau = 'black!12'   # màu viền lưới — THẬT NHẠT (ít thấy viền)
+        self.so_o_ngang = None       # số ô ngang khung (đặt sau ve) → rongCm = 0,4*so_o_ngang (ô 4mm)
+        self.so_o_doc = None
     def _diem(self, ten, x, y, nhan='above right', moc=True, mau=None):
         self.V[ten] = (x, y); self.nhan[ten] = nhan
         if moc: self.moc.add(ten)
@@ -491,6 +496,28 @@ class HinhCoBan:
         L = [f'\\begin{{tikzpicture}}[scale={s},>=latex]']
         for tn,(x,y) in self.V.items():
             L.append(f'  \\coordinate ({C._san(tn)}) at ({x:.3f},{y:.3f});')
+        # ── [26a] NỀN Ô LƯỚI 4mm (mờ) — lớp DƯỚI cùng, mọi hình ──
+        _luoi_el = next((el for el in self.tikz if el[0]=='luoi'), None)
+        if _luoi_el is not None:
+            self.so_o_ngang, self.so_o_doc = _luoi_el[1], _luoi_el[2]   # lưới tường minh
+        elif self._nen_luoi and self.V:
+            # [26b] KHÔNG Ô THỪA: khung ôm sát ĐIỂM THẬT — BỎ điểm nội bộ '_…' (tip kéo dài
+            #        tia/trục thò 15%, mốc ẩn). Phần thò được phép lòi ngoài lưới. Lưới LUÔN chữ nhật.
+            _pts=[pt for tn,pt in self.V.items() if not tn.startswith('_')]
+            if not _pts: _pts=list(self.V.values())
+            _xs=[pt[0] for pt in _pts]; _ys=[pt[1] for pt in _pts]
+            for _t,_r in getattr(self,'tron',{}).items():          # phủ cả ĐƯỜNG TRÒN (bán kính)
+                if _t in self.V:
+                    _cx,_cy=self.V[_t]; _xs+=[_cx-_r,_cx+_r]; _ys+=[_cy-_r,_cy+_r]
+            _x0=math.floor(min(_xs)); _x1=math.ceil(max(_xs))
+            _y0=math.floor(min(_ys)); _y1=math.ceil(max(_ys))
+            # hình DẸT 1 chiều (đoạn/tia/đường): khung mỏng → băng 2 ô, nội dung nằm ĐƯỜNG GIỮA
+            if _x1-_x0 < 1:
+                _c=round((min(_xs)+max(_xs))/2); _x0,_x1=_c-1,_c+1
+            if _y1-_y0 < 1:
+                _c=round((min(_ys)+max(_ys))/2); _y0,_y1=_c-1,_c+1
+            self.so_o_ngang, self.so_o_doc = _x1-_x0, _y1-_y0
+            L.append(f'  \\draw[very thin,{self._nen_mau}] ({_x0},{_y0}) grid ({_x1},{_y1});')
         # [15/08] TÔ MIỀN trước — nằm DƯỚI mọi nét (không che hình)
         for el in self.tikz:
             if el[0]=='to_mien':
@@ -503,7 +530,7 @@ class HinhCoBan:
                 continue
             if k=='luoi':
                 cot,hang = el[1],el[2]
-                L.append(f'  \\draw[very thin,gray!35] (0,0) grid ({cot},{hang});')
+                L.append(f'  \\draw[very thin,{self._nen_mau}] (0,0) grid ({cot},{hang});')
             elif k=='dagiac':
                 pts = el[1]; path='--'.join(f'({C._san(p)})' for p in pts)
                 L.append(f'  \\draw[thick] {path}--cycle;')

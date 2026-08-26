@@ -1,6 +1,20 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-25c
+Mốc kho      : 2026-08-26b
+
+[26b] SIẾT KHUNG NỀN LƯỚI "KHÔNG Ô THỪA" (thầy chốt 2026-08-26) — hinh_coban.ve():
+      · Khung ôm SÁT điểm thật; BỎ điểm nội bộ '_…' (tip thò tia/trục 15%) khỏi bbox → hết dư ô.
+      · Lưới LUÔN là chữ nhật/vuông (không cắt theo viền hình). Phần thò được phép lòi ngoài lưới.
+      · Hình DẸT 1 chiều (đoạn/tia/đường): băng 2 ô, nội dung nằm ĐƯỜNG GIỮA (không lệch mép).
+      · CHUẨN CHUNG: MỌI hình — mọi môn, mọi chương — vẽ trên nền ô lưới. Không đổi chữ ký hàm.
+
+[26a] NỀN Ô LƯỚI 4mm cho MỌI hình (thầy chốt 2026-08-26) — hinh_coban:
+      · ve() tự vẽ nền ô lưới MỜ (black!12, "viền thật nhạt") phủ CẢ khung mọi hình
+        (kể cả hình không gọi luoi: thoi/lục giác/tròn…); bbox tính cả bán kính đường tròn.
+      · ve() đặt self.so_o_ngang/so_o_doc → CHÈN DOCX: rongCm = 0,4 × so_o_ngang ⇒ ô = 4mm/trang.
+        (Thay hệ số K=0.256 mù mờ mốc 25/08 bằng quy tắc minh bạch 0,4 cm/ô.)
+      · Lưới tường minh (luoi) đổi màu gray!35 → black!12 cho đồng nhất.
+      · Tắt nền: h._nen_luoi=False. KHÔNG đổi chữ ký hàm → bản trích GIỮ nguyên.
 [25c] MẠCH ĐỐI XỨNG L6 (Chương V) — 2 tiện ích chuẩn hoá + entry · Ông Bụt 2026-08-25.
       Nguồn: SGK Toán 6 T1 Chương V (Bài 21 trục · Bài 22 tâm · luyện tập · cuối chương) —
       thầy cấp. Kê hình cả chương + đối chiếu kho: PHẦN LỚN tái dùng hàm sẵn có (luoi·
