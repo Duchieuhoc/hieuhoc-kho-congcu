@@ -110,6 +110,32 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         if to:
             self.tikz.append(('to_mien', list(ten), to))
         return self
+    def ngoi_sao(self, tam, so_canh=5, ban_kinh=2.0, xoay=90, ti_le_trong=None, to=None, nhan=None, cham_tam=False):
+        """NGÔI SAO so_canh cánh (mặc định 5 — cờ VN/Quốc kỳ; dùng cả 4/6/8 cánh cho Chương V).
+        Đỉnh CÁNH trên đường tròn bán kính ban_kinh; đỉnh LÕM trên bán kính trong
+        = ban_kinh*ti_le_trong. xoay=90 → một cánh chĩa thẳng LÊN (chuẩn cờ).
+        ti_le_trong=None → tự chọn: 5 cánh = 0.382 (pentagram), khác = 0.5.
+        tam = tên tâm (dùng làm gốc; cham_tam=True → CHẤM tâm cho bài TÂM đối xứng, mặc định KHÔNG chấm).
+        to = màu tô (None = chỉ đường bao). Đỉnh sao đủ 2*so_canh."""
+        if so_canh < 3:
+            raise ValueError('ngoi_sao cần ≥ 3 cánh')
+        if ti_le_trong is None:
+            ti_le_trong = 0.382 if so_canh == 5 else 0.5
+        R = ban_kinh; r = R*ti_le_trong; cx = cy = R
+        if cham_tam:
+            self._diem(tam, cx, cy, nhan or 'below')      # chấm tâm (chỉ khi bài TÂM đối xứng)
+        dinh = []
+        for k in range(so_canh):
+            ao = math.radians(xoay + k*360.0/so_canh)         # đỉnh cánh
+            ai = math.radians(xoay + (k + 0.5)*360.0/so_canh) # đỉnh lõm
+            no = f'{tam}s{k}o'; ni = f'{tam}s{k}i'            # tên KHÔNG mở đầu '_' → khung tính vào
+            self._diem(no, cx + R*math.cos(ao), cy + R*math.sin(ao), nhan=None, moc=False)
+            self._diem(ni, cx + r*math.cos(ai), cy + r*math.sin(ai), nhan=None, moc=False)
+            dinh += [no, ni]
+        self._da_giac(*dinh)
+        if to:
+            self.tikz.append(('to_mien', dinh, to))
+        return self
     def hinh_thoi(self, A, B, Cc, D, canh=3.0, goc=60, cheo=False, tam=None):
         """Hình thoi dạng "kim cương": A trái, B trên, C phải, D dưới.
         canh = độ dài cạnh; goc = góc tại đỉnh A (và C), độ (mặc định 60°).

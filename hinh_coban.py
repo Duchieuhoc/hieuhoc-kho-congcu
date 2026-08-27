@@ -390,10 +390,12 @@ class HinhCoBan:
     def luoi(self, cot, hang):
         """Lưới nền cot×hang ô (xám nhạt)."""
         self._luoi = (cot, hang); self.tikz.append(('luoi', cot, hang)); return self
-    def diem_luoi(self, ten, cot, hang, mau=None):
+    def diem_luoi(self, ten, cot, hang, mau=None, nhan='above right', cham=True):
         """Điểm 'ten' tại NÚT (cột,hàng) — chỉ số nguyên, dữ kiện đề (như số đo góc).
-        mau='red' → chấm đỏ (điểm dựng ở lời giải)."""
-        self._diem(ten, cot*BUOC_LUOI, hang*BUOC_LUOI, 'above right', moc=True, mau=mau)
+        mau='red' → chấm đỏ (điểm dựng ở lời giải).
+        nhan=None → KHÔNG hiện nhãn tên; cham=False → KHÔNG vẽ chấm.
+        → Hình đa giác/gấp-khúc trên lưới (đếm trục, vẽ-thêm): dùng nhan=None, cham=False cho SẠCH."""
+        self._diem(ten, cot*BUOC_LUOI, hang*BUOC_LUOI, nhan, moc=cham, mau=mau)
         rb = {'loai':'nut_luoi','diem':ten,'step':BUOC_LUOI}
         if self._luoi: rb['cot'], rb['hang'] = self._luoi
         self.rb.append(rb); return self

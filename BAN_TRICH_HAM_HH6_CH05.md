@@ -2,7 +2,7 @@
 
 > **Cho AI Soạn.** Đây là *CÁCH vẽ* (chữ ký hàm + tham số). *VẼ CÁI GÌ* nằm ở **phiếu khai nghĩa** Ông Bụt giao kèm nguồn.
 > Tự sinh bằng introspect `hinh_ch5.py` qua `sinh_bantrich.py` — vá kho → chạy lại → khớp. KHÔNG sửa tay file này.
-> Sinh ngày 25/08/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
+> Sinh ngày 27/08/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
 
 Import trong script bài: `import hinh_ch5 as H5` rồi `h = H5.Hinh()`.
 Gọi các method KHAI NGHĨA (mục 1) theo phiếu; cuối cùng `png = h.ve(out=..., tra_bytes=True)`.
@@ -24,7 +24,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `dau_song_song(A, B, so_mui=1)` | Đánh dấu HƯỚNG SONG SONG trên đoạn A,B (đã đặt) bằng 'so_mui' mũi tên (1/2) — các đoạn cùng số mũi tên = cùng phương (ký hiệu >/>> như SGK). Chỉ đánh dấu. |
 | `diem_ban_kinh(ten, tam, goc, ban_kinh, nhan='above right', mau=None, hien=True)` | Điểm 'ten' cách tâm 'tam' đúng 'ban_kinh' (đơn vị vẽ) theo hướng 'goc' (độ, ngược chiều kim từ ngang) — KHÔNG tọa độ. Dùng đặt mút hướng-tâm: KIM đồng hồ (kim giờ bán_kinh nhỏ = ngắn, kim phút lớn = dài), nan quạt, mốc trên bán kính. hien=False → không chấm/không nhãn (chỉ làm mút để nối kim). |
 | `diem_giua(ten, A, B, ti_le=0.5, mau=None, nhan='above')` | Điểm 'ten' nằm giữa A,B. ti_le∈(0,1) vị trí tương đối (KHÔNG phải tọa độ). mau='red' → chấm đỏ (điểm dựng ở lời giải). nhan='below' → tên điểm xuống dưới (tránh đè nhãn độ dài đặt phía trên, vd 8.30). |
-| `diem_luoi(ten, cot, hang, mau=None)` | Điểm 'ten' tại NÚT (cột,hàng) — chỉ số nguyên, dữ kiện đề (như số đo góc). mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `diem_luoi(ten, cot, hang, mau=None, nhan='above right', cham=True)` | Điểm 'ten' tại NÚT (cột,hàng) — chỉ số nguyên, dữ kiện đề (như số đo góc). mau='red' → chấm đỏ (điểm dựng ở lời giải). nhan=None → KHÔNG hiện nhãn tên; cham=False → KHÔNG vẽ chấm. → Hình đa giác/gấp-khúc trên lưới (đếm trục, vẽ-thêm): dùng nhan=None, cham=False cho SẠCH. |
 | `diem_ngoai(ten, duong, phia=None, mau=None, doc=0.0)` | Điểm 'ten' KHÔNG thuộc 'duong'. phia ∈ {'tren','duoi','trai','phai'}. doc: dời điểm DỌC theo đường (đơn vị vẽ) để đặt nhiều điểm ngoài phân biệt. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `diem_ngoai_goc(ten, goc, lech=0, xa=1.6, mau=None)` | Điểm 'ten' nằm NGOÀI 'goc' (bộ 3 (cạnh1,đỉnh,cạnh2) đã khai qua goc/chum_tia). Đối xứng với diem_trong: đặt theo hướng PHÂN GIÁC NGOÀI (miền phản xạ) → chắc chắn ngoài góc. lech=số độ xoay hướng ngoài (đặt nhiều điểm ngoài phân biệt; PHANH vẫn kiểm phải nằm ngoài, xoay quá tay vào trong → dừng). xa=khoảng cách từ đỉnh. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `diem_tren(ten, duong, thu_tu=None, mau=None)` | Điểm 'ten' ∈ 'duong'. thu_tu=số nguyên xếp thứ tự nhiều điểm trên 1 đường. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
@@ -49,6 +49,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `luc_giac_deu(A, B, Cc, D, E, F, canh=2.0, xoay=0, cheo=None, tam=None)` | Lục giác đều 6 đỉnh, thứ tự A→B→C→D→E→F theo chiều kim đồng hồ. Khi xoay=0: cạnh AB (trên) và ED (dưới) nằm ngang; C ở phải, F ở trái. canh = độ dài cạnh (= bán kính đường tròn ngoại tiếp). xoay = góc xoay cả hình (độ). cheo = None | 'chinh' (AD,BE,CF) | 'phu' (AC,BD,CE,DF,EA,FB) | 'tatca'. tam = tên tâm O (đặt → chấm tâm; 3 đường chéo chính đồng quy tại O). |
 | `luoi(cot, hang)` | Lưới nền cot×hang ô (xám nhạt). |
 | `mat_dong_ho(gio=None, phut=0, giay=None, R=2.4, tam='O')` | ĐỒNG HỒ chuẩn HH6 — MỘT hàm ra đồng hồ hoàn chỉnh: vành tròn tâm 'tam' + 12 số (đặt bằng diem_tren_tron, nhãn toả ra ngoài) + tuỳ chọn các kim. · gio=None → chỉ vẽ MẶT (vành + số), không kim. · gio∈1..12, phut∈0..59 → vẽ kèm kim GIỜ (ngắn+đậm, tự dịch theo phút) + kim PHÚT (dài+mảnh). · giay∈0..59 (tuỳ chọn) → thêm kim GIÂY (dài nhất + ĐỎ). [thêm 25/08 — bài thật Hình 5] Bài thường hỏi = GÓC giữa hai kim tại một thời điểm. KHÔNG đặt tên điểm A/B/C trên mặt, KHÔNG vẽ cung góc trên mặt đồng hồ (chỉ hỏi số đo, không đánh dấu cung). Trả về R để gọi kim() thủ công nếu cần. (Số đặt qua diem_tren_tron — KHÔNG so_quanh_tam.) |
+| `ngoi_sao(tam, so_canh=5, ban_kinh=2.0, xoay=90, ti_le_trong=None, to=None, nhan=None, cham_tam=False)` | NGÔI SAO so_canh cánh (mặc định 5 — cờ VN/Quốc kỳ; dùng cả 4/6/8 cánh cho Chương V). Đỉnh CÁNH trên đường tròn bán kính ban_kinh; đỉnh LÕM trên bán kính trong = ban_kinh*ti_le_trong. xoay=90 → một cánh chĩa thẳng LÊN (chuẩn cờ). ti_le_trong=None → tự chọn: 5 cánh = 0.382 (pentagram), khác = 0.5. tam = tên tâm (dùng làm gốc; cham_tam=True → CHẤM tâm cho bài TÂM đối xứng, mặc định KHÔNG chấm). to = màu tô (None = chỉ đường bao). Đỉnh sao đủ 2*so_canh. |
 | `noi(*diem, kin=False, mau=None)` | Nối các điểm ĐÃ ĐẶT thành đoạn/gấp khúc. kin=True→đa giác đóng. mau=màu đường. |
 | `so_do_goc(ten, do=None, hien_so=True, mau='orange', ban_kinh=7)` | mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC + bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh). do=None → TỰ ĐO từ toạ độ (vẽ cung đánh dấu góc mà không assert số đo cho trước). |
 | `so_quanh_tam(tam, ban_kinh, danh_sach, goc_dau=90, chieu=-1)` | Rải các nhãn 'danh_sach' ĐỀU quanh tâm 'tam' trên vòng bán kính 'ban_kinh', bắt đầu ở hướng 'goc_dau'° (mặc định 90 = trên đỉnh), bước 'chieu'*360/n (chieu=-1 = thuận chiều kim). Dùng ghi SỐ 1–12 mặt đồng hồ, mặt số công-tơ-mét, xúc xắc quanh. |
@@ -77,4 +78,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 49 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 50 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).

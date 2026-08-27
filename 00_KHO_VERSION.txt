@@ -1,6 +1,19 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-26b
+Mốc kho      : 2026-08-26e
+
+[26e] diem_luoi + nhan/cham: nhan=None → ẩn NHÃN tên · cham=False → ẩn CHẤM đỉnh.
+      → Hình đa giác/gấp-khúc trên lưới (đếm trục, vẽ-thêm) dựng SẠCH (thầy bắt lỗi nhãn P0..Pn).
+
+[26d] ngoi_sao: đỉnh sao moc=False → BỎ chấm ở đỉnh (cờ = sao TRƠN). QC Vòng 2 B21 bắt.
+
+[26c] PRIMITIVE NGÔI SAO (thầy/AISoạn phát hiện thiếu — B21) — hinh_dagiac.ngoi_sao():
+      · ngoi_sao(tam, so_canh=5, ban_kinh, xoay=90, ti_le_trong=None, to=None, cham_tam=False)
+        — sao n cánh (5=cờ VN/Quốc kỳ; 4/6/8 cánh cho luyện tập/cuối chương). Một cánh lên (xoay=90).
+        ti_le_trong None → 5 cánh 0.382 (pentagram), khác 0.5. cham_tam=True chỉ cho bài TÂM đx.
+      · Đỉnh sao có tên không mở đầu '_' → khung nền lưới ôm đúng. Có bài thật: SGK 5.3/THGT 5 (cờ).
+      · da_giac_deu = ĐA GIÁC đều (ngũ giác…), KHÁC ngôi sao — sửa nhầm lẫn ở phiếu B21.
+      · Bản trích tái sinh (thêm 1 chữ ký). A↔C.
 
 [26b] SIẾT KHUNG NỀN LƯỚI "KHÔNG Ô THỪA" (thầy chốt 2026-08-26) — hinh_coban.ve():
       · Khung ôm SÁT điểm thật; BỎ điểm nội bộ '_…' (tip thò tia/trục 15%) khỏi bbox → hết dư ô.
