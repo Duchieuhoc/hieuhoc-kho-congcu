@@ -16,8 +16,8 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         self._diem(A, canh/2, canh*math.sqrt(3)/2, 'above')
         self._da_giac(A, B, Cc)
         self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(B,Cc),(Cc,A)]}); return self
-    def hinh_vuong(self, M, N, P_, Q, canh=3.0):
-        """Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải. canh = độ dài cạnh.
+    def hinh_vuong(self, M, N, P_, Q, canh=4):
+        """Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải. canh = độ dài cạnh (dùng CHẴN ô để tâm rơi NÚT lưới).
         PHANH: 4 cạnh bằng nhau + góc tại M vuông (90°)."""
         self._diem(M, 0, 0, 'below left'); self._diem(N, 0, canh, 'above left')
         self._diem(P_, canh, canh, 'above right'); self._diem(Q, canh, 0, 'below right')
@@ -41,13 +41,13 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
     def tu_giac(self, A, B, Cc, D, loai=None):
         """Tứ giác 4 đỉnh lồi, chiều kim đồng hồ. loai∈{None,'binh_hanh','chu_nhat'}."""
         if loai == 'binh_hanh':
-            self._diem(A,0.7,2,'above left'); self._diem(B,3.7,2,'above right')
-            self._diem(Cc,3,0,'below right'); self._diem(D,0,0,'below left')
+            self._diem(A,1,2,'above left'); self._diem(B,4,2,'above right')
+            self._diem(Cc,3,0,'below right'); self._diem(D,0,0,'below left')  # tâm (2,1) NÚT
             self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)})
             self.rb.append({'loai':'song_song','doan1':(A,D),'doan2':(B,Cc)})
         elif loai == 'chu_nhat':
-            self._diem(A,0,2,'above left'); self._diem(B,3.5,2,'above right')
-            self._diem(Cc,3.5,0,'below right'); self._diem(D,0,0,'below left')
+            self._diem(A,0,2,'above left'); self._diem(B,4,2,'above right')
+            self._diem(Cc,4,0,'below right'); self._diem(D,0,0,'below left')  # tâm (2,1) NÚT
             self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)})
             self.rb.append({'loai':'song_song','doan1':(A,D),'doan2':(B,Cc)})
             self.rb.append({'loai':'goc','ten':[D,A,B],'do':90})
@@ -162,14 +162,15 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
             self.tikz.append(('doan', n1, n2, mau, 'lien', rong_net))
         return self
 
-    def hinh_thoi(self, A, B, Cc, D, canh=3.0, goc=60, cheo=False, tam=None):
-        """Hình thoi dạng "kim cương": A trái, B trên, C phải, D dưới.
-        canh = độ dài cạnh; goc = góc tại đỉnh A (và C), độ (mặc định 60°).
-        cheo=True → vẽ 2 đường chéo (AC ngang, BD dọc). tam = tên tâm (chấm)."""
-        th = math.radians(goc/2.0)
-        p, q = canh*math.cos(th), canh*math.sin(th)          # nửa chéo ngang / dọc
-        self._diem(A, 0, q, 'left');    self._diem(B, p, 2*q, 'above')
-        self._diem(Cc, 2*p, q, 'right'); self._diem(D, p, 0, 'below')
+    def hinh_thoi(self, A, B, Cc, D, a=4, b=3, cheo=True, tam='O'):
+        """Hình thoi "kim cương" dựng theo 2 nửa chéo NGUYÊN ô → tâm + 4 đỉnh rơi NÚT lưới.
+        a = nửa chéo NGANG (ô; OA = OC);  b = nửa chéo DỌC (ô; OB = OD).
+        A trái, B trên, C phải, D dưới. cheo=True vẽ 2 chéo (AC ngang, BD dọc).
+        tam = tên tâm O (chấm; None để bỏ). (Đổi từ cạnh+góc → chéo-lưới, mốc 26g.)"""
+        a = int(round(a)); b = int(round(b))
+        ox, oy = a, b                                          # đặt O tại nút (a,b) → mọi toạ độ ≥ 0
+        self._diem(A, ox-a, oy, 'left');    self._diem(B, ox, oy+b, 'above')
+        self._diem(Cc, ox+a, oy, 'right');  self._diem(D, ox, oy-b, 'below')
         self._da_giac(A, B, Cc, D)
         self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(B,Cc),(Cc,D),(D,A)]})
         self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)})
@@ -178,7 +179,7 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
             self.tikz.append(('noi', [A, Cc], False, None))
             self.tikz.append(('noi', [B, D],  False, None))
         if tam:
-            self._diem(tam, p, q, 'below right')   # tâm = giao điểm cho sẵn → ĐEN (Đ40; đỏ chỉ cho yếu tố cần tìm)
+            self._diem(tam, ox, oy, 'below right')             # tâm cho sẵn → ĐEN (Đ40)
         return self
     def hinh_thang_can(self, A, B, Cc, D, day_nho=3.0, day_lon=5.0, cao=2.5, cheo=False):
         """Hình thang cân đối xứng qua trục dọc: A,B = đáy nhỏ (trên); D,C = đáy lớn (dưới).

@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-26f
+Mốc kho      : 2026-08-26g
+
+[26g] Chuẩn "tâm rơi NÚT lưới" + ô lưới 4mm (Ông Bụt 2026-08-27, chỉ đạo Giám đốc):
+      · hinh_thoi ĐỔI chữ ký → dựng theo 2 nửa chéo NGUYÊN ô: hinh_thoi(A,B,C,D, a, b,
+        cheo=True, tam='O'). Tâm + 4 đỉnh rơi NÚT lưới (bỏ cạnh+góc — cũ cho tâm giữa ô).
+      · hinh_vuong: mặc định canh=4 (CHẴN) → tâm rơi nút. Dùng cạnh chẵn.
+      · tu_giac binh_hanh/chu_nhat: toạ độ chẵn → tâm (2,1) rơi nút.
+      · QUY TẮC TRÌNH BÀY (Chuẩn v10.5): ô lưới = 4mm THỐNG NHẤT mọi hình →
+        rongCm = 0,4 × số_ô_ngang (BỎ sàn 5,5cm); to/nhỏ điều chỉnh bằng SỐ Ô.
+        Tâm mọi hình phải rơi NÚT lưới.
+      · Bản trích CH05 tái sinh (hinh_thoi đổi chữ ký).
 
 [26f] chu_so_7doan (Ông Bụt 2026-08-27, cho B22 TÂM đối xứng) — hinh_dagiac.chu_so_7doan():
       · chu_so_7doan(so, x0, y0, rong=1.0, cao=2.0, mau=None, rong_net='dam') — chữ số 0..9 kiểu

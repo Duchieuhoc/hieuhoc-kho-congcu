@@ -2405,7 +2405,10 @@ function hinhVe({ imageBuffer, rongCm = 8, tiLeGoc, chuThich }) {
 // ═════════════════════════════════════════════════════════════
 function hangHinh(items, { caoCm = 3.2 } = {}) {
   if (!Array.isArray(items) || !items.length) throw new Error("[LỖI HÌNH] hangHinh(): cần mảng ≥ 1 hình.");
-  if (items.length > 3) throw new Error(`[LỖI HÌNH] hangHinh(): 1 hàng tối đa 3 hình (đang ${items.length}). Dùng luoiHinh() để tự chia hàng (4→2+2, 5→3+2, 6→3+3).`);
+  // [v10.5] cho tối đa 4 hình/hàng nếu MỌI hình có rongCm và tổng ≤ 17cm (ô 8mm, hình nhỏ). Ngược lại giữ 3.
+  const _tongRong = items.reduce((a, it) => a + (it.rongCm || 0), 0);
+  const _maxHang = (items.every(it => it.rongCm) && _tongRong <= 17) ? 4 : 3;
+  if (items.length > _maxHang) throw new Error(`[LỖI HÌNH] hangHinh(): 1 hàng tối đa ${_maxHang} hình (đang ${items.length}). Dùng luoiHinh() để tự chia hàng.`);
   const NONE = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
   const noB = { top: NONE, bottom: NONE, left: NONE, right: NONE, insideHorizontal: NONE, insideVertical: NONE };
   const DXA = cm => Math.round(cm * 567);
@@ -2415,11 +2418,14 @@ function hangHinh(items, { caoCm = 3.2 } = {}) {
     if (!it.imageBuffer) throw new Error("[LỖI HÌNH] hangHinh(): một phần tử thiếu imageBuffer.");
     if (typeof it.chuThich === "string") _guardKyHieuGoc(it.chuThich, "hangHinh chuThich");
     const ratio = it.tiLeGoc ? (typeof it.tiLeGoc === 'number' ? it.tiLeGoc : it.tiLeGoc.width / it.tiLeGoc.height) : (_tiLeAnh(it.imageBuffer) || 1);  // [v10.7] tự đọc tỉ lệ
-    const phW = Math.round(phH * ratio);
+    // [v10.5-luoi4mm] Nếu item có rongCm → dùng làm bề rộng (ô lưới 4mm = 0,4×số ô), cao tự theo tỉ lệ (BỎ chuẩn-hoá caoCm)
+    let phW, phHi;
+    if (it.rongCm) { phW = Math.round(it.rongCm * 37.795); phHi = Math.round(phW / ratio); }
+    else { phHi = phH; phW = Math.round(phH * ratio); }
     const oCm = phW / 37.795 + 0.5;                  // + lề trái/phải ô
     ws.push(DXA(oCm));
     const kids = [ new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 60, after: it.chuThich ? 10 : 60 },
-      children: [ new ImageRun({ data: it.imageBuffer, transformation: { width: phW, height: phH }, type: "png", docId: _nextImgId() }) ] }) ];
+      children: [ new ImageRun({ data: it.imageBuffer, transformation: { width: phW, height: phHi }, type: "png", docId: _nextImgId() }) ] }) ];
     if (it.chuThich) kids.push(para([run(it.chuThich, { italic: true, color: C_GRAY, size: SZ_SMALL })],
       { align: AlignmentType.CENTER, before: 0, after: 60 }));
     return new TableCell({ borders: noB, verticalAlign: VerticalAlign.CENTER, width: { size: DXA(oCm), type: WidthType.DXA },

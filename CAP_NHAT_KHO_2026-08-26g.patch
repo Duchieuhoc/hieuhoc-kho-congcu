@@ -1,0 +1,182 @@
+diff --git a/00_KHO_VERSION.txt b/00_KHO_VERSION.txt
+index 1790740..9b82c1f 100644
+--- a/00_KHO_VERSION.txt
++++ b/00_KHO_VERSION.txt
+@@ -1,6 +1,22 @@
+ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
+ =====================================
+-Mốc kho      : 2026-08-26e
++Mốc kho      : 2026-08-26g
++
++[26g] Chuẩn "tâm rơi NÚT lưới" + ô lưới 4mm (Ông Bụt 2026-08-27, chỉ đạo Giám đốc):
++      · hinh_thoi ĐỔI chữ ký → dựng theo 2 nửa chéo NGUYÊN ô: hinh_thoi(A,B,C,D, a, b,
++        cheo=True, tam='O'). Tâm + 4 đỉnh rơi NÚT lưới (bỏ cạnh+góc — cũ cho tâm giữa ô).
++      · hinh_vuong: mặc định canh=4 (CHẴN) → tâm rơi nút. Dùng cạnh chẵn.
++      · tu_giac binh_hanh/chu_nhat: toạ độ chẵn → tâm (2,1) rơi nút.
++      · QUY TẮC TRÌNH BÀY (Chuẩn v10.5): ô lưới = 4mm THỐNG NHẤT mọi hình →
++        rongCm = 0,4 × số_ô_ngang (BỎ sàn 5,5cm); to/nhỏ điều chỉnh bằng SỐ Ô.
++        Tâm mọi hình phải rơi NÚT lưới.
++      · Bản trích CH05 tái sinh (hinh_thoi đổi chữ ký).
++
++[26f] chu_so_7doan (Ông Bụt 2026-08-27, cho B22 TÂM đối xứng) — hinh_dagiac.chu_so_7doan():
++      · chu_so_7doan(so, x0, y0, rong=1.0, cao=2.0, mau=None, rong_net='dam') — chữ số 0..9 kiểu
++        7 đoạn (mỗi đoạn nét đậm). Bài "ghép thẻ số có tâm đối xứng" (SBT 5.20): lật nửa vòng
++        6↔9, giữ 0/1/2/5/8. Gọi nhiều lần đổi x0 → đặt các thẻ cạnh nhau. Bài thật: SBT B22 5.20.
++      · Bản trích CH05 tái sinh (thêm 1 chữ ký).
+ 
+ [26e] diem_luoi + nhan/cham: nhan=None → ẩn NHÃN tên · cham=False → ẩn CHẤM đỉnh.
+       → Hình đa giác/gấp-khúc trên lưới (đếm trục, vẽ-thêm) dựng SẠCH (thầy bắt lỗi nhãn P0..Pn).
+diff --git a/BAN_TRICH_HAM_HH6_CH05.md b/BAN_TRICH_HAM_HH6_CH05.md
+index 94f3e4d..e949ee4 100644
+--- a/BAN_TRICH_HAM_HH6_CH05.md
++++ b/BAN_TRICH_HAM_HH6_CH05.md
+@@ -15,6 +15,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t
+ 
+ | Hàm (chữ ký) | Dùng khi |
+ |---|---|
++| `chu_so_7doan(so, x0=0.0, y0=0.0, rong=1.0, cao=2.0, mau=None, rong_net='dam')` | CHỮ SỐ kiểu 7-ĐOẠN (0..9) — cho bài TÂM đối xứng (lật nửa vòng 6↔9, giữ 0/1/2/5/8). Vẽ tại góc dưới-trái (x0,y0); rộng 'rong', cao 'cao' (đơn vị vẽ, mặc định 1×2 ô). Mỗi đoạn = nét ĐẬM. Gọi NHIỀU lần (đổi x0) để đặt các thẻ số cạnh nhau. rong_net ∈ {'vua','dam','rat_dam'}. mau=None → đen. |
+ | `chum_duong(tam, danh_sach, dai=3.0)` | CHÙM ĐƯỜNG THẲNG đồng quy tại 'tam'. danh_sach=[(tên, xoay°), …] — mỗi đường qua tâm, nghiêng 'xoay'° so ngang, dài 'dai' về mỗi phía. Nhãn cạnh 1 đầu. Dùng nhiều đường cắt nhau tại 1 điểm. |
+ | `chum_tia(dinh, danh_sach, cung=None)` | cung=[(canh1,canh2,số_đo), ...] để vẽ + kiểm góc giữa 2 tia. |
+ | `cung(tam, goc_dau, goc_cuoi, mau='red', net='lien')` | CUNG của đường tròn tâm 'tam', quét từ 'goc_dau' đến 'goc_cuoi' (độ, góc ở tâm). Mặc định đỏ (yếu tố nhấn ở lời giải). Dùng đánh dấu 1 phần đường tròn / cung tròn. |
+@@ -43,8 +44,8 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t
+ | `hai_duong(ten1, ten2, quan_he)` | quan_he ∈ {'cat','song_song','trung'}. Máy đặt thỏa quan hệ + PHANH kiểm. |
+ | `hinh_thang(A, B, Cc, D, day_tren=3.0, day_duoi=5.0, cao=2.5, lech=0.8)` | Hình THANG thường: A,B = đáy trên (day_tren); D,C = đáy dưới (day_duoi); AB ∥ DC (PHANH song_song). cao = chiều cao; lech = dời ngang đáy trên. Thang CÂN dùng hinh_thang_can. |
+ | `hinh_thang_can(A, B, Cc, D, day_nho=3.0, day_lon=5.0, cao=2.5, cheo=False)` | Hình thang cân đối xứng qua trục dọc: A,B = đáy nhỏ (trên); D,C = đáy lớn (dưới). A trên-trái, B trên-phải, C dưới-phải, D dưới-trái. cheo=True → vẽ 2 đường chéo (AC, BD — bằng nhau). |
+-| `hinh_thoi(A, B, Cc, D, canh=3.0, goc=60, cheo=False, tam=None)` | Hình thoi dạng "kim cương": A trái, B trên, C phải, D dưới. canh = độ dài cạnh; goc = góc tại đỉnh A (và C), độ (mặc định 60°). cheo=True → vẽ 2 đường chéo (AC ngang, BD dọc). tam = tên tâm (chấm). |
+-| `hinh_vuong(M, N, P_, Q, canh=3.0)` | Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải. canh = độ dài cạnh. PHANH: 4 cạnh bằng nhau + góc tại M vuông (90°). |
++| `hinh_thoi(A, B, Cc, D, a=4, b=3, cheo=True, tam='O')` | Hình thoi "kim cương" dựng theo 2 nửa chéo NGUYÊN ô → tâm + 4 đỉnh rơi NÚT lưới. a = nửa chéo NGANG (ô; OA = OC); b = nửa chéo DỌC (ô; OB = OD). A trái, B trên, C phải, D dưới. cheo=True vẽ 2 chéo (AC ngang, BD dọc). tam = tên tâm O (chấm; None để bỏ). (Đổi từ cạnh+góc → chéo-lưới, mốc 26g.) |
++| `hinh_vuong(M, N, P_, Q, canh=4)` | Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải. canh = độ dài cạnh (dùng CHẴN ô để tâm rơi NÚT lưới). PHANH: 4 cạnh bằng nhau + góc tại M vuông (90°). |
+ | `kim(R, vi_tri, loai='gio', tam='O')` | Vẽ MỘT kim đồng hồ từ tâm 'tam' ra hướng 'vi_tri' (thang 12 giờ, cho phép LẺ: vd 3.5 = giữa số 3 và 4). Tham số 'loai' chọn kiểu kim: · 'gio' → kim GIỜ ngắn + đậm (R*0.52, đen) · 'phut' → kim PHÚT dài + mảnh (R*0.86, đen) · 'giay' → kim GIÂY dài nhất + mảnh + ĐỎ (R*0.92, red) [thêm 25/08 — bài thật Hình 5] Mút kim là điểm ẩn (hien=False, không nhãn). Thường gọi qua mat_dong_ho(); tách phơi để dựng kim lẻ. Phân biệt các kim = ĐỘ DÀI + BỀ DÀY (+ MÀU cho giây) — chuẩn hoá tại đây để mọi bài đồng hồ ra ĐỒNG NHẤT, AI Soạn KHÔNG tự ghép primitive. KHÔNG đặt tên mút, KHÔNG cung góc. |
+ | `luc_giac_deu(A, B, Cc, D, E, F, canh=2.0, xoay=0, cheo=None, tam=None)` | Lục giác đều 6 đỉnh, thứ tự A→B→C→D→E→F theo chiều kim đồng hồ. Khi xoay=0: cạnh AB (trên) và ED (dưới) nằm ngang; C ở phải, F ở trái. canh = độ dài cạnh (= bán kính đường tròn ngoại tiếp). xoay = góc xoay cả hình (độ). cheo = None | 'chinh' (AD,BE,CF) | 'phu' (AC,BD,CE,DF,EA,FB) | 'tatca'. tam = tên tâm O (đặt → chấm tâm; 3 đường chéo chính đồng quy tại O). |
+ | `luoi(cot, hang)` | Lưới nền cot×hang ô (xám nhạt). |
+@@ -78,4 +79,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư
+ 
+ ---
+ 
+-**Thống kê:** 50 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
++**Thống kê:** 51 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
+diff --git a/hieuhoc_template.js b/hieuhoc_template.js
+index 5e35f9a..090b3a5 100644
+--- a/hieuhoc_template.js
++++ b/hieuhoc_template.js
+@@ -2405,7 +2405,10 @@ function hinhVe({ imageBuffer, rongCm = 8, tiLeGoc, chuThich }) {
+ // ═════════════════════════════════════════════════════════════
+ function hangHinh(items, { caoCm = 3.2 } = {}) {
+   if (!Array.isArray(items) || !items.length) throw new Error("[LỖI HÌNH] hangHinh(): cần mảng ≥ 1 hình.");
+-  if (items.length > 3) throw new Error(`[LỖI HÌNH] hangHinh(): 1 hàng tối đa 3 hình (đang ${items.length}). Dùng luoiHinh() để tự chia hàng (4→2+2, 5→3+2, 6→3+3).`);
++  // [v10.5] cho tối đa 4 hình/hàng nếu MỌI hình có rongCm và tổng ≤ 17cm (ô 8mm, hình nhỏ). Ngược lại giữ 3.
++  const _tongRong = items.reduce((a, it) => a + (it.rongCm || 0), 0);
++  const _maxHang = (items.every(it => it.rongCm) && _tongRong <= 17) ? 4 : 3;
++  if (items.length > _maxHang) throw new Error(`[LỖI HÌNH] hangHinh(): 1 hàng tối đa ${_maxHang} hình (đang ${items.length}). Dùng luoiHinh() để tự chia hàng.`);
+   const NONE = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
+   const noB = { top: NONE, bottom: NONE, left: NONE, right: NONE, insideHorizontal: NONE, insideVertical: NONE };
+   const DXA = cm => Math.round(cm * 567);
+@@ -2415,11 +2418,14 @@ function hangHinh(items, { caoCm = 3.2 } = {}) {
+     if (!it.imageBuffer) throw new Error("[LỖI HÌNH] hangHinh(): một phần tử thiếu imageBuffer.");
+     if (typeof it.chuThich === "string") _guardKyHieuGoc(it.chuThich, "hangHinh chuThich");
+     const ratio = it.tiLeGoc ? (typeof it.tiLeGoc === 'number' ? it.tiLeGoc : it.tiLeGoc.width / it.tiLeGoc.height) : (_tiLeAnh(it.imageBuffer) || 1);  // [v10.7] tự đọc tỉ lệ
+-    const phW = Math.round(phH * ratio);
++    // [v10.5-luoi4mm] Nếu item có rongCm → dùng làm bề rộng (ô lưới 4mm = 0,4×số ô), cao tự theo tỉ lệ (BỎ chuẩn-hoá caoCm)
++    let phW, phHi;
++    if (it.rongCm) { phW = Math.round(it.rongCm * 37.795); phHi = Math.round(phW / ratio); }
++    else { phHi = phH; phW = Math.round(phH * ratio); }
+     const oCm = phW / 37.795 + 0.5;                  // + lề trái/phải ô
+     ws.push(DXA(oCm));
+     const kids = [ new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 60, after: it.chuThich ? 10 : 60 },
+-      children: [ new ImageRun({ data: it.imageBuffer, transformation: { width: phW, height: phH }, type: "png", docId: _nextImgId() }) ] }) ];
++      children: [ new ImageRun({ data: it.imageBuffer, transformation: { width: phW, height: phHi }, type: "png", docId: _nextImgId() }) ] }) ];
+     if (it.chuThich) kids.push(para([run(it.chuThich, { italic: true, color: C_GRAY, size: SZ_SMALL })],
+       { align: AlignmentType.CENTER, before: 0, after: 60 }));
+     return new TableCell({ borders: noB, verticalAlign: VerticalAlign.CENTER, width: { size: DXA(oCm), type: WidthType.DXA },
+diff --git a/hinh_dagiac.py b/hinh_dagiac.py
+index 4e3af86..edca304 100644
+--- a/hinh_dagiac.py
++++ b/hinh_dagiac.py
+@@ -16,8 +16,8 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
+         self._diem(A, canh/2, canh*math.sqrt(3)/2, 'above')
+         self._da_giac(A, B, Cc)
+         self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(B,Cc),(Cc,A)]}); return self
+-    def hinh_vuong(self, M, N, P_, Q, canh=3.0):
+-        """Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải. canh = độ dài cạnh.
++    def hinh_vuong(self, M, N, P_, Q, canh=4):
++        """Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải. canh = độ dài cạnh (dùng CHẴN ô để tâm rơi NÚT lưới).
+         PHANH: 4 cạnh bằng nhau + góc tại M vuông (90°)."""
+         self._diem(M, 0, 0, 'below left'); self._diem(N, 0, canh, 'above left')
+         self._diem(P_, canh, canh, 'above right'); self._diem(Q, canh, 0, 'below right')
+@@ -41,13 +41,13 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
+     def tu_giac(self, A, B, Cc, D, loai=None):
+         """Tứ giác 4 đỉnh lồi, chiều kim đồng hồ. loai∈{None,'binh_hanh','chu_nhat'}."""
+         if loai == 'binh_hanh':
+-            self._diem(A,0.7,2,'above left'); self._diem(B,3.7,2,'above right')
+-            self._diem(Cc,3,0,'below right'); self._diem(D,0,0,'below left')
++            self._diem(A,1,2,'above left'); self._diem(B,4,2,'above right')
++            self._diem(Cc,3,0,'below right'); self._diem(D,0,0,'below left')  # tâm (2,1) NÚT
+             self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)})
+             self.rb.append({'loai':'song_song','doan1':(A,D),'doan2':(B,Cc)})
+         elif loai == 'chu_nhat':
+-            self._diem(A,0,2,'above left'); self._diem(B,3.5,2,'above right')
+-            self._diem(Cc,3.5,0,'below right'); self._diem(D,0,0,'below left')
++            self._diem(A,0,2,'above left'); self._diem(B,4,2,'above right')
++            self._diem(Cc,4,0,'below right'); self._diem(D,0,0,'below left')  # tâm (2,1) NÚT
+             self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)})
+             self.rb.append({'loai':'song_song','doan1':(A,D),'doan2':(B,Cc)})
+             self.rb.append({'loai':'goc','ten':[D,A,B],'do':90})
+@@ -136,14 +136,41 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
+         if to:
+             self.tikz.append(('to_mien', dinh, to))
+         return self
+-    def hinh_thoi(self, A, B, Cc, D, canh=3.0, goc=60, cheo=False, tam=None):
+-        """Hình thoi dạng "kim cương": A trái, B trên, C phải, D dưới.
+-        canh = độ dài cạnh; goc = góc tại đỉnh A (và C), độ (mặc định 60°).
+-        cheo=True → vẽ 2 đường chéo (AC ngang, BD dọc). tam = tên tâm (chấm)."""
+-        th = math.radians(goc/2.0)
+-        p, q = canh*math.cos(th), canh*math.sin(th)          # nửa chéo ngang / dọc
+-        self._diem(A, 0, q, 'left');    self._diem(B, p, 2*q, 'above')
+-        self._diem(Cc, 2*p, q, 'right'); self._diem(D, p, 0, 'below')
++    def chu_so_7doan(self, so, x0=0.0, y0=0.0, rong=1.0, cao=2.0, mau=None, rong_net='dam'):
++        """CHỮ SỐ kiểu 7-ĐOẠN (0..9) — cho bài TÂM đối xứng (lật nửa vòng 6↔9, giữ 0/1/2/5/8).
++        Vẽ tại góc dưới-trái (x0,y0); rộng 'rong', cao 'cao' (đơn vị vẽ, mặc định 1×2 ô).
++        Mỗi đoạn = nét ĐẬM. Gọi NHIỀU lần (đổi x0) để đặt các thẻ số cạnh nhau.
++        rong_net ∈ {'vua','dam','rat_dam'}. mau=None → đen."""
++        so = str(so)
++        SEG = {'0':'abcdef','1':'bc','2':'abged','3':'abgcd','4':'fgbc',
++               '5':'afgcd','6':'afgecd','7':'abc','8':'abcdefg','9':'abcdfg'}
++        if so not in SEG:
++            raise ValueError(f'chu_so_7doan chỉ nhận 0..9, nhận: {so!r}')
++        # 6 nút của khung số
++        TL=(x0,      y0+cao);   TR=(x0+rong, y0+cao)
++        ML=(x0,      y0+cao/2); MR=(x0+rong, y0+cao/2)
++        BL=(x0,      y0);       BR=(x0+rong, y0)
++        DOAN = {'a':(TL,TR),'b':(TR,MR),'c':(MR,BR),
++                'd':(BL,BR),'e':(BL,ML),'f':(TL,ML),'g':(ML,MR)}
++        if not hasattr(self,'_so7_id'): self._so7_id = 0
++        self._so7_id += 1; tag = self._so7_id
++        for s in SEG[so]:
++            p1,p2 = DOAN[s]
++            n1=f'_s7_{tag}_{s}1'; n2=f'_s7_{tag}_{s}2'
++            self._diem(n1,p1[0],p1[1],nhan=None,moc=False)
++            self._diem(n2,p2[0],p2[1],nhan=None,moc=False)
++            self.tikz.append(('doan', n1, n2, mau, 'lien', rong_net))
++        return self
++
++    def hinh_thoi(self, A, B, Cc, D, a=4, b=3, cheo=True, tam='O'):
++        """Hình thoi "kim cương" dựng theo 2 nửa chéo NGUYÊN ô → tâm + 4 đỉnh rơi NÚT lưới.
++        a = nửa chéo NGANG (ô; OA = OC);  b = nửa chéo DỌC (ô; OB = OD).
++        A trái, B trên, C phải, D dưới. cheo=True vẽ 2 chéo (AC ngang, BD dọc).
++        tam = tên tâm O (chấm; None để bỏ). (Đổi từ cạnh+góc → chéo-lưới, mốc 26g.)"""
++        a = int(round(a)); b = int(round(b))
++        ox, oy = a, b                                          # đặt O tại nút (a,b) → mọi toạ độ ≥ 0
++        self._diem(A, ox-a, oy, 'left');    self._diem(B, ox, oy+b, 'above')
++        self._diem(Cc, ox+a, oy, 'right');  self._diem(D, ox, oy-b, 'below')
+         self._da_giac(A, B, Cc, D)
+         self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(B,Cc),(Cc,D),(D,A)]})
+         self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)})
+@@ -152,7 +179,7 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
+             self.tikz.append(('noi', [A, Cc], False, None))
+             self.tikz.append(('noi', [B, D],  False, None))
+         if tam:
+-            self._diem(tam, p, q, 'below right')   # tâm = giao điểm cho sẵn → ĐEN (Đ40; đỏ chỉ cho yếu tố cần tìm)
++            self._diem(tam, ox, oy, 'below right')             # tâm cho sẵn → ĐEN (Đ40)
+         return self
+     def hinh_thang_can(self, A, B, Cc, D, day_nho=3.0, day_lon=5.0, cao=2.5, cheo=False):
+         """Hình thang cân đối xứng qua trục dọc: A,B = đáy nhỏ (trên); D,C = đáy lớn (dưới).
