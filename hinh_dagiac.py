@@ -136,6 +136,32 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         if to:
             self.tikz.append(('to_mien', dinh, to))
         return self
+    def chu_so_7doan(self, so, x0=0.0, y0=0.0, rong=1.0, cao=2.0, mau=None, rong_net='dam'):
+        """CHỮ SỐ kiểu 7-ĐOẠN (0..9) — cho bài TÂM đối xứng (lật nửa vòng 6↔9, giữ 0/1/2/5/8).
+        Vẽ tại góc dưới-trái (x0,y0); rộng 'rong', cao 'cao' (đơn vị vẽ, mặc định 1×2 ô).
+        Mỗi đoạn = nét ĐẬM. Gọi NHIỀU lần (đổi x0) để đặt các thẻ số cạnh nhau.
+        rong_net ∈ {'vua','dam','rat_dam'}. mau=None → đen."""
+        so = str(so)
+        SEG = {'0':'abcdef','1':'bc','2':'abged','3':'abgcd','4':'fgbc',
+               '5':'afgcd','6':'afgecd','7':'abc','8':'abcdefg','9':'abcdfg'}
+        if so not in SEG:
+            raise ValueError(f'chu_so_7doan chỉ nhận 0..9, nhận: {so!r}')
+        # 6 nút của khung số
+        TL=(x0,      y0+cao);   TR=(x0+rong, y0+cao)
+        ML=(x0,      y0+cao/2); MR=(x0+rong, y0+cao/2)
+        BL=(x0,      y0);       BR=(x0+rong, y0)
+        DOAN = {'a':(TL,TR),'b':(TR,MR),'c':(MR,BR),
+                'd':(BL,BR),'e':(BL,ML),'f':(TL,ML),'g':(ML,MR)}
+        if not hasattr(self,'_so7_id'): self._so7_id = 0
+        self._so7_id += 1; tag = self._so7_id
+        for s in SEG[so]:
+            p1,p2 = DOAN[s]
+            n1=f'_s7_{tag}_{s}1'; n2=f'_s7_{tag}_{s}2'
+            self._diem(n1,p1[0],p1[1],nhan=None,moc=False)
+            self._diem(n2,p2[0],p2[1],nhan=None,moc=False)
+            self.tikz.append(('doan', n1, n2, mau, 'lien', rong_net))
+        return self
+
     def hinh_thoi(self, A, B, Cc, D, canh=3.0, goc=60, cheo=False, tam=None):
         """Hình thoi dạng "kim cương": A trái, B trên, C phải, D dưới.
         canh = độ dài cạnh; goc = góc tại đỉnh A (và C), độ (mặc định 60°).

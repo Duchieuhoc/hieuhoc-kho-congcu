@@ -1,6 +1,12 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-26e
+Mốc kho      : 2026-08-26f
+
+[26f] chu_so_7doan (Ông Bụt 2026-08-27, cho B22 TÂM đối xứng) — hinh_dagiac.chu_so_7doan():
+      · chu_so_7doan(so, x0, y0, rong=1.0, cao=2.0, mau=None, rong_net='dam') — chữ số 0..9 kiểu
+        7 đoạn (mỗi đoạn nét đậm). Bài "ghép thẻ số có tâm đối xứng" (SBT 5.20): lật nửa vòng
+        6↔9, giữ 0/1/2/5/8. Gọi nhiều lần đổi x0 → đặt các thẻ cạnh nhau. Bài thật: SBT B22 5.20.
+      · Bản trích CH05 tái sinh (thêm 1 chữ ký).
 
 [26e] diem_luoi + nhan/cham: nhan=None → ẩn NHÃN tên · cham=False → ẩn CHẤM đỉnh.
       → Hình đa giác/gấp-khúc trên lưới (đếm trục, vẽ-thêm) dựng SẠCH (thầy bắt lỗi nhãn P0..Pn).
