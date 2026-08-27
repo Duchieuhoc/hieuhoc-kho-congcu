@@ -1,7 +1,12 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-26g
+Mốc kho      : 2026-08-27a
 
+[27a] hangHinh CĂN ĐÁY (Ông Bụt 2026-08-27, chỉ đạo Giám đốc) — hieuhoc_template.js:
+      · hangHinh: ô căn dọc CENTER → BOTTOM. Hàng/lưới nhiều hình cỡ khác nhau (giữ ô 8mm,
+        không chuẩn-hoá caoCm) → CĂN ĐÁY để chú thích thẳng hàng, đáy hình thẳng.
+      · Ảnh hưởng mọi hàng/lưới hình mọi bài (gồm B22) — cải thiện thuần, tương thích ngược
+        (không đổi chữ ký, không đụng hàm hình). Phát hiện khi dựng lại B21 ô 8mm.
 [26g] Chuẩn "tâm rơi NÚT lưới" + ô lưới 4mm (Ông Bụt 2026-08-27, chỉ đạo Giám đốc):
       · hinh_thoi ĐỔI chữ ký → dựng theo 2 nửa chéo NGUYÊN ô: hinh_thoi(A,B,C,D, a, b,
         cheo=True, tam='O'). Tâm + 4 đỉnh rơi NÚT lưới (bỏ cạnh+góc — cũ cho tâm giữa ô).

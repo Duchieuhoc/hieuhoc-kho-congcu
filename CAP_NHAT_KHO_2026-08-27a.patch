@@ -1,0 +1,13 @@
+diff --git a/hieuhoc_template.js b/hieuhoc_template.js
+index 090b3a5..f714f5b 100644
+--- a/hieuhoc_template.js
++++ b/hieuhoc_template.js
+@@ -2428,7 +2428,7 @@ function hangHinh(items, { caoCm = 3.2 } = {}) {
+       children: [ new ImageRun({ data: it.imageBuffer, transformation: { width: phW, height: phHi }, type: "png", docId: _nextImgId() }) ] }) ];
+     if (it.chuThich) kids.push(para([run(it.chuThich, { italic: true, color: C_GRAY, size: SZ_SMALL })],
+       { align: AlignmentType.CENTER, before: 0, after: 60 }));
+-    return new TableCell({ borders: noB, verticalAlign: VerticalAlign.CENTER, width: { size: DXA(oCm), type: WidthType.DXA },
++    return new TableCell({ borders: noB, verticalAlign: VerticalAlign.BOTTOM, width: { size: DXA(oCm), type: WidthType.DXA },
+       margins: { left: DXA(0.25), right: DXA(0.25) }, children: kids });
+   });
+   const tongDxa = ws.reduce((s, w) => s + w, 0);

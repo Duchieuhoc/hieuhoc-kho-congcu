@@ -25,5 +25,6 @@
 
 ### QT-4. Bố cục hình bài tập
 - **Hình đề mục ③④⑤ + hình lời giải tách: NEO PHẢI** (`hinhBenPhai` cho đề; `loiGiaiND.hinhLoiGiai` cho lời giải — tự float phải). Chỉ hình mục ② & Phần II để **dòng riêng căn giữa**.
+- **Hàng/lưới nhiều hình cỡ khác nhau:** ô **CĂN ĐÁY** (verticalAlign BOTTOM) → chú thích thẳng hàng, đáy hình thẳng. *(kho 2026-08-27a)*
 - **Hàng nhiều hình nhận biết:** khi ô nhỏ (8mm) và mọi hình có `rongCm`, `hangHinh` cho **tối đa 4 hình/hàng** nếu tổng bề rộng ≤ 17cm (vd Bài 1 nhận biết 4 hình).
 - **Phần III (trả lời ngắn):** đề định lượng đơn giản (đoạn thẳng, thoi cho sẵn số đo) **không cần hình** — bỏ hình cho gọn.
