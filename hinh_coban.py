@@ -450,6 +450,29 @@ class HinhCoBan:
         if kiem_bang is not None:
             self._nhom_bang.setdefault(kiem_bang, []).append((A, B))
         return self
+    def dau_goc_bang(self, goc, so_gach=1, ban_kinh=7, mau='orange', do=None):
+        """Đánh dấu GÓC (cung + 'so_gach' gạch tick) → thể hiện GÓC TƯƠNG ỨNG / HAI GÓC BẰNG NHAU.
+        Các góc bằng nhau (2 nửa do tia phân giác chia; hoặc góc tương ứng của 2 tam giác) dùng
+        CÙNG so_gach. goc = (canh1, dinh, canh2) đã đặt. do: số đo thật (None → tự tính). PHANH kiểm.
+        [Nhấc từ hinh_gocdt → base mốc 28a: ký hiệu bằng chung mạch tam giác 7→9, cạnh dau_bang/goc_vuong.]"""
+        A, O, B = goc
+        ox, oy = self.V[O]; ax, ay = self.V[A]; bx, by = self.V[B]
+        a1 = math.atan2(ay - oy, ax - ox); a2 = math.atan2(by - oy, bx - ox)
+        d = (a2 - a1) % (2 * math.pi)
+        do_thuc = do if do is not None else round(math.degrees(d if d <= math.pi else 2 * math.pi - d), 4)
+        self.so_do_goc(goc, do_thuc, hien_so=False, mau=mau, ban_kinh=ban_kinh)   # cung (PHANH kiểm)
+        mid = a1 + d / 2 if d <= math.pi else a1 - (2 * math.pi - d) / 2           # phân giác trong
+        R = ban_kinh / 10.0
+        spread = math.radians(7)
+        base = -(so_gach - 1) / 2.0
+        for i in range(so_gach):
+            ang = mid + (base + i) * spread
+            ux, uy = math.cos(ang), math.sin(ang)
+            t1, t2 = f'_gb{O}{A}{B}{i}a', f'_gb{O}{A}{B}{i}b'
+            self._diem(t1, ox + (R - 0.09) * ux, oy + (R - 0.09) * uy, nhan=None, moc=False)
+            self._diem(t2, ox + (R + 0.09) * ux, oy + (R + 0.09) * uy, nhan=None, moc=False)
+            self.tikz.append(('doan', t1, t2, mau))
+        return self
     def dau_song_song(self, A, B, so_mui=1):
         """Đánh dấu HƯỚNG SONG SONG trên đoạn A,B (đã đặt) bằng 'so_mui' mũi tên (1/2) —
         các đoạn cùng số mũi tên = cùng phương (ký hiệu >/>> như SGK). Chỉ đánh dấu."""

@@ -38,6 +38,24 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         self._diem(Cc, 0, 0, 'below left')
         if noi: self._da_giac(A, B, Cc)
         self.rb.append({'loai':'khong_thang_hang','diem':[A,B,Cc]}); return self
+    def tam_giac_can(self, A, B, Cc, canh_ben=3.0, day=2.4, danh_dau=True):
+        """Tam giác CÂN tại đỉnh A (A đỉnh trên; B–C đáy nằm ngang, B trái–C phải).
+        canh_ben = AB = AC (cạnh bên); day = BC (đáy). PHANH canh_bang (AB, AC).
+        danh_dau=True → tự vạch 1 gạch lên AB và AC (ký hiệu 2 cạnh bên bằng nhau);
+        đặt False khi hình chỉ ghi số đo, không hiện vạch. Yêu cầu canh_ben > day/2.
+        Cân tại đỉnh KHÁC → truyền đỉnh cân vào vị trí A (A luôn là đỉnh cân)."""
+        h2 = canh_ben**2 - (day/2.0)**2
+        if h2 <= 0:
+            raise ValueError(f"[tam_giac_can] canh_ben={canh_ben} phải > day/2={day/2.0} để có tam giác thật.")
+        h = math.sqrt(h2)
+        self._diem(B, 0, 0, 'below left')
+        self._diem(Cc, day, 0, 'below right')
+        self._diem(A, day/2.0, h, 'above')
+        self._da_giac(A, B, Cc)
+        self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(A,Cc)]})
+        if danh_dau:
+            self.dau_bang(A, B, 1); self.dau_bang(A, Cc, 1)
+        return self
     def tu_giac(self, A, B, Cc, D, loai=None):
         """Tứ giác 4 đỉnh lồi, chiều kim đồng hồ. loai∈{None,'binh_hanh','chu_nhat'}."""
         if loai == 'binh_hanh':

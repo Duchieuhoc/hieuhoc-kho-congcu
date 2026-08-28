@@ -1,4 +1,16 @@
-00_DANH_MUC — CAPNHAT_KHO (20h)
-gop_chuong.js — THÊM (tên tổng TONGHOP_<ma>_GV, 1 gạch)
-logo_hieuhoc.png — THÊM (PNG thật)
-00_KHO_VERSION.txt — THAY (20e→20h)
+GÓI: CAPNHAT_KHO__2026-08-28a  →  THẦY PUSH GITHUB (Duchieuhoc/hieuhoc-kho-congcu), Commit changes
+Mốc kho: 2026-08-28a  |  Ông Bụt 2026-08-28
+================================================================
+FILE — TRẠNG THÁI — GHI CHÚ
+- hinh_coban.py      — THAY  — +dau_goc_bang (nhấc từ hinh_gocdt; cạnh dau_bang/goc_vuong)
+- hinh_dagiac.py     — THAY  — +tam_giac_can(A,B,Cc,canh_ben,day,danh_dau)
+- hinh_gocdt.py      — THAY  — gỡ dau_goc_bang (để ghi chú; kế thừa từ base)
+- hinh_tamgiac.py    — THÊM  — entry mạch tam giác HH7-CH04+ : Hinh(HinhDaGiac, HinhTron)
+- 00_KHO_VERSION.txt — THAY  — bump mốc 28a + changelog
+----------------------------------------------------------------
+GHI CHÚ
+- BAN_TRICH_HAM_HH7_CH04.md KHÔNG vào gói này: .gitignore chặn BAN_TRICH_HAM_* ở kho từ 27c
+  → bản trích sống ở PROJECT (đi trong PROJ_OB + PROJ_AISOAN), tái sinh bằng sinh_bantrich.py.
+- Sau push: kho ra mốc 28a; PIN SHA mới vào 00_HOSO_BAI khi LƯU_BÀI.
+- Đã test: smoke 12/12 · quet_stamp SẠCH · cua_quet_hinh AST SẠCH · render 4 hình thật CH04 PASS ·
+  regression gocdt.dau_goc_bang (kế thừa) render đúng. Tương thích ngược 100%.

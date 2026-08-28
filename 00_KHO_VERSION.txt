@@ -1,6 +1,28 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-27c
+Mốc kho      : 2026-08-28a
+
+[28a] MẠCH TAM GIÁC HH7-CH04 (Ông Bụt 2026-08-28, chỉ đạo Giám đốc — luồng khảo sát hàm cả Chương IV):
+      Kê 186 khối hình / 18 file nguồn → đối chiếu kho: PHẦN LỚN tái dùng primitive SẴN CÓ
+      (tam_giac · dau_bang ×/××/××× · goc_vuong · tia_doi · tu_giac · trung_diem · diem_luoi ·
+      ngoi_sao · duong_tron). CHỈ 1 khe hở thật + 1 hạ tầng + 1 tiện ích:
+      (1) NHẤC dau_goc_bang: hinh_gocdt → hinh_coban.HinhCoBan (cạnh dau_bang/goc_vuong). "Một hàm một
+          nhà" — ký hiệu góc-bằng dùng CHUNG mọi entry mạch tam giác 7→9. hinh_gocdt.Hinh VẪN gọi được
+          (kế thừa HinhDaGiac→HinhCoBan). Thân hàm BYTE-nguyên → tương thích ngược 100%.
+      (2) +hinh_tamgiac.py [MỚI] — entry mạch TAM GIÁC: Hinh(HinhDaGiac, HinhTron). HH7-CH04 (Tam giác
+          bằng nhau) trở đi (CH05 · HH8 · HH9). CHỈ compose (mẫu hinh_ch8). MRO Hinh→HinhDaGiac→HinhTron
+          →HinhCoBan. Có đường tròn (compa B13 HĐ2/HĐ3 · B15 LT3 · B16 vẽ trung trực) + mọi ký hiệu bằng.
+      (3) +tam_giac_can(A,B,Cc, canh_ben=3.0, day=2.4, danh_dau=True) [hinh_dagiac] — tam giác CÂN đỉnh A,
+          tự vạch 1 gạch 2 cạnh bên (danh_dau). Xương sống Bài 16. PHANH canh_bang(AB,AC). Yêu cầu
+          canh_ben>day/2. Cân đỉnh khác → truyền đỉnh cân vào A.
+      GHI CHÚ: kyHieuGoc() ĐÃ XONG từ 23b (template + API_REFERENCE + Instructions "đã nghiệm thu", guard
+          chặn build) — bàn giao 28/08 ghi "đang treo" là CŨ/SAI, KHÔNG cần làm gì thêm.
+      Đã test bằng HÌNH THẬT CH04 (render PNG kiểm mắt): A=H4.20 c.g.c (2 tam giác · vạch 1/2 · cung góc
+          dau_goc_bang từ base) · B=tam giác cân H4.43 (auto-vạch) · C=tam giác vuông Bài 15 (ô vuông
+          goc_vuong) · D=ngôi sao TLHT B12. Smoke 12 module import sạch · reachability + REGRESSION
+          gocdt.dau_goc_bang (kế thừa) PASS · cua_quet_hinh AST gate SẠCH · quet_stamp SẠCH ·
+          +BAN_TRICH_HAM_HH7_CH04.md (52 hàm phơi). KHÔNG viết hàm phòng xa (Đ siết #1); trung trực/
+          tam giác vuông = ghép primitive (không đẻ wrapper — Đ siết #3).
 
 [27c] DỌN KHO — xóa 20 file rác + siết .gitignore (Ông Bụt 2026-08-28, chỉ đạo Giám đốc).
        KHÔNG đụng công cụ — tương thích ngược 100%, bài cũ pin SHA 27b tái lập y nguyên.
@@ -148,6 +170,10 @@ Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; 
                + mọi đa giác (hình thang/tam giác/tứ giác) KHÔNG đổi (chúng không gọi _duong_qua_diem).
                Tự dò nhánh trên theo dấu sin(xoay_c) → đúng cả ca vuông góc (z⊥, xoay_c=90) và góc thoải.
                Regression B09: đúng 15 hình cát-tuyến gọn lại, 9 hình còn lại byte y nguyên. Dùng chung 7→9.
+               HH7_CH04 (Chương IV lớp 7 — Tam giác bằng nhau) — entry **hinh_tamgiac.Hinh**
+               (HinhDaGiac + HinhTron; dùng chung 7→9). +tam_giac_can (hinh_dagiac). Ký hiệu bằng ở
+               BASE HinhCoBan: dau_bang (vạch cạnh) · goc_vuong (ô vuông) · dau_goc_bang (cung góc —
+               NHẤC từ hinh_gocdt mốc 28a, dùng chung). (BAN_TRICH_HAM_HH7_CH04.md 28a)
 Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
 Gộp chương   : gop_chuong.js (22/08) — GHÉP MẢNH: quét thư mục chương, mỗi gói mang sẵn
