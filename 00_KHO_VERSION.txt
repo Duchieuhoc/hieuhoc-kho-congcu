@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-27b
+Mốc kho      : 2026-08-27c
+
+[27c] DỌN KHO — xóa 20 file rác + siết .gitignore (Ông Bụt 2026-08-28, chỉ đạo Giám đốc).
+       KHÔNG đụng công cụ — tương thích ngược 100%, bài cũ pin SHA 27b tái lập y nguyên.
+       • Xóa: 5 .patch (23c/25a/26f/26g/27a) · 8 file hướng dẫn-push tạm (00_CAP_NHAT_KHO_26f/27a,
+         00_HUONG_DAN_26g, 00_HUONG_DAN_PUSH, 00_PUSH_README, 00_DOC_TRUOC, DOC_TRUOC__22g, VA_KHO_24a)
+         · build_b22.js + render_b22.py (script per-bài → thuộc LƯU_BÀI) · 4 BAN_TRICH_HAM_HH6_CH04/
+         CH05/CH08 + HH7_CH03 (tái sinh bằng sinh_bantrich.py) · CHUAN_v10_5_BOSUNG.md (đã gộp tài liệu).
+       • .gitignore siết: *.patch, build_*.js, render_*.py, BAN_TRICH_HAM_*.md, 00_HUONG_DAN*/00_PUSH*/
+         00_CAP_NHAT_KHO_*/DOC_TRUOC*/VA_KHO_*/CHUAN_*_BOSUNG — chống rác tái diễn.
+       • Lõi giữ nguyên: template + mọi hinh_*.py + tools + package* + API_REFERENCE + governance kho.
 
 [27b] LƯỚI 8mm + BỐ TRÍ THEO BỀ RỘNG (Ông Bụt 2026-08-27, chỉ đạo Giám đốc) — hieuhoc_template.js:
        • luoiHinh: bố trí hàng theo BỀ RỘNG THẬT (ô 8mm biết chắc rongCm) — ưu tiên 1 HÀNG

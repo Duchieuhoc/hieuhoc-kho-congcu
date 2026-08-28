@@ -1,3 +1,24 @@
+# ── Kho công cụ Hiếu Học — .gitignore (siết 2026-08-28, mốc 27c) ──
+# Rác sinh khi chạy
 __pycache__/
 *.pyc
 fig/
+
+# Bản vá delta — KHÔNG lưu kho (kho pin bằng SHA, không cần .patch)
+*.patch
+
+# Script build/render PER-BÀI — thuộc LƯU_BÀI.zip (Drive), KHÔNG thuộc kho công cụ
+build_*.js
+render_*.py
+
+# Bản trích hàm — TÁI SINH bằng sinh_bantrich.py, cấp cho AI Soạn qua Project
+BAN_TRICH_HAM_*.md
+
+# File hướng dẫn/push tạm giữa các phiên — dùng xong bỏ, không lưu kho
+00_HUONG_DAN*.md
+00_PUSH*.md
+00_CAP_NHAT_KHO_*.md
+00_DOC_TRUOC*.txt
+DOC_TRUOC*.txt
+VA_KHO_*.md
+CHUAN_*_BOSUNG.md
