@@ -2403,12 +2403,21 @@ function hinhVe({ imageBuffer, rongCm = 8, tiLeGoc, chuThich }) {
 //   `luoiHinh`: tự chia hàng theo số lượng đã chốt — 1–3→1 hàng · 4→2+2 · 5→3+2 · 6→3+3.
 //   Chỉ dùng cho hình nhỏ + bộ liên quan; hình đơn/lớn/Phần II → vẫn hinhVe (dòng riêng).
 // ═════════════════════════════════════════════════════════════
-function hangHinh(items, { caoCm = 3.2 } = {}) {
+function hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {}) {
   if (!Array.isArray(items) || !items.length) throw new Error("[LỖI HÌNH] hangHinh(): cần mảng ≥ 1 hình.");
-  // [v10.5] cho tối đa 4 hình/hàng nếu MỌI hình có rongCm và tổng ≤ 17cm (ô 8mm, hình nhỏ). Ngược lại giữ 3.
-  const _tongRong = items.reduce((a, it) => a + (it.rongCm || 0), 0);
-  const _maxHang = (items.every(it => it.rongCm) && _tongRong <= 17) ? 4 : 3;
-  if (items.length > _maxHang) throw new Error(`[LỖI HÌNH] hangHinh(): 1 hàng tối đa ${_maxHang} hình (đang ${items.length}). Dùng luoiHinh() để tự chia hàng.`);
+  // [27b] Trần 1 hàng theo BỀ RỘNG THẬT (ô 8mm biết chắc rongCm), không đếm cứng.
+  //   Mọi hình có rongCm → cho nhiều hình miễn tổng bề rộng (kể cả khe) ≤ 17,5cm.
+  //   Thiếu rongCm (không đo được) → giữ trần cũ 3 hình/hàng.
+  //   luoiHinh gọi (_tuLuoi) đã tự tính bề rộng → tin, không chặn lại.
+  const _KHE = 0.4, _NG = 17.5;
+  if (!_tuLuoi) {
+    if (items.every(it => typeof it.rongCm === "number")) {
+      const _tong = items.reduce((a, it) => a + it.rongCm, 0) + _KHE * (items.length - 1);
+      if (_tong > _NG) throw new Error(`[LỖI HÌNH] hangHinh(): 1 hàng rộng ${_tong.toFixed(1)}cm > ${_NG}cm. Dùng luoiHinh() để tự chia hàng.`);
+    } else if (items.length > 3) {
+      throw new Error(`[LỖI HÌNH] hangHinh(): thiếu rongCm nên trần 3 hình/hàng (đang ${items.length}). Dùng luoiHinh().`);
+    }
+  }
   const NONE = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
   const noB = { top: NONE, bottom: NONE, left: NONE, right: NONE, insideHorizontal: NONE, insideVertical: NONE };
   const DXA = cm => Math.round(cm * 567);
@@ -2418,7 +2427,7 @@ function hangHinh(items, { caoCm = 3.2 } = {}) {
     if (!it.imageBuffer) throw new Error("[LỖI HÌNH] hangHinh(): một phần tử thiếu imageBuffer.");
     if (typeof it.chuThich === "string") _guardKyHieuGoc(it.chuThich, "hangHinh chuThich");
     const ratio = it.tiLeGoc ? (typeof it.tiLeGoc === 'number' ? it.tiLeGoc : it.tiLeGoc.width / it.tiLeGoc.height) : (_tiLeAnh(it.imageBuffer) || 1);  // [v10.7] tự đọc tỉ lệ
-    // [v10.5-luoi4mm] Nếu item có rongCm → dùng làm bề rộng (ô lưới 4mm = 0,4×số ô), cao tự theo tỉ lệ (BỎ chuẩn-hoá caoCm)
+    // [27b] Nếu item có rongCm → dùng làm bề rộng (ô lưới 8mm = 0,8×số ô, kẹp 1,6–4,0cm cho hình đề), cao tự theo tỉ lệ (BỎ chuẩn-hoá caoCm)
     let phW, phHi;
     if (it.rongCm) { phW = Math.round(it.rongCm * 37.795); phHi = Math.round(phW / ratio); }
     else { phHi = phH; phW = Math.round(phH * ratio); }
@@ -2437,18 +2446,57 @@ function hangHinh(items, { caoCm = 3.2 } = {}) {
     columnWidths: ws, rows: [ new TableRow({ children: cells }) ] }) ];
 }
 
+// [27b] Bố trí hàng theo BỀ RỘNG THẬT (hình nền ô lưới 8mm — biết chắc rongCm).
+//   Ưu tiên 1 HÀNG NGANG nếu tổng bề rộng vừa khổ chữ; không vừa → 2 HÀNG CÂN ĐỐI
+//   (hàng trên ≥ dưới). Khổ chữ A4 lề 1,3cm = 18,4cm; chừa hao khe + an toàn → ngưỡng 17,5cm.
+const _LH_NGUONG_CM = 17.5;   // bề rộng tối đa 1 hàng (đã trừ hao)
+const _LH_KHE_CM = 0.4;       // khe giữa 2 hình liền kề
+function _lh_beRong(list) {    // tổng bề rộng 1 hàng (cm); null nếu thiếu rongCm
+  let s = 0;
+  for (const it of list) {
+    const r = it && typeof it.rongCm === "number" ? it.rongCm : null;
+    if (r === null) return null;
+    s += r;
+  }
+  return s + _LH_KHE_CM * Math.max(0, list.length - 1);
+}
 function luoiHinh(items, opts = {}) {
   if (!Array.isArray(items) || !items.length) throw new Error("[LỖI HÌNH] luoiHinh(): cần mảng ≥ 1 hình.");
   const n = items.length;
+  const nguong = typeof opts.nguongCm === "number" ? opts.nguongCm : _LH_NGUONG_CM;
+  const tong = _lh_beRong(items);
+
   let chia;
-  if (n <= 3) chia = [n];
-  else if (n === 4) chia = [2, 2];
-  else if (n === 5) chia = [3, 2];
-  else if (n === 6) chia = [3, 3];
-  else throw new Error(`[LỖI HÌNH] luoiHinh(): ${n} hình — bố cục > 6 chưa chốt. Tách thủ công bằng nhiều hangHinh().`);
+  if (tong === null) {
+    // Fallback (thiếu rongCm): chia theo SỐ LƯỢNG như cũ.
+    if (n <= 3) chia = [n];
+    else if (n === 4) chia = [2, 2];
+    else if (n === 5) chia = [3, 2];
+    else if (n === 6) chia = [3, 3];
+    else throw new Error(`[LỖI HÌNH] luoiHinh(): ${n} hình thiếu rongCm & > 6 — tách thủ công bằng nhiều hangHinh().`);
+  } else if (tong <= nguong) {
+    chia = [n];                                   // vừa → 1 hàng (kể cả >3 hình nhỏ)
+  } else {
+    // Không vừa → 2 hàng cân đối (hàng trên ≥ dưới). Kiểm mỗi hàng ≤ ngưỡng.
+    const top = Math.ceil(n / 2), bot = n - top;
+    const h1 = _lh_beRong(items.slice(0, top)), h2 = _lh_beRong(items.slice(top));
+    if (h1 <= nguong && h2 <= nguong) {
+      chia = [top, bot];
+    } else {
+      // Hình quá to cho 2 hàng cân đối → greedy theo bề rộng (số hàng tối thiểu).
+      chia = []; let cnt = 0, w = 0;
+      for (const it of items) {
+        const r = it.rongCm, add = (cnt ? _LH_KHE_CM : 0) + r;
+        if (cnt && w + add > nguong) { chia.push(cnt); cnt = 0; w = 0; }
+        cnt++; w += (cnt > 1 ? _LH_KHE_CM : 0) + r;
+      }
+      if (cnt) chia.push(cnt);
+    }
+  }
+
   const out = [];
   let i = 0;
-  for (const c of chia) { out.push(...hangHinh(items.slice(i, i + c), opts)); i += c; }
+  for (const c of chia) { out.push(...hangHinh(items.slice(i, i + c), { ...opts, _tuLuoi: true })); i += c; }
   return out;
 }
 

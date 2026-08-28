@@ -1,7 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-27a
+Mốc kho      : 2026-08-27b
 
+[27b] LƯỚI 8mm + BỐ TRÍ THEO BỀ RỘNG (Ông Bụt 2026-08-27, chỉ đạo Giám đốc) — hieuhoc_template.js:
+       • luoiHinh: bố trí hàng theo BỀ RỘNG THẬT (ô 8mm biết chắc rongCm) — ưu tiên 1 HÀNG
+         nếu tổng bề rộng (kể cả khe 0,4cm) ≤ 17,5cm (khổ chữ A4 lề 1,3cm = 18,4cm, trừ hao);
+         không vừa → 2 HÀNG CÂN ĐỐI (hàng trên ≥ dưới). Thiếu rongCm → fallback theo số lượng.
+       • hangHinh: trần 1 hàng theo bề rộng (≤17,5cm), KHÔNG đếm cứng ≤3/4 nữa.
+       • Chuẩn cỡ (tài liệu): rongCm = 0,8 × số ô, KẸP 1,6–4,0cm cho HÌNH ĐỀ; hình lời giải =
+         dùng lại đúng cỡ hình đề rồi vẽ thêm. Retire 4mm / 0,4 / K=0.256.
+       • Đồng bộ tài liệu: CHUAN_TRINH_BAY v10.5, PhuLucMon v2.12, Instructions_AI_Soan_HinhHoc v14.3,
+         API_REFERENCE (mục 22a2). Phạm vi rà hình cũ: Hình 6 → hết HH7 Ch3.
 [27a] hangHinh CĂN ĐÁY (Ông Bụt 2026-08-27, chỉ đạo Giám đốc) — hieuhoc_template.js:
       · hangHinh: ô căn dọc CENTER → BOTTOM. Hàng/lưới nhiều hình cỡ khác nhau (giữ ô 8mm,
         không chuẩn-hoá caoCm) → CĂN ĐÁY để chú thích thẳng hàng, đáy hình thẳng.
