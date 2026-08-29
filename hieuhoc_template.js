@@ -2427,7 +2427,7 @@ function hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {}) {
     if (!it.imageBuffer) throw new Error("[LỖI HÌNH] hangHinh(): một phần tử thiếu imageBuffer.");
     if (typeof it.chuThich === "string") _guardKyHieuGoc(it.chuThich, "hangHinh chuThich");
     const ratio = it.tiLeGoc ? (typeof it.tiLeGoc === 'number' ? it.tiLeGoc : it.tiLeGoc.width / it.tiLeGoc.height) : (_tiLeAnh(it.imageBuffer) || 1);  // [v10.7] tự đọc tỉ lệ
-    // [27b] Nếu item có rongCm → dùng làm bề rộng (ô lưới 8mm = 0,8×số ô, kẹp 1,6–4,0cm cho hình đề), cao tự theo tỉ lệ (BỎ chuẩn-hoá caoCm)
+    // [28c] Nếu item có rongCm → dùng làm bề rộng (ô lưới 8mm = 0,8×số ô — GIỮ 8mm, KHÔNG kẹp trần cứng 4,0), cao tự theo tỉ lệ (BỎ chuẩn-hoá caoCm)
     let phW, phHi;
     if (it.rongCm) { phW = Math.round(it.rongCm * 37.795); phHi = Math.round(phW / ratio); }
     else { phHi = phH; phW = Math.round(phH * ratio); }

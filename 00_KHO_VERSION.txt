@@ -1,6 +1,18 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28b
+Mốc kho      : 2026-08-28c
+
+[28c] DỌN COMMENT CỠ HÌNH theo luật 8mm mới (Ông Bụt 2026-08-29, chỉ đạo Giám đốc "OB làm phần
+      cần-trước để AI Soạn áp"): QC Bài 12 L1 lộ mm/ô lệch vì kẹp cứng 4,0cm (hình >5 ô co còn 5–5,7mm;
+      hình ② để 5,0 tuỳ tiện; so_o=3 để 2,6). Giám đốc chốt: GIỮ 8mm TUYỆT ĐỐI, hình bắt buộc rộng
+      ĐƯỢC vượt trần. Luật gốc ở 3 tài liệu (CHUAN_TRINH_BAY A.3 · PhuLuc mục 10 · Instructions):
+      **rongCm = 0,8×so_o (BẤT BIẾN), trần dưới 1,6; BỎ trần cứng 4,0 → trần MỀM** (neo-phải <9cm do
+      hinhVeTextBox chặn; căn giữa/luoiHinh theo bề rộng ≤17,5cm/hàng). AI Soạn dùng
+      `rc(so)=round(max(1,6 ; 0,8×so))`, KHÔNG override tay.
+      KHO: chỉ SỬA COMMENT (template không tự kẹp — luật ở tài liệu + rc() của AI Soạn):
+        · hieuhoc_template.js:2430 — bỏ "kẹp 1,6–4,0" → "giữ 8mm, không kẹp cứng".
+        · hinh_coban.py:42 — "rongCm = 0,4·so_o (ô 4mm)" (CỰC CŨ) → "0,8·so_o (ô 8mm)".
+      KHÔNG đổi logic (node -c OK · import sạch). Retire hẳn 0,4 / 4mm / kẹp-cứng-4,0 khỏi mọi comment.
 
 [28b] +tam_giac_goc · nhấc nhan_goc · +keo_dai — HOÀN THIỆN MẠCH TÍNH-GÓC (Ông Bụt 2026-08-29,
       chỉ đạo Giám đốc "OB kiểm tra dựng được HẾT trước khi giao AI Soạn"):

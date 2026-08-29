@@ -1,12 +1,9 @@
-00_DANH_MUC — CAPNHAT_KHO__2026-08-28b
-→ ĐÍCH: THẦY PUSH GitHub (Duchieuhoc/hieuhoc-kho-congcu) · Commit changes · ĐẨY TRƯỚC gói giao AI Soạn
-================================================================================
-File                 — thay/thêm — ghi chú
-hinh_dagiac.py       — THAY — +tam_giac_goc(A,B,Cc,goc_B,goc_C,day): dựng tam giác THEO GÓC cho sẵn,
-                              vẽ SẠCH 3 cạnh, PHANH cả 3 góc. Hàm cũ byte-nguyên.
-hinh_coban.py        — THAY — +nhan_goc (NHẤC từ hinh_gocdt → base: nhãn CHỮ 'x' góc chưa biết)
-                              +keo_dai (kéo dài cạnh qua đỉnh, không dời đỉnh → GÓC NGOÀI)
-hinh_gocdt.py        — THAY — gỡ def nhan_goc (đã nhấc về base) → thay ghi chú; phần khác byte-nguyên
-00_KHO_VERSION.txt   — THAY — bump mốc 28a → 28b + log 3 bổ sung
---------------------------------------------------------------------------------
-Sau push: kho mốc = 2026-08-28b. Smoke 12 sạch · stamp V11.6 sạch (OB đã kiểm).
+GÓI: CAPNHAT_KHO__2026-08-28c  →  THẦY PUSH GITHUB (Commit changes)
+Mốc kho: 2026-08-28c  |  Ông Bụt 2026-08-29
+================================================================
+- hieuhoc_template.js — THAY — comment dòng 2430: bỏ "kẹp 1,6–4,0" → "giữ 8mm, không kẹp cứng" (LOGIC KHÔNG ĐỔI)
+- hinh_coban.py       — THAY — comment dòng 42: "0,4·so_o (ô 4mm)" → "0,8·so_o (ô 8mm)" (LOGIC KHÔNG ĐỔI)
+- 00_KHO_VERSION.txt  — THAY — bump 28c + changelog
+----------------------------------------------------------------
+GHI CHÚ: Chỉ SỬA COMMENT — template KHÔNG tự kẹp rongCm (luật cỡ hình nằm ở tài liệu + rc() của AI Soạn).
+  Gate: quet_stamp SẠCH · 12/12 import · node -c OK. KHÔNG có 28d (đã chốt giữ _locNguon).

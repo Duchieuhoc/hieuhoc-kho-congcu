@@ -39,7 +39,7 @@ class HinhCoBan:
         # ── [26a] NỀN Ô LƯỚI 4mm (mờ) phủ CẢ khung — áp cho MỌI hình ──
         self._nen_luoi = True        # True → tự vẽ nền ô lưới cho mọi hình
         self._nen_mau = 'black!12'   # màu viền lưới — THẬT NHẠT (ít thấy viền)
-        self.so_o_ngang = None       # số ô ngang khung (đặt sau ve) → rongCm = 0,4*so_o_ngang (ô 4mm)
+        self.so_o_ngang = None       # số ô ngang khung (đặt sau ve) → docx rongCm = 0,8·so_o_ngang (ô 8mm; retire 0,4/4mm — mốc 28c)
         self.so_o_doc = None
     def _diem(self, ten, x, y, nhan='above right', moc=True, mau=None):
         self.V[ten] = (x, y); self.nhan[ten] = nhan
