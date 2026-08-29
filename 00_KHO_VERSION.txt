@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28d
+Mốc kho      : 2026-08-28e
+
+[28e] +NHÃN SỐ HÌNH mục III↓ (Ông Bụt 2026-08-29, chỉ đạo Giám đốc "đưa nhãn đánh số vào từ các dạng
+      toán trở xuống để dễ làm việc với học sinh"). Trước: đề nhắc "Hình N" nhưng hình neo phải + cụm
+      luoiHinh KHÔNG hiện số (fig() không truyền nhãn) → HS khó đối chiếu. VÁ:
+      · luoiHinh(items, {nhan:"Hình N"}) — THÊM caption "Hình N" căn giữa (nghiêng) dưới cụm; hình con
+        là a) b) c) thuộc Hình N. (template)
+      · Hình đơn neo phải: dùng ve(nhan="Hình N") sẵn có → nướng caption dưới hình.
+      Quy tắc (CHUAN A.3 + Instructions): MỤC III (Các dạng toán) TRỞ XUỐNG mọi hình HIỆN "Hình N".
+      Mục ② + Phần II giữ hinhVe(chuThich="Hình N. …"). Test: ve(nhan) nướng OK · luoiHinh caption
+      căn giữa OK · node -c OK. AI Soạn áp ở L4 (đề↔hình đã có sẵn số 1–17).
 
 [28d] VÁ 2 LỖI HỆ THỐNG + 1 GATE (Ông Bụt 2026-08-29, chỉ đạo Giám đốc — báo cáo BAO_OB phát hiện
       khi soi B12 bằng WORD THẬT; LibreOffice che 2 lỗi). Tự phê: QC trước đo cỡ hình DANH NGHĨA

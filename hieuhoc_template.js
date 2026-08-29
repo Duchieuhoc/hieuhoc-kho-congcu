@@ -2505,6 +2505,12 @@ function luoiHinh(items, opts = {}) {
   const out = [];
   let i = 0;
   for (const c of chia) { out.push(...hangHinh(items.slice(i, i + c), { ...opts, _tuLuoi: true })); i += c; }
+  // [28e] Nhãn số hình cho cụm (mục III↓): opts.nhan = "Hình N" → caption căn giữa dưới cụm,
+  //   giúp GV/HS đối chiếu. Các hình con trong cụm là a) b) c) thuộc Hình N.
+  if (opts.nhan) {
+    out.push(para([run(String(opts.nhan), { italic: true, size: SZ_SMALL })],
+      { align: AlignmentType.CENTER, before: 20, after: 40 }));
+  }
   return out;
 }
 

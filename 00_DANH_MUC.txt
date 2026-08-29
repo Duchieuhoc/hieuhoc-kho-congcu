@@ -1,8 +1,7 @@
-GÓI: CAPNHAT_KHO__2026-08-28d  →  THẦY PUSH GITHUB (Commit changes)
-Mốc kho: 2026-08-28d  |  Ông Bụt 2026-08-29
+GÓI: CAPNHAT_KHO__2026-08-28e  →  THẦY PUSH GITHUB (Commit changes)
+Mốc kho: 2026-08-28e  |  Ông Bụt 2026-08-29
 ================================================================
-- hinh_coban.py       — THAY — [Đ-C] ve() đo bề rộng ảnh thật → set h.be_rong_anh_cm + h.rong_cm (ô 8mm THẬT)
-- hieuhoc_template.js — THAY — [Đ-B] tieuDeMucChinh map ①-⑨→La Mã I.-IX.; [Đ-A] kiemMay guard thiếu tenBaiHoc
-- 00_KHO_VERSION.txt  — THAY — bump 28d + changelog
+- hieuhoc_template.js — THAY — luoiHinh nhận opts.nhan → caption "Hình N" căn giữa dưới cụm (mục III↓)
+- 00_KHO_VERSION.txt  — THAY — bump 28e + changelog
 ----------------------------------------------------------------
-GATE: quet_stamp SẠCH · 12/12 import · node -c OK · AST sạch. TEST: mm/ô=8,0 mọi hình · marker "I./II." · guard bắt đúng.
+GHI CHÚ: hinh_coban KHÔNG đổi mốc này. ve(nhan=) đã sẵn (không sửa). node -c OK · stamp SẠCH · import OK.
