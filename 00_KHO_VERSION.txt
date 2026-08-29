@@ -1,6 +1,10 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28e
+Mốc kho      : 2026-08-28g
+
+[28g] 5 điểm Giám đốc soi Bài 13 (QC V2): (①③) hieuhoc_template.js run() TÁCH-FONT ký hiệu (△ ✗ ✓ ▸ ∥ ⊥ ∠…) → FONT_KYHIEU 'Segoe UI Symbol' (TNR thiếu glyph, hết tofu □) · (②) +tam_giac_canh (dựng tam giác 3 CẠNH-SSS, đúng tỉ lệ) + cung(ban_kinh=) & cung_qua (CUNG NGẮN đánh dấu chỗ giao, không vẽ trọn đường tròn) (Ông Bụt 2026-08-29). GỘP cả [28f] diem_doi_xung_truc (28f chưa push → 28g thay).
+
+[28f] +diem_doi_xung_truc (phản chiếu điểm qua trục — điểm thứ 4 cánh diều/đối xứng) · REGEN bản trích lộ tam_giac_goc/nhan_goc/keo_dai (trước bị stale 51→55) (Ông Bụt 2026-08-29, QC Vòng 2 Bài 13)
 
 [28e] +NHÃN SỐ HÌNH mục III↓ (Ông Bụt 2026-08-29, chỉ đạo Giám đốc "đưa nhãn đánh số vào từ các dạng
       toán trở xuống để dễ làm việc với học sinh"). Trước: đề nhắc "Hình N" nhưng hình neo phải + cụm

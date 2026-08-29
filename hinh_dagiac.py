@@ -84,6 +84,47 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         self.rb.append({'loai':'goc','ten':[B, A, Cc],'do': round(goc_A, 6)})
         self.rb.append({'loai':'khong_thang_hang','diem':[A, B, Cc]})
         return self
+    def diem_doi_xung_truc(self, new, P, A, B, nhan='above right', mau=None):
+        """Đặt điểm 'new' = ẢNH của điểm P qua TRỤC (đường thẳng) AB — phản chiếu.
+        P, A, B phải ĐÃ đặt trước. Máy tự tính ảnh (KHÔNG cho toạ độ). Dùng dựng
+        điểm đối xứng: điểm thứ 4 hình cánh diều (AC=AD, BC=BD), ảnh qua trục,
+        đỉnh tam giác cân... dau_bang/so_do_goc gọi SAU để đánh dấu/kiểm."""
+        for t in (P, A, B):
+            if t not in self.V:
+                raise ValueError(f"[diem_doi_xung_truc] điểm '{t}' chưa đặt.")
+        px, py = self.V[P]; ax, ay = self.V[A]; bx, by = self.V[B]
+        dx, dy = bx - ax, by - ay
+        d2 = dx*dx + dy*dy
+        if d2 < 1e-12:
+            raise ValueError("[diem_doi_xung_truc] A≡B: trục không xác định.")
+        t = ((px - ax)*dx + (py - ay)*dy) / d2      # chiếu P lên AB
+        fx, fy = ax + t*dx, ay + t*dy                # chân vuông góc
+        self._diem(new, 2*fx - px, 2*fy - py, nhan, mau=mau)   # P' = 2F − P
+        return self
+    def tam_giac_canh(self, A, B, Cc, AB, BC, CA):
+        """Tam giác ABC dựng từ 3 CẠNH cho sẵn (SSS): |AB|, |BC|, |CA| (đơn vị bất kỳ,
+        giữ ĐÚNG TỈ LỆ). Đáy BC nằm ngang: B dưới-trái (0,0), C dưới-phải (BC,0);
+        A đỉnh trên = giao hai đường tròn (tâm B bk AB) ∩ (tâm C bk CA). VẼ SẠCH 3 cạnh.
+        Dùng cho 'dựng tam giác biết ba cạnh' bằng compa (đề 4-5-6…) — A đặt ĐÚNG chỗ
+        giao, hai cung sau đó có bán kính AB, CA khớp. PHANH kiểm 3 điểm không thẳng hàng.
+        Bất đẳng thức tam giác phải thoả (tổng 2 cạnh > cạnh còn lại)."""
+        AB, BC, CA = float(AB), float(BC), float(CA)
+        for a, b, c, ten in [(AB,CA,BC,'AB+CA'),(AB,BC,CA,'AB+BC'),(BC,CA,AB,'BC+CA')]:
+            if a + b <= c + 1e-9:
+                raise ValueError(f"[tam_giac_canh] {ten} ≤ cạnh còn lại — không thành tam giác "
+                    f"(AB={AB}, BC={BC}, CA={CA}).")
+        xA = (AB*AB - CA*CA + BC*BC) / (2.0 * BC)
+        yA2 = AB*AB - xA*xA
+        if yA2 <= 0:
+            raise ValueError(f"[tam_giac_canh] bộ cạnh suy biến (AB={AB}, BC={BC}, CA={CA}).")
+        import math as _m
+        yA = _m.sqrt(yA2)
+        self._diem(B, 0.0, 0.0, 'below left')
+        self._diem(Cc, BC, 0.0, 'below right')
+        self._diem(A, xA, yA, 'above')
+        self._da_giac(A, B, Cc)
+        self.rb.append({'loai':'khong_thang_hang','diem':[A, B, Cc]})
+        return self
     def tu_giac(self, A, B, Cc, D, loai=None):
         """Tứ giác 4 đỉnh lồi, chiều kim đồng hồ. loai∈{None,'binh_hanh','chu_nhat'}."""
         if loai == 'binh_hanh':

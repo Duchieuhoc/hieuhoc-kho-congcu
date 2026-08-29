@@ -461,6 +461,11 @@ async function xuatFile(doc, duongDan, opts = {}) {
 // HẰNG SỐ CHUẨN — KHÔNG ĐƯỢC SỬA
 // ─────────────────────────────────────────────────────────────
 const TNR = "Times New Roman";
+// [28g] Font PHỦ ký hiệu hình học/dấu mà Times New Roman THIẾU glyph (△ ✗ ✓ ▸ ∥ ⊥ ∠…)
+// → tránh tofu □. run() tự TÁCH: phần glyph đặc biệt dùng font này, chữ thường vẫn TNR.
+// (Bài học B12 Đ-B: TNR thiếu số khoanh tròn; nay △/✗/✓ cùng lớp lỗi — xử một lượt.)
+const FONT_KYHIEU = "Segoe UI Symbol";
+const _RE_GLYPH = /[\u25B2\u25B3\u25BC\u25BD\u25B8\u25B9\u25BA\u25C4\u25CB\u25A1\u2713\u2714\u2715\u2717\u2718\u2295\u2225\u22A5\u2220\u2261]/;
 const C_BLACK = "000000";
 const C_RED = "C00000";
 const C_RED_ANSWER = "DC2626";
@@ -630,14 +635,22 @@ function _nextImgId() { return ++_imgIdCounter; }
 // HÀM CƠ SỞ (không gọi trực tiếp từ AI Soạn, dùng nội bộ)
 // ─────────────────────────────────────────────────────────────
 function run(text, opts = {}) {
-  return new TextRun({
-    text, font: TNR,
+  const fmt = {
     bold: opts.bold || false,
     italics: opts.italic || false,
     underline: opts.underline ? { type: UnderlineType.SINGLE } : undefined,
     color: opts.color || C_BLACK,
     size: opts.size || SZ_CONTENT,
-  });
+  };
+  // [28g] TÁCH-FONT: nếu chuỗi có ký hiệu TNR thiếu glyph → phần đó dùng FONT_KYHIEU,
+  // chữ thường giữ TNR (giữ dáng serif). Trả về 1 TextRun cha ôm các con → caller không đổi.
+  if (typeof text === "string" && _RE_GLYPH.test(text)) {
+    const parts = text.split(new RegExp("(" + _RE_GLYPH.source + "+)"));
+    const kids = parts.filter(p => p !== "").map(p =>
+      new TextRun({ text: p, font: _RE_GLYPH.test(p) ? FONT_KYHIEU : TNR, ...fmt }));
+    return new TextRun({ children: kids });
+  }
+  return new TextRun({ text, font: TNR, ...fmt });
 }
 
 // A5 v9.0: hỗ trợ keepLines / keepNext — chống nhảy trang 2 tầng

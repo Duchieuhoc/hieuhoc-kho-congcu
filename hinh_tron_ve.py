@@ -65,13 +65,30 @@ class HinhTron(hinh_coban.HinhCoBan):
             self.tikz.append(('so_o', ox + ban_kinh*math.cos(a), oy + ban_kinh*math.sin(a), str(nhan)))
         return self
 
-    def cung(self, tam, goc_dau, goc_cuoi, mau='red', net='lien'):
+    def cung(self, tam, goc_dau, goc_cuoi, mau='red', net='lien', ban_kinh=None):
         """CUNG của đường tròn tâm 'tam', quét từ 'goc_dau' đến 'goc_cuoi' (độ, góc ở tâm).
-        Mặc định đỏ (yếu tố nhấn ở lời giải). Dùng đánh dấu 1 phần đường tròn / cung tròn."""
-        if tam not in self.tron:
-            raise ValueError(f"cung: chưa khai đường tròn tâm '{tam}'.")
-        r = self.tron[tam]
+        Mặc định đỏ (yếu tố nhấn ở lời giải). Dùng đánh dấu 1 phần đường tròn / cung tròn.
+        ban_kinh=None → lấy bán kính đường tròn ĐÃ khai (cần duong_tron trước).
+        ban_kinh=<số> → vẽ CHỈ CUNG bán kính đó, KHÔNG cần vẽ trọn đường tròn."""
+        if ban_kinh is not None:
+            r = float(ban_kinh)
+        else:
+            if tam not in self.tron:
+                raise ValueError(f"cung: chưa khai đường tròn tâm '{tam}' (hoặc truyền ban_kinh=).")
+            r = self.tron[tam]
         self.tikz.append(('cung', tam, r, float(goc_dau), float(goc_cuoi), mau, net))
+        return self
+
+    def cung_qua(self, tam, qua, ban_kinh=None, mo=28, mau='black', net='dut'):
+        """Vẽ CUNG NGẮN của đường tròn tâm 'tam' ĐI QUA điểm 'qua' — đánh dấu chỗ giao compa,
+        KHÔNG vẽ trọn đường tròn. Bán kính = ban_kinh (nếu cho) hoặc |tam→qua|; quét ±'mo'°
+        quanh hướng tâm→qua. Dựng tam giác/điểm bằng compa: cung_qua(B,A)+cung_qua(C,A) cắt tại A."""
+        if tam not in self.V or qua not in self.V:
+            raise ValueError(f"cung_qua: cần đặt trước tâm '{tam}' và điểm '{qua}'.")
+        ox, oy = self.V[tam]; qx, qy = self.V[qua]
+        r = float(ban_kinh) if ban_kinh is not None else math.hypot(qx - ox, qy - oy)
+        ang = math.degrees(math.atan2(qy - oy, qx - ox))
+        self.tikz.append(('cung', tam, r, ang - mo, ang + mo, mau, net))
         return self
 
     def goc_o_tam(self, tam, A, B, do=None, danh_dau=True):
