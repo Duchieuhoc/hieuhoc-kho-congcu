@@ -8,12 +8,15 @@ import math
 import hinh_coban
 
 class HinhDaGiac(hinh_coban.HinhCoBan):
-    def tam_giac_deu(self, A, B, Cc, canh=3.0, xoay=0):
+    def tam_giac_deu(self, A, B, Cc, canh=3.0, xoay=0, goc_o=(0.0, 0.0)):
         """Tam giác ĐỀU 3 đỉnh: B dưới-trái, C dưới-phải, A đỉnh trên. canh = độ dài cạnh
-        (mặc định 3.0). Ba cạnh bằng nhau (PHANH canh_bang). Dùng nhận dạng / hình nền."""
-        self._diem(B, 0, 0, 'below left')
-        self._diem(Cc, canh, 0, 'below right')
-        self._diem(A, canh/2, canh*math.sqrt(3)/2, 'above')
+        (mặc định 3.0). Ba cạnh bằng nhau (PHANH canh_bang). Dùng nhận dạng / hình nền.
+        goc_o=(dx,dy): DỜI cả tam giác đi (dx,dy) đơn vị vẽ — đặt NHIỀU tam giác cạnh nhau
+        trong 1 hình (hình nhận dạng cặp/bộ tam giác bằng nhau); mặc định (0,0) = gốc."""
+        ox, oy = goc_o
+        self._diem(B, ox+0, oy+0, 'below left')
+        self._diem(Cc, ox+canh, oy+0, 'below right')
+        self._diem(A, ox+canh/2, oy+canh*math.sqrt(3)/2, 'above')
         self._da_giac(A, B, Cc)
         self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(B,Cc),(Cc,A)]}); return self
     def hinh_vuong(self, M, N, P_, Q, canh=4):
@@ -31,32 +34,38 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         self._diem(Cc, day_duoi, 0, 'below right'); self._diem(D, 0, 0, 'below left')
         self._da_giac(A, B, Cc, D)
         self.rb.append({'loai':'song_song','doan1':(A,B),'doan2':(D,Cc)}); return self
-    def tam_giac(self, A, B, Cc, noi=True):
+    def tam_giac(self, A, B, Cc, noi=True, goc_o=(0.0, 0.0)):
         """Tam giác 3 đỉnh (không thẳng hàng). Thứ tự A→B→C chiều kim đồng hồ.
-        noi=False → chỉ ĐẶT 3 điểm (không nối cạnh) — dùng cho 'ba điểm không thẳng hàng'."""
-        self._diem(A, 1.4, 2.2, 'above'); self._diem(B, 2.8, 0, 'below right')
-        self._diem(Cc, 0, 0, 'below left')
+        noi=False → chỉ ĐẶT 3 điểm (không nối cạnh) — dùng cho 'ba điểm không thẳng hàng'.
+        goc_o=(dx,dy): DỜI cả tam giác đi (dx,dy) đơn vị vẽ — đặt NHIỀU tam giác cạnh nhau
+        trong 1 hình (hình nhận dạng cặp/bộ tam giác bằng nhau); mặc định (0,0) = gốc."""
+        ox, oy = goc_o
+        self._diem(A, ox+1.4, oy+2.2, 'above'); self._diem(B, ox+2.8, oy+0, 'below right')
+        self._diem(Cc, ox+0, oy+0, 'below left')
         if noi: self._da_giac(A, B, Cc)
         self.rb.append({'loai':'khong_thang_hang','diem':[A,B,Cc]}); return self
-    def tam_giac_can(self, A, B, Cc, canh_ben=3.0, day=2.4, danh_dau=True):
+    def tam_giac_can(self, A, B, Cc, canh_ben=3.0, day=2.4, danh_dau=True, goc_o=(0.0, 0.0)):
         """Tam giác CÂN tại đỉnh A (A đỉnh trên; B–C đáy nằm ngang, B trái–C phải).
         canh_ben = AB = AC (cạnh bên); day = BC (đáy). PHANH canh_bang (AB, AC).
         danh_dau=True → tự vạch 1 gạch lên AB và AC (ký hiệu 2 cạnh bên bằng nhau);
         đặt False khi hình chỉ ghi số đo, không hiện vạch. Yêu cầu canh_ben > day/2.
-        Cân tại đỉnh KHÁC → truyền đỉnh cân vào vị trí A (A luôn là đỉnh cân)."""
+        Cân tại đỉnh KHÁC → truyền đỉnh cân vào vị trí A (A luôn là đỉnh cân).
+        goc_o=(dx,dy): DỜI cả tam giác đi (dx,dy) đơn vị vẽ — đặt NHIỀU tam giác cạnh nhau
+        trong 1 hình (hình nhận dạng cặp/bộ tam giác bằng nhau); mặc định (0,0) = gốc."""
         h2 = canh_ben**2 - (day/2.0)**2
         if h2 <= 0:
             raise ValueError(f"[tam_giac_can] canh_ben={canh_ben} phải > day/2={day/2.0} để có tam giác thật.")
         h = math.sqrt(h2)
-        self._diem(B, 0, 0, 'below left')
-        self._diem(Cc, day, 0, 'below right')
-        self._diem(A, day/2.0, h, 'above')
+        ox, oy = goc_o
+        self._diem(B, ox+0, oy+0, 'below left')
+        self._diem(Cc, ox+day, oy+0, 'below right')
+        self._diem(A, ox+day/2.0, oy+h, 'above')
         self._da_giac(A, B, Cc)
         self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(A,Cc)]})
         if danh_dau:
             self.dau_bang(A, B, 1); self.dau_bang(A, Cc, 1)
         return self
-    def tam_giac_goc(self, A, B, Cc, goc_B, goc_C, day=4.0):
+    def tam_giac_goc(self, A, B, Cc, goc_B, goc_C, day=4.0, goc_o=(0.0, 0.0)):
         """Tam giác ABC với GÓC cho sẵn: góc tại B = goc_B, góc tại C = goc_C
         (góc A tự = 180 − goc_B − goc_C). Đáy BC nằm ngang: B dưới-trái (0,0),
         C dưới-phải (day,0); A đỉnh trên = giao hai tia BA, CA. VẼ SẠCH 3 cạnh
@@ -64,7 +73,9 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         Yêu cầu goc_B, goc_C > 0 và goc_B + goc_C < 180 để có tam giác thật.
         Số đo hiện qua so_do_goc((cạnh1,đỉnh,cạnh2)) gọi SAU — tuỳ hình lộ góc nào;
         góc vuông đánh bằng goc_vuong((cạnh1,đỉnh,cạnh2)). Xương sống mạch tính-góc
-        tam giác (HH7-CH04 → tam giác thường theo góc mọi lớp)."""
+        tam giác (HH7-CH04 → tam giác thường theo góc mọi lớp).
+        goc_o=(dx,dy): DỜI cả tam giác đi (dx,dy) đơn vị vẽ — đặt NHIỀU tam giác cạnh nhau
+        trong 1 hình (hình nhận dạng cặp/bộ tam giác bằng nhau); mặc định (0,0) = gốc."""
         goc_A = 180.0 - goc_B - goc_C
         if goc_B <= 0 or goc_C <= 0 or goc_A <= 0:
             raise ValueError(f"[tam_giac_goc] góc B={goc_B}°, C={goc_C}° ⇒ A={goc_A}°: "
@@ -74,9 +85,10 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         bR = math.radians(goc_B); cR = math.radians(goc_C)
         ba = day * math.sin(cR) / math.sin(bR + cR)   # BA = day·sinC / sin(B+C)
         xA = ba * math.cos(bR); yA = ba * math.sin(bR)
-        self._diem(B, 0.0, 0.0, 'below left')
-        self._diem(Cc, day, 0.0, 'below right')
-        self._diem(A, xA, yA, 'above')
+        ox, oy = goc_o
+        self._diem(B, ox+0.0, oy+0.0, 'below left')
+        self._diem(Cc, ox+day, oy+0.0, 'below right')
+        self._diem(A, ox+xA, oy+yA, 'above')
         self._da_giac(A, B, Cc)
         # PHANH: đối chiếu CẢ BA góc (đỉnh Ở GIỮA: ten=[cạnh1, đỉnh, cạnh2])
         self.rb.append({'loai':'goc','ten':[A, B, Cc],'do': round(goc_B, 6)})
@@ -101,13 +113,15 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         fx, fy = ax + t*dx, ay + t*dy                # chân vuông góc
         self._diem(new, 2*fx - px, 2*fy - py, nhan, mau=mau)   # P' = 2F − P
         return self
-    def tam_giac_canh(self, A, B, Cc, AB, BC, CA):
+    def tam_giac_canh(self, A, B, Cc, AB, BC, CA, goc_o=(0.0, 0.0)):
         """Tam giác ABC dựng từ 3 CẠNH cho sẵn (SSS): |AB|, |BC|, |CA| (đơn vị bất kỳ,
         giữ ĐÚNG TỈ LỆ). Đáy BC nằm ngang: B dưới-trái (0,0), C dưới-phải (BC,0);
         A đỉnh trên = giao hai đường tròn (tâm B bk AB) ∩ (tâm C bk CA). VẼ SẠCH 3 cạnh.
         Dùng cho 'dựng tam giác biết ba cạnh' bằng compa (đề 4-5-6…) — A đặt ĐÚNG chỗ
         giao, hai cung sau đó có bán kính AB, CA khớp. PHANH kiểm 3 điểm không thẳng hàng.
-        Bất đẳng thức tam giác phải thoả (tổng 2 cạnh > cạnh còn lại)."""
+        Bất đẳng thức tam giác phải thoả (tổng 2 cạnh > cạnh còn lại).
+        goc_o=(dx,dy): DỜI cả tam giác đi (dx,dy) đơn vị vẽ — đặt NHIỀU tam giác cạnh nhau
+        trong 1 hình (hình nhận dạng cặp/bộ tam giác bằng nhau); mặc định (0,0) = gốc."""
         AB, BC, CA = float(AB), float(BC), float(CA)
         for a, b, c, ten in [(AB,CA,BC,'AB+CA'),(AB,BC,CA,'AB+BC'),(BC,CA,AB,'BC+CA')]:
             if a + b <= c + 1e-9:
@@ -119,9 +133,10 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
             raise ValueError(f"[tam_giac_canh] bộ cạnh suy biến (AB={AB}, BC={BC}, CA={CA}).")
         import math as _m
         yA = _m.sqrt(yA2)
-        self._diem(B, 0.0, 0.0, 'below left')
-        self._diem(Cc, BC, 0.0, 'below right')
-        self._diem(A, xA, yA, 'above')
+        ox, oy = goc_o
+        self._diem(B, ox+0.0, oy+0.0, 'below left')
+        self._diem(Cc, ox+BC, oy+0.0, 'below right')
+        self._diem(A, ox+xA, oy+yA, 'above')
         self._da_giac(A, B, Cc)
         self.rb.append({'loai':'khong_thang_hang','diem':[A, B, Cc]})
         return self

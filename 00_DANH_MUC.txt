@@ -1,17 +1,12 @@
-# 00_DANH_MUC — CAPNHAT_KHO__2026-08-28g  (THAY cho 28f — 28f chưa push thì bỏ, push 28g này)
-# Đích: thầy UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes. Chiều A. Push TRƯỚC khi AI bụng kho L2.
+GÓI: CAPNHAT_KHO__28h — Ông Bụt 2026-08-30
+ĐÍCH: GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu) — thầy PUSH bằng web upload
+LUẬT SEQUENCING: PUSH gói này TRƯỚC khi AI Soạn clone (Bài 14).
 
-hieuhoc_template.js        — THAY — [①③] run() TÁCH-FONT: ký hiệu TNR thiếu glyph (△ ✗ ✓ ▸ ∥ ⊥ ∠ …)
-                                     → font 'Segoe UI Symbol'; chữ thường giữ Times New Roman. Hết tofu □.
-hinh_dagiac.py             — THAY — [②] +tam_giac_canh(A,B,C,AB,BC,CA): dựng tam giác 3 CẠNH (SSS), đúng tỉ lệ.
-                                     [28f] +diem_doi_xung_truc(new,P,A,B): phản chiếu điểm qua trục.
-hinh_tron_ve.py            — THAY — [②] cung(...,ban_kinh=): arc-only; +cung_qua(tam,qua,...): CUNG NGẮN đánh
-                                     dấu chỗ giao compa (KHÔNG vẽ trọn đường tròn).
-00_KHO_VERSION.txt         — THAY — Mốc kho 28e → 28g (gộp 28f + 5 điểm Giám đốc soi Bài 13).
-BAN_TRICH_HAM_HH7_CH04.md  — THAY — REGEN từ 28g. 51→57 hàm phơi (+tam_giac_goc/nhan_goc/keo_dai/
-                                     diem_doi_xung_truc/tam_giac_canh/cung_qua).
-00_DANH_MUC.txt            — THÊM — File này.
+FILE THAY THẾ (complete replacement, KHÔNG .patch):
+  1. hinh_dagiac.py      — +goc_o=(dx,dy) cho 5 hàm tam_giac_* (dời tam giác, đặt nhiều tam giác/1 hình)
+  2. 00_KHO_VERSION.txt  — bump mốc 28g → 28h + changelog [28h]
 
-# GATE sau vá: node -c template OK · quet_stamp V11.6 SẠCH · 12/12 module import sạch · hàm mới render OK ·
-#             docx build lại: △/✗/✓ vào Segoe UI Symbol, xml hợp lệ, kiemMay 0 lỗi.
-# Sau push: "mốc kho yêu cầu" trong luật/00_LUAT L2 → 2026-08-28g.
+CÁCH PUSH: upload đè 2 file trên vào gốc repo → commit. Xong chạy `git rev-parse HEAD`
+gửi OB (pin tái dựng). Mốc mới: 2026-08-28h.
+
+KHÔNG kèm bản trích (BAN_TRICH_HAM_*.md bị .gitignore — giao Project riêng, xem gói PROJ).

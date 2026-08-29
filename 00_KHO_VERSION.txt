@@ -1,6 +1,23 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28g
+Mốc kho      : 2026-08-28h
+
+[28h] +goc_o=(dx,dy) cho CẢ 5 hàm tam_giac_* (tam_giac · tam_giac_deu · tam_giac_can ·
+      tam_giac_goc · tam_giac_canh) — DỜI cả tam giác đi (dx,dy) để đặt NHIỀU tam giác
+      cạnh nhau trong 1 Hình (Ông Bụt 2026-08-30, chỉ đạo Giám đốc "OB suy nghĩ kỹ mà làm").
+      GỐC LỖI: 3 hàm dựng tam giác neo CỨNG B=(0,0), C=(day,0) → dựng tam giác thứ hai thì
+      N,M,P CHỒNG KHÍT lên A,B,C. Chặn phần lớn hình NHẬN DẠNG cặp/bộ tam giác bằng nhau của
+      Bài 14 (H.4.29 4 tam giác · H.4.31 · H.4.35 · H.4.38 · SBT 4.20/4.21 · minh hoạ TLHT).
+      Đây là rủi ro treo từ bàn giao Bài 13 ("hinh_tamgiac side-by-side"). VÁ: mỗi hàm +1 tham
+      số goc_o=(0,0) (mặc định) → unpack ox,oy → offset mọi _diem. PHANH bất biến qua tịnh
+      tiến (góc/cạnh không đổi) → verify giữ nguyên. KHÔNG đẻ hàm mới (Đ siết #3), KHÔNG hàm
+      phòng xa (Bài 15–16 cùng chương dùng ngay tam_giac_can/canh offset — Đ siết #1). Áp cả
+      họ cho API NHẤT QUÁN (tránh vá lẻ 1 hàm → footgun). TƯƠNG THÍCH NGƯỢC 100% (goc_o mặc
+      định (0,0) = y như cũ; mọi lời gọi Bài 12–13 KHÔNG đổi). TEST: goi cũ PASS · 2×tam_giac_goc
+      offset PASS · 5 loại tam giác mỗi loại 1 offset PASS · SBT H.4.20 (2 tam giác + dau_bang
+      1 vạch/2 vạch tương ứng) PASS. Re-gate: quet_stamp V11.6 SẠCH · smoke 12/12 · node -c OK ·
+      cua_quet_hinh AST SẠCH. Bản trích regen: 57 hàm phơi (goc_o vào chữ ký 5 hàm; SỐ hàm KHÔNG
+      đổi — chỉ thêm param). CHỈ SỬA hinh_dagiac.py.
 
 [28g] 5 điểm Giám đốc soi Bài 13 (QC V2): (①③) hieuhoc_template.js run() TÁCH-FONT ký hiệu (△ ✗ ✓ ▸ ∥ ⊥ ∠…) → FONT_KYHIEU 'Segoe UI Symbol' (TNR thiếu glyph, hết tofu □) · (②) +tam_giac_canh (dựng tam giác 3 CẠNH-SSS, đúng tỉ lệ) + cung(ban_kinh=) & cung_qua (CUNG NGẮN đánh dấu chỗ giao, không vẽ trọn đường tròn) (Ông Bụt 2026-08-29). GỘP cả [28f] diem_doi_xung_truc (28f chưa push → 28g thay).
 
