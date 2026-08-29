@@ -39,7 +39,9 @@ class HinhCoBan:
         # ── [26a] NỀN Ô LƯỚI 4mm (mờ) phủ CẢ khung — áp cho MỌI hình ──
         self._nen_luoi = True        # True → tự vẽ nền ô lưới cho mọi hình
         self._nen_mau = 'black!12'   # màu viền lưới — THẬT NHẠT (ít thấy viền)
-        self.so_o_ngang = None       # số ô ngang khung (đặt sau ve) → docx rongCm = 0,8·so_o_ngang (ô 8mm; retire 0,4/4mm — mốc 28c)
+        self.so_o_ngang = None       # số ô LƯỚI (đặt sau ve) — [28d Đ-C] KHÔNG dùng tính cỡ nữa (lề+nhãn ăn → ô < 8mm)
+        self.be_rong_anh_cm = None   # [28d] bề rộng ẢNH render (cm vẽ, gồm nhãn + border 4pt) — engine đo sau ve()
+        self.rong_cm = None          # [28d] rongCm docx CHUẨN = 0,8×be_rong_anh_cm → ô = 8mm THẬT (tự bù lề). AI Soạn dùng h.rong_cm
         self.so_o_doc = None
     def _diem(self, ten, x, y, nhan='above right', moc=True, mau=None):
         self.V[ten] = (x, y); self.nhan[ten] = nhan
@@ -731,4 +733,16 @@ class HinhCoBan:
             # caption "Hình N" căn giữa dưới toàn hình (nhãn nhận biết hình trong bài)
             L.append(f'  \\node[below=3mm,font=\\itshape] at (current bounding box.south) {{{nhan}}};')
         L.append('\\end{tikzpicture}')
-        return C._render('\n'.join(L), out, tra_bytes)
+        png = C._render('\n'.join(L), out, tra_bytes)
+        # [28d · Đ-C] Ô 8mm THẬT: đo bề rộng ẢNH render (gồm nhãn điểm/số đo + border 4pt) rồi
+        #   đặt rongCm = 0,8 × bề_rộng_ảnh (cm vẽ). Vì 1cm-vẽ = 1 ô lưới, co CẢ ảnh 0,8× thì MỌI ô
+        #   in ra = đúng 8mm, TỰ BÙ lề — khác cách cũ (0,8×so_o) chỉ đếm ô lưới nên lề ăn → ô < 8mm.
+        try:
+            raw = png if (tra_bytes and isinstance(png, (bytes, bytearray))) else (open(png, 'rb').read(24) if png else None)
+            if raw and len(raw) >= 20:
+                pxW = int.from_bytes(raw[16:20], 'big')          # PNG IHDR width
+                self.be_rong_anh_cm = round(pxW / 59.0551, 3)    # 150 DPI → 59,055 px/cm-vẽ
+                self.rong_cm = round(max(1.6, 0.8 * self.be_rong_anh_cm), 1)
+        except Exception:
+            pass
+        return png

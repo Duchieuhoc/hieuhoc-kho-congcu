@@ -1,9 +1,8 @@
-GÓI: CAPNHAT_KHO__2026-08-28c  →  THẦY PUSH GITHUB (Commit changes)
-Mốc kho: 2026-08-28c  |  Ông Bụt 2026-08-29
+GÓI: CAPNHAT_KHO__2026-08-28d  →  THẦY PUSH GITHUB (Commit changes)
+Mốc kho: 2026-08-28d  |  Ông Bụt 2026-08-29
 ================================================================
-- hieuhoc_template.js — THAY — comment dòng 2430: bỏ "kẹp 1,6–4,0" → "giữ 8mm, không kẹp cứng" (LOGIC KHÔNG ĐỔI)
-- hinh_coban.py       — THAY — comment dòng 42: "0,4·so_o (ô 4mm)" → "0,8·so_o (ô 8mm)" (LOGIC KHÔNG ĐỔI)
-- 00_KHO_VERSION.txt  — THAY — bump 28c + changelog
+- hinh_coban.py       — THAY — [Đ-C] ve() đo bề rộng ảnh thật → set h.be_rong_anh_cm + h.rong_cm (ô 8mm THẬT)
+- hieuhoc_template.js — THAY — [Đ-B] tieuDeMucChinh map ①-⑨→La Mã I.-IX.; [Đ-A] kiemMay guard thiếu tenBaiHoc
+- 00_KHO_VERSION.txt  — THAY — bump 28d + changelog
 ----------------------------------------------------------------
-GHI CHÚ: Chỉ SỬA COMMENT — template KHÔNG tự kẹp rongCm (luật cỡ hình nằm ở tài liệu + rc() của AI Soạn).
-  Gate: quet_stamp SẠCH · 12/12 import · node -c OK. KHÔNG có 28d (đã chốt giữ _locNguon).
+GATE: quet_stamp SẠCH · 12/12 import · node -c OK · AST sạch. TEST: mm/ô=8,0 mọi hình · marker "I./II." · guard bắt đúng.

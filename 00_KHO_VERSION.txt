@@ -1,6 +1,24 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28c
+Mốc kho      : 2026-08-28d
+
+[28d] VÁ 2 LỖI HỆ THỐNG + 1 GATE (Ông Bụt 2026-08-29, chỉ đạo Giám đốc — báo cáo BAO_OB phát hiện
+      khi soi B12 bằng WORD THẬT; LibreOffice che 2 lỗi). Tự phê: QC trước đo cỡ hình DANH NGHĨA
+      (rongCm/so_o) không đo mm/ô THỰC → bỏ sót Đ-C.
+      · Đ-C [ENGINE hinh_coban.ve]: ô lưới thực 6,0–7,7mm ≠ 8mm. Gốc: rongCm=0,8×so_o co CẢ ảnh
+        (gồm nhãn+border 4pt) mà so_o chỉ đếm ô lưới → lề ăn. VÁ: ve() ĐO bề rộng ảnh render
+        (pxW/59,055 = cm vẽ) → set h.be_rong_anh_cm + h.rong_cm = round(max(1,6 ; 0,8×be_rong),1).
+        AI Soạn DÙNG h.rong_cm (bỏ so_o/rc). Test: mọi hình 8,0–8,1mm/ô bất kể lề. so_o_ngang giữ
+        (chỉ để tham khảo, KHÔNG tính cỡ).
+      · Đ-B [TEMPLATE tieuDeMucChinh]: ①②③④⑤ = U+2460+ (Enclosed Alphanumerics), TNR THIẾU glyph
+        → Word hiện □ (LibreOffice tự thay font nên che). VÁ: map ①-⑨ → LA MÃ I.-IX. (TNR có chắc).
+        Sửa tập trung — caller vẫn truyền "①", tự đổi. Test: render "I./II./V.", hết ①.
+      · Đ-A [GATE kiemMay]: thiếu khối tên bài (tenBaiHoc) không bị bắt. VÁ: kiemMay báo lỗi nếu
+        thiếu chữ ký "Thời lượng:" (HP Đ57.1 — định danh bài+mã). Test: bắt đúng docx B12-L2 thiếu.
+      KỶ LUẬT QC MỚI (Quy_Trinh_QC): (1) đo mm/ô THỰC trên pixel, KHÔNG tin công thức danh nghĩa;
+        (2) soi cuối kiểm GLYPH/Word thật (quét ký tự ngoài TNR) — LibreOffice thay font che lỗi.
+      Gate: quet_stamp SẠCH · 12/12 import · node -c OK · AST sạch. PHẠM VI: mọi bài đã soạn dính
+        Đ-B/Đ-C → rà lại (B08/B09 HH7, B21/B22 HH6…) khi re-render.
 
 [28c] DỌN COMMENT CỠ HÌNH theo luật 8mm mới (Ông Bụt 2026-08-29, chỉ đạo Giám đốc "OB làm phần
       cần-trước để AI Soạn áp"): QC Bài 12 L1 lộ mm/ô lệch vì kẹp cứng 4,0cm (hình >5 ô co còn 5–5,7mm;

@@ -405,6 +405,10 @@ function kiemMay(bufOrPath, opts = {}) {
   if (hl.length) loi.push(`Có ${hl.length} chỗ highlight (HP Điều 17.3 CẤM — đánh dấu bằng in đậm/màu chữ).`);
   const empty = (xml.match(/<w:p\/>/g) || []).length + (xml.match(/<w:p>\s*<\/w:p>/g) || []).length;
   if (empty) loi.push(`Có ${empty} đoạn rỗng <w:p/> (HP Điều 17.4 — dùng spacing).`);
+  // [28d · Đ-A] Khối TÊN BÀI (tenBaiHoc) BẮT BUỘC ở đầu tài liệu — HP Điều 57.1 (định danh bài + mã).
+  //   Nhận diện qua chữ ký "Thời lượng:" (chỉ tenBaiHoc mới sinh). Thiếu → thân bài vào thẳng mục I.
+  if (!/Thời lượng:/.test(xml))
+    loi.push('Thiếu khối TÊN BÀI đầu tài liệu (HP Điều 57.1). Push ...H.tenBaiHoc({ soBai, tenBai, tiet, sgkTr, sbtTr, ma }) làm phần tử ĐẦU của children.');
   const nHinh = (xml.match(/<w:drawing>/g) || []).length;
   if (opts.soHinh != null && nHinh !== opts.soHinh)
     loi.push(`Số hình nhúng = ${nHinh} nhưng khai báo soHinh = ${opts.soHinh}. Nghi coHinh nuốt hình (thiếu spread "...H.hinhVe()") hoặc lệch thiết kế. [FAILURE IM LẶNG]`);
@@ -860,8 +864,12 @@ function tieuDeMuc(stt, ten) {
 //   ③ Các dạng toán · ④ Bài tập tại lớp · ⑤ Bài tập về nhà.
 //   (tieuDeMuc — có chấm, title-case — HẠ VAI xuống tiêu đề CON trong một mục.)
 // ═════════════════════════════════════════════════════════════
+// [28d · Đ-B] TNR thiếu glyph ①-⑳ (U+2460+) → Word hiện ô vuông □. Đổi sang số La Mã I.-IX.
+//   (TNR chắc chắn có). Sửa TẬP TRUNG: caller vẫn truyền "①"… → tự đổi, mọi bài fix khi re-render.
+const _MUC_LAMA = { "①":"I.", "②":"II.", "③":"III.", "④":"IV.", "⑤":"V.", "⑥":"VI.", "⑦":"VII.", "⑧":"VIII.", "⑨":"IX." };
 function tieuDeMucChinh(stt, ten) {
-  return para([run(`${stt} ${String(ten).toUpperCase()}`, { bold: true, underline: true, size: SZ_CONTENT })],
+  const m = _MUC_LAMA[stt] || stt;
+  return para([run(`${m} ${String(ten).toUpperCase()}`, { bold: true, underline: true, size: SZ_CONTENT })],
     { before: THO_RONG, after: 40, keepNext: true });
 }
 
