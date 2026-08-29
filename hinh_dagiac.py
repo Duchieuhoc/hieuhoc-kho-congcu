@@ -56,6 +56,34 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         if danh_dau:
             self.dau_bang(A, B, 1); self.dau_bang(A, Cc, 1)
         return self
+    def tam_giac_goc(self, A, B, Cc, goc_B, goc_C, day=4.0):
+        """Tam giác ABC với GÓC cho sẵn: góc tại B = goc_B, góc tại C = goc_C
+        (góc A tự = 180 − goc_B − goc_C). Đáy BC nằm ngang: B dưới-trái (0,0),
+        C dưới-phải (day,0); A đỉnh trên = giao hai tia BA, CA. VẼ SẠCH 3 cạnh
+        (KHÔNG tia thừa, KHÔNG nhãn phụ). PHANH kiểm CẢ BA góc (±0,5°).
+        Yêu cầu goc_B, goc_C > 0 và goc_B + goc_C < 180 để có tam giác thật.
+        Số đo hiện qua so_do_goc((cạnh1,đỉnh,cạnh2)) gọi SAU — tuỳ hình lộ góc nào;
+        góc vuông đánh bằng goc_vuong((cạnh1,đỉnh,cạnh2)). Xương sống mạch tính-góc
+        tam giác (HH7-CH04 → tam giác thường theo góc mọi lớp)."""
+        goc_A = 180.0 - goc_B - goc_C
+        if goc_B <= 0 or goc_C <= 0 or goc_A <= 0:
+            raise ValueError(f"[tam_giac_goc] góc B={goc_B}°, C={goc_C}° ⇒ A={goc_A}°: "
+                f"mỗi góc phải > 0 và goc_B + goc_C < 180 để có tam giác thật.")
+        if day <= 0:
+            raise ValueError(f"[tam_giac_goc] day={day} phải > 0.")
+        bR = math.radians(goc_B); cR = math.radians(goc_C)
+        ba = day * math.sin(cR) / math.sin(bR + cR)   # BA = day·sinC / sin(B+C)
+        xA = ba * math.cos(bR); yA = ba * math.sin(bR)
+        self._diem(B, 0.0, 0.0, 'below left')
+        self._diem(Cc, day, 0.0, 'below right')
+        self._diem(A, xA, yA, 'above')
+        self._da_giac(A, B, Cc)
+        # PHANH: đối chiếu CẢ BA góc (đỉnh Ở GIỮA: ten=[cạnh1, đỉnh, cạnh2])
+        self.rb.append({'loai':'goc','ten':[A, B, Cc],'do': round(goc_B, 6)})
+        self.rb.append({'loai':'goc','ten':[A, Cc, B],'do': round(goc_C, 6)})
+        self.rb.append({'loai':'goc','ten':[B, A, Cc],'do': round(goc_A, 6)})
+        self.rb.append({'loai':'khong_thang_hang','diem':[A, B, Cc]})
+        return self
     def tu_giac(self, A, B, Cc, D, loai=None):
         """Tứ giác 4 đỉnh lồi, chiều kim đồng hồ. loai∈{None,'binh_hanh','chu_nhat'}."""
         if loai == 'binh_hanh':

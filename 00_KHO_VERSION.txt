@@ -1,6 +1,32 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28a
+Mốc kho      : 2026-08-28b
+
+[28b] +tam_giac_goc · nhấc nhan_goc · +keo_dai — HOÀN THIỆN MẠCH TÍNH-GÓC (Ông Bụt 2026-08-29,
+      chỉ đạo Giám đốc "OB kiểm tra dựng được HẾT trước khi giao AI Soạn"):
+      Lộ khi test-dựng từng hình Bài 12 (kiểm tra trước khi giao). BA bổ sung, đều test hình thật:
+      (A) +tam_giac_goc(A,B,Cc, goc_B, goc_C, day=4.0) [hinh_dagiac] — xem chi tiết ↓.
+      (B) NHẤC nhan_goc(goc, chu, r) hinh_gocdt → hinh_coban.HinhCoBan: nhãn CHỮ 'x'/'y'/'z' ở góc
+          CHƯA BIẾT (mọi hình "tính x" cần). "Một hàm một nhà" như dau_goc_bang (28a). gocdt kế thừa
+          vẫn gọi được. Thân byte-nguyên → tương thích ngược 100%.
+      (C) +keo_dai(ten, A, B, dai=None, ...) [hinh_coban] — KÉO DÀI cạnh A→B qua B (A,B,ten thẳng
+          hàng, B giữa) mà KHÔNG dời A,B. Cần vì tia_doi DỜI điểm → phá góc tam giác đã dựng. Xương
+          sống mạch GÓC NGOÀI (H.4.5 · định nghĩa · D3). PHANH kiểm thẳng hàng. TEST: ACx=A+B=115° ✓;
+          góc ngoài số 120° ✓. Phân giác D4: đặt chân D bằng ti_le=sinC/(sinB+sinC) + diem_giua +
+          dau_goc_bang (2 nửa bằng) — TEST BAD=DAC=35° ✓ (không cần hàm mới).
+      ─── (A) tam_giac_goc chi tiết: ───
+      Khe hở lộ khi khai phiếu Bài 12: hình CHỦ LỰC (~80% cả bài) là tam giác với góc cho sẵn
+      (H.4.4/4.6/4.7/4.8 · gần hết SBT/TLHT). tam_giac() chỉ ra DÁNG CỐ ĐỊNH (~38/58/84°) → dán
+      nhãn 50°/60° = trái luật "hình khớp giả thiết". Dựng bằng giao 2 tia thì góc đúng nhưng
+      TIA THÒ + lộ nhãn phụ (A1/A2/B2) — không sạch cho hình đề; kho không có cách giấu tia.
+      → +tam_giac_goc(A,B,Cc, goc_B, goc_C, day=4.0) [hinh_dagiac, cạnh tam_giac/_can/_deu]:
+        đặt B(0,0)–C(day,0) đáy ngang, A đỉnh trên = giao 2 tia TÍNH SẴN (BA=day·sinC/sin(B+C));
+        VẼ SẠCH 3 cạnh, PHANH kiểm CẢ BA góc (±0,5°); chặn góc≤0 & B+C≥180 & day≤0.
+        Số đo/góc vuông đánh SAU bằng so_do_goc/goc_vuong. Compose thuần → mọi entry kế HinhDaGiac
+        (tamgiac 7→9) tái dùng. KHÔNG đổi hàm cũ → tương thích ngược 100%.
+      TEST: nhọn 50/60·vuông 90/40·tù-A 50/30·tù-B 100/40·lẻ 47/68 → góc đo khớp, tổng 180,00;
+        4 ca biên raise đúng; ghép goc_vuong+so_do_goc lên hình sạch OK; render PNG kiểm mắt SẠCH.
+      Bản trích HH7_CH04 regenerate: 51→52 hàm khai nghĩa. Smoke 12 sạch · stamp V11.6 sạch.
 
 [28a] MẠCH TAM GIÁC HH7-CH04 (Ông Bụt 2026-08-28, chỉ đạo Giám đốc — luồng khảo sát hàm cả Chương IV):
       Kê 186 khối hình / 18 file nguồn → đối chiếu kho: PHẦN LỚN tái dùng primitive SẴN CÓ

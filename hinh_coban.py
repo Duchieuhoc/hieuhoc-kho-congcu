@@ -473,6 +473,36 @@ class HinhCoBan:
             self._diem(t2, ox + (R + 0.09) * ux, oy + (R + 0.09) * uy, nhan=None, moc=False)
             self.tikz.append(('doan', t1, t2, mau))
         return self
+    def nhan_goc(self, goc, chu, r=0.44):
+        """Ghi nhãn 'chu' (CHỮ như 'x'/'y'/'z', hoặc số thứ tự '1','2'…) tại phân giác TRONG
+        của góc — dùng cho GÓC CHƯA BIẾT (nhãn chữ, không ghi số) và góc đánh số không theo
+        phần tư. goc = (canh1, dinh, canh2): tên 3 điểm ĐÃ đặt. KHÔNG vẽ cung (chỉ đặt chữ);
+        muốn có cung thì gọi kèm so_do_goc(goc, hien_so=False).
+        [Nhấc từ hinh_gocdt → base mốc 28b: nhãn chữ góc dùng chung mạch tam giác 7→9,
+        cạnh dau_goc_bang/so_do_goc.]"""
+        A, O, B = goc
+        ox, oy = self.V[O]; ax, ay = self.V[A]; bx, by = self.V[B]
+        a1 = math.atan2(ay - oy, ax - ox)
+        a2 = math.atan2(by - oy, bx - ox)
+        da = (a2 - a1) % (2 * math.pi)
+        mid = a1 + da / 2 if da <= math.pi else a1 - (2 * math.pi - da) / 2   # phân giác trong
+        x = ox + r * math.cos(mid); y = oy + r * math.sin(mid)
+        self.tikz.append(('so_o', x, y, chu))
+        return self
+    def keo_dai(self, ten, A, B, dai=None, nhan='below right', ve_doan=True, mau=None):
+        """KÉO DÀI đoạn A→B QUA B: đặt 'ten' sao cho A, B, ten THẲNG HÀNG và B nằm GIỮA A và
+        'ten' (ten trên TIA ĐỐI của tia BA). Dùng vẽ GÓC NGOÀI tam giác / tia đối mà KHÔNG dời
+        A, B (khác tia_doi vốn dời điểm). dai = độ dài B→ten (đơn vị vẽ); None → 0,6·|AB|.
+        ve_doan=True → vẽ luôn đoạn B–ten (phần kéo dài). PHANH kiểm thẳng hàng A,B,ten.
+        [Mốc 28b — xương sống mạch GÓC NGOÀI tam giác HH7-CH04.]"""
+        ax, ay = self.V[A]; bx, by = self.V[B]
+        vx, vy = bx - ax, by - ay; L = math.hypot(vx, vy) or 1.0
+        d = dai if dai is not None else 0.6 * L
+        self._diem(ten, bx + vx / L * d, by + vy / L * d, nhan)
+        self.rb.append({'loai':'thang_hang','diem':[A, B, ten]})
+        if ve_doan:
+            self.tikz.append(('doan', B, ten, mau))
+        return self
     def dau_song_song(self, A, B, so_mui=1):
         """Đánh dấu HƯỚNG SONG SONG trên đoạn A,B (đã đặt) bằng 'so_mui' mũi tên (1/2) —
         các đoạn cùng số mũi tên = cùng phương (ký hiệu >/>> như SGK). Chỉ đánh dấu."""

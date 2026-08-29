@@ -97,19 +97,9 @@ class Hinh(HinhDaGiac):
     # ═══════════════════════════════════════════════════════════════
     # NHÃN SỐ THỨ TỰ GÓC (Ô₁, Ô₂, Ô₃…) — cho Tập suy luận / hình đối đỉnh đánh số riêng
     # ═══════════════════════════════════════════════════════════════
-    def nhan_goc(self, goc, chu, r=0.44):
-        """Ghi nhãn 'chu' (số thứ tự '1','2','3'… hoặc ký hiệu) tại phân giác TRONG của góc.
-        goc = (canh1, dinh, canh2): tên 3 điểm ĐÃ đặt (qua tia/tia_doi…). Dùng cho các hình
-        đánh số góc KHÔNG theo phần tư liên tục (vd H3.5: Ô₁–Ô₂ đối đỉnh). Không vẽ cung."""
-        A, O, B = goc
-        ox, oy = self.V[O]; ax, ay = self.V[A]; bx, by = self.V[B]
-        a1 = math.atan2(ay - oy, ax - ox)
-        a2 = math.atan2(by - oy, bx - ox)
-        da = (a2 - a1) % (2 * math.pi)
-        mid = a1 + da / 2 if da <= math.pi else a1 - (2 * math.pi - da) / 2   # phân giác trong
-        x = ox + r * math.cos(mid); y = oy + r * math.sin(mid)
-        self.tikz.append(('so_o', x, y, chu))
-        return self
+    # [28b] nhan_goc ĐÃ NHẤC → hinh_coban.HinhCoBan (nhãn chữ góc 'x'/'y'/'z', dùng chung mạch
+    #   tam giác 7→9 cho hình "tính góc"). hinh_gocdt.Hinh vẫn gọi self.nhan_goc(...) bình thường
+    #   (kế thừa qua HinhDaGiac → HinhCoBan). Không định nghĩa lại ở đây — "một hàm một nhà".
 
     # [28a] dau_goc_bang ĐÃ NHẤC → hinh_coban.HinhCoBan (cạnh dau_bang/goc_vuong), dùng chung
     #   mạch tam giác 7→9. hinh_gocdt.Hinh vẫn gọi self.dau_goc_bang(...) bình thường (kế thừa
