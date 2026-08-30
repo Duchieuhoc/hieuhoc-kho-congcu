@@ -1,6 +1,24 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28h
+Mốc kho      : 2026-08-28i
+
+[28i] MẠCH TAM GIÁC VUÔNG HH7-CH04 · Pha A Bài 15 (Ông Bụt 2026-08-31, chỉ đạo Giám đốc). BA
+      primitive thuần-nghĩa (khép A↔C — lộ khi khai + PHANH-test 20 hình đề Bài 15; AI Soạn báo YC
+      qua cổng AST Đ5.9):
+      (1) +chan_vuong_goc(ten, P, A, B, ve_doan=True, o_vuong=True) [hinh_coban BASE] — CHÂN đường
+          vuông góc (hình chiếu P lên đường/tia AB); vẽ đoạn P–chân + ô vuông; PHANH kiểm thẳng hàng
+          + góc 90°. Chân được phép NGOÀI đoạn. Bài thật: H.4.50 (MA⊥Ox), H.4.54 (O xuống dây), đường
+          cao (4.20a/c). Lặp ≥3 hình → mở BASE (Đ siết #1: có người dùng thứ 2).
+      (2) +tia(..., dai=None) [hinh_coban] — TIA độ dài tùy chỉnh; dai→ KHÔNG chuẩn hoá về DAI_TIA
+          (_tia chuan_hoa=(dai is None)). Cần cho tia dựng-hình chỉ thò nhẹ qua đỉnh (H.4.51 Ax) +
+          4 nửa-chéo độ dài khác nhau (H.4.56 chữ X). Tương thích ngược (dai=None = như cũ).
+      (3) +diem_doi_xung_qua_trung_truc(new, P, A, B) [hinh_dagiac, cạnh diem_doi_xung_truc] — ẢNH P
+          qua TRUNG TRỰC đoạn AB (biến A↔B), KHÔNG lộ trục/không _diem thô. Dựng đỉnh thứ 2 hình thang
+          cân sạch (F=ảnh E qua trung trực đáy HG — H.4.20b) mà QUA cổng AST (trước dùng _diem đặt trục
+          → Đ5.9 chặn). Tái dùng: mọi hình đối xứng qua trung trực.
+      TEST: 16/16 hàm fig Bài 15 PHANH pass · cua_quet_hinh AST SẠCH (hết _diem) · quet_stamp V11.6
+          SẠCH · smoke import OK. Bản trích HH7_CH04 regen (+3 hàm phơi). TƯƠNG THÍCH NGƯỢC 100%
+          (Bài 12–14 không đổi). SỬA: hinh_coban.py (1,2) + hinh_dagiac.py (3).
 
 [28h] +goc_o=(dx,dy) cho CẢ 5 hàm tam_giac_* (tam_giac · tam_giac_deu · tam_giac_can ·
       tam_giac_goc · tam_giac_canh) — DỜI cả tam giác đi (dx,dy) để đặt NHIỀU tam giác

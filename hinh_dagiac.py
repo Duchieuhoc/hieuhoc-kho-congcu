@@ -113,6 +113,24 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         fx, fy = ax + t*dx, ay + t*dy                # chân vuông góc
         self._diem(new, 2*fx - px, 2*fy - py, nhan, mau=mau)   # P' = 2F − P
         return self
+    def diem_doi_xung_qua_trung_truc(self, new, P, A, B, nhan='above', mau=None):
+        """Đặt 'new' = ẢNH của P qua ĐƯỜNG TRUNG TRỰC của đoạn AB (phản chiếu biến A↔B).
+        P, A, B đã đặt. Máy tự tính (KHÔNG cho toạ độ, KHÔNG lộ trục). Trung trực AB
+        đứng nếu AB ngang. Dùng dựng hình ĐỐI XỨNG qua trung trực mà KHÔNG phải đặt
+        điểm trục thô: đỉnh thứ 2 hình thang cân (F = ảnh E qua trung trực đáy HG),
+        cặp điểm đối xứng... dau_bang/goc_vuong gọi SAU để đánh dấu/kiểm. mau='red'→chấm đỏ."""
+        for t in (P, A, B):
+            if t not in self.V:
+                raise ValueError(f"[diem_doi_xung_qua_trung_truc] điểm '{t}' chưa đặt.")
+        px, py = self.V[P]; ax, ay = self.V[A]; bx, by = self.V[B]
+        mx, my = (ax + bx) / 2.0, (ay + by) / 2.0          # trung điểm AB (trên trung trực)
+        nx, ny = bx - ax, by - ay                          # pháp tuyến của trung trực = hướng AB
+        nn = nx*nx + ny*ny
+        if nn < 1e-12:
+            raise ValueError("[diem_doi_xung_qua_trung_truc] A≡B: trung trực không xác định.")
+        d = ((px - mx)*nx + (py - my)*ny) / nn             # phản chiếu qua đường (M, pháp tuyến n)
+        self._diem(new, px - 2*d*nx, py - 2*d*ny, nhan, mau=mau)
+        return self
     def tam_giac_canh(self, A, B, Cc, AB, BC, CA, goc_o=(0.0, 0.0)):
         """Tam giác ABC dựng từ 3 CẠNH cho sẵn (SSS): |AB|, |BC|, |CA| (đơn vị bất kỳ,
         giữ ĐÚNG TỈ LỆ). Đáy BC nằm ngang: B dưới-trái (0,0), C dưới-phải (BC,0);

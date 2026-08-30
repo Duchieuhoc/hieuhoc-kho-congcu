@@ -1,0 +1,13 @@
+CẬP NHẬT KHO GitHub Duchieuhoc/hieuhoc-kho-congcu → MỐC 28i
+============================================================
+Upload 4 file dưới (web interface), THAY THẾ bản cũ cùng tên trong repo:
+
+  1. hinh_coban.py                  (chan_vuong_goc + tia(dai=))
+  2. hinh_dagiac.py                 (MỚI: diem_doi_xung_qua_trung_truc)
+  3. BAN_TRICH_HAM_HH7_CH04.md      (regen +3 hàm — đi cùng kho, BUNG_KHO §5)
+  4. 00_KHO_VERSION.txt             (Mốc kho → 2026-08-28i + changelog [28i])
+
+Commit 1 lần. Sau push → kho = 28i. Rồi giao gói GIAO_AISOAN__HH7_CH04_B15.zip cho AI Soạn.
+
+Gate đã xác nhận (bản local): quet_stamp V11.6 SẠCH · smoke 12/12 · node -c OK ·
+cua_quet_hinh AST SẠCH · 16/16 hàm fig Bài 15 PHANH pass. Tương thích ngược 100%.
