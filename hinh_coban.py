@@ -103,15 +103,19 @@ class HinhCoBan:
         thay cung số. PHANH kiểm góc = 90°. Chỉ đánh dấu; 2 cạnh phải khai trước qua tia/chum_tia."""
         self.rb.append({'loai':'goc','ten':list(ten),'do':90})
         self.tikz.append(('goc_vuong', list(ten))); return self
-    def tia(self, goc_O, ten_dau, xoay=0, mui_ten=False, nhan='auto', mau=None, net='lien'):
+    def tia(self, goc_O, ten_dau, xoay=0, mui_ten=False, nhan='auto', mau=None, net='lien', dai=None):
         """TIA gốc 'goc_O' hướng tới 'ten_dau', nghiêng 'xoay'° so ngang (0 = sang phải). Gốc chưa đặt
         → đặt tại (0,0). mui_ten=True → mũi tên đầu tia (ký hiệu tia). nhan: vị trí nhãn mút ('auto' tự chọn).
         mau/net: style phân biệt (đường phụ lời giải = 'red'/'dut'). Tia đơn: 1 gốc, 1 hướng.
+        dai=số → độ dài tia (đơn vị vẽ); None → mặc định DAI_CHUAN. Dùng dai để tia vượt/không vượt
+        một điểm đã có đúng ý (vd tia dựng hình chỉ thò nhẹ qua đỉnh — H.4.51).
         [Điểm trên tia] đặt bằng diem_giua(gốc, ten_dau, ti_le) — vd diem_giua('B','A','m',0.6)."""
         if goc_O not in self.V: self._diem(goc_O, 0, 0, 'below left', moc=True)
         Ox, Oy = self.V[goc_O]; a = math.radians(xoay)
-        self._diem(ten_dau, Ox+DAI_CHUAN*math.cos(a), Oy+DAI_CHUAN*math.sin(a), moc=False)
-        self._tia(goc_O, ten_dau, mui_ten=mui_ten, mau=mau, net=net); self._nhan_dau_net(ten_dau, nhan)
+        L = dai if dai is not None else DAI_CHUAN
+        self._diem(ten_dau, Ox+L*math.cos(a), Oy+L*math.sin(a), moc=False)
+        self._tia(goc_O, ten_dau, mui_ten=mui_ten, chuan_hoa=(dai is None), mau=mau, net=net)
+        self._nhan_dau_net(ten_dau, nhan)
         return self
     def tia_diem(self, goc_O, ds, xoay=0, ten_tia=None, hai_dau=False, nhan_dodai=False, mau=None, net='lien'):
         """TIA gốc 'goc_O' mang các điểm ĐO ĐƯỢC (metric). ds=[(tên, vị_trí), …] · vị_trí =
@@ -388,6 +392,32 @@ class HinhCoBan:
         self._diem(ten, ax+ti_le*(bx-ax), ay+ti_le*(by-ay), nhan, moc=True, mau=mau)
         self.rb.append({'loai':'thang_hang','diem':[A,ten,B]})
         self.rb.append({'loai':'nam_giua','diem':ten,'doan':(A,B)})
+        return self
+    def chan_vuong_goc(self, ten, P, A, B, nhan='below', mau=None, ve_doan=True, o_vuong=True):
+        """Đặt 'ten' = CHÂN ĐƯỜNG VUÔNG GÓC (hình chiếu) của P lên đường thẳng AB.
+        P, A, B đã đặt. Máy tự tính (KHÔNG cho toạ độ). Mặc định vẽ đoạn P–ten +
+        ô vuông tại chân. PHANH kiểm ten thẳng hàng A,B và góc P-ten-(mốc) = 90°.
+        Chân có thể NẰM NGOÀI đoạn AB (dùng thang_hang, không ép nằm giữa).
+        Dùng: chân vuông góc từ điểm xuống tia/cạnh (H.4.50 MA⊥Ox; H.4.54 O xuống dây;
+        đường cao tam giác). mau='red' → chấm đỏ + đoạn/ô vuông đỏ (điểm dựng ở lời giải).
+        ve_doan=False: chỉ đặt điểm (không kẻ P–ten). o_vuong=False: bỏ ô vuông."""
+        (ax, ay), (bx, by), (px, py) = self.V[A], self.V[B], self.V[P]
+        ux, uy = bx - ax, by - ay
+        dd = ux * ux + uy * uy
+        if dd < 1e-12:
+            raise ValueError(f"[chan_vuong_goc] A,B trùng nhau → không xác định đường.")
+        t = ((px - ax) * ux + (py - ay) * uy) / dd
+        fx, fy = ax + t * ux, ay + t * uy
+        if (fx - px) ** 2 + (fy - py) ** 2 < 1e-12:
+            raise ValueError(f"[chan_vuong_goc] P '{P}' NẰM TRÊN đường AB → chân trùng P.")
+        self._diem(ten, fx, fy, nhan, moc=True, mau=mau)
+        moc_goc = A if abs(t) > 1e-6 else B          # mốc dọc đường để đánh góc vuông
+        self.rb.append({'loai': 'thang_hang', 'diem': [A, ten, B]})
+        self.rb.append({'loai': 'goc', 'ten': [P, ten, moc_goc], 'do': 90})
+        if ve_doan:
+            self.doan(P, ten, mau=mau)
+        if o_vuong:
+            self.goc_vuong((P, ten, moc_goc))
         return self
     def luoi(self, cot, hang):
         """Lưới nền cot×hang ô (xám nhạt)."""
