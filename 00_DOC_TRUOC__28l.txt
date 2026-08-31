@@ -1,0 +1,12 @@
+CẬP NHẬT KHO → MỐC 28l  (Ông Bụt, 2026-08-31 — Pha A Bài 16)
+════════════════════════════════════════════════════════════
+NỘI DUNG: +trung_truc() — primitive ĐƯỜNG TRUNG TRỰC đoạn thẳng (Bài 16).
+Tương thích ngược 100% (hàm mới, không đụng hàm cũ). Đã re-gate SẠCH.
+
+GIÁM ĐỐC UPLOAD 3 FILE (thay thế hoàn toàn, qua web GitHub):
+  1. hinh_coban.py                  (thêm hàm trung_truc)
+  2. 00_KHO_VERSION.txt             (mốc 28k → 28l)
+  3. BAN_TRICH_HAM_HH7_CH04.md      (61 → 62 hàm phơi)
+
+⚠ File 00_DOC_TRUOC__28l.txt NÀY không cần upload (đã .gitignore).
+Sau khi upload: mốc GitHub = 28l → AI Soạn Bài 16 dùng được trung_truc.

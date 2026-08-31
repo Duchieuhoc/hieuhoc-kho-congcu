@@ -1,6 +1,20 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28k
+Mốc kho      : 2026-08-28l
+
+[28l] +trung_truc(A,B,...) [hinh_coban BASE] — ĐƯỜNG TRUNG TRỰC đoạn thẳng (Ông Bụt 2026-08-31,
+      Pha A Bài 16 theo Giám đốc). GỐC: mạch trung trực Bài 16 (định nghĩa · cách đều 2 mút · dựng
+      compa) lặp ≥6 hình đề (H.4.64a/4.65/4.66/4.67/4.45/4.53a + compa H.4.68); ghép tay tốn 6 lời
+      gọi/hình (doan_le+trung_diem+tia_doi xoay=90+goc_vuong+doan×2) → footgun AI Soạn (quên xoay=90,
+      sai cặp goc_vuong, thiếu 2 vạch → HS hiểu sai "đường nào là trung trực"). MỘT hàm ra: AB ngang
+      + trung điểm (2 vạch OA=OB) + trục đứng vuông góc + ô vuông + nhãn d. M= → điểm trên trục;
+      ve_MA_MB → nối MA,MB (điểm cách đều 2 mút). compa=True → 4 cung tâm A,B cắt tại M,N + đường MN
+      (H.4.68). PHANH kiểm trung điểm + vuông 90° (nhánh thường) / canh_bang MA=MB,NA=NB (nhánh compa).
+      Ca SAI (xiên H.4.64b/4.53b · lệch tâm H.4.64c/4.53c — 4 hình con) KHÔNG vào hàm, ghép tay
+      (đã test). Đủ Đ siết #1 (≥6 người dùng thật); KHÔNG phạm Đ siết #3 (có bài thật, không phòng xa).
+      TEST: 4 mode render PNG kiểm mắt SẠCH (trơn · M+MA/MB/MO · compa · sai-xiên ghép tay) · PHANH
+      pass cả 4. TƯƠNG THÍCH NGƯỢC 100% (hàm mới, không đụng hàm cũ). SỬA: hinh_coban.py (base — dùng
+      chung mọi mạch 7→9). Bản trích HH7_CH04 regen: 61→62 hàm phơi.
 
 [28k] +ghi_chu(x,y,chu) [hinh_coban] — ghi CHỮ TỰ DO tại toạ độ (Ông Bụt 2026-08-31, QC Bài 15
       theo Giám đốc). Nhu cầu: gộp 4 hình 4.20 (a,b,c,d) lên 1 HÀNG cần nhãn "a)" "b)"... nhưng

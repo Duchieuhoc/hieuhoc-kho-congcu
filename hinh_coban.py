@@ -86,6 +86,60 @@ class HinhCoBan:
         self.tikz.append(('doan', A, B, False))
         self.tikz.append(('gach_bang', A, M)); self.tikz.append(('gach_bang', M, B))
         return self
+    def trung_truc(self, A, B, tam='O', dai_AB=4.0, nhan_d='d', hien_nhan_d=True,
+                   M=None, cao=3.0, ve_MA_MB=False, ve_toO=False,
+                   compa=False, N=None, cao_compa=2.2):
+        """ĐƯỜNG TRUNG TRỰC của đoạn AB — đường thẳng VUÔNG GÓC với AB tại TRUNG ĐIỂM.
+        Tự đặt A(0,0)–B ngang (dài dai_AB) + trung điểm 'tam' (2 vạch OA=OB).
+        MẶC ĐỊNH (thước–êke): vẽ đường trung trực ĐỨNG qua tam (2 phía) + Ô VUÔNG tại tam
+          + nhãn 'nhan_d'. PHANH kiểm trung điểm + vuông góc 90°.
+        M='tên' → đặt điểm M trên trục (phía trên, cao 'cao'); ve_MA_MB=True → nối MA, MB
+          (điểm cách đều 2 mút — H.4.65/4.66/4.67/4.45); ve_toO=True → nối M–tam.
+        compa=True → DỰNG BẰNG COMPA (H.4.68 Thực hành): KHÔNG vẽ trục liền/ô vuông/2 vạch;
+          đặt M(trên) & N(dưới) = giao 2 cung tâm A,B cùng bán kính; vẽ 4 cung + đường thẳng MN.
+          Cần đặt tên cả M và N. cao_compa = nửa khoảng MN (đơn vị vẽ).
+        [Mốc 28l — xương sống mạch ĐƯỜNG TRUNG TRỰC HH7-CH04 Bài 16; dùng chung 7→9.]"""
+        self._diem(A, 0.0, 0.0, 'below left', moc=True)
+        self._diem(B, dai_AB, 0.0, 'below right', moc=True)
+        tx = dai_AB / 2.0
+        self._diem(tam, tx, 0.0, 'below', moc=True)
+        self.tikz.append(('doan', A, B, None, 'lien', None))
+        self.rb.append({'loai':'trung_diem','M':tam,'doan':(A,B)})
+        self.rb.append({'loai':'thang_hang','diem':[A,tam,B]})
+        if compa:
+            if M is None or N is None:
+                raise ValueError("[trung_truc] compa=True cần đặt tên cả M (trên) và N (dưới).")
+            self._diem(M, tx,  cao_compa, 'above', moc=True)
+            self._diem(N, tx, -cao_compa, 'below', moc=True)
+            r = math.hypot(tx, cao_compa)                 # bán kính cung = |A→M| = |B→M|
+            for tam_c in (A, B):
+                for qua in (M, N):
+                    ox, oy = self.V[tam_c]; qx, qy = self.V[qua]
+                    ang = math.degrees(math.atan2(qy - oy, qx - ox))
+                    self.tikz.append(('cung', tam_c, r, ang - 26, ang + 26, 'black', 'dut'))
+            self.tikz.append(('doan', M, N, None, 'lien', None))     # đường trung trực MN
+            self.rb.append({'loai':'canh_bang','cac_doan':[(M,A),(M,B)]})
+            self.rb.append({'loai':'canh_bang','cac_doan':[(N,A),(N,B)]})
+            self._nhan_dau_net(M); self._nhan_dau_net(N)
+            return self
+        # ── Nhánh thước–êke: 2 vạch + trục đứng + ô vuông ──
+        self.tikz.append(('gach_bang', A, tam)); self.tikz.append(('gach_bang', tam, B))
+        dtren = M if M is not None else '_dtren'
+        self._diem(dtren, tx,  cao, 'above' if M is not None else None, moc=(M is not None))
+        self._diem('_dduoi', tx, -cao, None, moc=False)
+        self.tikz.append(('doan', dtren, '_dduoi', None, 'lien', None))   # trục đứng (2 phía)
+        self.rb.append({'loai':'goc','ten':[A,tam,dtren],'do':90})
+        self.tikz.append(('goc_vuong', [A, tam, dtren]))
+        if hien_nhan_d and nhan_d:
+            self.ghi_chu(tx + 0.28, cao - 0.15, nhan_d)
+        if M is not None:
+            self._nhan_dau_net(M)
+            if ve_MA_MB:
+                self.tikz.append(('doan', M, A, None, 'lien', None))
+                self.tikz.append(('doan', M, B, None, 'lien', None))
+            if ve_toO:
+                self.tikz.append(('doan', M, tam, None, 'lien', None))
+        return self
     def so_do_goc(self, ten, do=None, hien_so=True, mau='orange', ban_kinh=7):
         """mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC +
         bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh).

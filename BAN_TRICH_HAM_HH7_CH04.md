@@ -74,6 +74,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `tia_doi(O, t1, t2, xoay=0)` | HAI TIA ĐỐI chung gốc O: t1 và t2 hai phía đối nhau qua O, nghiêng 'xoay'° so ngang. Vẽ đoạn t1–t2 + PHANH kiểm góc t1-O-t2 = 180° và t1,O,t2 thẳng hàng. Dùng bài 'hai tia đối nhau'. |
 | `to_mien(*diem, mau='cyan!18')` | TÔ MÀU một miền = đa giác qua các điểm ĐÃ ĐẶT (theo thứ tự). Dùng tô: • miền trong 1 góc: to_mien(P1, đỉnh, P2) — P1,P2 trên 2 cạnh; • giao/hợp nhiều góc (miền trong tam giác — 8.30): to_mien(A, B, C). Miền được tô NẰM DƯỚI mọi nét (không che hình). mau: màu tô nhạt. |
 | `trung_diem(M, A, B, mau=None)` | M = TRUNG ĐIỂM đoạn AB. M chưa đặt → tự đặt tại chính giữa A,B. Vẽ đoạn AB + gạch bằng 2 nửa (A–M = M–B) + ràng buộc thẳng hàng A,M,B (PHANH). mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `trung_truc(A, B, tam='O', dai_AB=4.0, nhan_d='d', hien_nhan_d=True, M=None, cao=3.0, ve_MA_MB=False, ve_toO=False, compa=False, N=None, cao_compa=2.2)` | ĐƯỜNG TRUNG TRỰC của đoạn AB — đường thẳng VUÔNG GÓC với AB tại TRUNG ĐIỂM. Tự đặt A(0,0)–B ngang (dài dai_AB) + trung điểm 'tam' (2 vạch OA=OB). MẶC ĐỊNH (thước–êke): vẽ đường trung trực ĐỨNG qua tam (2 phía) + Ô VUÔNG tại tam + nhãn 'nhan_d'. PHANH kiểm trung điểm + vuông góc 90°. M='tên' → đặt điểm M trên trục (phía trên, cao 'cao'); ve_MA_MB=True → nối MA, MB (điểm cách đều 2 mút — H.4.65/4.66/4.67/4.45); ve_toO=True → nối M–tam. compa=True → DỰNG BẰNG COMPA (H.4.68 Thực hành): KHÔNG vẽ trục liền/ô vuông/2 vạch; đặt M(trên) & N(dưới) = giao 2 cung tâm A,B cùng bán kính; vẽ 4 cung + đường thẳng MN. Cần đặt tên cả M và N. cao_compa = nửa khoảng MN (đơn vị vẽ). [Mốc 28l — xương sống mạch ĐƯỜNG TRUNG TRỰC HH7-CH04 Bài 16; dùng chung 7→9.] |
 | `tu_giac(A, B, Cc, D, loai=None)` | Tứ giác 4 đỉnh lồi, chiều kim đồng hồ. loai∈{None,'binh_hanh','chu_nhat'}. |
 
 ## 2. CỬA RENDER
@@ -88,4 +89,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 60 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 61 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
