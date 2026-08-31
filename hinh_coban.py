@@ -473,12 +473,14 @@ class HinhCoBan:
         self.rb.append({'loai':'diem_ngoai_goc','goc':(c1,dinh,c2),'diem':ten}); return self
 
     # ── [15/08] CỤM ĐÁNH DẤU (quan hệ = · // · tô miền) — palette ký hiệu SGK ──
-    def dau_bang(self, A, B, so_vach=1, kiem_bang=None):
+    def dau_bang(self, A, B, so_vach=1, kiem_bang=None, kieu='thang'):
         """Đánh dấu CẠNH BẰNG NHAU trên đoạn A,B (đã đặt) bằng 'so_vach' vạch (1/2/3) —
-        vạch khác nhau phân biệt các NHÓM cạnh bằng khác nhau (dấu ×/×× như SGK 8.33).
-        kiem_bang=khóa nhóm (bất kỳ) → gom mọi đoạn cùng khóa vào PHANH cạnh-bằng
-        (kiểm hình dựng đúng bằng nhau). Chỉ đánh dấu, không tự nối đoạn."""
-        self.tikz.append(('dau_bang_n', A, B, int(so_vach)))
+        vạch khác nhau phân biệt các NHÓM cạnh bằng khác nhau. kieu='thang' (mặc định) =
+        vạch vuông góc; kieu='cheo' = dấu × (chéo) — dùng khi 1 hình có NHIỀU nhóm cạnh
+        bằng vượt quá 3 (SGK H.4.48/8.33 dùng | ‖ × ×× để tách 4+ nhóm). ⚠ Chỉ các đoạn
+        THỰC SỰ bằng nhau mới được cùng ký hiệu — kiem_bang gom nhóm để PHANH kiểm độ dài.
+        Chỉ đánh dấu, không tự nối đoạn."""
+        self.tikz.append(('dau_bang_n', A, B, int(so_vach), kieu))
         if kiem_bang is not None:
             self._nhom_bang.setdefault(kiem_bang, []).append((A, B))
         return self
@@ -641,15 +643,26 @@ class HinhCoBan:
                 L.append(f'  \\draw[{_kieu_net(mau,net)}] ({sx:.3f},{sy:.3f}) '
                          f'arc ({gA:.3f}:{gB:.3f}:{r:.3f});')
             elif k=='dau_bang_n':
-                A,B,nv = el[1],el[2],el[3]; Ap,Bp = self.V[A],self.V[B]
+                A,B,nv = el[1],el[2],el[3]; kieu = el[4] if len(el)>4 else 'thang'
+                Ap,Bp = self.V[A],self.V[B]
                 mx,my = (Ap[0]+Bp[0])/2,(Ap[1]+Bp[1])/2
                 dx,dy = Bp[0]-Ap[0],Bp[1]-Ap[1]; Ln=math.hypot(dx,dy) or 1
                 ux,uy = dx/Ln, dy/Ln
-                px,py = -uy*0.12, ux*0.12          # nửa vạch (vuông góc đoạn)
-                for i in range(nv):
-                    off=(i-(nv-1)/2)*0.10
-                    bx,by = mx+ux*off, my+uy*off
-                    L.append(f'  \\draw[thick] ({bx-px:.3f},{by-py:.3f})--({bx+px:.3f},{by+py:.3f});')
+                if kieu=='cheo':
+                    r=0.11
+                    e1x,e1y = (ux-uy)*0.7071, (uy+ux)*0.7071     # xoay +45°
+                    e2x,e2y = (ux+uy)*0.7071, (uy-ux)*0.7071     # xoay −45° (⟂ e1)
+                    for i in range(nv):
+                        off=(i-(nv-1)/2)*0.15
+                        bx,by = mx+ux*off, my+uy*off
+                        L.append(f'  \\draw[thick] ({bx-r*e1x:.3f},{by-r*e1y:.3f})--({bx+r*e1x:.3f},{by+r*e1y:.3f});')
+                        L.append(f'  \\draw[thick] ({bx-r*e2x:.3f},{by-r*e2y:.3f})--({bx+r*e2x:.3f},{by+r*e2y:.3f});')
+                else:
+                    px,py = -uy*0.12, ux*0.12          # nửa vạch (vuông góc đoạn)
+                    for i in range(nv):
+                        off=(i-(nv-1)/2)*0.10
+                        bx,by = mx+ux*off, my+uy*off
+                        L.append(f'  \\draw[thick] ({bx-px:.3f},{by-py:.3f})--({bx+px:.3f},{by+py:.3f});')
             elif k=='dau_ss':
                 A,B,nm = el[1],el[2],el[3]; Ap,Bp = self.V[A],self.V[B]
                 mx,my = (Ap[0]+Bp[0])/2,(Ap[1]+Bp[1])/2

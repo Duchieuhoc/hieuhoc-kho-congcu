@@ -1,0 +1,12 @@
+CẬP NHẬT KHO GITHUB → mốc 2026-08-28j (QC Bài 15: sửa ký hiệu cạnh bằng)
+========================================================================
+Thầy upload 3 file này qua web GitHub (Duchieuhoc/hieuhoc-kho-congcu),
+THAY THẾ bản cũ, commit 1 lần. KHÔNG cần .patch.
+
+  1. hinh_coban.py               (dau_bang thêm kieu='thang'|'cheo' + renderer dấu ×)
+  2. BAN_TRICH_HAM_HH7_CH04.md   (bản trích regen — dau_bang có chữ ký mới)
+  3. 00_KHO_VERSION.txt          (mốc → 28j, changelog [28j])
+
+Lý do: bộ dấu cũ chỉ có vạch thẳng 1/2/3 → không đủ tách 4+ nhóm cạnh bằng
+trong hình nhận-dạng-cặp (H.4.48/H.4.52). Thêm dấu chéo × ×× để mỗi nhóm cạnh
+bằng nhau một ký hiệu riêng. TƯƠNG THÍCH NGƯỢC 100% (mặc định 'thang' = như cũ).

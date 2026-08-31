@@ -1,6 +1,17 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28i
+Mốc kho      : 2026-08-28j
+
+[28j] KÝ HIỆU CẠNH BẰNG — dấu CHÉO (Ông Bụt 2026-08-31, QC Bài 15 theo Giám đốc bắt lỗi).
+      +dau_bang(..., kieu='thang'|'cheo') [hinh_coban + renderer dau_bang_n]: thêm kiểu dấu CHÉO
+      (×, ××) bên cạnh vạch thẳng (/, //). GỐC LỖI: hình NHẬN DẠNG cặp tam giác bằng nhau
+      (H.4.48 6 tam giác · H.4.52 4 tam giác) có ≥4 nhóm cạnh bằng khác nhau, nhưng bộ dấu cũ chỉ
+      1/2/3 vạch thẳng → phải gán TRÙNG số vạch cho cạnh KHÔNG bằng nhau → AI Soạn/HS hiểu sai là
+      bằng nhau, ghép cặp lệch. kieu='cheo' cho đủ 4 ký hiệu / // × ×× tách bạch từng nhóm.
+      CHUẨN DỰNG kèm theo: cạnh cùng ký hiệu BẮT BUỘC bằng nhau THỰC (kiem_bang → PHANH kiểm độ
+      dài) · góc bằng dùng cùng số tick cung (dau_goc_bang). H.4.48/H.4.52 đã dựng lại: mỗi cặp
+      bằng nhau thực, dấu tách nhóm, PHANH kiem_bang pass. TƯƠNG THÍCH NGƯỢC 100% (mặc định 'thang'
+      = như cũ; Bài 12–14 và mọi dau_bang cũ không đổi). SỬA: hinh_coban.py. Bản trích regen.
 
 [28i] MẠCH TAM GIÁC VUÔNG HH7-CH04 · Pha A Bài 15 (Ông Bụt 2026-08-31, chỉ đạo Giám đốc). BA
       primitive thuần-nghĩa (khép A↔C — lộ khi khai + PHANH-test 20 hình đề Bài 15; AI Soạn báo YC
