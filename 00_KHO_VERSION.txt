@@ -1,6 +1,12 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28j
+Mốc kho      : 2026-08-28k
+
+[28k] +ghi_chu(x,y,chu) [hinh_coban] — ghi CHỮ TỰ DO tại toạ độ (Ông Bụt 2026-08-31, QC Bài 15
+      theo Giám đốc). Nhu cầu: gộp 4 hình 4.20 (a,b,c,d) lên 1 HÀNG cần nhãn "a)" "b)"... nhưng
+      dùng tên đỉnh chứa ')' làm hỏng node TikZ. ghi_chu đặt chữ trực tiếp (renderer 'so_o' sẵn có,
+      KHÔNG tạo node tên) → được phép chứa ) ( . Tái dùng: nhãn hình con mọi hình gộp nhiều phần,
+      chú thích ngắn. TƯƠNG THÍCH NGƯỢC 100%. SỬA: hinh_coban.py. Bản trích regen.
 
 [28j] KÝ HIỆU CẠNH BẰNG — dấu CHÉO (Ông Bụt 2026-08-31, QC Bài 15 theo Giám đốc bắt lỗi).
       +dau_bang(..., kieu='thang'|'cheo') [hinh_coban + renderer dau_bang_n]: thêm kiểu dấu CHÉO

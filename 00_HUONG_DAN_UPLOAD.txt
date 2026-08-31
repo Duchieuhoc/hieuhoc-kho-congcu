@@ -1,12 +1,11 @@
-CẬP NHẬT KHO GITHUB → mốc 2026-08-28j (QC Bài 15: sửa ký hiệu cạnh bằng)
-========================================================================
-Thầy upload 3 file này qua web GitHub (Duchieuhoc/hieuhoc-kho-congcu),
-THAY THẾ bản cũ, commit 1 lần. KHÔNG cần .patch.
+CẬP NHẬT KHO GITHUB → mốc 2026-08-28k
+=====================================
+Upload 3 file này lên Duchieuhoc/hieuhoc-kho-congcu (web), THAY bản cũ, commit 1 lần:
+  1. hinh_coban.py               (thêm dau_bang kieu='cheo' [28j] + ghi_chu(x,y,chu) [28k])
+  2. BAN_TRICH_HAM_HH7_CH04.md   (bản trích regen)
+  3. 00_KHO_VERSION.txt          (mốc 28k, changelog 28j + 28k)
 
-  1. hinh_coban.py               (dau_bang thêm kieu='thang'|'cheo' + renderer dấu ×)
-  2. BAN_TRICH_HAM_HH7_CH04.md   (bản trích regen — dau_bang có chữ ký mới)
-  3. 00_KHO_VERSION.txt          (mốc → 28j, changelog [28j])
-
-Lý do: bộ dấu cũ chỉ có vạch thẳng 1/2/3 → không đủ tách 4+ nhóm cạnh bằng
-trong hình nhận-dạng-cặp (H.4.48/H.4.52). Thêm dấu chéo × ×× để mỗi nhóm cạnh
-bằng nhau một ký hiệu riêng. TƯƠNG THÍCH NGƯỢC 100% (mặc định 'thang' = như cũ).
+Hai hàm mới:
+- dau_bang(kieu='cheo'): dấu chéo × ×× để tách ≥4 nhóm cạnh bằng trong 1 hình.
+- ghi_chu(x,y,chu): ghi chữ tự do tại toạ độ (nhãn a)/b)/c)/d) cho hình gộp nhiều phần).
+TƯƠNG THÍCH NGƯỢC 100% (mặc định 'thang'; mọi hàm cũ không đổi).

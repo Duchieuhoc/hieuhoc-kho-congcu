@@ -523,6 +523,12 @@ class HinhCoBan:
         x = ox + r * math.cos(mid); y = oy + r * math.sin(mid)
         self.tikz.append(('so_o', x, y, chu))
         return self
+    def ghi_chu(self, x, y, chu, mau=None):
+        """Ghi CHỮ TỰ DO 'chu' tại toạ độ (x,y) trên hệ vẽ — nhãn hình con a)/b)/c)/d) của một
+        hình GỘP nhiều phần trên cùng hàng, hoặc chú thích ngắn. Chữ đặt trực tiếp (KHÔNG tạo
+        đỉnh/node tên) nên được phép chứa dấu ) ( . mà tên đỉnh không cho phép."""
+        self.tikz.append(('so_o', float(x), float(y), str(chu)))
+        return self
     def keo_dai(self, ten, A, B, dai=None, nhan='below right', ve_doan=True, mau=None):
         """KÉO DÀI đoạn A→B QUA B: đặt 'ten' sao cho A, B, ten THẲNG HÀNG và B nằm GIỮA A và
         'ten' (ten trên TIA ĐỐI của tia BA). Dùng vẽ GÓC NGOÀI tam giác / tia đối mà KHÔNG dời

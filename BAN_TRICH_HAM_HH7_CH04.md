@@ -42,6 +42,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `duong_diem(ten, ds_diem, nhan2dau=None, an_nhan=False, mau=None, net='lien', diem_do=())` | ĐƯỜNG THẲNG mang danh sách điểm ĐÃ SẮP THỨ TỰ (trái→phải): rải ĐỀU và CĂN GIỮA; đường TỰ CO vừa các điểm (thò 2 đầu một khoảng cố định). Thay cho duong+diem_tren khi bài là 'các điểm trên một đường' (nhận biết thẳng hàng, tia đối…). nhan2dau=('x','y') → nhãn 2 đầu; an_nhan=True → đường trần; diem_do=[…] → các điểm chấm ĐỎ (điểm dựng ở lời giải). Tự thêm ràng buộc thẳng hàng (PHANH). |
 | `duong_qua(A, B, mau='red', net='dut')` | ĐƯỜNG THẲNG (kéo dài 2 phía) qua 2 điểm A,B đã đặt — dùng vẽ ĐƯỜNG PHỤ trong lời giải. Mặc định đỏ nét đứt (quy ước yếu tố dựng thêm). A,B đã được PHANH kiểm qua con đường nghĩa của chúng nên KHÔNG thêm ràng buộc (Đ5.9 vẫn kín). |
 | `duong_tron(tam, ban_kinh=2.0, mau=None, net='lien', hien_tam=True)` | ĐƯỜNG TRÒN tâm 'tam', bán kính 'ban_kinh' (đơn vị vẽ). Nếu 'tam' chưa đặt → đặt tại gốc (0,0) — KHÔNG nhận tọa độ (Đ5.9). hien_tam=False → không chấm tâm. Các điểm trên đường tròn khai bằng diem_tren_tron (định vị bằng GÓC Ở TÂM). |
+| `ghi_chu(x, y, chu, mau=None)` | Ghi CHỮ TỰ DO 'chu' tại toạ độ (x,y) trên hệ vẽ — nhãn hình con a)/b)/c)/d) của một hình GỘP nhiều phần trên cùng hàng, hoặc chú thích ngắn. Chữ đặt trực tiếp (KHÔNG tạo đỉnh/node tên) nên được phép chứa dấu ) ( . mà tên đỉnh không cho phép. |
 | `giao(ten, dt1, dt2, mau=None)` | ĐIỂM 'ten' = giao của 2 đường (tên) HOẶC 2 đoạn (tuple mút). Song song → raise. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `goc(dinh, canh1, canh2, do, xoay=0, vuong=False, hien_so=True)` | AI Soạn chỉ khai: đỉnh, tên 2 cạnh, số đo. Máy đặt 2 cạnh BẰNG NHAU (DAI_CHUAN), cạnh1 nghiêng 'xoay'° so ngang, cạnh2 = cạnh1 + do. vuong=True → vẽ ô vuông thay cung số. hien_so=False → vẽ cung góc NHƯNG ẩn số đo (hình ĐỀ đo-góc / minh hoạ so sánh: chỉ hiện cung, không lộ đáp án — Đ35). |
 | `goc_o_tam(tam, A, B, do=None, danh_dau=True)` | Góc ở tâm chắn bởi 2 bán kính 'tam'A, 'tam'B (A,B đã đặt trên đường tròn). Vẽ 2 bán kính + đánh dấu cung góc. do=số đo → PHANH kiểm góc ở tâm đúng số đo. (Nền cho L9: góc nội tiếp = ½ góc ở tâm.) |
@@ -87,4 +88,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 59 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 60 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
