@@ -1,14 +1,13 @@
-CAP_NHAT_KHO — Mốc 28m (2026-09-02)
-===================================
-2 thay đổi (tương thích ngược 100%):
-  1) headerFooterBaiHoc — tiền tố "Bài " CÓ ĐIỀU KIỆN (soBai rỗng → không "Bài ").
-  2) +danDungSai(soCau, moTa) — dòng dẫn Đúng/Sai, nhãn "Câu N." TỰ ĐẬM (export).
+CẬP NHẬT KHO — MỐC 2026-08-28n (template v10.11 → v10.12)
+=========================================================
+Nội dung sửa: BỎ para rỗng cuối headerDeKiemTra (dòng trắng thừa trên Phần I của
+MỌI đề kiểm tra). HP Đ17.4 / Chuẩn A2. Áp chung mọi đề KT về sau.
 
-FILE THAY THẾ (upload đè GitHub, giữ đường dẫn):
-  · hieuhoc_template.js
-  · 00_KHO_VERSION.txt
-Nền: 28l (SHA ea59887) → sau push = 28m.
+CÁCH PUSH (web GitHub — repo Duchieuhoc/hieuhoc-kho-congcu):
+1. Upload đè 2 file:
+   - hieuhoc_template.js   (v10.12)
+   - 00_KHO_VERSION.txt    (mốc 28n)
+2. Commit message gợi ý: "[28n] headerDeKiemTra bỏ para rỗng (dòng trắng Phần I) - template v10.12"
 
-KÈM (upload lên Project Knowledge, KHÔNG phải GitHub):
-  · API_REFERENCE.md · Instructions_AI_Soan_HinhHoc.md · PhuLucMon_HinhHoc_THCS.md (v2.15)
-    → gói riêng CAP_NHAT_PROJECT__danDungSai.zip
+TƯƠNG THÍCH NGƯỢC 100%: chỉ bớt 1 para rỗng, không đổi chữ ký hàm → BAN_TRICH không đổi,
+các bài đã lưu không ảnh hưởng. Chỉ đề KT dựng lại về sau mới hết dòng trắng.
