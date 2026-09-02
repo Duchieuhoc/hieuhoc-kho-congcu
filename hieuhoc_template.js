@@ -1577,6 +1577,19 @@ function bangDungSai(menhDeArr) {
  * @param {string|Array} p.cauHoi - string (như cũ) hoặc mảng trộn text/công thức
  * @param {string|Array} p.dapAn  - string (như cũ) hoặc mảng trộn text/công thức
  */
+// [28m] DÒNG DẪN Đúng/Sai — nhãn "Câu N." TỰ ĐẬM (khớp nhãn câu template tự sinh ở
+//   cauTracNghiem/traLoiNgan/tự luận). GỐC: dòng dẫn Đ/S trước đây dựng TAY bằng para
+//   thường → quên đậm (mục ⑥ HH7-CH04). Nay bắt buộc qua hàm này: không thể quên đậm.
+//   moTa = phần mô tả (thường), nhận cả chuỗi lẫn OMML. Đặt NGAY TRƯỚC bangDungSai
+//   (chèn hinhVe căn giữa vào giữa nếu câu có hình).
+function danDungSai(soCau, moTa) {
+  _guardND(moTa, "danDungSai");
+  return para([
+    run(`Câu ${soCau}. `, { bold: true, size: SZ_CONTENT }),
+    ...toInline(moTa, { size: SZ_CONTENT }),
+  ], { before: THO_VUA, after: 40, justify: true });
+}
+
 function traLoiNgan({ soCau, cauHoi, dapAn }) {
   return [
     para([run(`Câu ${soCau}. `, { bold: true, size: SZ_CONTENT }), ...toInline(cauHoi, { size: SZ_CONTENT })],
@@ -1648,7 +1661,7 @@ function headerDeKiemTra({ tenDe, phut }) {
  * (sự cố đã xảy ra ở Bài 10).
  */
 function headerFooterBaiHoc({ soBai, tenBai, lop }) {
-  const headerText = `Bài ${soBai}. ${chuanHoaCauChu(tenBai)}`;
+  const headerText = soBai ? `Bài ${soBai}. ${chuanHoaCauChu(tenBai)}` : chuanHoaCauChu(tenBai);  // [28m] soBai rỗng (tổng kết chương/chuyên đề) → header không tiền tố "Bài "
   const header = new Header({
     children: [
       new Paragraph({
@@ -2759,7 +2772,7 @@ module.exports = {
   saiLamThuongGap, ghiNhoNhanh,
   // phần 2 — dạng toán, BT, BTVN, đề kiểm tra
   tieuDeDang, nhanDang, phuongPhapGiai, phanTich, dangToanDayDu,
-  baiTapTaiLop, cauTracNghiem, bangDapAnPhanI, bangDungSai, traLoiNgan,
+  baiTapTaiLop, cauTracNghiem, bangDapAnPhanI, bangDungSai, danDungSai, traLoiNgan,
   headerDeKiemTra,
   // phần 3 — header/footer file bài học + đề kiểm tra
   headerFooterBaiHoc, headerFooterDeKT,

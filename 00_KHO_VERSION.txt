@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28l
+Mốc kho      : 2026-08-28m
+
+[28m] headerFooterBaiHoc: tiền tố "Bài " thành CÓ ĐIỀU KIỆN (Ông Bụt 2026-09-02, mục ⑥ Tổng kết
+      chương IV theo Giám đốc). GỐC: tài liệu TỔNG KẾT CHƯƠNG (không phải bài học) không được mang
+      "Bài N." ở header chạy. Sửa: soBai truthy → "Bài {soBai}. {tên}" (như cũ); soBai rỗng/"" →
+      chỉ "{tên}". + danDungSai(soCau,moTa)
+      — DÒNG DẪN Đúng/Sai nhãn "Câu N." TỰ ĐẬM (export). GỐC: dòng dẫn Đ/S dựng tay bằng para thường
+      → quên đậm (phát hiện mục ⑥ HH7-CH04, Giám đốc 2026-09-02). Nay bắt buộc qua hàm → không thể quên.
+      Tương thích ngược 100% (hàm mới). API_REFERENCE + Phụ lục Hình mục 7 + Instructions cập nhật kèm. TƯƠNG THÍCH NGƯỢC 100% (mọi bài đang truyền soBai=số → không đổi). Không đổi chữ ký
+      hàm → BAN_TRICH không cần regen. TEST: dựng docx mục ⑥ (soBai="") header sạch "Tổng kết kiến
+      thức chương iv - tam giác | Lớp 7"; kiểm bài thường (soBai="16") vẫn "Bài 16. ...".
 
 [28l] +trung_truc(A,B,...) [hinh_coban BASE] — ĐƯỜNG TRUNG TRỰC đoạn thẳng (Ông Bụt 2026-08-31,
       Pha A Bài 16 theo Giám đốc). GỐC: mạch trung trực Bài 16 (định nghĩa · cách đều 2 mút · dựng

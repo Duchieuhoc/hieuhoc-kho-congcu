@@ -1,0 +1,14 @@
+CAP_NHAT_KHO — Mốc 28m (2026-09-02)
+===================================
+2 thay đổi (tương thích ngược 100%):
+  1) headerFooterBaiHoc — tiền tố "Bài " CÓ ĐIỀU KIỆN (soBai rỗng → không "Bài ").
+  2) +danDungSai(soCau, moTa) — dòng dẫn Đúng/Sai, nhãn "Câu N." TỰ ĐẬM (export).
+
+FILE THAY THẾ (upload đè GitHub, giữ đường dẫn):
+  · hieuhoc_template.js
+  · 00_KHO_VERSION.txt
+Nền: 28l (SHA ea59887) → sau push = 28m.
+
+KÈM (upload lên Project Knowledge, KHÔNG phải GitHub):
+  · API_REFERENCE.md · Instructions_AI_Soan_HinhHoc.md · PhuLucMon_HinhHoc_THCS.md (v2.15)
+    → gói riêng CAP_NHAT_PROJECT__danDungSai.zip
