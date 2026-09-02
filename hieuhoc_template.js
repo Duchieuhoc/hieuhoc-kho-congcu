@@ -1,4 +1,4 @@
-// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
+// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
 // File DUY NHẤT. Scripts require("./hieuhoc_template.js").
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -1639,7 +1639,9 @@ function headerDeKiemTra({ tenDe, phut }) {
       run("(không kể thời gian phát đề)", { bold: true, color: C_RED, size: SZ_CONTENT })],
       { align: AlignmentType.CENTER, before: 0, after: 10 }),
     table,
-    para([], { before: 10, after: 10 }),
+    // [v10.12] BỎ para rỗng cuối (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm tạo
+    //   khoảng bằng đoạn rỗng). Khoảng cách bảng↔Phần I do before:THO_RONG của
+    //   tieuDePhanI_DeKT lo (đúng phân cấp khoảng thở).
   ];
 }
 

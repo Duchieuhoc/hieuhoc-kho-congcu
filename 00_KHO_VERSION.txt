@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28m
+Mốc kho      : 2026-08-28n
+
+[28n] headerDeKiemTra: BỎ para RỖNG cuối (dòng trắng thừa trên Phần I) — hieuhoc_template.js
+      v10.11→v10.12 (Ông Bụt 2026-09-03, Giám đốc soi đề KT 90' Chương IV). GỐC: hàm trả về
+      table rồi para([], {before:10,after:10}) → 1 dòng trắng giữa bảng Họ tên/Điểm và tiêu đề
+      "PHẦN I" ở MỌI đề kiểm tra. Vi phạm HP Đ17.4 / Chuẩn A2 (cấm tạo khoảng bằng đoạn rỗng).
+      SỬA: bỏ para rỗng; khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo
+      (đúng phân cấp khoảng thở RỘNG). Áp CHUNG mọi đề KT về sau (không riêng đề này).
+      TƯƠNG THÍCH NGƯỢC 100% (chỉ bớt 1 para rỗng, không đổi chữ ký hàm nào → BAN_TRICH không đổi).
+      TEST: node -c sạch; dựng lại đề A/B → para rỗng thô=0, xmllint OK, drawing=5/đề, kiemMay
+      0 lỗi thật; soi trang 1 hết dòng trắng, bảng↔Phần I gọn đúng phân cấp.
 
 [28m] headerFooterBaiHoc: tiền tố "Bài " thành CÓ ĐIỀU KIỆN (Ông Bụt 2026-09-02, mục ⑥ Tổng kết
       chương IV theo Giám đốc). GỐC: tài liệu TỔNG KẾT CHƯƠNG (không phải bài học) không được mang
@@ -320,7 +330,7 @@ Phạm vi hàm  : HH6_CH08 (Chương VIII) — 48 hàm phơi (BAN_TRICH 20/08d; 
                (HinhDaGiac + HinhTron; dùng chung 7→9). +tam_giac_can (hinh_dagiac). Ký hiệu bằng ở
                BASE HinhCoBan: dau_bang (vạch cạnh) · goc_vuong (ô vuông) · dau_goc_bang (cung góc —
                NHẤC từ hinh_gocdt mốc 28a, dùng chung). (BAN_TRICH_HAM_HH7_CH04.md 28a)
-Template     : hieuhoc_template.js v10.11 (13/08) — +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
+Template     : hieuhoc_template.js v10.12 (03/09) — headerDeKiemTra bỏ para rỗng cuối [28n]; v10.11 (13/08) +taoTaiLieuDeKT, +headerFooterDeKT (19/08b); +coTongKet cho toPhanChuong (20/08, tương thích ngược)
 Công cụ nối  : noi_tai_lieu.js (20/08) — nối nhiều bài/đề/ảnh + tờ phân chương → 1 docx, guard xmllint tích hợp
 Gộp chương   : gop_chuong.js (22/08) — GHÉP MẢNH: quét thư mục chương, mỗi gói mang sẵn
                00_MANIFEST_MANH.json → tự dựng bìa + xếp thứ tự → gọi noi_tai_lieu. Nối chương
