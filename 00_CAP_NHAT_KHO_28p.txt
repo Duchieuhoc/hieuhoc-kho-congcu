@@ -1,0 +1,24 @@
+CAP_NHAT_KHO — mốc 28p (2026-09-04) · Ông Bụt (nhánh Đại số)
+============================================================
+Đẩy GitHub `Duchieuhoc/hieuhoc-kho-congcu` bằng UPLOAD WEB (kéo-thả). KHÔNG patch.
+Nền: clone SHA 9d5d5f62 (=28o). Máy Hình xác nhận RẢNH (không sửa template lượt này).
+
+| File | Loại | Nội dung |
+|---|---|---|
+| hinh_daiso.py        | THÊM MỚI | ENTRY MẠCH ĐẠI SỐ — class Hinh(HinhCoBan) + primitive `tia_so` |
+| BAN_TRICH_HAM_DS6.md | THÊM MỚI | bản trích hàm cho AI Soạn Đại số (tự sinh) |
+| 00_KHO_VERSION.txt   | ĐÈ       | mốc → 28p (thêm changelog [28p]) |
+
+KHÔNG đụng: hieuhoc_template.js · hinh_core.py · mọi hinh_ch*.py/hinh_coban.py (Hình học).
+→ TƯƠNG THÍCH NGƯỢC 100%: bài Hình cũ pin SHA 28o tái lập y nguyên.
+
+Sau khi đẩy → mốc kho công khai = 28p. Cập nhật "mốc kho yêu cầu" trong luật Project (Đại số) lên 28p
+để không lệch-halt đầu thread sau.
+
+KIỂM NHANH (tuỳ): clone lại → python3 -c "import hinh_daiso, hinh_ch8" · quet_stamp SẠCH.
+
+CỔNG AST cho AI Soạn Đại số: quét `python3 cua_quet_hinh.py <script>.py --kho hinh_daiso`
+(khác Hình dùng --kho hinh_ch8).
+
+VIỆC TREO (KHÔNG chặn B03): glyph Việt horn "ơ/ư" thiếu ở font core → patch _render riêng sau,
+có test lại toàn hệ nhãn Việt. B03 né bằng nhãn ngắn + tên tỉnh trong đề Word.
