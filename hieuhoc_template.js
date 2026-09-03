@@ -466,6 +466,11 @@ const TNR = "Times New Roman";
 // (Bài học B12 Đ-B: TNR thiếu số khoanh tròn; nay △/✗/✓ cùng lớp lỗi — xử một lượt.)
 const FONT_KYHIEU = "Segoe UI Symbol";
 const _RE_GLYPH = /[\u25B2\u25B3\u25BC\u25BD\u25B8\u25B9\u25BA\u25C4\u25CB\u25A1\u2713\u2714\u2715\u2717\u2718\u2295\u2225\u22A5\u2220\u2261]/;
+// [28o] Font PHỦ ký hiệu ĐẠI SỐ/toán học mà TNR THIẾU glyph (∈ ∉ ℕ ℤ ℚ ℝ ⇒ ⇔ ≤ ≥ ≠ ∅ ⊂ ⊄ ∪ ∩ ×…).
+// Cambria Math đi kèm MỌI bản Office (Win+Mac) → font-proof đa nền (bài học B01: TNR máy thiếu glyph → fallback Ả Rập).
+// Tách riêng khỏi FONT_KYHIEU (Segoe UI Symbol dùng cho ký hiệu HÌNH — không đụng).
+const FONT_TOAN = "Cambria Math";
+const _RE_TOAN = /[\u2208\u2209\u2115\u2124\u211A\u211D\u2205\u2282\u2284\u2286\u2288\u222A\u2229\u21D2\u21D4\u2264\u2265\u2260\u00D7\u00F7\u2211\u220F\u221A\u2208]/;
 const C_BLACK = "000000";
 const C_RED = "C00000";
 const C_RED_ANSWER = "DC2626";
@@ -634,6 +639,18 @@ function _nextImgId() { return ++_imgIdCounter; }
 // ─────────────────────────────────────────────────────────────
 // HÀM CƠ SỞ (không gọi trực tiếp từ AI Soạn, dùng nội bộ)
 // ─────────────────────────────────────────────────────────────
+// [28o] TÁCH-FONT dùng chung: chuỗi trộn → mảng TextRun con, mỗi con đúng font.
+//   ĐẠI SỐ (∈ ∉ ℕ ⇒ ≤ ×…) → Cambria Math; HÌNH (△ ⊥ ∠…) → Segoe UI Symbol; còn lại → TNR.
+//   Trả null nếu chuỗi KHÔNG có ký hiệu đặc biệt (caller giữ đường cũ). fmt áp cho MỌI con.
+function _tachFontKids(text, fmt) {
+  if (typeof text !== "string" || !(_RE_GLYPH.test(text) || _RE_TOAN.test(text))) return null;
+  const _RE_SPLIT = new RegExp("(" + _RE_TOAN.source + "+|" + _RE_GLYPH.source + "+)");
+  return text.split(_RE_SPLIT).filter(p => p !== "").map(p => {
+    const font = _RE_TOAN.test(p) ? FONT_TOAN : (_RE_GLYPH.test(p) ? FONT_KYHIEU : TNR);
+    return new TextRun({ text: p, font, ...fmt });
+  });
+}
+
 function run(text, opts = {}) {
   const fmt = {
     bold: opts.bold || false,
@@ -642,13 +659,10 @@ function run(text, opts = {}) {
     color: opts.color || C_BLACK,
     size: opts.size || SZ_CONTENT,
   };
-  // [28g] TÁCH-FONT: nếu chuỗi có ký hiệu TNR thiếu glyph → phần đó dùng FONT_KYHIEU,
-  // chữ thường giữ TNR (giữ dáng serif). Trả về 1 TextRun cha ôm các con → caller không đổi.
-  if (typeof text === "string" && _RE_GLYPH.test(text)) {
-    const parts = text.split(new RegExp("(" + _RE_GLYPH.source + "+)"));
-    const kids = parts.filter(p => p !== "").map(p =>
-      new TextRun({ text: p, font: _RE_GLYPH.test(p) ? FONT_KYHIEU : TNR, ...fmt }));
-    return new TextRun({ children: kids });
+  // [28g/28o] TÁCH-FONT: ký hiệu TNR thiếu glyph → font phủ; chữ thường giữ TNR (dáng serif).
+  const _kids = _tachFontKids(text, fmt);
+  if (_kids) {
+    return new TextRun({ children: _kids });
   }
   return new TextRun({ text, font: TNR, ...fmt });
 }
@@ -1295,8 +1309,13 @@ function tieuDeDang({ soDang, tenDang, ma }) {
       spacing: { before: THO_RONG, after: 40, line: 220 },
       keepNext: true,
       children: [
-        new TextRun({ text: `Dạng ${soDang}. ${tenDang}`, font: TNR,
-          bold: true, underline: { type: UnderlineType.SINGLE }, size: SZ_CONTENT }),
+        // [28o] tên Dạng có thể chứa ký hiệu toán (vd "(∈, ∉)") → qua tách-font, khỏi tofu/Ả Rập.
+        ...(function () {
+          const _t = `Dạng ${soDang}. ${tenDang}`;
+          const _fmt = { bold: true, underline: { type: UnderlineType.SINGLE }, size: SZ_CONTENT };
+          const _k = _tachFontKids(_t, _fmt);
+          return _k || [new TextRun({ text: _t, font: TNR, ..._fmt })];
+        })(),
         new TextRun({ text: `  ${ma}`, font: TNR, italic: true, color: C_GRAY, size: SZ_SMALL - 2 }),
       ],
     }),

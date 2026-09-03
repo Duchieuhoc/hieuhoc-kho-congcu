@@ -1,6 +1,13 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28n
+Mốc kho      : 2026-08-28o
+
+[28o] FONT-PROOF KÝ HIỆU ĐẠI SỐ — hieuhoc_template.js
+      • Thêm FONT_TOAN="Cambria Math" + _RE_TOAN (∈ ∉ ℕ ℤ ℚ ℝ ⇒ ⇔ ≤ ≥ ≠ × ∅ ⊂ ⊄ ∪ ∩ √ ∑ ∏).
+      • run() + tieuDeDang() qua helper _tachFontKids: ký hiệu ĐẠI SỐ→Cambria Math,
+        HÌNH→Segoe UI Symbol, chữ thường→TNR. Chữ ký hàm public KHÔNG đổi (API_REFERENCE giữ nguyên).
+      • Lý do: TNR nhiều máy THIẾU glyph ký hiệu toán → Word fallback ra chữ Ả Rập (sự cố B01).
+        _RE_GLYPH cũ chỉ phủ ký hiệu HÌNH nên bài Đại số lọt. Nay phủ cả đại số.
 
 [28n] headerDeKiemTra: BỎ para RỖNG cuối (dòng trắng thừa trên Phần I) — hieuhoc_template.js
       v10.11→v10.12 (Ông Bụt 2026-09-03, Giám đốc soi đề KT 90' Chương IV). GỐC: hàm trả về
