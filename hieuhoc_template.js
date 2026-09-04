@@ -1,4 +1,4 @@
-// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
+// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
 // File DUY NHẤT. Scripts require("./hieuhoc_template.js").
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -1321,7 +1321,7 @@ function tieuDeDang({ soDang, tenDang, ma }) {
           const _k = _tachFontKids(_t, _fmt);
           return _k || [new TextRun({ text: _t, font: TNR, ..._fmt })];
         })(),
-        new TextRun({ text: `  ${ma}`, font: TNR, italic: true, color: C_GRAY, size: SZ_SMALL - 2 }),
+        new TextRun({ text: `  ${ma}`, font: TNR, italic: true, color: C_GRAY, size: SZ_SMALL }),  // [v10.13] mã dạng về 11pt = mã bài (HP Đ13: mã định danh 11pt). Trước SZ_SMALL-2=10pt lệch HP.
       ],
     }),
   ];
@@ -1614,13 +1614,20 @@ function danDungSai(soCau, moTa) {
   ], { before: THO_VUA, after: 40, justify: true });
 }
 
-function traLoiNgan({ soCau, cauHoi, dapAn }) {
-  return [
+function traLoiNgan({ soCau, cauHoi, dapAn, thamChieu }) {
+  // [v10.13] +thamChieu: gắn cờ nguồn / "Tự soạn" (Đ5.7.1) — đồng bộ cauTracNghiem. Trước không mang được cờ.
+  thamChieu = _locNguon(thamChieu);
+  const out = [
     para([run(`Câu ${soCau}. `, { bold: true, size: SZ_CONTENT }), ...toInline(cauHoi, { size: SZ_CONTENT })],
-      { before: THO_VUA, after: 6 }),
-    para([run("Đáp án: ", { bold: true, size: SZ_CONTENT }), ...toInline(dapAn, { size: SZ_CONTENT })],
-      { before: 0, after: 20 }),
+      { before: THO_VUA, after: thamChieu ? 0 : 6 }),
   ];
+  if (thamChieu) {
+    out.push(para([run(`(${thamChieu})`, { italic: true, color: C_GRAY, size: SZ_SMALL })],
+      { before: 0, after: 6 }));
+  }
+  out.push(para([run("Đáp án: ", { bold: true, size: SZ_CONTENT }), ...toInline(dapAn, { size: SZ_CONTENT })],
+    { before: 0, after: 20 }));
+  return out;
 }
 
 // ═════════════════════════════════════════════════════════════

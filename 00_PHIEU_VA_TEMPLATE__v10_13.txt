@@ -1,0 +1,48 @@
+══════════════════════════════════════════════════════════════════════
+PHIẾU VÁ TEMPLATE — hieuhoc_template.js  v10.12 → v10.13
+Ông Bụt Đại số · 2026-09-04 · phát sinh khi QC DS6_CH01_B06
+══════════════════════════════════════════════════════════════════════
+
+⚠️ FILE CHUNG — CHỐNG LỆCH PHA (00_NAP_PROJECT_DAISO mục C):
+   • hieuhoc_template.js upload web = ĐÈ, KHÔNG merge.
+   • Base để vá = kho 28p, SHA b54c2e18581ebd7fb7acbfa7f916eb0863cc2793 (clone lúc QC).
+   • MỘT thời điểm chỉ MỘT máy sửa template. TRƯỚC KHI LAND:
+       – Xác nhận máy Hình KHÔNG đang sửa template.
+       – Land bản v10.13 này (đã chứa nền 28p), rồi báo máy Hình đồng bộ.
+   • Đề xuất bump mốc kho: 28p → 28q.
+
+──────────────────────────────────────────────────────────────────────
+2 THAY ĐỔI (đều ADDITIVE / sửa-cỡ — KHÔNG đổi API cũ, KHÔNG mổ lõi)
+──────────────────────────────────────────────────────────────────────
+
+[1] MÃ DẠNG về 11pt  — hàm tieuDeDang()
+    Trước:  size: SZ_SMALL - 2   (= 20 = 10pt)
+    Sau :   size: SZ_SMALL       (= 22 = 11pt)
+    Lý do:  HP Điều 13 — "11pt: mã định danh, tham chiếu nguồn". Mã ở TÊN BÀI
+            (tenBaiHoc) đã đúng 11pt; mã ở TIÊU ĐỀ DẠNG bị -2 = 10pt, lệch HP.
+    Ảnh hưởng: mọi bài mọi môn — mã dạng D1..Dn về 11pt. Không đổi bố cục khác.
+
+[2] traLoiNgan() +tham số thamChieu
+    Trước:  traLoiNgan({ soCau, cauHoi, dapAn })
+    Sau :   traLoiNgan({ soCau, cauHoi, dapAn, thamChieu })
+            → nếu có thamChieu: in dòng "(…)" xám 11pt ngay dưới câu hỏi,
+              y hệt cauTracNghiem (dùng chung _locNguon).
+    Lý do:  câu Phần III tự soạn cần nhãn "Tự soạn" (Đ5.7.1) mà hàm cũ không mang được.
+    Tương thích: gọi cũ (không truyền thamChieu) chạy y như trước — KHÔNG vỡ bài đã dựng.
+
+──────────────────────────────────────────────────────────────────────
+KIỂM SAU VÁ (đã chạy)
+──────────────────────────────────────────────────────────────────────
+   • node -c hieuhoc_template.js → OK
+   • Rebuild DS6_CH01_B06: sz=20 (10pt) = 0 · mã dạng ở sz=22 · nhãn "Tự soạn" đủ 4 mục
+   • Không hồi quy: đoạn-lồng-đoạn=0 · 12pt=0 · đáp án Phần I nguyên (A A C A A C A B)
+
+──────────────────────────────────────────────────────────────────────
+VIỆC THẦY
+──────────────────────────────────────────────────────────────────────
+   1. Duyệt 2 thay đổi.
+   2. Điều phối máy Hình (không sửa template song song).
+   3. Upload hieuhoc_template.js (kèm) lên kho → bump 28q → báo máy Hình đồng bộ.
+   4. Sau khi land: bản dựng B06 (mã dạng 11pt) là bản chính thức.
+      (Nếu chưa land mà ai rebuild bằng 28p cũ → mã dạng về 10pt.)
+══════════════════════════════════════════════════════════════════════
