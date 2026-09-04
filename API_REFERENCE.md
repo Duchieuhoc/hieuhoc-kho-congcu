@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.12)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.12 (2026-09-03) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.13)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.13 (2026-09-04) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `kiemMay(bufOrPath, opts = {})`
@@ -55,7 +55,7 @@ Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến kh
 14. BẢNG ĐÚNG/SAI — tỉ lệ CỐ ĐỊNH 80%-10%-10%, nền trắng chữ đen
 ### `danDungSai(soCau, moTa)`
 [28m] DÒNG DẪN Đúng/Sai — nhãn "Câu N." TỰ ĐẬM (khớp nhãn câu template tự sinh ở cauTracNghiem/traLoiNgan/tự luận). GỐC: dòng dẫn Đ/S trước đây dựng TAY bằng para thường → quên đậm (mục ⑥ HH7-CH04). Nay bắt buộc qua hàm này: không thể quên đậm. moTa = phần mô tả (thường), nhận cả chuỗi lẫn OMML. Đặt NGAY TRƯỚC bangDungSai (chèn hinhVe căn giữa vào giữa nếu câu có hình).
-### `traLoiNgan({ soCau, cauHoi, dapAn })`
+### `traLoiNgan({ soCau, cauHoi, dapAn, thamChieu })`
 ### `headerDeKiemTra({ tenDe, phut })`
 16. HEADER ĐỀ KIỂM TRA (tên đề + thời gian + bảng Họ tên/Điểm/NX)
 
@@ -117,4 +117,4 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 67 hàm + 18 hằng/tham chiếu · template v10.12 (2026-09-03) · sinh_apiref.js.*
+*Tự sinh: 67 hàm + 18 hằng/tham chiếu · template v10.13 (2026-09-04) · sinh_apiref.js.*

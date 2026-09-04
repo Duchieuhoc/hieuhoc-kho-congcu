@@ -1,0 +1,19 @@
+═══════════════════════════════════════════════════════════════
+UP KHO — GitHub hieuhoc-kho-congcu — mốc 28q — 2026-09-04 (giờ VN)
+═══════════════════════════════════════════════════════════════
+
+⚠️ TRƯỚC KHI UP: xác nhận máy Hình KHÔNG có commit mới vào kho sau
+   SHA 47767cb… (bản OB dựng gói này trên nền đó). Nếu Hình vừa đụng
+   kho → KHOAN, báo OB pull bản mới rồi ghép lại.
+
+UP 2 FILE NÀY (đè):
+   1. 00_KHO_VERSION.txt   (mốc 28p → 28q, thêm changelog [28q])
+   2. API_REFERENCE.md     (regen từ template v10.13, traLoiNgan đã có thamChieu)
+
+KHÔNG up hieuhoc_template.js — kho đã đúng v10.13.
+
+SAU KHI UP:
+   • commit 1 phát: "kho 28q: bump mốc + regen API_REF cho v10.13"
+   • BÁO máy Hình: mốc kho 28p → 28q (để đồng bộ, tránh lệch pha)
+   • gửi OB SHA mới
+═══════════════════════════════════════════════════════════════

@@ -1,6 +1,8 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28p (2026-09-04)
+Mốc kho      : 28q (2026-09-04)
+
+[28q] LAND template v10.13 (Ông Bụt 2026-09-04, phát sinh khi QC DS6_CH01_B06): (1) MÃ DẠNG về 11pt — tieuDeDang dùng SZ_SMALL (bỏ "-2"=10pt cũ), khớp HP Đ13; (2) traLoiNgan() +thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). Additive, không đổi API cũ. Kèm: regen API_REFERENCE.md v10.13.
 
 [28p] +tia_so [hinh_daiso.py MỚI — ENTRY MẠCH ĐẠI SỐ] (Ông Bụt 2026-09-04, Pha B DS6_CH01_B03
       — bài Đại số ĐẦU TIÊN cần hình; kho 28o toàn Hình học, không có tia số → khe hở lộ).
