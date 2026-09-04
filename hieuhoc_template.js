@@ -315,6 +315,11 @@ function _kiemTrinhBay(xml) {
   if (/<w:p\b[^>]*>(?:(?!<\/w:p>)[\s\S])*?<w:p\b/.test(xml))
     loi.push("Đoạn văn lồng trong đoạn văn (<w:p> trong <w:p>) — Word sẽ từ chối mở. Quên spread mảng: dùng ...H.loiGiai() thay vì H.para(H.loiGiai()).");
 
+  // (a2) [28p] Run lồng run — <w:r> chứa <w:r>. OOXML CẤM. LibreOffice/schema-reader MẤT CHỮ
+  //      (Word sửa ngầm nên dễ lọt). Sinh ra khi bọc mảng run() vào TextRun({children}).
+  if (/<w:r\b[^>]*>(?:(?!<\/w:r>)[\s\S])*?<w:r\b/.test(xml))
+    loi.push("Run lồng trong run (<w:r> trong <w:r>) — sai chuẩn OOXML, LibreOffice/trình đọc chuẩn sẽ MẤT CHỮ. Nguyên nhân: bọc MẢNG run() vào TextRun({children}); run() phải trả thẳng mảng và para()/tabLine() làm phẳng.");
+
   // (b) Cỡ 12pt — đã bỏ khỏi hệ thống (HP Điều 13.2)
   if (xml.includes('w:val="24"'))
     loi.push('Còn cỡ chữ 12pt (w:val="24") — đã bỏ (HP Điều 13.2).');
@@ -662,7 +667,7 @@ function run(text, opts = {}) {
   // [28g/28o] TÁCH-FONT: ký hiệu TNR thiếu glyph → font phủ; chữ thường giữ TNR (dáng serif).
   const _kids = _tachFontKids(text, fmt);
   if (_kids) {
-    return new TextRun({ children: _kids });
+    return _kids; // [28p FIX] trả MẢNG run anh-em; para()/tabLine() làm phẳng — tránh <w:r> lồng <w:r> (OOXML cấm)
   }
   return new TextRun({ text, font: TNR, ...fmt });
 }
@@ -678,7 +683,7 @@ function para(children, opts = {}) {
   // Nguyên nhân luôn là quên spread khi hàm trả về MẢNG Paragraph:
   //     children.push(H.para(H.loiGiai({...})))     ← SAI
   //     children.push(...H.loiGiai({...}))          ← ĐÚNG
-  const ds = Array.isArray(children) ? children : [children];
+  const ds = (Array.isArray(children) ? children : [children]).flat(Infinity); // [28p] làm phẳng mảng run()
   const viTri = [];
   ds.forEach((c, i) => { if (c instanceof Paragraph) viTri.push(i); });
   if (viTri.length) {
@@ -699,7 +704,7 @@ function para(children, opts = {}) {
     indent: opts.indent || {},
     keepLines: opts.keepLines || false,
     keepNext: opts.keepNext || false,
-    children: Array.isArray(children) ? children : [children],
+    children: ds,
   });
 }
 
@@ -737,9 +742,9 @@ function chuanHoaCauChu(str) {
 function toInline(input, opts = {}) {
   if (input === undefined || input === null) return [];
   if (Array.isArray(input)) {
-    return input.map(item => (typeof item === "string" ? run(item, opts) : item));
+    return input.flatMap(item => (typeof item === "string" ? run(item, opts) : [item])).flat(Infinity); // [28p] phẳng
   }
-  if (typeof input === "string") return [run(input, opts)];
+  if (typeof input === "string") { const r = run(input, opts); return (Array.isArray(r) ? r : [r]); } // [28p]
   return [input]; // đã là 1 TextRun/Math object sẵn
 }
 
@@ -827,7 +832,7 @@ function tabLine(parts, opts = {}) {
     spacing: { before: opts.before ?? 0, after: opts.after ?? 0, line: 260 },
     indent: opts.indent || {},
     tabStops,
-    children,
+    children: children.flat(Infinity), // [28p] làm phẳng mảng run()
   });
 }
 

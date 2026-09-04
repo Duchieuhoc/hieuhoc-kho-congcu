@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.11)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.11 (2026-08-13) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.12)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.12 (2026-09-03) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `kiemMay(bufOrPath, opts = {})`
@@ -15,7 +15,6 @@ taoTaiLieuDeKT — dựng Document cho ĐỀ KIỂM TRA (thay khối Document t�
 
 ## helpers cơ sở
 ### `run(text, opts = {})`
-HÀM CƠ SỞ (không gọi trực tiếp từ AI Soạn, dùng nội bộ)
 ### `para(children, opts = {})`
 A5 v9.0: hỗ trợ keepLines / keepNext — chống nhảy trang 2 tầng keepLines: giữ toàn bộ đoạn trên cùng 1 trang (không bị bẻ đôi giữa chừng) keepNext: giữ đoạn này cùng trang với đoạn kế tiếp (tiêu đề không bị mồ côi)
 ### `tabLine(parts, opts = {})`
@@ -32,7 +31,6 @@ Dựng nhanh 1 Paragraph từ nội dung string|mảng trộn — dùng nội b�
 ### `tieuDeMuc(stt, ten)`
 3. TIÊU ĐỀ MỤC LÝ THUYẾT (dùng trong Kiến thức trọng tâm)
 ### `tieuDeMucChinh(stt, ten)`
-3b. TIÊU ĐỀ MỤC CẤP 1 (①–⑤) — chuẩn CHUNG mọi môn (Chuẩn trình bày) Kiểu chốt 12/08/2026: số + TÊN IN HOA + đậm + gạch chân + KHÔNG dấu chấm. Dùng cho 5 mục xương sống của bài: ① Mục tiêu · ② Kiến thức trọng tâm · ③ Các dạng toán · ④ Bài tập tại lớp · ⑤ Bài tập về nhà. (tieuDeMuc — có chấm, title-case — HẠ VAI xuống tiêu đề CON trong một mục.)
 ### `lyThuyet(text)`
 4. LÝ THUYẾT — 1 dòng nội dung thường
 ### `viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, thamChieu, coHinh, hinhBenTrai, hinhBenPhai })`
@@ -55,6 +53,8 @@ Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến kh
 13. BẢNG ĐÁP ÁN PHẦN I (2 hàng × N cột, N=8 THCS, N=12 THPT) [v9.4] Đáp án Phần I trình bày MỘT DÒNG: "Câu 1 - B; Câu 2 - A; ..." (thay dạng bảng 2 hàng cũ — gọn hơn, đúng yêu cầu 25/07). Nhận mảng đáp án ['B','A','C',...]. Trả 1 Paragraph.
 ### `bangDungSai(menhDeArr)`
 14. BẢNG ĐÚNG/SAI — tỉ lệ CỐ ĐỊNH 80%-10%-10%, nền trắng chữ đen
+### `danDungSai(soCau, moTa)`
+[28m] DÒNG DẪN Đúng/Sai — nhãn "Câu N." TỰ ĐẬM (khớp nhãn câu template tự sinh ở cauTracNghiem/traLoiNgan/tự luận). GỐC: dòng dẫn Đ/S trước đây dựng TAY bằng para thường → quên đậm (mục ⑥ HH7-CH04). Nay bắt buộc qua hàm này: không thể quên đậm. moTa = phần mô tả (thường), nhận cả chuỗi lẫn OMML. Đặt NGAY TRƯỚC bangDungSai (chèn hinhVe căn giữa vào giữa nếu câu có hình).
 ### `traLoiNgan({ soCau, cauHoi, dapAn })`
 ### `headerDeKiemTra({ tenDe, phut })`
 16. HEADER ĐỀ KIỂM TRA (tên đề + thời gian + bảng Họ tên/Điểm/NX)
@@ -96,7 +96,7 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 ### `kyHieuGoc(tenGoc)`
 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam
 ### `hinhVe({ imageBuffer, rongCm = 8, tiLeGoc, chuThich })`
-### `hangHinh(items, { caoCm = 3.2 } = {})`
+### `hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {})`
 22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3 hình, KHÔNG viền, ô căn dọc giữa, CHUẨN HOÁ cùng chiều cao (caoCm). `luoiHinh`: tự chia hàng theo số lượng đã chốt — 1–3→1 hàng · 4→2+2 · 5→3+2 · 6→3+3. Chỉ dùng cho hình nhỏ + bộ liên quan; hình đơn/lớn/Phần II → vẫn hinhVe (dòng riêng).
 ### `luoiHinh(items, opts = {})`
 ### `hinhVeTextBox({ imageBuffer, rongCm = 6, tiLeGoc, chuThich })`
@@ -117,4 +117,4 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 66 hàm + 18 hằng/tham chiếu · template v10.11 (2026-08-13) · sinh_apiref.js.*
+*Tự sinh: 67 hàm + 18 hằng/tham chiếu · template v10.12 (2026-09-03) · sinh_apiref.js.*
