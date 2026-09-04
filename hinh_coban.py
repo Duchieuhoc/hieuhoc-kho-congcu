@@ -723,6 +723,14 @@ class HinhCoBan:
                         off=(i-(nv-1)/2)*0.10
                         bx,by = mx+ux*off, my+uy*off
                         L.append(f'  \\draw[thick] ({bx-px:.3f},{by-py:.3f})--({bx+px:.3f},{by+py:.3f});')
+            elif k=='nhay':
+                # [28p] BƯỚC NHẢY trên tia số (cộng/trừ): cung cong + mũi tên từ x_tu→x_den, nhãn ở đỉnh.
+                xt, xd, nh = el[1], el[2], el[3]
+                bend = 'left' if xd > xt else 'right'
+                L.append(f'  \\draw[->,thick] ({xt:.3f},0.06) to[bend {bend}=55] ({xd:.3f},0.06);')
+                mid = (xt + xd) / 2; h = 0.42 + 0.11 * abs(xd - xt)
+                if nh:
+                    L.append(f'  \\node[font=\\small] at ({mid:.3f},{h:.3f}) {{{nh}}};')
             elif k=='dau_ss':
                 A,B,nm = el[1],el[2],el[3]; Ap,Bp = self.V[A],self.V[B]
                 mx,my = (Ap[0]+Bp[0])/2,(Ap[1]+Bp[1])/2

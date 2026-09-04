@@ -17,7 +17,7 @@ class Hinh(HinhCoBan):
     """Entry Đại số — tia số & trục số tự nhiên. Kế thừa toàn bộ base HinhCoBan."""
 
     def tia_so(self, gia_tri_max=None, buoc=1, diem=None, hien_nhan_diem=True,
-               moc_nhan=None, ti_le=True, mui_ten=True, goc_ten='O'):
+               moc_nhan=None, ti_le=True, mui_ten=True, goc_ten='O', nhay=None):
         """TIA SỐ tự nhiên — gốc bên trái, mũi tên sang phải; vạch chia + nhãn số + điểm đánh dấu.
 
         gia_tri_max    : giá trị lớn nhất hiển thị (bỏ qua khi ti_le=False).
@@ -63,6 +63,10 @@ class Hinh(HinhCoBan):
                 self._vach(i * KHOANG, i)
                 self._danh_dau(i - 1, i * KHOANG, gt, ten, hien_gt=False)
             x_end = len(diem) * KHOANG + 0.7
+
+        # bước nhảy cộng/trừ (Hình 1.6–1.8): cung + mũi tên tu→den (giá trị), nhãn ở đỉnh
+        for (tu, den, nh) in (nhay or []):
+            self.tikz.append(('nhay', tu / buoc, den / buoc, str(nh) if nh else ''))
 
         self.ghi_chu(-0.30, 0.30, goc_ten)           # nhãn gốc
         # trục + mũi tên: renderer 'tia' kéo dài 1.25× từ gốc → đặt mút để mũi tới đúng x_end

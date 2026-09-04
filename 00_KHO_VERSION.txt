@@ -1,15 +1,26 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 2026-08-28p
+Mốc kho      : 28p (2026-09-04)
 
-[28p] SỬA GỐC LỖI RUN LỒNG RUN (do 28o) — hieuhoc_template.js
-      • BUG 28o: run() bọc MẢNG _tachFontKids vào TextRun({children}) → <w:r> lồng <w:r>
-        (OOXML CẤM). LibreOffice/schema-reader MẤT CHỮ mọi chỗ có ký hiệu Cambria Math;
-        Word sửa ngầm nên lọt QC. AI Soạn (B03) phát hiện + đề bản vá.
-      • FIX 3 điểm: run() trả THẲNG mảng; para() & tabLine() làm phẳng children (.flat(Infinity));
-        gia cố toInline() luôn trả mảng phẳng.
-      • CỔNG MỚI: _kiemTrinhBay bắt <w:r> lồng <w:r> (như đã bắt <w:p> lồng <w:p>) — chặn tái diễn.
-      • API_REFERENCE regen (thêm danDungSai; v10.11 → v10.12).
+[28p] +tia_so [hinh_daiso.py MỚI — ENTRY MẠCH ĐẠI SỐ] (Ông Bụt 2026-09-04, Pha B DS6_CH01_B03
+      — bài Đại số ĐẦU TIÊN cần hình; kho 28o toàn Hình học, không có tia số → khe hở lộ).
+      class Hinh(HinhCoBan) COMPOSE THUẦN từ base (đoạn/ghi_chu/chấm/tia) — KHÔNG mổ lõi, KHÔNG
+      thêm renderer op. tia_so(gia_tri_max, buoc=1, diem=None, hien_nhan_diem=True, moc_nhan=None,
+      ti_le=True, mui_ten=True, goc_ten='O'): tia số tự nhiên — gốc trái, mũi tên phải, vạch chia +
+      nhãn số + điểm đánh dấu. Phủ: bước 1/5 · điểm có/không tên · ẩn giá trị (đọc điểm Đ35) ·
+      không tỉ lệ (cột mốc 1.24). AI Soạn khai GIÁ TRỊ, máy tự tính toạ độ → qua cổng AST.
+      Đặt nền cho trục số âm/dương + trục toạ độ lớp 7→9.
+      TEST: render PNG kiểm mắt 5/5 SẠCH (cơ bản·điểm tên·chấm ẩn tên·bước5+ẩn giá trị·không tỉ lệ).
+      +tham số `nhay=[(tu,den,nhãn)]` cho tia_so — BƯỚC NHẢY cộng/trừ trên tia số (Hình 1.6/1.7/1.8
+      B04: 3+4=7 · 7−4=3 · 7−8 vượt gốc). Kèm op renderer 'nhay' [hinh_coban BASE — CHỈ THÊM 1 elif,
+      TƯƠNG THÍCH NGƯỢC 100%; render Hình học cũ (tam giác) verify không vỡ]. TEST nhảy: 3/3 ca kiểm mắt SẠCH.
+      Smoke import 4/4 (daiso+ch4/ch5/ch8) · quet_stamp SẠCH · cổng AST SẠCH (--kho hinh_daiso).
+      TƯƠNG THÍCH NGƯỢC 100% (file MỚI; KHÔNG đụng template/core/hình Hình học). +BAN_TRICH_HAM_DS6.md.
+      ⚠️ CỔNG AST ĐẠI SỐ: AI Soạn quét `--kho hinh_daiso` (khác Hình `--kho hinh_ch8`).
+      ⚠️ VIỆC TREO — GLYPH VIỆT HORN: font core (_render: fontenc T1 + Computer Modern) THIẾU glyph
+      "ơ/ư" → nhãn "Sơn La" rớt "Sn La". Ảnh hưởng MỌI nhãn hình tiếng Việt đầy đủ dấu (mọi môn).
+      B03 tạm né (nhãn ngắn, tên tỉnh để trong đề Word). Patch core riêng (font Việt) + render lại
+      kiểm nhãn Việt cũ — KHÔNG gộp 28p (đổi font = rủi ro toàn hệ).
 
 [28o] FONT-PROOF KÝ HIỆU ĐẠI SỐ — hieuhoc_template.js
       • Thêm FONT_TOAN="Cambria Math" + _RE_TOAN (∈ ∉ ℕ ℤ ℚ ℝ ⇒ ⇔ ≤ ≥ ≠ × ∅ ⊂ ⊄ ∪ ∩ √ ∑ ∏).

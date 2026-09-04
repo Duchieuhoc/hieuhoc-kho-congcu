@@ -5,11 +5,13 @@ Nền: clone SHA 9d5d5f62 (=28o). Máy Hình xác nhận RẢNH (không sửa te
 
 | File | Loại | Nội dung |
 |---|---|---|
-| hinh_daiso.py        | THÊM MỚI | ENTRY MẠCH ĐẠI SỐ — class Hinh(HinhCoBan) + primitive `tia_so` |
+| hinh_daiso.py        | THÊM MỚI | ENTRY MẠCH ĐẠI SỐ — class Hinh(HinhCoBan) + `tia_so` (có tham số nhay) |
+| hinh_coban.py        | ĐÈ       | BASE +1 op renderer 'nhay' (bước nhảy tia số) — CHỈ THÊM, tương thích ngược 100% |
 | BAN_TRICH_HAM_DS6.md | THÊM MỚI | bản trích hàm cho AI Soạn Đại số (tự sinh) |
 | 00_KHO_VERSION.txt   | ĐÈ       | mốc → 28p (thêm changelog [28p]) |
 
-KHÔNG đụng: hieuhoc_template.js · hinh_core.py · mọi hinh_ch*.py/hinh_coban.py (Hình học).
+KHÔNG đụng: hieuhoc_template.js · hinh_core.py · các hinh_ch*.py (Hình học). hinh_coban.py CHỈ thêm
+1 op 'nhay' (không đổi op cũ) → render Hình học cũ (tam giác) đã verify KHÔNG VỠ.
 → TƯƠNG THÍCH NGƯỢC 100%: bài Hình cũ pin SHA 28o tái lập y nguyên.
 
 Sau khi đẩy → mốc kho công khai = 28p. Cập nhật "mốc kho yêu cầu" trong luật Project (Đại số) lên 28p
