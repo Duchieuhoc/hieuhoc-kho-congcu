@@ -1,6 +1,27 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28q (2026-09-04)
+Mốc kho      : 28s (2026-09-05)
+
+[28s] GUARD chuỗi trần — template v10.15 (Ông Bụt 2026-09-05, phát sinh khi QC DS7_CH01_B01):
+      SỰ CỐ: para(children) nhận STRING thô trong mảng → docx nhả text-node TRẦN dưới <w:p>
+      (ngoài <w:r>) → Word BỎ QUA cả đoạn (mất chữ + nuốt OMML kèm). Build sạch, kiemMay/lxml
+      vẫn thấy chữ → chỉ Word thật lộ (B01: 8 đoạn lý thuyết mục ② trắng). "build sạch ≠ bài đúng".
+      VÁ (2 lớp): (1) para() THROW khi phần tử là string — đối xứng guard B09, buộc gọi đúng
+      paraInline()/run(); (2) _kiemTrinhBay +cửa (a3) bắt text trần ngoài <w:r> (lưới thứ hai,
+      bắt mọi nguồn kể cả hàm khác). TƯƠNG THÍCH NGƯỢC: 108 lời gọi para() nội bộ đều qua
+      run()/toInline() — không đụng. TEST: ca lỗi B01 → THROW ✓; cách gọi đúng + loạt hàm
+      (mucTieu/viDu/paraInline/oMath/tab) → không throw, cửa (a3) không false-positive ✓;
+      file hỏng mô phỏng → kiemMay bắt ✓. Kèm: regen API_REFERENCE.md v10.15.
+
+[28r] LAND template v10.14 + hinh_daiso truc_so_huu_ti (Ông Bụt 2026-09-05, khảo sát hàm DS7_CH01):
+      DS7 "Số hữu tỉ" cần OMML lồng + trục số hữu tỉ mà kho 28q chưa phủ. (1) luyThua/phanSo
+      NHẬN OMML LỒNG qua _mathChild — hết lỗi String(OMML)="[object Object]" (cơ số phân số
+      (2/3)^5, luỹ thừa lồng, mũ âm, phân số kép); (2) +ngoac() delimiter OMML cho cơ số âm;
+      (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py
+      +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc).
+      CHỈ THÊM/MỞ RỘNG — không đổi API cũ. TEST: QC lxml [object Object]=0, OMML lồng đúng,
+      ô bảng không nuốt OMML; trục số render PNG 3 ca kiểm mắt SẠCH. Kèm: regen API_REFERENCE.md v10.14.
+
 
 [28q] LAND template v10.13 (Ông Bụt 2026-09-04, phát sinh khi QC DS6_CH01_B06): (1) MÃ DẠNG về 11pt — tieuDeDang dùng SZ_SMALL (bỏ "-2"=10pt cũ), khớp HP Đ13; (2) traLoiNgan() +thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). Additive, không đổi API cũ. Kèm: regen API_REFERENCE.md v10.13.
 

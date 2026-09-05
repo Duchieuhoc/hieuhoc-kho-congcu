@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.14)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.14 (2026-09-05) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.15)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.15 (2026-09-05) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `kiemMay(bufOrPath, opts = {})`
@@ -120,5 +120,5 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 69 hàm + 18 hằng/tham chiếu · template v10.14 (2026-09-05) · sinh_apiref.js.*
-[sinh_apiref] 69 hàm, 18 hằng — template v10.14
+*Tự sinh: 69 hàm + 18 hằng/tham chiếu · template v10.15 (2026-09-05) · sinh_apiref.js.*
+[sinh_apiref] 69 hàm, 18 hằng — template v10.15
