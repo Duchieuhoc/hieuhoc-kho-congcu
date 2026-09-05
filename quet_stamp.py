@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # ═══════════════════════════════════════════════════════════════════
 # quet_stamp.py — GATE chống lệch banner version (đầu phiên, sau bụng kho).
-#   python3 quet_stamp.py <thư_mục_luật> [--chuan V11.6]
+#   python3 quet_stamp.py <thư_mục_luật> [--chuan V11.8]
 #   Chuẩn tự suy từ tên file HIEN_PHAP_CS2627_V11_X.md nếu không truyền.
 #   Quét CHỈ HEADER (6 dòng đầu) — nhật ký/inline lịch sử KHÔNG tính là lệch.
 #   Thoát mã 1 nếu có lệch (để chèn vào quy trình gate).
@@ -53,5 +53,5 @@ if __name__ == '__main__':
     chuan = None
     if '--chuan' in sys.argv:
         chuan = sys.argv[sys.argv.index('--chuan') + 1]
-    chuan = chuan or suy_chuan(folder) or 'V11.6'
+    chuan = chuan or suy_chuan(folder) or 'V11.8'
     sys.exit(1 if quet(folder, chuan) else 0)
