@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28s (2026-09-05)
+Mốc kho      : 28t (2026-09-05)
+
+[28t] KHOFIX-mathLong + KHOFIX-deKT (Ông Bụt 2026-09-05, phát sinh khi QC ⑦ DS7_CH01 đề KT):
+      • mathLong: _mathChild() nhận MẢNG trả nguyên mảng → phanSo/luyThua (đã là <m:oMath>) lọt vào
+        <m:e> → <m:oMath> LỒNG <m:oMath> → Word "found unreadable content" (lxml/LibreOffice LỌT).
+        Dính mọi (a/b)^n, (biểu thức)^n. Sửa: _mathChild đệ quy x.flatMap(_mathChild) gỡ vỏ từng phần tử.
+        +CỬA kiemMay: chặn build nếu có <m:oMath> lồng <m:oMath>.
+      • deKT: cửa kiemMay nhận đề kiểm tra — (1) chữ ký Đ57.1 chấp nhận "THỜI GIAN: … PHÚT"
+        (headerDeKiemTra); (2) heuristic căn lề Đ14 chỉ đếm <w:jc w:val="left"> (bỏ tab-stop trắc nghiệm).
+      • +bangDungSai(arr,{banHS}) ô Đ/S trống & tuLuanBTVN({anLoiGiai}) bỏ khối lời giải — hỗ trợ bản HS (additive).
+      Verify: rebuild ⑥ tổng kết + 4 đề (45A/B, 90A/B) — 0 oMath-lồng, 0 m:e-lồng, qua cửa thật.
 
 [28s] KHOFIX-ngoac (Ông Bụt 2026-09-05, phát sinh khi QC DS7_CH01_B02): ngoac() sinh <m:e><m:e>
       LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE ("Word experienced an error"); lxml/LibreOffice

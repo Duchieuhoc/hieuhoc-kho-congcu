@@ -1,4 +1,4 @@
-// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
+// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.16 (2026-09-05) [28t]: KHOFIX-mathLong — _mathChild đệ quy (flatMap) gỡ vỏ phần tử phanSo/luyThua trong MẢNG → hết <m:oMath> LỒNG <m:oMath> (Word TỪ CHỐI MỞ; lxml/LibreOffice lọt). +Cửa kiemMay chặn oMath-lồng. KHOFIX-deKT — cửa nhận chữ ký "THỜI GIAN: … PHÚT" (Đ57.1) + căn lề chỉ đếm <w:jc> (bỏ tab-stop TN). +bangDungSai({banHS}) & tuLuanBTVN({anLoiGiai}) hỗ trợ bản HS (additive). CHỈ SỬA-LỖI/THÊM — không đổi API. | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
 // File DUY NHẤT. Scripts require("./hieuhoc_template.js").
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -326,6 +326,9 @@ function _kiemTrinhBay(xml) {
   //      createMathBase (đã tự bọc m:e) — vd lỗi ngoac() trước KHOFIX-ngoac (28s).
   if (/<m:e\b[^>]*>\s*<m:e\b/.test(xml))
     loi.push("OMML hỏng: <m:e> lồng <m:e> trong <m:d> — Word TỪ CHỐI MỞ FILE (LibreOffice/lxml lọt). Chuẩn OOXML: mỗi <m:d> đúng 1 <m:e>, không bọc kép. Nguyên nhân: tự bọc m:e rồi đưa vào createMathBase (đã tự bọc). Xuất qua ngoac()/hàm kho đã vá KHOFIX-ngoac.");
+  // [28t · KHOFIX-mathLong] <m:oMath> LỒNG trong <m:oMath> — Word chối mở (lxml/LibreOffice lọt). Do nhét PS/LT (đã là oMath) vào MẢNG của ngoac/luyThua/phanSo.
+  if (/<m:oMath\b[^>]*>(?:(?!<\/m:oMath>)[\s\S])*?<m:oMath\b/.test(xml))
+    loi.push("OMML hỏng: <m:oMath> LỒNG <m:oMath> — Word TỪ CHỐI MỞ FILE (LibreOffice/lxml lọt). Nguyên nhân: nhét object math (phanSo/luyThua) vào MẢNG tham số ngoac/luyThua/phanSo mà _mathChild chưa gỡ vỏ. Cần KHOFIX-mathLong (_mathChild flatMap đệ quy).");
 
   // (b) Cỡ 12pt — đã bỏ khỏi hệ thống (HP Điều 13.2)
   if (xml.includes('w:val="24"'))
@@ -386,8 +389,9 @@ function _kiemTrinhBay(xml) {
 
   // (h) Căn lề: văn xuôi phải justify. Nếu 'left' NHIỀU HƠN HẲN 'both' → nghi dùng
   //     template cũ chưa áp justify (HP Điều 14). Ngưỡng rộng để không báo oan.
-  const nLeft = (xml.match(/w:val="left"/g) || []).length;
-  const nBoth = (xml.match(/w:val="both"/g) || []).length;
+  // [28t · KHOFIX-deKT] chỉ đếm CĂN LỀ ĐOẠN <w:jc>, KHÔNG đếm tab-stop <w:tab w:val="left"> (đề KT nhiều TN → tab-stop thổi số → chặn oan).
+  const nLeft = (xml.match(/<w:jc w:val="left"/g) || []).length;
+  const nBoth = (xml.match(/<w:jc w:val="both"/g) || []).length;
   if (nBoth > 0 && nLeft > nBoth * 3 + 10)
     loi.push(`Căn lề nghi sai: ${nLeft} đoạn căn trái so với ${nBoth} căn đều — văn xuôi phải justify (HP Điều 14). Có thể dùng template cũ chưa áp justify.`);
 
@@ -418,9 +422,10 @@ function kiemMay(bufOrPath, opts = {}) {
   const empty = (xml.match(/<w:p\/>/g) || []).length + (xml.match(/<w:p>\s*<\/w:p>/g) || []).length;
   if (empty) loi.push(`Có ${empty} đoạn rỗng <w:p/> (HP Điều 17.4 — dùng spacing).`);
   // [28d · Đ-A] Khối TÊN BÀI (tenBaiHoc) BẮT BUỘC ở đầu tài liệu — HP Điều 57.1 (định danh bài + mã).
-  //   Nhận diện qua chữ ký "Thời lượng:" (chỉ tenBaiHoc mới sinh). Thiếu → thân bài vào thẳng mục I.
-  if (!/Thời lượng:/.test(xml))
-    loi.push('Thiếu khối TÊN BÀI đầu tài liệu (HP Điều 57.1). Push ...H.tenBaiHoc({ soBai, tenBai, tiet, sgkTr, sbtTr, ma }) làm phần tử ĐẦU của children.');
+  //   Nhận diện qua chữ ký "Thời lượng:" (bài học — tenBaiHoc) HOẶC "THỜI GIAN: … PHÚT" (đề KT — headerDeKiemTra).
+  //   [28t · KHOFIX-deKT] Trước đây chỉ nhận "Thời lượng:" → MỌI đề kiểm tra bị chặn oan (Đ57.1 false-negative).
+  if (!/Thời lượng:/.test(xml) && !/THỜI GIAN:[\s\S]*?PHÚT/.test(xml))
+    loi.push('Thiếu khối định danh đầu tài liệu (HP Điều 57.1). Bài học: ...H.tenBaiHoc({...}) ở ĐẦU children; Đề KT: ...H.headerDeKiemTra({ tenDe, phut }) ở ĐẦU children.');
   const nHinh = (xml.match(/<w:drawing>/g) || []).length;
   if (opts.soHinh != null && nHinh !== opts.soHinh)
     loi.push(`Số hình nhúng = ${nHinh} nhưng khai báo soHinh = ${opts.soHinh}. Nghi coHinh nuốt hình (thiếu spread "...H.hinhVe()") hoặc lệch thiết kế. [FAILURE IM LẶNG]`);
@@ -1440,7 +1445,7 @@ function baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHin
     out.push(paraCoHinhPhai(anh, deInline, { before: THO_VUA, after: 0, justify: true }));
     if (thamChieu) out.push(para([run(`(${thamChieu})`, { italic: true, color: C_GRAY, size: SZ_SMALL })], { before: 0, after: 6 }));
     if (cacCau && cacCau.length) out.push(...layoutCauHoi(cacCau, { dai: true }));
-    out.push(...loiGiai(loiGiaiND));
+    if (!anLoiGiai) out.push(...loiGiai(loiGiaiND));
     return out;
   }
   if (deBai) {
@@ -1456,7 +1461,7 @@ function baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHin
   }
   _appendHinh(out, coHinh, "coHinh");
   if (cacCau && cacCau.length) out.push(...layoutCauHoi(cacCau));
-  out.push(...loiGiai(loiGiaiND));
+  if (!anLoiGiai) out.push(...loiGiai(loiGiaiND));
   return out;
 }
 
@@ -1539,7 +1544,7 @@ function bangDapAnPhanI(dapAnArr) {
 // ═════════════════════════════════════════════════════════════
 // 14. BẢNG ĐÚNG/SAI — tỉ lệ CỐ ĐỊNH 80%-10%-10%, nền trắng chữ đen
 // ═════════════════════════════════════════════════════════════
-function bangDungSai(menhDeArr) {
+function bangDungSai(menhDeArr, opts = {}) {  // +banHS: ô Đúng/Sai TRỐNG cho bản HS (local, chưa push)
   if (!Array.isArray(menhDeArr) || menhDeArr.length !== 4) {
     throw new Error(`\n[LỖI BẢNG DS]: Cần đúng 4 mệnh đề (a,b,c,d). Hiện có: ${menhDeArr?.length ?? 0}.`);
   }
@@ -1583,11 +1588,11 @@ function bangDungSai(menhDeArr) {
           ...toInline(m.menhDe, { size: SZ_CONTENT })], { before: 0, after: 0 })] }),
       new TableCell({ width: { size: wDung, type: WidthType.DXA }, borders, shading: shd,
         margins: { top: 60, bottom: 60, left: 60, right: 60 },
-        children: [para([m.dung ? run("●", { size: SZ_CONTENT }) : run("", {})],
+        children: [para([(!opts.banHS && m.dung) ? run("●", { size: SZ_CONTENT }) : run("", {})],
           { align: AlignmentType.CENTER, before: 0, after: 0 })] }),
       new TableCell({ width: { size: wSai, type: WidthType.DXA }, borders, shading: shd,
         margins: { top: 60, bottom: 60, left: 60, right: 60 },
-        children: [para([!m.dung ? run("●", { size: SZ_CONTENT }) : run("", {})],
+        children: [para([(!opts.banHS && !m.dung) ? run("●", { size: SZ_CONTENT }) : run("", {})],
           { align: AlignmentType.CENTER, before: 0, after: 0 })] }),
     ],
   }));
@@ -2032,7 +2037,7 @@ function footerTPC() {
  * @param {string} [p.thamChieu] - để trống nếu tự soạn
  * @param {string|Array} p.loiGiaiND
  */
-function tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai }) {
+function tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai }) {  // +anLoiGiai: bản HS bỏ hẳn khối Lời giải (local)
   thamChieu = _locNguon(thamChieu);
   _guardND(deBai, "tuLuanBTVN");
   _guardArr(cacCau, "tuLuanBTVN");
@@ -2053,7 +2058,7 @@ function tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, c
     out.push(paraCoHinhPhai(anh, deInline, { before: THO_VUA, after: 0, justify: true }));
     if (thamChieu) out.push(para([run(`(${thamChieu})`, { italic: true, color: C_GRAY, size: SZ_SMALL })], { before: 0, after: 6 }));
     if (cacCau && cacCau.length) out.push(...layoutCauHoi(cacCau, { dai: true }));
-    out.push(...loiGiai(loiGiaiND));
+    if (!anLoiGiai) out.push(...loiGiai(loiGiaiND));
     return out;
   }
   if (deBai) {
@@ -2069,7 +2074,7 @@ function tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, c
   }
   _appendHinh(out, coHinh, "coHinh");
   if (cacCau && cacCau.length) out.push(...layoutCauHoi(cacCau));
-  out.push(...loiGiai(loiGiaiND));
+  if (!anLoiGiai) out.push(...loiGiai(loiGiaiND));
   return out;
 }
 
@@ -2279,7 +2284,10 @@ function _mathChild(x) {
   if (x === undefined || x === null) return [new MathRunSized("")];
   if (typeof x === "string" || typeof x === "number") return [new MathRunSized(String(x))];
   if (x && x._hhComp) return x._hhComp;          // DMath template → nhả component bên trong
-  return Array.isArray(x) ? x : [x];             // đã là component/mảng component math
+  // [28t · KHOFIX-mathLong] MẢNG: đệ quy gỡ vỏ TỪNG phần tử (string→MathRun, PS/LT/NG→component _hhComp).
+  //   Trước: trả nguyên mảng → object OMML (đã là <m:oMath>) lọt vào <m:e> → <m:oMath> LỒNG <m:oMath> → Word chối mở (lxml/LibreOffice lọt).
+  if (Array.isArray(x)) return x.flatMap(_mathChild);
+  return [x];                                     // đã là 1 component math rời
 }
 
 /**
