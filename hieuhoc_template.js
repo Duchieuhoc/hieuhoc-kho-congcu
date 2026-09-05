@@ -1,4 +1,4 @@
-// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
+// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
 // File DUY NHẤT. Scripts require("./hieuhoc_template.js").
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -1593,6 +1593,76 @@ function bangDungSai(menhDeArr) {
 }
 
 // ═════════════════════════════════════════════════════════════
+// [28r] 14b. BẢNG SỐ LIỆU TỔNG QUÁT — dữ liệu thực tiễn nhiều cột
+//   (dân số, tuổi thọ, hồ, hành tinh, khí hiếm, pizza…) — DS7 dày bảng.
+//   GỐC: kho chỉ có bảng CHUYÊN DỤNG (đáp án/đúng-sai/nhật ký); bảng số liệu
+//   thực tiễn chưa có hàm → AI Soạn buộc viết new Table() thô (phạm nguyên tắc).
+//   Ô nhận string|number|OMML|mảng trộn qua toInline → nhúng thẳng luỹ thừa/phân
+//   số OMML trong ô (số khoa học a·10ⁿ, ma phương 2ᵏ). QC ô bảng PHẢI bằng lxml
+//   (python-docx cũ nuốt paragraph chứa OMML). Viền mảnh xám #999999, nền TRẮNG
+//   (HP Đ17.2). Hàng tiêu đề đậm.
+//
+//   duLieu: { tieuDe?: [ô…], hang: [[ô…],…] }  HOẶC  [[ô…],…] (không tiêu đề).
+//   opts.rongCot: mảng tỉ lệ cột (vd [0.4,0.3,0.3]); thiếu → chia đều.
+//   opts.canLe:   mảng 'trai'|'giua'|'phai' theo cột; thiếu → cột 0 trái, còn lại giữa.
+//
+//   Ví dụ:
+//     bangSoLieu({ tieuDe:["Hành tinh","Khoảng cách (km)"],
+//                  hang:[ ["Trái Đất", ["1,50 · ", luyThua(10,8)] ],
+//                         ["Sao Mộc",  ["7,78 · ", luyThua(10,8)] ] ] })
+// ═════════════════════════════════════════════════════════════
+function bangSoLieu(duLieu, opts = {}) {
+  const goc = Array.isArray(duLieu) ? { hang: duLieu } : (duLieu || {});
+  const tieuDe = goc.tieuDe || null;
+  const hang = goc.hang || [];
+  if (!Array.isArray(hang) || hang.length === 0)
+    throw new Error("[LỖI BẢNG SỐ LIỆU] cần 'hang' là mảng ≥ 1 hàng (mỗi hàng là mảng ô).");
+  const soCot = tieuDe ? tieuDe.length : hang[0].length;
+  if (soCot < 1) throw new Error("[LỖI BẢNG SỐ LIỆU] bảng cần ≥ 1 cột.");
+  const kiemHang = (h, ten) => {
+    if (!Array.isArray(h)) throw new Error(`[LỖI BẢNG SỐ LIỆU] ${ten} phải là mảng ô.`);
+    if (h.length !== soCot) throw new Error(`[LỖI BẢNG SỐ LIỆU] ${ten}: ${h.length} ô, lệch số cột ${soCot}.`);
+  };
+  if (tieuDe) kiemHang(tieuDe, "tiêu đề");
+  hang.forEach((h, i) => kiemHang(h, `hàng ${i + 1}`));
+
+  // bề rộng cột — theo tỉ lệ hoặc chia đều; cột cuối bù cho khớp TOTAL_W
+  let rong;
+  if (Array.isArray(opts.rongCot) && opts.rongCot.length === soCot) {
+    const tong = opts.rongCot.reduce((a, b) => a + b, 0);
+    rong = opts.rongCot.map(r => Math.round(TOTAL_W * r / tong));
+  } else {
+    rong = Array(soCot).fill(Math.round(TOTAL_W / soCot));
+  }
+  rong[soCot - 1] = TOTAL_W - rong.slice(0, soCot - 1).reduce((a, b) => a + b, 0);
+
+  const _AL = { trai: AlignmentType.LEFT, giua: AlignmentType.CENTER, phai: AlignmentType.RIGHT };
+  const canLe = (j) => {
+    if (Array.isArray(opts.canLe) && opts.canLe[j]) return _AL[opts.canLe[j]] || AlignmentType.CENTER;
+    return j === 0 ? AlignmentType.LEFT : AlignmentType.CENTER;
+  };
+
+  const bc = { style: BorderStyle.SINGLE, size: 4, color: "999999" };
+  const borders = { top: bc, bottom: bc, left: bc, right: bc, insideH: bc, insideV: bc };
+  const shd = { type: ShadingType.CLEAR, fill: C_WHITE };
+  const _oNorm = (o) => (typeof o === "number") ? String(o).replace(".", ",") : o;
+
+  const oCell = (o, j, dam) => new TableCell({
+    width: { size: rong[j], type: WidthType.DXA }, borders, shading: shd,
+    margins: { top: 60, bottom: 60, left: 100, right: 100 },
+    verticalAlign: VerticalAlign.CENTER,
+    children: [para(toInline(_oNorm(o), { size: SZ_CONTENT, bold: !!dam }),
+      { align: canLe(j), before: 0, after: 0 })],
+  });
+
+  const rows = [];
+  if (tieuDe) rows.push(new TableRow({ children: tieuDe.map((o, j) => oCell(o, j, true)) }));
+  hang.forEach(h => rows.push(new TableRow({ children: h.map((o, j) => oCell(o, j, false)) })));
+
+  return new Table({ width: { size: TOTAL_W, type: WidthType.DXA }, columnWidths: rong, rows });
+}
+
+// ═════════════════════════════════════════════════════════════
 // 15. TRẢ LỜI NGẮN
 // ═════════════════════════════════════════════════════════════
 /**
@@ -2180,6 +2250,31 @@ class MathRunSized extends MathRun {
   }
 }
 
+// ─────────────────────────────────────────────────────────────
+// [28r] LỒNG OMML — nền cho DS7 (luỹ thừa cơ số phân số/âm/lồng, phân số kép).
+//   GỐC: luyThua/phanSo cũ ép String(coSo) → object OMML thành "[object Object]"
+//   (đã chứng minh bằng XML: (2/3)^5, [(-5)^3]^7, (1/3)/(2/3) đều hỏng).
+//   CƠ CHẾ: gắn cờ _hhComp lưu component OMML gốc lên chính DMath khi tạo;
+//   _mathChild đọc lại cờ đó để NHÚNG component (không bọc lồng <m:oMath>).
+//   Property _hhComp là cờ riêng — Packer chỉ đọc .root nên KHÔNG lọt vào XML.
+//   TƯƠNG THÍCH NGƯỢC: luyThua(2,3) → coSo=number → nhánh String như cũ.
+//   ⚠️ KHÔNG tái dùng CÙNG một object OMML ở hai vị trí (aliasing 2 cây node).
+function _dmath(comp) {
+  const arr = Array.isArray(comp) ? comp : [comp];
+  const d = new DMath({ children: arr });
+  d._hhComp = arr;               // component gốc để lồng (đọc bởi _mathChild)
+  return d;
+}
+// Chuẩn hoá 1 tham số math → MẢNG phần tử nhúng được vào numerator/superScript/…
+//   string|number → [MathRunSized]; DMath do template tạo → component gốc (_hhComp);
+//   component OMML rời (MathFraction…) → dùng thẳng.
+function _mathChild(x) {
+  if (x === undefined || x === null) return [new MathRunSized("")];
+  if (typeof x === "string" || typeof x === "number") return [new MathRunSized(String(x))];
+  if (x && x._hhComp) return x._hhComp;          // DMath template → nhả component bên trong
+  return Array.isArray(x) ? x : [x];             // đã là component/mảng component math
+}
+
 /**
  * Lũy thừa — dùng CHÈN TRỰC TIẾP vào mảng children của 1 TextRun/Paragraph,
  * xen giữa các run text bình thường.
@@ -2194,12 +2289,12 @@ class MathRunSized extends MathRun {
  * Cỡ chữ đã khớp SZ_CONTENT (13pt) với văn bản xung quanh — không còn lệch dòng.
  */
 function luyThua(coSo, soMu) {
-  return new DMath({
-    children: [new MathSuperScript({
-      children: [new MathRunSized(String(coSo))],
-      superScript: [new MathRunSized(String(soMu))],
-    })],
-  });
+  // [28r] coSo & soMu nhận string|number NHƯ CŨ, hoặc OMML (phanSo/ngoac/luyThua)
+  //   để dựng (2/3)^5, (-3)^3 [dùng ngoac], 10^(-6), [(-5)^3]^7 — DS7 Số hữu tỉ.
+  return _dmath(new MathSuperScript({
+    children: _mathChild(coSo),
+    superScript: _mathChild(soMu),
+  }));
 }
 
 // Bảng chuyển số thường → ký tự Unicode superscript
@@ -2225,12 +2320,38 @@ function luyThuaUnicode(coSo, soMu) {
  * Ví dụ: para([run("Kết quả: "), phanSo(1,2), run(" + "), phanSo(1,3)])
  */
 function phanSo(tuSo, mauSo) {
-  return new DMath({
-    children: [new MathFraction({
-      numerator: [new MathRunSized(String(tuSo))],
-      denominator: [new MathRunSized(String(mauSo))],
-    })],
+  // [28r] tuSo & mauSo nhận string|number NHƯ CŨ, hoặc OMML (phanSo/luyThua/ngoac)
+  //   để dựng phân số kép (1+1/3)/(1−1/3) — DS7 ONTAP 1.16b.
+  return _dmath(new MathFraction({
+    numerator: _mathChild(tuSo),
+    denominator: _mathChild(mauSo),
+  }));
+}
+
+/**
+ * [28r] NGOẶC OMML (…) — delimiter thật, giãn theo chiều cao nội dung.
+ * Dùng cho CƠ SỐ ÂM / biểu thức trong luỹ thừa: (-3)^3, (0,7)^3, (a+b)^2.
+ * Ngoặc "( )" thật (m:d) — khác gõ "(" thẳng (cứng, không ôm phân số cao).
+ * @param {string|number|Math} bieuThuc  nội dung trong ngoặc (nhận cả OMML)
+ * @returns {Math}
+ *
+ * Ví dụ:
+ *   luyThua(ngoac("-3"), 3)                 // (-3)³
+ *   luyThua(ngoac(phanSo(2,3)), 5)          // (2/3)⁵ có ngoặc ôm phân số
+ *   luyThua(ngoac("0,7"), 3)                // (0,7)³
+ */
+function ngoac(bieuThuc) {
+  const dPr = new BuilderElement({
+    name: "m:dPr",
+    children: [
+      new BuilderElement({ name: "m:begChr", attributes: { val: { key: "m:val", value: "(" } } }),
+      new BuilderElement({ name: "m:endChr", attributes: { val: { key: "m:val", value: ")" } } }),
+    ],
   });
+  const e = new BuilderElement({ name: "m:e", children: _mathChild(bieuThuc) });
+  const base = createMathBase({ children: [e] });
+  const d = new BuilderElement({ name: "m:d", children: [dPr, base] });
+  return _dmath(d);
 }
 
 /**
@@ -2805,7 +2926,7 @@ module.exports = {
   saiLamThuongGap, ghiNhoNhanh,
   // phần 2 — dạng toán, BT, BTVN, đề kiểm tra
   tieuDeDang, nhanDang, phuongPhapGiai, phanTich, dangToanDayDu,
-  baiTapTaiLop, cauTracNghiem, bangDapAnPhanI, bangDungSai, danDungSai, traLoiNgan,
+  baiTapTaiLop, cauTracNghiem, bangDapAnPhanI, bangDungSai, bangSoLieu, danDungSai, traLoiNgan,
   headerDeKiemTra,
   // phần 3 — header/footer file bài học + đề kiểm tra
   headerFooterBaiHoc, headerFooterDeKT,
@@ -2816,7 +2937,7 @@ module.exports = {
   // phần 6 — trang cuối chương
   ghiChuGiangDay, nhatKyCaiTien, bangNguonGoc, trangCuoiChuong,
   // phần 7 — công thức toán thật (OMML), hình vẽ, tiêu đề phần đề kiểm tra
-  luyThua, luyThuaUnicode, phanSo, canBac, chiSoDuoi, triTuyetDoi, kyHieuGoc, hinhVe, hangHinh, luoiHinh, hinhVeTextBox, paraCoHinhPhai, hePhuongTrinh, paraHePhuongTrinh,
+  luyThua, luyThuaUnicode, phanSo, ngoac, canBac, chiSoDuoi, triTuyetDoi, kyHieuGoc, hinhVe, hangHinh, luoiHinh, hinhVeTextBox, paraCoHinhPhai, hePhuongTrinh, paraHePhuongTrinh,
   tieuDePhanI_DeKT, tieuDePhanII_DeKT, tieuDePhanIII_DeKT, tieuDePhanIV_DeKT,
   // phần 8 — thư viện pictogram an toàn chuẩn hóa (Bài 2, Bài 50)
   hinhIcon, hinhIconHang, ICON_LIBRARY,

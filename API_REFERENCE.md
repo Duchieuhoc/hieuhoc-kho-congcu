@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.13)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.13 (2026-09-04) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.14)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.14 (2026-09-05) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `kiemMay(bufOrPath, opts = {})`
@@ -53,6 +53,8 @@ Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến kh
 13. BẢNG ĐÁP ÁN PHẦN I (2 hàng × N cột, N=8 THCS, N=12 THPT) [v9.4] Đáp án Phần I trình bày MỘT DÒNG: "Câu 1 - B; Câu 2 - A; ..." (thay dạng bảng 2 hàng cũ — gọn hơn, đúng yêu cầu 25/07). Nhận mảng đáp án ['B','A','C',...]. Trả 1 Paragraph.
 ### `bangDungSai(menhDeArr)`
 14. BẢNG ĐÚNG/SAI — tỉ lệ CỐ ĐỊNH 80%-10%-10%, nền trắng chữ đen
+### `bangSoLieu(duLieu, opts = {})`
+[28r] 14b. BẢNG SỐ LIỆU TỔNG QUÁT — dữ liệu thực tiễn nhiều cột (dân số, tuổi thọ, hồ, hành tinh, khí hiếm, pizza…) — DS7 dày bảng. GỐC: kho chỉ có bảng CHUYÊN DỤNG (đáp án/đúng-sai/nhật ký); bảng số liệu thực tiễn chưa có hàm → AI Soạn buộc viết new Table() thô (phạm nguyên tắc). Ô nhận string|number|OMML|mảng trộn qua toInline → nhúng thẳng luỹ thừa/phân số OMML trong ô (số khoa học a·10ⁿ, ma phương 2ᵏ). QC ô bảng PHẢI bằng lxml (python-docx cũ nuốt paragraph chứa OMML). Viền mảnh xám #999999, nền TRẮNG (HP Đ17.2). Hàng tiêu đề đậm. duLieu: { tieuDe?: [ô…], hang: [[ô…],…] } HOẶC [[ô…],…] (không tiêu đề). opts.rongCot: mảng tỉ lệ cột (vd [0.4,0.3,0.3]); thiếu → chia đều. opts.canLe: mảng 'trai'|'giua'|'phai' theo cột; thiếu → cột 0 trái, còn lại giữa. Ví dụ: bangSoLieu({ tieuDe:["Hành tinh","Khoảng cách (km)"], hang:[ ["Trái Đất", ["1,50 · ", luyThua(10,8)] ], ["Sao Mộc", ["7,78 · ", luyThua(10,8)] ] ] })
 ### `danDungSai(soCau, moTa)`
 [28m] DÒNG DẪN Đúng/Sai — nhãn "Câu N." TỰ ĐẬM (khớp nhãn câu template tự sinh ở cauTracNghiem/traLoiNgan/tự luận). GỐC: dòng dẫn Đ/S trước đây dựng TAY bằng para thường → quên đậm (mục ⑥ HH7-CH04). Nay bắt buộc qua hàm này: không thể quên đậm. moTa = phần mô tả (thường), nhận cả chuỗi lẫn OMML. Đặt NGAY TRƯỚC bangDungSai (chèn hinhVe căn giữa vào giữa nếu câu có hình).
 ### `traLoiNgan({ soCau, cauHoi, dapAn, thamChieu })`
@@ -90,6 +92,7 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 ### `luyThua(coSo, soMu)`
 ### `luyThuaUnicode(coSo, soMu)`
 ### `phanSo(tuSo, mauSo)`
+### `ngoac(bieuThuc)`
 ### `canBac(soHang, bacCan = 2)`
 ### `chiSoDuoi(coSo, chiSo)`
 ### `triTuyetDoi(bieuThuc)`
@@ -117,4 +120,5 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 67 hàm + 18 hằng/tham chiếu · template v10.13 (2026-09-04) · sinh_apiref.js.*
+*Tự sinh: 69 hàm + 18 hằng/tham chiếu · template v10.14 (2026-09-05) · sinh_apiref.js.*
+[sinh_apiref] 69 hàm, 18 hằng — template v10.14

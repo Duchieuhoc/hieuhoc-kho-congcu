@@ -75,6 +75,111 @@ class Hinh(HinhCoBan):
         self.tikz.append(('tia', '_tsO', '_tsE', mui_ten, None, 'lien'))
         return self
 
+    # ═══════════════════════════════════════════════════════════════
+    # [28r] TRỤC SỐ HỮU TỈ — DS7 Chương I "Số hữu tỉ".
+    #   KHE HỞ: tia_so (DS6) là TIA tự nhiên — gốc trái, chỉ dương, điểm rơi
+    #   vạch NGUYÊN, nhãn thập phân. DS7 cần: phần ÂM/DƯƠNG (gốc O giữa), CHIA
+    #   đoạn đơn vị thành n phần, điểm tại toạ độ PHÂN SỐ (cả âm), nhãn phân số.
+    #   COMPOSE THUẦN base (tia/đoạn/so_o) — KHÔNG mổ lõi, KHÔNG op renderer mới.
+    #   Trục 2 phía = tia dương (có mũi) + tia âm (kéo dài) — pattern base tia_diem.
+    #   Nhãn phân số qua $\frac{a}{b}$ (renderer TikZ math mode) — chỉ số, an toàn
+    #   font (không đụng lỗi horn-glyph ơ/ư của Computer Modern).
+    #   AI Soạn khai GIÁ TRỊ (tu/den/chia/diem) — máy TỰ TÍNH toạ độ (Đ5.9).
+    # ═══════════════════════════════════════════════════════════════
+    def truc_so_huu_ti(self, tu=-1, den=4, chia=1, diem=None,
+                       hien_nhan_diem=True, moc_nhan=None,
+                       mui_ten_am=False, goc_ten='0'):
+        """TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương.
+
+        tu, den        : biên NGUYÊN trái/phải của trục (tu có thể < 0). Cần tu < den.
+        chia           : chia MỖI đoạn đơn vị thành `chia` phần bằng nhau (1,2,3,4,6,12…);
+                         chia>1 → vẽ vạch PHỤ (ngắn) để đặt phân số 1/chia, 2/chia…
+        diem           : list điểm. Mỗi phần tử (gt, ten) hoặc (gt, ten, nhan):
+                           · gt  = giá trị điểm — Fraction | (tử,mẫu) | int | float | "a/b";
+                           · ten = nhãn TRÊN điểm (A,B,C — bài đọc) hoặc None → chỉ chấm;
+                           · nhan= nhãn DƯỚI điểm; bỏ trống → TỰ sinh phân số của gt;
+                                   None (khai rõ) → KHÔNG ghi nhãn dưới.
+        hien_nhan_diem : False → không ghi giá trị dưới điểm (bài ĐỌC ĐIỂM, Đ35 cấm lộ đáp án).
+        moc_nhan       : list số NGUYÊN được ghi nhãn dưới vạch chính; None → ghi MỌI số nguyên.
+        mui_ten_am     : True → phía âm cũng có mũi tên (mặc định False: chỉ kéo dài, chuẩn SGK).
+        goc_ten        : nhãn tại vị trí 0 (mặc định '0').
+
+        Máy tự tính toạ độ từ GIÁ TRỊ — AI Soạn không đụng toạ độ thô (Đ5.9).
+        """
+        from fractions import Fraction
+        if not (isinstance(tu, int) and isinstance(den, int)) or tu >= den:
+            raise ValueError("[truc_so_huu_ti] cần tu, den NGUYÊN và tu < den")
+        if chia < 1:
+            raise ValueError("[truc_so_huu_ti] chia phải ≥ 1")
+        self._nen_luoi = False
+        SCALE = 1.4                      # mỗi đơn vị = 1,4 đơn vị vẽ (thoáng vạch phụ)
+
+        def _toFrac(gt):
+            if isinstance(gt, Fraction): return gt
+            if isinstance(gt, tuple):    return Fraction(gt[0], gt[1])
+            if isinstance(gt, int):      return Fraction(gt)
+            if isinstance(gt, float):    return Fraction(gt).limit_denominator(10000)
+            if isinstance(gt, str):
+                s = gt.strip().replace(',', '.')
+                return Fraction(s) if '/' in s else Fraction(s).limit_denominator(10000)
+            return Fraction(gt)
+
+        def _nhan_frac(q):               # Fraction → nhãn hiển thị (số nguyên hoặc $\frac{}{}$)
+            if q.denominator == 1:
+                return self._so(float(q))            # "-1","0","2"
+            dau = '-' if q < 0 else ''
+            return r'$%s\frac{%d}{%d}$' % (dau, abs(q.numerator), q.denominator)
+
+        # ── TRỤC: gốc 0 ở giữa, tia dương (mũi) + tia âm (kéo dài) ──
+        x_R = den * SCALE + 0.6
+        x_L = tu  * SCALE - 0.6
+        self._diem('_htO', 0.0, 0.0, nhan=None, moc=False)
+        self._diem('_htR', x_R / 1.25, 0.0, nhan=None, moc=False)     # mũi (keo 1.25) → tới x_R
+        keoL = 1.25 if mui_ten_am else 1.15
+        self._diem('_htL', x_L / keoL, 0.0, nhan=None, moc=False)
+        self.tikz.append(('tia', '_htO', '_htR', True, None, 'lien'))
+        self.tikz.append(('tia', '_htO', '_htL', mui_ten_am, None, 'lien'))
+
+        # ── VẠCH CHÍNH (số nguyên) + nhãn ──
+        for n in range(tu, den + 1):
+            x = n * SCALE
+            self._vach_ht(x, f'n{n - tu}', chinh=True)
+            if (moc_nhan is None) or (n in moc_nhan):
+                self.ghi_chu(x, -0.44, goc_ten if n == 0 else self._so(n))
+
+        # ── VẠCH PHỤ (chia đoạn đơn vị) ──
+        if chia > 1:
+            vid = 0
+            for n in range(tu, den):
+                for j in range(1, chia):
+                    self._vach_ht((n + j / chia) * SCALE, f'p{vid}', chinh=False)
+                    vid += 1
+
+        # ── ĐIỂM đánh dấu (toạ độ phân số/âm) ──
+        for idx, spec in enumerate(diem or []):
+            gt, ten = spec[0], spec[1]
+            nhan = spec[2] if len(spec) > 2 else 'auto'
+            q = _toFrac(gt)
+            if q < tu or q > den:
+                raise ValueError(f"[truc_so_huu_ti] điểm {gt} ngoài đoạn [{tu}, {den}]")
+            x = float(q) * SCALE
+            self._diem(f'_hp{idx}', x, 0.0, nhan=None, moc=True)     # chấm đậm
+            if ten:
+                self.ghi_chu(x, 0.34, str(ten))                     # nhãn tên (trên)
+            if hien_nhan_diem and nhan is not None:
+                self.ghi_chu(x, -0.44, _nhan_frac(q) if nhan == 'auto' else str(nhan))
+
+        self.ghi_chu(-0.30, 0.30, '')   # giữ khoảng trên gốc (nhãn 0 nằm dưới)
+        return self
+
+    def _vach_ht(self, x, tag, chinh=True):
+        """Vạch chia dọc trục hữu tỉ: chính (dài) cho số nguyên, phụ (ngắn) cho phần chia."""
+        h = 0.13 if chinh else 0.08
+        a, b = f'_wa{tag}', f'_wb{tag}'
+        self._diem(a, x, h, nhan=None, moc=False)
+        self._diem(b, x, -h, nhan=None, moc=False)
+        self.tikz.append(('doan', a, b, None, 'lien', 'manh'))
+
     # ─────────── phụ trợ nội bộ (prefix _ → KHÔNG phơi cho AI Soạn) ───────────
     def _vach(self, x, tag):
         """Vạch chia dọc (nét mảnh) tại hoành độ x; tag = số nguyên đặt tên an toàn."""
