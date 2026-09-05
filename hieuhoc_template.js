@@ -1,4 +1,4 @@
-// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.15 (2026-09-05) [28s]: GUARD chuỗi trần — para() THROW khi phần tử là STRING thô (docx nhả text trần dưới <w:p>, Word bỏ qua cả đoạn + nuốt OMML; sự cố DS7_CH01_B01); _kiemTrinhBay thêm cửa (a3) bắt text trần ngoài <w:r> (lưới thứ hai). Dùng paraInline()/run() cho nội dung trộn. Tương thích ngược: para() nội bộ đều truyền run/toInline. | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
+// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
 // File DUY NHẤT. Scripts require("./hieuhoc_template.js").
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -320,22 +320,12 @@ function _kiemTrinhBay(xml) {
   if (/<w:r\b[^>]*>(?:(?!<\/w:r>)[\s\S])*?<w:r\b/.test(xml))
     loi.push("Run lồng trong run (<w:r> trong <w:r>) — sai chuẩn OOXML, LibreOffice/trình đọc chuẩn sẽ MẤT CHỮ. Nguyên nhân: bọc MẢNG run() vào TextRun({children}); run() phải trả thẳng mảng và para()/tabLine() làm phẳng.");
 
-  // (a3) [28s] Text TRẦN dưới <w:p> — chuỗi chưa bọc run(). docx nhả text-node ngoài
-  //      <w:r>/<w:t>; Word BỎ QUA cả đoạn (mất chữ + nuốt OMML). Build sạch, lxml vẫn
-  //      thấy chữ nên dễ lọt Vòng 1. Lưới thứ hai của guard para() — bắt MỌI nguồn.
-  //      Sự cố DS7_CH01_B01 (8 đoạn lý thuyết trắng trên Word).
-  for (const seg of xml.split(/<\/w:p>/)) {
-    const i = seg.indexOf("<w:p");
-    if (i < 0) continue;
-    const body = seg.slice(i)
-      .replace(/<w:t\b[^>]*>[^<]*<\/w:t>/g, "")   // bỏ text HỢP LỆ trong run
-      .replace(/<m:t\b[^>]*>[^<]*<\/m:t>/g, "")   // bỏ text HỢP LỆ trong OMML
-      .replace(/<[^>]+>/g, "");                    // bỏ mọi thẻ, giữ text nằm GIỮA thẻ
-    if (/\S/.test(body)) {
-      loi.push('Text TRẦN dưới <w:p> (chuỗi chưa bọc run) — docx nhả text ngoài <w:r>, Word BỎ QUA cả đoạn (mất chữ + nuốt OMML). Dùng H.paraInline([...]) hoặc bọc H.run("...").');
-      break;
-    }
-  }
+  // (a3) [28s] m:e LỒNG m:e — <m:e> chứa trực tiếp <m:e> bên trong <m:d>. Chuẩn OOXML:
+  //      <m:d> chỉ chứa MỘT <m:e>; <m:e> không bọc <m:e>. Word TỪ CHỐI MỞ FILE.
+  //      LibreOffice/lxml không render OMML nên LỌT. Sinh ra khi tự bọc m:e rồi lại đưa vào
+  //      createMathBase (đã tự bọc m:e) — vd lỗi ngoac() trước KHOFIX-ngoac (28s).
+  if (/<m:e\b[^>]*>\s*<m:e\b/.test(xml))
+    loi.push("OMML hỏng: <m:e> lồng <m:e> trong <m:d> — Word TỪ CHỐI MỞ FILE (LibreOffice/lxml lọt). Chuẩn OOXML: mỗi <m:d> đúng 1 <m:e>, không bọc kép. Nguyên nhân: tự bọc m:e rồi đưa vào createMathBase (đã tự bọc). Xuất qua ngoac()/hàm kho đã vá KHOFIX-ngoac.");
 
   // (b) Cỡ 12pt — đã bỏ khỏi hệ thống (HP Điều 13.2)
   if (xml.includes('w:val="24"'))
@@ -713,19 +703,6 @@ function para(children, opts = {}) {
       `   Các hàm trả về MẢNG (phải spread): loiGiai, viDu, viDuLyThuyet, mucTieu,\n` +
       `   baiTapTaiLop, tuLuanBTVN, saiLamThuongGap, ghiNhoNhanh, nhanDang,\n` +
       `   phuongPhapGiai, dangToanDayDu, tenBaiHoc, cauTracNghiem, traLoiNgan, hinhVe.`
-    );
-  }
-  // [28s] GUARD CHỐNG CHUỖI TRẦN — sự cố DS7_CH01_B01 ngày 05/09/2026.
-  //   para() nhận phần tử ĐÃ chuẩn (run/Math). Nếu lọt STRING thô, docx nhả text-node
-  //   TRẦN dưới <w:p> (ngoài <w:r>) → Word BỎ QUA cả đoạn (mất chữ + nuốt OMML kèm theo).
-  //   Build sạch, kiemMay/lxml vẫn "thấy" chữ → chỉ Word thật mới lộ (đoạn trắng).
-  const viTriStr = [];
-  ds.forEach((c, i) => { if (typeof c === "string") viTriStr.push(i); });
-  if (viTriStr.length) {
-    throw new Error(
-      `[LỖI CẤU TRÚC] para(): phần tử thứ ${viTriStr.join(", ")} là CHUỖI THÔ chưa bọc run — ` +
-      `docx nhả text TRẦN dưới <w:p>, Word BỎ QUA cả đoạn (mất chữ + nuốt OMML).\n` +
-      `   Dùng H.paraInline([...]) cho nội dung trộn string+công thức, HOẶC bọc mỗi chuỗi bằng H.run("...").`
     );
   }
   return new Paragraph({
@@ -2378,8 +2355,8 @@ function ngoac(bieuThuc) {
       new BuilderElement({ name: "m:endChr", attributes: { val: { key: "m:val", value: ")" } } }),
     ],
   });
-  const e = new BuilderElement({ name: "m:e", children: _mathChild(bieuThuc) });
-  const base = createMathBase({ children: [e] });
+  // [KHOFIX ngoac] createMathBase() ĐÃ bọc <m:e> — không tự bọc thêm, tránh <m:e><m:e> (Word chối mở).
+  const base = createMathBase({ children: _mathChild(bieuThuc) });
   const d = new BuilderElement({ name: "m:d", children: [dPr, base] });
   return _dmath(d);
 }

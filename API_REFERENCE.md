@@ -121,4 +121,3 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 
 ---
 *Tự sinh: 69 hàm + 18 hằng/tham chiếu · template v10.15 (2026-09-05) · sinh_apiref.js.*
-[sinh_apiref] 69 hàm, 18 hằng — template v10.15

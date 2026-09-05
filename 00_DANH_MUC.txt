@@ -1,12 +1,9 @@
-GÓI: CAPNHAT_KHO__28h — Ông Bụt 2026-08-30
-ĐÍCH: GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu) — thầy PUSH bằng web upload
-LUẬT SEQUENCING: PUSH gói này TRƯỚC khi AI Soạn clone (Bài 14).
-
-FILE THAY THẾ (complete replacement, KHÔNG .patch):
-  1. hinh_dagiac.py      — +goc_o=(dx,dy) cho 5 hàm tam_giac_* (dời tam giác, đặt nhiều tam giác/1 hình)
-  2. 00_KHO_VERSION.txt  — bump mốc 28g → 28h + changelog [28h]
-
-CÁCH PUSH: upload đè 2 file trên vào gốc repo → commit. Xong chạy `git rev-parse HEAD`
-gửi OB (pin tái dựng). Mốc mới: 2026-08-28h.
-
-KHÔNG kèm bản trích (BAN_TRICH_HAM_*.md bị .gitignore — giao Project riêng, xem gói PROJ).
+DANH MỤC — CAPNHAT_KHO KHOFIX-ngoac (28s)
+Tệp                    | Trạng thái | Ghi chú
+-----------------------|-----------|-------------------------------------------
+hieuhoc_template.js    | ĐÃ SỬA    | ngoac() bỏ m:e lồng + cửa kiemMay a3 + stamp v10.15[28s]
+API_REFERENCE.md       | REGEN     | tự sinh lại (v10.15) — nạp 2 Project
+00_KHO_VERSION.txt     | BUMP      | 28q→28s (+ghi bù [28r][28s])
+KHOFIX_ngoac_28s.patch | tham chiếu| git diff hieuhoc_template.js (áp: git apply)
+00_DOC_TRUOC_KHI_PUSH.md| hướng dẫn | luật one-writer + việc thầy làm
+00_DANH_MUC.txt        | mục lục   | tệp này
