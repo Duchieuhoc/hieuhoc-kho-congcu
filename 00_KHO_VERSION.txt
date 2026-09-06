@@ -1,6 +1,17 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28v (2026-09-06)
+Mốc kho      : 28w (2026-09-06)
+
+[28w] KHOFIX canBac (Ông Bụt 2026-09-06, phát hiện khi QC DS8_CH01_B02 "Đa thức"):
+      • canBac() trả `new DMath({children:[rad]})` THẲNG — KHÔNG qua _dmath nên thiếu cờ _hhComp.
+        Khi lồng canBac vào phanSo()/luyThua()/ngoac() (vd x/√5, 1/√2, √5/x), _mathChild không gỡ
+        được vỏ → nhét cả <m:oMath> vào trong → <m:oMath> LỒNG <m:oMath> → Word CHỐI MỞ (lxml +
+        LibreOffice + regex-kề đều LỌT — false-pass; phải quét theo ĐỘ SÂU/tổ-tiên mới thấy).
+        28r đã mở lồng cho luyThua/phanSo/ngoac nhưng SÓT canBac.
+      • FIX 1 dòng: `return _dmath(rad);` → gắn _hhComp=[rad]. Additive; canBac đứng riêng KHÔNG đổi.
+        Mở lại các ý nguồn có √ trong phân số (Sổ tồn ⑥-LTC của B02: SGK 1.8, SBT 1.7 dùng lại được).
+      TEMPLATE v10.17 → v10.18. hinh_*.py KHÔNG đổi. API public KHÔNG đổi chữ ký.
+
 
 [28v] 3 SỬA TEMPLATE (Ông Bụt 2026-09-06, phát sinh khi QC DS8_CH01_B01 "Đơn thức"):
       • KHOFIX baiTapTaiLop +anLoiGiai — regression 28t: guard bản-HS `if(!anLoiGiai)` (dòng 1448/1464)
