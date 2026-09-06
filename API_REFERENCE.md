@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.15)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.15 (2026-09-05) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.17)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.17 (2026-09-06) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `kiemMay(bufOrPath, opts = {})`
@@ -47,11 +47,11 @@ Dựng nhanh 1 Paragraph từ nội dung string|mảng trộn — dùng nội b�
 [v9.6] Phân tích — mục A.1 giữa "Bài toán mẫu" và "Lời giải"; gánh luôn việc nhận dạng. Nhận string hoặc mảng trộn (chèn phanSo/luyThua). Trả mảng — dùng spread.
 ### `dangToanDayDu({ saiLamArr, soDang, ghiNhoArr, tenDang, ma, viDuDeBai, viDuCacCau, viDuThamChieu, viDuCoHinh, viDuHinhBenPhai, viDuHinhBenTrai, phanTich, phuongPhapArr, soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND })`
 Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến khích AI Soạn dùng hàm này
-### `baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai })`
+### `baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })`
 ### `cauTracNghiem({ soCau, cauHoi, dapAn, thamChieu })`
 ### `bangDapAnPhanI(dapAnArr)`
 13. BẢNG ĐÁP ÁN PHẦN I (2 hàng × N cột, N=8 THCS, N=12 THPT) [v9.4] Đáp án Phần I trình bày MỘT DÒNG: "Câu 1 - B; Câu 2 - A; ..." (thay dạng bảng 2 hàng cũ — gọn hơn, đúng yêu cầu 25/07). Nhận mảng đáp án ['B','A','C',...]. Trả 1 Paragraph.
-### `bangDungSai(menhDeArr)`
+### `bangDungSai(menhDeArr, opts = {})`
 14. BẢNG ĐÚNG/SAI — tỉ lệ CỐ ĐỊNH 80%-10%-10%, nền trắng chữ đen
 ### `bangSoLieu(duLieu, opts = {})`
 [28r] 14b. BẢNG SỐ LIỆU TỔNG QUÁT — dữ liệu thực tiễn nhiều cột (dân số, tuổi thọ, hồ, hành tinh, khí hiếm, pizza…) — DS7 dày bảng. GỐC: kho chỉ có bảng CHUYÊN DỤNG (đáp án/đúng-sai/nhật ký); bảng số liệu thực tiễn chưa có hàm → AI Soạn buộc viết new Table() thô (phạm nguyên tắc). Ô nhận string|number|OMML|mảng trộn qua toInline → nhúng thẳng luỹ thừa/phân số OMML trong ô (số khoa học a·10ⁿ, ma phương 2ᵏ). QC ô bảng PHẢI bằng lxml (python-docx cũ nuốt paragraph chứa OMML). Viền mảnh xám #999999, nền TRẮNG (HP Đ17.2). Hàng tiêu đề đậm. duLieu: { tieuDe?: [ô…], hang: [[ô…],…] } HOẶC [[ô…],…] (không tiêu đề). opts.rongCot: mảng tỉ lệ cột (vd [0.4,0.3,0.3]); thiếu → chia đều. opts.canLe: mảng 'trai'|'giua'|'phai' theo cột; thiếu → cột 0 trái, còn lại giữa. Ví dụ: bangSoLieu({ tieuDe:["Hành tinh","Khoảng cách (km)"], hang:[ ["Trái Đất", ["1,50 · ", luyThua(10,8)] ], ["Sao Mộc", ["7,78 · ", luyThua(10,8)] ] ] })
@@ -74,7 +74,7 @@ Footer riêng cho tờ phân chương (khác footer file bài học — không s
 Header rỗng — dùng để NGẮT KẾ THỪA header khi tạo section riêng cho Trang cuối chương (OOXML mặc định section sau kế thừa header/footer section trước nếu không khai báo lại)
 
 ## phần 5 — tự luận BTVN + tiêu đề các khối
-### `tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai })`
+### `tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })`
 ### `tieuDeTuLuan(soBai, tongDiem)`
 Tiêu đề khối "D. TỰ LUẬN (n bài = Xđ)"
 ### `tieuDePhanI(soCau, tongDiem)`
@@ -120,4 +120,4 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 69 hàm + 18 hằng/tham chiếu · template v10.15 (2026-09-05) · sinh_apiref.js.*
+*Tự sinh: 69 hàm + 18 hằng/tham chiếu · template v10.17 (2026-09-06) · sinh_apiref.js.*
