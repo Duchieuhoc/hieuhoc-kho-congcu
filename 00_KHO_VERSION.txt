@@ -1,6 +1,18 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28w (2026-09-06)
+Mốc kho      : 28x (2026-09-06)
+
+[28x] 3 SỬA (Ông Bụt 2026-09-06, phát sinh khi QC DS8_CH01_B03 "Phép cộng/trừ đa thức"):
+      • dangToanDayDu: nhận `loiGiaiND` làm BÍ DANH của `viDuLoiGiai` (sinh_apiref.js đọc hàm kiểu (p)
+        ra chữ ký SAI — ghi loiGiaiND, thiếu viDuLoiGiai → AI Soạn suýt xuất bài lời-giải-RỖNG,
+        fail-im-lặng: node --check + kiemMay đều KHÔNG bắt). NAY: thiếu lời giải mẫu → THROW rõ.
+      • viDu()/viDuLyThuyet(): thêm khe `loiGiaiND`/`viDuLoiGiai` → tự gọi loiGiai() (Ví dụ ② có lời
+        giải TỪNG BƯỚC trong 1 lệnh). Giữ `dapAn` làm đường tắt "Trả lời:" cũ. Gốc lỗi "② cụt" (B01).
+      • +soGachTren(noiDung): overline OMML <m:bar> pos=top, trả qua _dmath (lồng an toàn như canBac).
+        Cho số học gạch-trên (abc chia hết…) ở ⑥/⑦. Export: soGachTren.
+      TEMPLATE v10.18 → v10.19. Output bài cũ KHÔNG đổi (đã verify document.xml B03 giống hệt). hinh_*.py nguyên.
+      → sinh_apiref.js NÊN sửa để đọc đúng hàm kiểu (p) — ghi chú trong README, chưa vá script này.
+
 
 [28w] KHOFIX canBac (Ông Bụt 2026-09-06, phát hiện khi QC DS8_CH01_B02 "Đa thức"):
       • canBac() trả `new DMath({children:[rad]})` THẲNG — KHÔNG qua _dmath nên thiếu cờ _hhComp.
