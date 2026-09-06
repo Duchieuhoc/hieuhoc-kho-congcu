@@ -19,11 +19,15 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         self._diem(A, ox+canh/2, oy+canh*math.sqrt(3)/2, 'above')
         self._da_giac(A, B, Cc)
         self.rb.append({'loai':'canh_bang','cac_doan':[(A,B),(B,Cc),(Cc,A)]}); return self
-    def hinh_vuong(self, M, N, P_, Q, canh=4):
+    def hinh_vuong(self, M, N, P_, Q, canh=4, goc_o=(0.0, 0.0), cham=True):
         """Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải. canh = độ dài cạnh (dùng CHẴN ô để tâm rơi NÚT lưới).
+        goc_o=(dx,dy): DỜI cả hình vuông — đặt NHIỀU hình vuông cạnh nhau / dựng trên cạnh (H2, H4).
+        cham=False: KHÔNG chấm đỉnh, KHÔNG ghi tên M,N,P,Q — chỉ nét bao (hình vuông diện tích, không cần đỉnh chữ).
         PHANH: 4 cạnh bằng nhau + góc tại M vuông (90°)."""
-        self._diem(M, 0, 0, 'below left'); self._diem(N, 0, canh, 'above left')
-        self._diem(P_, canh, canh, 'above right'); self._diem(Q, canh, 0, 'below right')
+        ox, oy = goc_o
+        _m = cham; _nh = (lambda pos: pos if cham else None)
+        self._diem(M, ox+0, oy+0, _nh('below left'), moc=_m); self._diem(N, ox+0, oy+canh, _nh('above left'), moc=_m)
+        self._diem(P_, ox+canh, oy+canh, _nh('above right'), moc=_m); self._diem(Q, ox+canh, oy+0, _nh('below right'), moc=_m)
         self._da_giac(M, N, P_, Q)
         self.rb.append({'loai':'canh_bang','cac_doan':[(M,N),(N,P_),(P_,Q),(Q,M)]})
         self.rb.append({'loai':'goc','ten':[Q,M,N],'do':90}); return self
@@ -316,16 +320,19 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
             self.tikz.append(('noi', [B, D],  False, None))
             self.rb.append({'loai':'canh_bang','cac_doan':[(A,Cc),(B,D)]})  # 2 đường chéo =
         return self
-    def da_giac_vuong(self, ten, buoc, nhan='below right'):
+    def da_giac_vuong(self, ten, buoc, nhan='below right', cham=True, goc_o=(0.0, 0.0)):
         """Đa giác mọi cạnh song song trục (góc vuông) — hình chữ L, bậc thang, mặt bằng.
         ten  = list tên đỉnh (n đỉnh), đi quanh chu vi.
         buoc = list n (huong, dai) — huong ∈ {'phai','trai','len','xuong'}, dai>0.
-               Đỉnh sinh cộng dồn từ ten[0]=(0,0); TỔNG vector phải = 0 (khép kín).
-        (Nhãn cạnh/kích thước AI thêm bằng doan(..., dodai=...).)"""
+               Đỉnh sinh cộng dồn từ ten[0]=goc_o; TỔNG vector phải = 0 (khép kín).
+        cham=False: KHÔNG chấm/không ghi tên đỉnh — chỉ nét bao (vd net miếng bìa H5, không cần đỉnh chữ).
+        goc_o=(dx,dy): DỜI cả đa giác (đặt cạnh hình khác trong 1 hình).
+        (Nhãn cạnh/kích thước AI thêm bằng doan(..., dodai=...) hoặc ghi_chu.)"""
         huong = {'phai':(1,0), 'trai':(-1,0), 'len':(0,1), 'xuong':(0,-1)}
         n = len(ten)
         if len(buoc) != n:
             raise ValueError('da_giac_vuong: số bước phải bằng số đỉnh (bước cuối khép về đỉnh đầu)')
+        ox, oy = goc_o
         x = y = 0.0; toa_do = [(x, y)]
         for hg, dai in buoc[:-1]:
             ux, uy = huong[hg]; x += ux*dai; y += uy*dai; toa_do.append((x, y))
@@ -334,6 +341,6 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         if abs(x + ux*daic) > 1e-6 or abs(y + uy*daic) > 1e-6:
             raise ValueError('da_giac_vuong: chuỗi bước KHÔNG khép kín (tổng vector ≠ 0)')
         for t, (px, py) in zip(ten, toa_do):
-            self._diem(t, px, py, nhan)
+            self._diem(t, ox+px, oy+py, nhan if cham else None, moc=cham)
         self._da_giac(*ten)
         return self

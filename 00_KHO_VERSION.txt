@@ -1,6 +1,33 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28t (2026-09-05)
+Mốc kho      : 28u (2026-09-06)
+
+[28u] +MẠCH KHỐI HỘP [hinh_khoihop.py MỚI] + ENTRY DS8_CH01 [hinh_ds8_ch01.py MỚI]
+      (Ông Bụt 2026-09-06, Pha A DS8_CH01 "Đa thức" — yêu cầu OB Đại số YC_HINH__DS8_CH01).
+      • KHE HỞ: grep toàn bộ hinh_*.py mốc 28t → KHÔNG có bất kỳ hàm khối hộp/3D nào; Chương I
+        Toán 8 cần 2 khối hộp (Bài 5) + net hộp gấp không nắp (Ôn tập 1.46). Khối hộp là primitive
+        dùng chung Đại số + Hình học trực quan 5→9.
+      • hinh_khoihop.py: class HinhKhoiHop(HinhCoBan). COMPOSE THUẦN base (điểm ẩn + doan liền/đứt
+        + to_mien + ghi_chu) — KHÔNG mổ lõi, KHÔNG thêm op renderer mới.
+        - khoi_hop_chu_nhat(dai,rong,cao, nhan={'dai','rong','cao'}, to_day, nhan_day, an_nap, goc_o, ten):
+          hộp phối cảnh xiên (cavalier ~40°, co 0,5) — 9 cạnh liền + 3 cạnh khuất nét đứt (tại đỉnh
+          sau-dưới-trái), chuẩn SGK. Nhãn nhận string/biểu thức tự bọc $…$. PHANH: canh_bang 4 cạnh
+          sâu (lăng trụ đứng) + góc mặt trước = 90°.
+        - net_hop_cat_goc(dai,rong,canh_goc, nhan={'dai','rong','goc'}, to_goc, goc_o, ten): khai triển
+          2D miếng bìa chữ nhật ĐẦY ĐỦ cắt 4 ô vuông góc + 4 nếp gấp nét đứt (Ôn tập 1.46).
+      • hinh_ds8_ch01.py: ENTRY = compose(HinhDaGiac + HinhTron + HinhKhoiHop). MRO sạch (1 base chung).
+      • NỚI 2 hàm sẵn có [hinh_dagiac.py] — TƯƠNG THÍCH NGƯỢC (tham số mới có mặc định):
+        - hinh_vuong(... , goc_o=(0,0), cham=True): goc_o dời hình (ghép/dựng-trên-cạnh: H2, H4);
+          cham=False bỏ chấm+tên đỉnh (hình vuông diện tích).
+        - da_giac_vuong(... , cham=True, goc_o=(0,0)): cham=False bỏ chấm+tên (net miếng bìa).
+      • +khong_luoi() [hinh_coban.py BASE — CHỈ THÊM 1 method, tương thích ngược]: tắt nền ô lưới mờ
+        cho hình sơ đồ/diện tích/thể tích (SGK không kẻ lưới). khoi_hop tự tắt nội bộ.
+      • Bản trích: sinh BAN_TRICH_HAM_DS8_CH01.md từ hinh_ds8_ch01. Template KHÔNG đổi (v10.16) →
+        API_REFERENCE.md (API template) giữ nguyên.
+      VERIFY: PHANH pass cả 5 hình (raise-free qua .ve()); cổng AST cua_quet_hinh 5/5 SẠCH
+        (--kho hinh_ds8_ch01); smoke-import 15 module + entry cũ (ch4/ch5/ch8) OK — 2 sửa đổi không vỡ
+        hồi quy; quet_stamp V11.8 SẠCH; render PNG kiểm mắt 5/5 khớp SGK (Bài 1.7 · Hình 1.1 · Bài 5
+        · Hình 1.2 · Hình 1.3). Giao OB Đại số: 5 PNG + 5 entry/script + mốc 28u.
 
 [28t] KHOFIX-mathLong + KHOFIX-deKT (Ông Bụt 2026-09-05, phát sinh khi QC ⑦ DS7_CH01 đề KT):
       • mathLong: _mathChild() nhận MẢNG trả nguyên mảng → phanSo/luyThua (đã là <m:oMath>) lọt vào

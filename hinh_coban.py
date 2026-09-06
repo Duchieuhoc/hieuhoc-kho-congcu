@@ -577,6 +577,12 @@ class HinhCoBan:
         x = ox + r * math.cos(mid); y = oy + r * math.sin(mid)
         self.tikz.append(('so_o', x, y, chu))
         return self
+    def khong_luoi(self):
+        """TẮT nền ô lưới mờ cho hình này (hình sơ đồ/diện tích/thể tích — SGK không kẻ lưới).
+        Không ảnh hưởng cách đo cỡ ảnh (rong_cm vẫn tính từ bề rộng PNG). Trả self để nối chuỗi."""
+        self._nen_luoi = False
+        return self
+
     def ghi_chu(self, x, y, chu, mau=None):
         """Ghi CHỮ TỰ DO 'chu' tại toạ độ (x,y) trên hệ vẽ — nhãn hình con a)/b)/c)/d) của một
         hình GỘP nhiều phần trên cùng hàng, hoặc chú thích ngắn. Chữ đặt trực tiếp (KHÔNG tạo
