@@ -1,6 +1,23 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28u (2026-09-06)
+Mốc kho      : 28v (2026-09-06)
+
+[28v] 3 SỬA TEMPLATE (Ông Bụt 2026-09-06, phát sinh khi QC DS8_CH01_B01 "Đơn thức"):
+      • KHOFIX baiTapTaiLop +anLoiGiai — regression 28t: guard bản-HS `if(!anLoiGiai)` (dòng 1448/1464)
+        dán sang baiTapTaiLop mà QUÊN khai tham số ở destructure → ReferenceError MỌI lần gọi (mục ④
+        không dựng được). node --check sạch (lỗi chỉ lộ RUNTIME). Sửa 1 dòng, additive: anLoiGiai
+        undefined ⇒ bản GV vẫn in lời giải như cũ. Đồng bộ với tuLuanBTVN (đã có sẵn từ 28t).
+      • GUARD _dapAnViDu (viDu) — dapAn truyền MẢNG-TRỘN chữ+công thức (vd ["Thu gọn:",P("y",2),...])
+        bị hiểu nhầm thành nhiều ý a),b)…h) → hết bảng chữ cái in "undefined)". THROW chỉ rõ: 1 ý trộn
+        phải bọc [[…]]; nhiều ý thì mỗi ý là string/mảng con. Tương thích ngược 100% (cách gọi ĐÚNG
+        không đổi). Phát hiện: cả 3 Ví dụ ② của DS8_CH01_B01 bể — lọt QC Vòng 2, Giám đốc bắt Vòng 3.
+      • +CỬA kiemMay quét "\bundefined\b" → CHẶN XUẤT (bổ sung cho cửa "[object Object]" đã có).
+        Bài tiếng Việt không có từ "undefined" hợp lệ.
+      TEMPLATE v10.16 → v10.17. hinh_*.py KHÔNG đổi. API_REFERENCE cần regen (ghi chú 2 cửa mới; API
+        public KHÔNG đổi chữ ký → BAN_TRICH giữ nguyên).
+      ⚠️ PHẠM VI HỒI QUY: bài CŨ (DS6/DS7) nếu có dùng dapAn mảng-trộn thì trước nay ĐÃ bể "undefined"
+        âm thầm — nay rebuild trên 28v sẽ THROW (phơi lỗi để sửa, không phải mới hỏng).
+
 
 [28u] +MẠCH KHỐI HỘP [hinh_khoihop.py MỚI] + ENTRY DS8_CH01 [hinh_ds8_ch01.py MỚI]
       (Ông Bụt 2026-09-06, Pha A DS8_CH01 "Đa thức" — yêu cầu OB Đại số YC_HINH__DS8_CH01).

@@ -1,4 +1,4 @@
-// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.16 (2026-09-05) [28t]: KHOFIX-mathLong — _mathChild đệ quy (flatMap) gỡ vỏ phần tử phanSo/luyThua trong MẢNG → hết <m:oMath> LỒNG <m:oMath> (Word TỪ CHỐI MỞ; lxml/LibreOffice lọt). +Cửa kiemMay chặn oMath-lồng. KHOFIX-deKT — cửa nhận chữ ký "THỜI GIAN: … PHÚT" (Đ57.1) + căn lề chỉ đếm <w:jc> (bỏ tab-stop TN). +bangDungSai({banHS}) & tuLuanBTVN({anLoiGiai}) hỗ trợ bản HS (additive). CHỈ SỬA-LỖI/THÊM — không đổi API. | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
+// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.17 (2026-09-06) [28v]: 3 SỬA phát sinh khi QC DS8_CH01_B01 — (1) KHOFIX baiTapTaiLop +anLoiGiai (regression 28t: guard bản-HS dán sang mà quên khai tham số → ReferenceError mọi lần gọi mục ④); (2) GUARD _dapAnViDu: dapAn là mảng-TRỘN chữ+công thức (quên bọc [[…]]) → THROW chỉ cách sửa, thay vì render "undefined)"; (3) +Cửa kiemMay quét "undefined" (chặn xuất). CHỈ SỬA-LỖI/THÊM-GUARD — KHÔNG đổi API. | VERSION: v10.16 (2026-09-05) [28t]: KHOFIX-mathLong — _mathChild đệ quy (flatMap) gỡ vỏ phần tử phanSo/luyThua trong MẢNG → hết <m:oMath> LỒNG <m:oMath> (Word TỪ CHỐI MỞ; lxml/LibreOffice lọt). +Cửa kiemMay chặn oMath-lồng. KHOFIX-deKT — cửa nhận chữ ký "THỜI GIAN: … PHÚT" (Đ57.1) + căn lề chỉ đếm <w:jc> (bỏ tab-stop TN). +bangDungSai({banHS}) & tuLuanBTVN({anLoiGiai}) hỗ trợ bản HS (additive). CHỈ SỬA-LỖI/THÊM — không đổi API. | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
 // File DUY NHẤT. Scripts require("./hieuhoc_template.js").
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -412,6 +412,11 @@ function kiemMay(bufOrPath, opts = {}) {
 
   if (xml.includes("[object Object]"))
     loi.push('Có "[object Object]" — đối tượng lọt vào chỗ cần string (kiểm tham số hàm).');
+  // [28v] CỬA "undefined": field/nhãn render hụt (vd mảng-trộn bị hiểu thành nhiều ý → nhãn a)…h)
+  //   vượt bảng chữ cái ⇒ "undefined)"; hoặc tham số lấy thuộc tính không tồn tại). Bài tiếng Việt
+  //   không có từ "undefined" hợp lệ → chặn xuất. (Bài học: DS8_CH01_B01 Ví dụ ② lọt QC Vòng 2.)
+  if (/\bundefined\b/.test(xml))
+    loi.push('Có "undefined" trong nội dung — nhãn/field render hụt (nghi cấu trúc dapAn mảng-trộn quên bọc [[…]], hoặc tham số hàm thiếu). Kiểm điểm gọi.');
   // Chỉ bắt shading MÀU — trắng (FFFFFF) và auto là "không shading", hợp lệ (Điều 17.2 bảng nền trắng).
   const shdFills = (xml.match(/<w:shd\b[^>]*w:fill="([0-9A-Fa-f]{6})"/g) || [])
     .map(x => x.match(/w:fill="([0-9A-Fa-f]{6})"/)[1].toUpperCase())
@@ -943,6 +948,13 @@ function _dapAnViDu(dapAn) {
   const nhan = "abcdefgh".split("");
   let noi;
   if (Array.isArray(dapAn) && dapAn.length > 1) {
+    // [28v] GUARD mảng-trộn QUÊN BỌC: dapAn nhiều-ý hợp lệ chỉ chứa string HOẶC mảng con (mỗi ý).
+    //   Có phần tử là OBJECT trần (công thức OMML từ P/F/R…) ⇒ đây là MỘT ý trộn chữ+công thức
+    //   bị quên bọc, hàm sẽ hiểu nhầm thành nhiều ý → nhãn a)…h) rồi "undefined)". Chặn sớm, chỉ cách sửa.
+    if (dapAn.some(d => d !== null && typeof d === "object" && !Array.isArray(d)))
+      throw new Error('[dapAn SAI] viDu nhận dapAn là mảng TRỘN chữ + công thức → hiểu nhầm thành nhiều ý a),b)… và in "undefined)".\n' +
+        '→ MỘT ý (trộn chữ+công thức): bọc thêm 1 lớp → dapAn: [[ "Thu gọn: 0,5x", P("y",2), " = 2", P("x",3), P("y",2) ]]\n' +
+        '→ NHIỀU ý: mỗi ý là string hoặc mảng con → dapAn: [ ["a)…", P()], ["b)…", P()] ]');
     noi = [];
     dapAn.forEach((d, i) => {
       if (i) noi.push(run("   ", { size: SZ_CONTENT }));
@@ -1425,7 +1437,7 @@ function dangToanDayDu(p) {
  * @param {string} [p.thamChieu]
  * @param {string|Array} p.loiGiaiND
  */
-function baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai }) {
+function baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai }) {  // [28v] +anLoiGiai: KHOFIX regression 28t (guard bản-HS dán sang mà quên khai tham số → ReferenceError); undefined ⇒ bản GV vẫn in lời giải
   thamChieu = _locNguon(thamChieu);
   _guardND(deBai, "baiTapTaiLop");
   _guardArr(cacCau, "baiTapTaiLop");
