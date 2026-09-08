@@ -1,4 +1,4 @@
-// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.19 (2026-09-06) [28x]: 3 SỬA phát sinh khi QC DS8_CH01_B03 — (1) dangToanDayDu nhận loiGiaiND làm BÍ DANH của viDuLoiGiai + CHẶN fail-im-lặng (thiếu lời giải mẫu → THROW thay vì render "Lời giải:" rỗng); (2) viDu/viDuLyThuyet thêm khe loiGiaiND/viDuLoiGiai → Ví dụ ② có lời giải TỪNG BƯỚC (giữ dapAn làm đường tắt cũ); (3) +soGachTren() overline OMML <m:bar> qua _dmath (số học gạch-trên, cho ⑥/⑦). Additive, output bài cũ KHÔNG đổi. | VERSION: v10.18 (2026-09-06) [28w]: KHOFIX canBac — trả qua _dmath (gắn _hhComp) để _mathChild gỡ vỏ khi lồng trong phanSo/luyThua/ngoac (28r sót canBac → <m:oMath> lồng, Word chối mở; lxml/LibreOffice lọt). Additive, canBac đứng riêng KHÔNG đổi. Phát hiện khi QC DS8_CH01_B02. | VERSION: v10.17 (2026-09-06) [28v]: 3 SỬA phát sinh khi QC DS8_CH01_B01 — (1) KHOFIX baiTapTaiLop +anLoiGiai (regression 28t: guard bản-HS dán sang mà quên khai tham số → ReferenceError mọi lần gọi mục ④); (2) GUARD _dapAnViDu: dapAn là mảng-TRỘN chữ+công thức (quên bọc [[…]]) → THROW chỉ cách sửa, thay vì render "undefined)"; (3) +Cửa kiemMay quét "undefined" (chặn xuất). CHỈ SỬA-LỖI/THÊM-GUARD — KHÔNG đổi API. | VERSION: v10.16 (2026-09-05) [28t]: KHOFIX-mathLong — _mathChild đệ quy (flatMap) gỡ vỏ phần tử phanSo/luyThua trong MẢNG → hết <m:oMath> LỒNG <m:oMath> (Word TỪ CHỐI MỞ; lxml/LibreOffice lọt). +Cửa kiemMay chặn oMath-lồng. KHOFIX-deKT — cửa nhận chữ ký "THỜI GIAN: … PHÚT" (Đ57.1) + căn lề chỉ đếm <w:jc> (bỏ tab-stop TN). +bangDungSai({banHS}) & tuLuanBTVN({anLoiGiai}) hỗ trợ bản HS (additive). CHỈ SỬA-LỖI/THÊM — không đổi API. | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
+// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.20 (2026-09-08) [28y]: A.1-MỚI (chỉ đạo Giám đốc, in dạy DS8 hợp lý) — (1) phanTich() đổi nhãn → "Phân tích và hướng dẫn giải:" (nhãn RIÊNG dòng, nội dung chảy, +khe {doan:[...]} tách nhiều đoạn); (2) dangToanDayDu BỎ render phuongPhapArr (Phương pháp chung); (3) +ghiNhoGop() render ghiNhoArr + saiLamArr(✗→✓) dưới MỘT nhãn "Ghi nhớ", bỏ nhãn "Sai lầm thường gặp" riêng, guard ≤3 DÒNG; (4) guard khung A.1 cập nhật thông báo. Đồng bộ HP V11.9 · Chuẩn · Phụ lục v1.5 · Instructions · QC · API. Máy Hình nghỉ (cửa one-writer). | VERSION: v10.19 (2026-09-06) [28x]: 3 SỬA phát sinh khi QC DS8_CH01_B03 — (1) dangToanDayDu nhận loiGiaiND làm BÍ DANH của viDuLoiGiai + CHẶN fail-im-lặng (thiếu lời giải mẫu → THROW thay vì render "Lời giải:" rỗng); (2) viDu/viDuLyThuyet thêm khe loiGiaiND/viDuLoiGiai → Ví dụ ② có lời giải TỪNG BƯỚC (giữ dapAn làm đường tắt cũ); (3) +soGachTren() overline OMML <m:bar> qua _dmath (số học gạch-trên, cho ⑥/⑦). Additive, output bài cũ KHÔNG đổi. | VERSION: v10.18 (2026-09-06) [28w]: KHOFIX canBac — trả qua _dmath (gắn _hhComp) để _mathChild gỡ vỏ khi lồng trong phanSo/luyThua/ngoac (28r sót canBac → <m:oMath> lồng, Word chối mở; lxml/LibreOffice lọt). Additive, canBac đứng riêng KHÔNG đổi. Phát hiện khi QC DS8_CH01_B02. | VERSION: v10.17 (2026-09-06) [28v]: 3 SỬA phát sinh khi QC DS8_CH01_B01 — (1) KHOFIX baiTapTaiLop +anLoiGiai (regression 28t: guard bản-HS dán sang mà quên khai tham số → ReferenceError mọi lần gọi mục ④); (2) GUARD _dapAnViDu: dapAn là mảng-TRỘN chữ+công thức (quên bọc [[…]]) → THROW chỉ cách sửa, thay vì render "undefined)"; (3) +Cửa kiemMay quét "undefined" (chặn xuất). CHỈ SỬA-LỖI/THÊM-GUARD — KHÔNG đổi API. | VERSION: v10.16 (2026-09-05) [28t]: KHOFIX-mathLong — _mathChild đệ quy (flatMap) gỡ vỏ phần tử phanSo/luyThua trong MẢNG → hết <m:oMath> LỒNG <m:oMath> (Word TỪ CHỐI MỞ; lxml/LibreOffice lọt). +Cửa kiemMay chặn oMath-lồng. KHOFIX-deKT — cửa nhận chữ ký "THỜI GIAN: … PHÚT" (Đ57.1) + căn lề chỉ đếm <w:jc> (bỏ tab-stop TN). +bangDungSai({banHS}) & tuLuanBTVN({anLoiGiai}) hỗ trợ bản HS (additive). CHỈ SỬA-LỖI/THÊM — không đổi API. | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
 // File DUY NHẤT. Scripts require("./hieuhoc_template.js").
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -1368,13 +1368,52 @@ function phuongPhapGiai(buocArr, opts = {}) {
   return out;
 }
 
-// [v9.6] Phân tích — mục A.1 giữa "Bài toán mẫu" và "Lời giải"; gánh luôn việc nhận dạng.
-// Nhận string hoặc mảng trộn (chèn phanSo/luyThua). Trả mảng — dùng spread.
+// [A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài toán mẫu" và "Lời giải";
+//   gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). NHÃN đứng RIÊNG 1 dòng;
+//   nội dung viết chảy tự nhiên. noiDung: string|mảng-trộn (1 đoạn) HOẶC { doan:[block1, block2,...] }
+//   để tách NHIỀU đoạn (chỉ khi sang một ý thật sự khác).
 function phanTich(noiDung) {
-  return [para(
-    [run("Phân tích: ", { bold: true, size: SZ_CONTENT }), ...toInline(noiDung, { size: SZ_CONTENT })],
-    { before: THO_HEP, after: 0, justify: true }
-  )];
+  const out = [para([run("Phân tích và hướng dẫn giải:", { bold: true, size: SZ_CONTENT })],
+    { before: THO_HEP, after: 0, keepNext: true })];
+  const doan = (noiDung && typeof noiDung === "object" && !Array.isArray(noiDung) && Array.isArray(noiDung.doan))
+    ? noiDung.doan : [noiDung];
+  doan.forEach((d, i) => out.push(para(
+    [...toInline(d, { size: SZ_CONTENT })],
+    { before: 0, after: i === doan.length - 1 ? 4 : 0, justify: true }
+  )));
+  return out;
+}
+
+// [A.1-mới] GHI NHỚ (mỗi Dạng) — GỘP: điều cần nhớ (ghiNhoArr) + dòng ✗→✓ "cần tránh" (saiLamArr)
+//   dưới MỘT nhãn "Ghi nhớ:". Bỏ nhãn "Sai lầm thường gặp" riêng. Guard: ≤3 DÒNG cả khối (HP Đ23.2).
+function ghiNhoGop(ghiNhoArr, saiLamArr, opts = {}) {
+  ghiNhoArr = ghiNhoArr || []; saiLamArr = saiLamArr || [];
+  const dG = ghiNhoArr.map(d => _soDongUocTinh(`• ${_extractText(d)}`));
+  const dS = saiLamArr.map(l => _soDongUocTinh(`✗ Sai: ${_extractText(l.sai)}  →  ✓ Đúng: ${_extractText(l.dung)}`));
+  const tongDong = [...dG, ...dS].reduce((a, b) => a + b, 0);
+  if (tongDong > 3) {
+    throw new Error(
+      `ghiNhoGop(): khối "Ghi nhớ" in ra ${tongDong} dòng, TỐI ĐA cho phép 3 (HP Điều 23.2 — A.1 mới).\n` +
+      `   Gồm ${ghiNhoArr.length} ý cần nhớ + ${saiLamArr.length} dòng ✗→✓. Rút gọn: gộp ý ngắn cùng 1 dòng ` +
+      `(chấm phẩy), cắt chữ đệm, hoặc bỏ ý ít quan trọng. Mỗi dòng nên dưới ${CHARS_PER_LINE} ký tự.`
+    );
+  }
+  const lines = [];
+  ghiNhoArr.forEach(d => lines.push({ t: "g", v: d }));
+  saiLamArr.forEach(l => lines.push({ t: "s", v: l }));
+  const out = [para([run("Ghi nhớ:", { bold: true, size: SZ_CONTENT })], { before: THO_VUA, after: 0, keepNext: true })];
+  lines.forEach((ln, i) => {
+    const last = i === lines.length - 1;
+    if (ln.t === "g")
+      out.push(para([run("• ", { size: SZ_CONTENT }), ...toInline(ln.v, { size: SZ_CONTENT })],
+        { before: 0, after: last ? 16 : 0, justify: true }));
+    else
+      out.push(para([
+        run("✗ Sai: ", { size: SZ_CONTENT }), ...toInline(ln.v.sai, { size: SZ_CONTENT }),
+        run("  →  ✓ Đúng: ", { size: SZ_CONTENT }), ...toInline(ln.v.dung, { size: SZ_CONTENT }),
+      ], { before: 0, after: last ? 16 : 0, justify: true }));
+  });
+  return out;
 }
 
 // [v10.6 Nhóm A] CỬA TỰ BỎ (+cảnh báo) — hình lời giải TRÙNG BYTE hình đề.
@@ -1399,19 +1438,19 @@ function _xuLyTrungHinhLoiGiai(p) {
 
 // Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến khích AI Soạn dùng hàm này
 function dangToanDayDu(p) {
-  // [v9.6] Dựng theo Chuẩn trình bày A.1: đề mẫu TRƯỚC → phân tích → lời giải →
-  // phương pháp chung ĐẶT SAU → sai lầm/ghi nhớ. Bỏ mục "Nhận dạng" riêng (Phân tích gánh).
-  // tieuDeDang KHÔNG còn nhận mucDo (tên Dạng không gắn nhãn mức độ).
+  // [A.1-mới] Dựng theo Chuẩn trình bày A.1: đề mẫu → Phân tích và hướng dẫn giải (TRƯỚC lời giải)
+  // → lời giải → Ghi nhớ (GỘP cần nhớ + ✗→✓). Bỏ "Phương pháp chung" + nhãn "Sai lầm" riêng.
+  // tieuDeDang KHÔNG nhận mucDo (tên Dạng không gắn nhãn mức độ).
   // [v10.3] CỬA CHẶN KHUNG A.1 (HP Điều 23.2): mỗi Dạng BẮT BUỘC đủ Sai lầm + Ghi nhớ —
   //   hệ thống hoá, không để soạn viên tự ý bỏ mục ở bài này mà giữ ở bài khác.
   if (!p.saiLamArr || !p.saiLamArr.length)
-    throw new Error(`\n[LỖI KHUNG A.1] Dạng ${p.soDang ?? "?"} THIẾU "Sai lầm thường gặp" (saiLamArr).\n`
-      + `  HP Điều 23.2 — mỗi Dạng phải ĐỦ khung: Bài toán mẫu → Phân tích → Lời giải → Phương pháp chung → SAI LẦM → GHI NHỚ.\n`
-      + `→ Bổ saiLamArr:[{sai,dung}] — lỗi HS THẬT, cốt lõi, ≤ 2 dòng; KHÔNG nhồi cho đủ.`);
+    throw new Error(`\n[LỖI KHUNG A.1] Dạng ${p.soDang ?? "?"} THIẾU dòng ✗→✓ "cần tránh" (saiLamArr) trong Ghi nhớ.\n`
+      + `  HP Điều 23.2 (A.1 mới) — mỗi Dạng: Bài toán mẫu → Phân tích và hướng dẫn giải → Lời giải → GHI NHỚ (cần nhớ + ✗→✓).\n`
+      + `→ Bổ saiLamArr:[{sai,dung}] — lỗi HS THẬT, cốt lõi; render GỘP dưới nhãn "Ghi nhớ".`);
   if (!p.ghiNhoArr || !p.ghiNhoArr.length)
-    throw new Error(`\n[LỖI KHUNG A.1] Dạng ${p.soDang ?? "?"} THIẾU "Ghi nhớ nhanh" (ghiNhoArr).\n`
-      + `  HP Điều 23.2 — mỗi Dạng phải ĐỦ khung (… → Sai lầm → GHI NHỚ).\n`
-      + `→ Bổ ghiNhoArr:[...] — ý cốt lõi cần nhớ, ≤ 2 dòng.`);
+    throw new Error(`\n[LỖI KHUNG A.1] Dạng ${p.soDang ?? "?"} THIẾU ý "cần nhớ" (ghiNhoArr) trong Ghi nhớ.\n`
+      + `  HP Điều 23.2 (A.1 mới) — mỗi Dạng phải ĐỦ khung (… → Lời giải → GHI NHỚ).\n`
+      + `→ Bổ ghiNhoArr:[...] — ý cốt lõi cần nhớ. Ghi nhớ (cần nhớ + ✗→✓) ≤ 3 dòng cả khối.`);
   // [28x] loiGiaiND là BÍ DANH của viDuLoiGiai (API_REFERENCE auto-gen từng ghi nhầm khóa) + CHẶN fail-im-lặng:
   //   trước đây thiếu viDuLoiGiai → loiGiai(undefined) render header "Lời giải:" RỖNG (Word mở được nhưng bài hỏng).
   if (!p.viDuLoiGiai && p.loiGiaiND) p.viDuLoiGiai = p.loiGiaiND;
@@ -1425,10 +1464,8 @@ function dangToanDayDu(p) {
   if (p.phanTich) out.push(...phanTich(p.phanTich));
   const _viDuLoiGiai = _xuLyTrungHinhLoiGiai(p);   // [v10.6] tự bỏ hình lời giải nếu trùng byte hình đề
   out.push(...loiGiai(_viDuLoiGiai));
-  if (p.phuongPhapArr && p.phuongPhapArr.length)
-    out.push(...phuongPhapGiai(p.phuongPhapArr, { nhan: "Phương pháp chung" }));
-  if (p.saiLamArr && p.saiLamArr.length) out.push(...saiLamThuongGap(p.saiLamArr, { beforeFirst: THO_VUA }));
-  if (p.ghiNhoArr && p.ghiNhoArr.length) out.push(...ghiNhoNhanh(p.ghiNhoArr));
+  // [A.1-mới] Ghi nhớ GỘP (cần nhớ + ✗→✓) dưới MỘT nhãn "Ghi nhớ". Bỏ "Phương pháp chung" (phuongPhapArr KHÔNG còn render) + nhãn "Sai lầm" riêng.
+  out.push(...ghiNhoGop(p.ghiNhoArr, p.saiLamArr));
   return out;
 }
 

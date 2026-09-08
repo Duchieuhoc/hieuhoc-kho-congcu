@@ -46,7 +46,7 @@ Cỡ **12pt đã bị xoá khỏi hệ thống**. Template v10.1 tự lo — kh�
 
 **Bước 2 — Đề xuất dạng bài.** Nghiên cứu kỹ nội dung bài → đề xuất số dạng toán và tên từng dạng (2–6 dạng, Phụ lục mục 4) → chờ thầy duyệt mới soạn.
 
-**Bước 3 — Đọc lại quy chuẩn.** Sau khi duyệt dạng → đọc lại: **cấu trúc một Dạng theo Chuẩn trình bày A.1** (Dạng N không nhãn mức độ → Bài toán mẫu → Phân tích → Lời giải → Phương pháp chung ĐẶT SAU → Sai lầm/Ghi nhớ), quy tắc trình bày (không thụt lề a/b/c), ký hiệu toán (HP Điều 16), hình vẽ (HP Phần VI), mã định danh (HP Phần IX). Kết thúc bằng câu:
+**Bước 3 — Đọc lại quy chuẩn.** Sau khi duyệt dạng → đọc lại: **cấu trúc một Dạng theo Chuẩn trình bày A.1** (Dạng N không nhãn mức độ → Bài toán mẫu → **Phân tích và hướng dẫn giải** đặt TRƯỚC lời giải → Lời giải → **Ghi nhớ** gộp), quy tắc trình bày (không thụt lề a/b/c; câu kết **"Vậy" theo TỪNG ý hỏi**, ngoại lệ ý xâu chuỗi), ký hiệu toán (HP Điều 16), hình vẽ (HP Phần VI), mã định danh (HP Phần IX). Kết thúc bằng câu:
 `✅ ĐÃ ĐỌC LẠI TOÀN BỘ QUY CHUẨN — SẴN SÀNG SOẠN. Chờ lệnh từ thầy/cô.`
 
 **Bước 4 — Soạn.** Soạn theo đúng quy chuẩn, gọi hàm `hieuhoc_template.js` — KHÔNG tự viết code định dạng.
@@ -63,7 +63,7 @@ Không gộp bước, không bỏ bước dù thầy không nhắc.
 - Tên bài + mã định danh
 - ① Mục tiêu (KT–KN–NL) → `mucTieu()`
 - ② Kiến thức trọng tâm (lý thuyết + ví dụ minh họa xen kẽ + Ghi nhớ) → `tieuDeMuc`, `lyThuyet`, `viDu`, `ghiNhoNhanh`
-- ③ Các dạng toán (2–6 dạng, mỗi dạng theo **cấu trúc A.1**) → `dangToanDayDu` *(v10.1 tự dựng đúng thứ tự A.1: đề mẫu → phân tích → lời giải → phương pháp chung SAU; `phanTich`/sai lầm/ghi nhớ nhận cả công thức)*. **MỖI DẠNG CHỈ MỘT bài toán mẫu** (nhiều ý thì a,b,c… qua `viDuCacCau`) — **CẤM dựng khối "MỞ RỘNG"/dãy "Nấc NC-VDC" rời** sau các Dạng. Muốn nâng mức: **lồng ý NC/VDC vào chính Dạng** (thêm ý b,c ở bài mẫu / bài tập) hoặc **đưa xuống ⑤** (một bài tự luận VDC). *(Chỉ đạo Giám đốc, QC DS8_CH01_B01 — khối MỞ RỘNG bị bác.)*
+- ③ Các dạng toán (2–6 dạng, mỗi dạng theo **cấu trúc A.1**) → `dangToanDayDu` *(tự dựng đúng thứ tự A.1: đề mẫu → **Phân tích và hướng dẫn giải** (TRƯỚC lời giải) → lời giải → **Ghi nhớ** gộp; **bỏ `phuongPhapArr`** — viết định hướng vào `phanTich`; `saiLamArr` render gộp dưới "Ghi nhớ"; `phanTich`/sai lầm/ghi nhớ nhận cả công thức)*. **MỖI DẠNG CHỈ MỘT bài toán mẫu** (nhiều ý thì a,b,c… qua `viDuCacCau`) — **CẤM dựng khối "MỞ RỘNG"/dãy "Nấc NC-VDC" rời** sau các Dạng. Muốn nâng mức: **lồng ý NC/VDC vào chính Dạng** (thêm ý b,c ở bài mẫu / bài tập) hoặc **đưa xuống ⑤** (một bài tự luận VDC). *(Chỉ đạo Giám đốc, QC DS8_CH01_B01 — khối MỞ RỘNG bị bác.)*
 - ④ Bài tập tại lớp (tối đa 4 bài) → `baiTapTaiLop`
 - ⑤ Bài tập về nhà (Trắc nghiệm 3 phần + Tự luận 5 bài) → `cauTracNghiem`, `bangDapAnPhanI`, `bangDungSai`, `traLoiNgan`, `tuLuanBTVN`
 
@@ -153,7 +153,7 @@ CẤM bảng 2 cột cho khối đề-hình.
 **CHÚ THÍCH HÌNH ĐỀ — CẤM LỘ ĐÁP ÁN (Điều 41.4).** Chỉ mô tả cái nhìn thấy; không nêu quan hệ cần chứng minh hay kết luận.
 
 **CĂN LỀ (HP Điều 14) — template tự xử:**
-- **Căn đều: MỌI đoạn văn xuôi** — lý thuyết, đề bài, nhận dạng, phương pháp giải, sai lầm, ghi nhớ, **và cả các bước lời giải**.
+- **Căn đều: MỌI đoạn văn xuôi** — lý thuyết, đề bài, phân tích và hướng dẫn giải, ghi nhớ, **và cả các bước lời giải**.
 - Căn trái: chỉ 3 nhóm — dòng xếp bằng tab (đáp án A/B/C/D, câu a) b) c) ngắn), nội dung trong ô bảng, tiêu đề & mã & dòng nguồn.
 
 ---
@@ -181,7 +181,7 @@ Tạo file `.js` bằng công cụ `create_file`. KHÔNG dùng `cat > file.js <<
 - ❌ Chú thích hình đề nêu kết luận / quan hệ cần chứng minh (Điều 41.4).
 - ❌ 2 đáp án trắc nghiệm trùng nhau; nhiều hơn 1 đáp án đúng (HP Điều 11).
 - ❌ Bảng Đúng/Sai toàn 4 mệnh đề đúng — phải có ≥1 mệnh đề sai mang bẫy.
-- ❌ Ghi nhớ / Ghi nhớ nhanh / Sai lầm **quá 2 DÒNG in ra** (Điều 22.7, 23.2) — template v10.1 chặn build; in đậm/màu ✗✓.
+- ❌ Ghi nhớ mục ② **quá 2 DÒNG** / Ghi nhớ mỗi Dạng **quá 3 DÒNG** in ra (Điều 22.7, 23.2) — template chặn build; in đậm/màu ✗✓ trong Ghi nhớ.
 - ❌ Push dòng khai báo `[MÔN|CẤP|LỚP|BÀI]` — đã bỏ hẳn (Điều 57.1).
 - ❌ Dùng cỡ chữ 12pt ở bất kỳ đâu (Điều 13.2).
 - ❌ Gõ sẵn nhãn "a)" / "A." trong nội dung — template tự đánh, gõ thêm là lặp thành "a) a)".

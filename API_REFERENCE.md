@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.19)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.19 (2026-09-06) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.20)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.20 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `kiemMay(bufOrPath, opts = {})`
@@ -44,8 +44,8 @@ Dựng nhanh 1 Paragraph từ nội dung string|mảng trộn — dùng nội b�
 ### `nhanDang(yArr)`
 ### `phuongPhapGiai(buocArr, opts = {})`
 ### `phanTich(noiDung)`
-[v9.6] Phân tích — mục A.1 giữa "Bài toán mẫu" và "Lời giải"; gánh luôn việc nhận dạng. Nhận string hoặc mảng trộn (chèn phanSo/luyThua). Trả mảng — dùng spread.
-### `dangToanDayDu({ saiLamArr, soDang, ghiNhoArr, viDuLoiGiai, loiGiaiND, tenDang, ma, viDuDeBai, viDuCacCau, viDuThamChieu, viDuCoHinh, viDuHinhBenPhai, viDuHinhBenTrai, phanTich, phuongPhapArr, soBai, mucDo, deBai, cacCau, thamChieu })`
+[A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài toán mẫu" và "Lời giải"; gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). NHÃN đứng RIÊNG 1 dòng; nội dung viết chảy tự nhiên. noiDung: string|mảng-trộn (1 đoạn) HOẶC { doan:[block1, block2,...] } để tách NHIỀU đoạn (chỉ khi sang một ý thật sự khác).
+### `dangToanDayDu({ saiLamArr, soDang, ghiNhoArr, viDuLoiGiai, loiGiaiND, tenDang, ma, viDuDeBai, viDuCacCau, viDuThamChieu, viDuCoHinh, viDuHinhBenPhai, viDuHinhBenTrai, phanTich, soBai, mucDo, deBai, cacCau, thamChieu })`
 Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến khích AI Soạn dùng hàm này
 ### `baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })`
 ### `cauTracNghiem({ soCau, cauHoi, dapAn, thamChieu })`
@@ -121,4 +121,4 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 70 hàm + 18 hằng/tham chiếu · template v10.19 (2026-09-06) · sinh_apiref.js.*
+*Tự sinh: 70 hàm + 18 hằng/tham chiếu · template v10.20 (2026-09-08) · sinh_apiref.js.*

@@ -1,6 +1,19 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28x (2026-09-06)
+Mốc kho      : 28y (2026-09-08)
+
+[28y] A.1-MỚI — sửa khung Dạng toán (Ông Bụt Đại số 2026-09-08, chỉ đạo Giám đốc sau khi in dạy DS8 thấy hợp lý):
+      • phanTich(): nhãn "Phân tích: " → "Phân tích và hướng dẫn giải:" (nhãn RIÊNG 1 dòng, nội dung chảy);
+        +khe {doan:[...]} tách nhiều đoạn (chỉ khi sang ý thật sự khác).
+      • dangToanDayDu(): BỎ render phuongPhapArr (hết khối "Phương pháp chung"). Định hướng viết vào phanTich.
+      • +ghiNhoGop(ghiNhoArr, saiLamArr): GỘP cần nhớ + dòng ✗→✓ dưới MỘT nhãn "Ghi nhớ:"; bỏ nhãn
+        "Sai lầm thường gặp" riêng; guard ≤3 DÒNG cả khối.
+      • Guard khung A.1: vẫn yêu cầu đủ saiLamArr + ghiNhoArr (cả hai nuôi khối Ghi nhớ) — thông báo cập nhật.
+      TEMPLATE v10.19 → v10.20. Tương thích: saiLamThuongGap/ghiNhoNhanh/phuongPhapGiai GIỮ (dùng ngoài Dạng).
+      Bài cũ truyền phuongPhapArr → BỎ QUA (không render). Retrofit chỉ bài MỚI.
+      Đồng bộ Project Knowledge: HP V11.9 · CHUAN_TRINH_BAY · PhuLuc Đại số v1.5 · Instructions · Quy_Trinh_QC.
+      RIÊNG Hình (Phụ lục Hình + Instructions Hình): CHƯA đụng — máy Hình nghỉ; đổi cùng A.1 khi chạy lại.
+
 
 [28x] 3 SỬA (Ông Bụt 2026-09-06, phát sinh khi QC DS8_CH01_B03 "Phép cộng/trừ đa thức"):
       • dangToanDayDu: nhận `loiGiaiND` làm BÍ DANH của `viDuLoiGiai` (sinh_apiref.js đọc hàm kiểu (p)
