@@ -1,10 +1,10 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.20)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.20 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.21)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.21 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `kiemMay(bufOrPath, opts = {})`
 [v9.7] CỬA KIỂM MÁY CHUNG — kiemMay(bufOrPath, opts) Code hóa checklist máy (HP Điều 61). AI Soạn (qua xuatFile) và AI QC (gọi trực tiếp trên file nhận) dùng CHUNG một cửa. Bắt cả failure IM LẶNG.
-### `viDuLyThuyet({ hinhBenPhai, hinhBenTrai, cacCau, deBai, nhan, dapAn, thamChieu, coHinh })`
+### `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })`
 
 ## patch docPr id — gọi sau Packer.toBuffer()
 ### `patchDocPrIds(docBuffer)`
@@ -121,4 +121,4 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 70 hàm + 18 hằng/tham chiếu · template v10.20 (2026-09-08) · sinh_apiref.js.*
+*Tự sinh: 70 hàm + 18 hằng/tham chiếu · template v10.21 (2026-09-08) · sinh_apiref.js.*

@@ -1,6 +1,11 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28y (2026-09-08)
+Mốc kho      : 28z (2026-09-10)
+
+[28z] A1 · Điều 18 MỚI (Ông Bụt Hình, 2026-09-10) — NGHIỆM THU NEO PHẢI:
+      • viDuLyThuyet(): GỠ guard cấm neo mục ② → nhận hinhBenPhai/hinhBenTrai, chảy qua viDu.
+      • hinhVeTextBox(): ngưỡng chặn 9.1cm → 8cm (hình >8cm để dòng riêng căn giữa).
+      • Nghiệm thu PILOT_HINH (HH7_CH04_B14) 4/4: neo② · neo Các dạng · >8cm giữa · Đúng/Sai giữa. OB QC XML pass.
 
 [28y] A.1-MỚI — sửa khung Dạng toán (Ông Bụt Đại số 2026-09-08, chỉ đạo Giám đốc sau khi in dạy DS8 thấy hợp lý):
       • phanTich(): nhãn "Phân tích: " → "Phân tích và hướng dẫn giải:" (nhãn RIÊNG 1 dòng, nội dung chảy);
