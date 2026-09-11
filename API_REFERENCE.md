@@ -101,9 +101,10 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam
 ### `hinhVe({ imageBuffer, rongCm = 8, tiLeGoc, chuThich })`
 ### `hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {})`
-22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3 hình, KHÔNG viền, ô căn dọc giữa, CHUẨN HOÁ cùng chiều cao (caoCm). `luoiHinh`: tự chia hàng theo số lượng đã chốt — 1–3→1 hàng · 4→2+2 · 5→3+2 · 6→3+3. Chỉ dùng cho hình nhỏ + bộ liên quan; hình đơn/lớn/Phần II → vẫn hinhVe (dòng riêng).
+22a2. ĐẶT HÌNH (HP V12.0 Điều 18 — mốc kho 28z, A1): MẶC ĐỊNH **neo phải MỌI mục** (kể cả ② lý thuyết + Các dạng) — truyền `hinhBenPhai:{imageBuffer,rongCm,tiLeGoc}` vào viDuLyThuyet / viDu / baiTapTaiLop / tuLuanBTVN / dangToanDayDu. **3 NGOẠI LỆ căn giữa** (dùng `hinhVe`): (1) hình rộng **>8cm** · (2) câu Đúng/Sai Phần II · (3) sau hình còn <3 dòng chữ. **BỘ 2–3 hình nhỏ liên quan** → cùng hàng, cả cụm căn giữa: `hangHinh` (1 hàng ≤3, không viền, chuẩn hoá caoCm) / `luoiHinh` (1–3→1 hàng · 4=2+2 · 5=3+2 · 6=3+3).
 ### `luoiHinh(items, opts = {})`
 ### `hinhVeTextBox({ imageBuffer, rongCm = 6, tiLeGoc, chuThich })`
+[V12] Chặn khi `rongCm > 8` (Điều 18: hình >8cm phải chuyển `hinhVe` căn giữa). Thường được gọi qua `hinhBenPhai`, không gọi trực tiếp.
 ### `paraCoHinhPhai(anhFloating, noiDungInline, opts = {})`
 ### `hePhuongTrinh(danhSachPT)`
 ### `paraHePhuongTrinh(danhSachPT, opts = {})`
