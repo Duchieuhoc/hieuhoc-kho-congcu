@@ -1,0 +1,19 @@
+════════════════════════════════════════════════════
+ĐẨY LÊN KHO GitHub (hieuhoc-kho-congcu) · V12 · 10/09/2026
+════════════════════════════════════════════════════
+
+ĐẨY 2 FILE NÀY (thay bản cũ trên kho):
+
+1) gop_chuong.js
+   - Sửa: khi NỐI CHƯƠNG, ĐỀ kiểm tra để RIÊNG — không nối vào file tổng.
+   - Bìa thôi quảng cáo đề. File tổng = Bìa → Bài 1…N → Tổng kết. (GV, không mục lục, header theo bài.)
+
+2) API_REFERENCE.md
+   - Sửa: §22a2 đặt hình theo Điều 18 mới — NEO PHẢI mặc định mọi mục + 3 ngoại lệ căn giữa + ngưỡng 8cm.
+   - (Bản trên kho còn mô tả "② căn giữa / 9cm" cũ → phải thay.)
+
+KHÔNG cần đẩy:
+   - hieuhoc_template.js: kho đã có A1 (mốc 28z) rồi — con kiểm trực tiếp, khớp. Bỏ qua.
+
+SAU KHI ĐẨY:
+   - Bump 00_KHO_VERSION.txt: thêm mốc mới, ghi "gop_chuong: đề để riêng khi nối; API_REFERENCE: §22a2 V12".

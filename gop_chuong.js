@@ -113,10 +113,13 @@ async function gopChuong(chuongDir, out) {
   const phanChuong = {
     loai: 'phanChuong', logo: LOGO, lop: cfg.lop, tenChuong: cfg.tenChuong,
     danhSachBai: bai.map(s => ({ soBai: s.soBai, ten: s.tenBai })),
-    coTongKet: hasTK, co45: has45, co90: has90,
+    coTongKet: hasTK, co45: false, co90: false,  // [V12] đề để RIÊNG — không nối vào file tổng
   };
 
-  secs.sort((a, b) => khoaThuTu(a) - khoaThuTu(b));
+  // [V12 · chuẩn nối chương] Đề kiểm tra cuối chương ĐỂ RIÊNG — không nối vào file tổng.
+  //   File tổng = Bìa → Bài 1…N → Tổng kết chương. (GV only; không mục lục; header theo từng bài.)
+  const secsNoi = secs.filter(s => s.__nhom !== 'de');
+  secsNoi.sort((a, b) => khoaThuTu(a) - khoaThuTu(b));
 
   if (!out) {
     let base;
@@ -131,8 +134,8 @@ async function gopChuong(chuongDir, out) {
   }
 
   console.log(`📑 Ghép chương: ${cfg.tenChuong}`);
-  console.log(`   ${bai.length} bài${hasTK ? ' + tổng kết' : ''}${has45 ? ' + đề 45' : ''}${has90 ? ' + đề 90' : ''}  → ${secs.length + 1} section`);
-  return noiTaiLieu({ out, sections: [phanChuong, ...secs] });
+  console.log(`   ${bai.length} bài${hasTK ? ' + tổng kết' : ''}  → ${secsNoi.length + 1} section (đề 45/90 để RIÊNG, không nối)`);
+  return noiTaiLieu({ out, sections: [phanChuong, ...secsNoi] });
 }
 
 module.exports = { gopChuong };
