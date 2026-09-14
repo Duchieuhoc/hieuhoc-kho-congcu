@@ -1,6 +1,17 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 28z (2026-09-10)
+Mốc kho      : 29a (2026-09-14)
+
+[29a] MẪU TỜ PHÂN CHƯƠNG MỚI (Ông Bụt Vật Lý, 2026-09-14, chỉ đạo Giám đốc) — bìa hoa văn + tách file riêng:
+      • toPhanChuong(): viết lại theo mẫu chuẩn (DS7) — khung hoa văn (khung_bia.png floating behindDoc, nền
+        TRONG SUỐT để không che footer/nội dung), lớp/môn 48pt, footer bản quyền, dòng "Cấp cho:", BỎ ✦ trước bài,
+        2 đường kẻ thụt (454/964) nằm gọn trong khung. Phân định CỐ ĐỊNH / TRUYỀN: +loaiBan · boSach · phienBan · nam
+        (đều có mặc định — mở cho bản HS / THPT PT2627 / năm động); bỏ co45/co90.
+      • gop_chuong(): xuất TỜ PHÂN CHƯƠNG thành FILE RIÊNG (TOPHANCHUONG_<ma>_GV.docx); file tổng TONGHOP KHÔNG
+        còn bìa; lọc tổng kết khỏi danhSachBai của bìa.
+      • noi_tai_lieu(): section bìa lề riêng 1021 + khoảng cách footer 1560 (kéo footer lên trên hoa văn góc dưới).
+      • +TÀI NGUYÊN khung_bia.png (nền trong suốt) — THAY HẲN khung_bia.jpg. BẮT BUỘC có trong kho, thiếu là nối lỗi.
+      TEMPLATE v10.21 → v10.22. Đồng bộ 3 nhánh: Đại · Hình · Vật lý (file chung).
 
 [28z] A1 · Điều 18 MỚI (Ông Bụt Hình, 2026-09-10) — NGHIỆM THU NEO PHẢI:
       • viDuLyThuyet(): GỠ guard cấm neo mục ② → nhận hinhBenPhai/hinhBenTrai, chảy qua viDu.

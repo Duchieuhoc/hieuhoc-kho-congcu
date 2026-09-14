@@ -1,4 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════
+// KHO 29a (2026-09-14): MẪU TỜ PHÂN CHƯƠNG MỚI (chỉ đạo Giám đốc) — toPhanChuong viết lại: khung hoa văn khung_bia.png (floating behindDoc, nền TRONG SUỐT), lớp/môn 48pt, footer bản quyền, 'Cấp cho:', BỎ ✦ trước bài, 2 đường kẻ thụt 454/964 nằm trong khung; +tham số loaiBan/boSach/phienBan/nam (có mặc định), bỏ co45/co90. gop_chuong: xuất TỜ PHÂN CHƯƠNG thành FILE RIÊNG (TOPHANCHUONG_<ma>_GV), TONGHOP bỏ bìa, lọc tổng kết khỏi danhSachBai. noi_tai_lieu: section bìa lề 1021 + footer 1560. +TÀI NGUYÊN khung_bia.png THAY khung_bia.jpg (bắt buộc). Đồng bộ 3 nhánh.
 // gop_chuong.js — NỐI CHƯƠNG BẰNG GHÉP MẢNH MANIFEST (không dựng manifest tay)
 // ---------------------------------------------------------------------------
 // Quét 1 thư mục chương chứa các gói bài/đề/tổng-kết, mỗi gói mang sẵn
