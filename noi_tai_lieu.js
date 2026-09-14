@@ -133,10 +133,11 @@ async function noiTaiLieu(manifest) {
         if (logoBuffer[0] === 0xFF && logoBuffer[1] === 0xD8)
           throw new Error(`[LOGO] "${sec.logo}" là JPEG (đội đuôi .png). Cần PNG thật (toPhanChuong ép type:"png").`);
         const children = H.toPhanChuong({
-          logoBuffer, lop: sec.lop, tenChuong: sec.tenChuong, danhSachBai: sec.danhSachBai,
-          coTongKet: !!sec.coTongKet, co45: sec.co45 !== false, co90: sec.co90 !== false,
+          logoBuffer, khungBuffer: sec.khung ? fs.readFileSync(sec.khung) : undefined,
+          lop: sec.lop, tenChuong: sec.tenChuong, danhSachBai: sec.danhSachBai,
+          coTongKet: !!sec.coTongKet,
         });
-        sections.push({ properties: { page: secProps.page }, headers: { default: H.headerRong() }, footers: { default: H.footerTPC() }, children });
+        sections.push({ properties: { page: { size: H.PAGE_SIZE, margin: { top: 1021, right: 1021, bottom: 1021, left: 1021, header: 709, footer: 1560 } } }, headers: { default: H.headerRong() }, footers: { default: H.footerTPC() }, children });
         break;
       }
 

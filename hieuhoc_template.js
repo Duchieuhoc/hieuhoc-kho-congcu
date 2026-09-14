@@ -1930,126 +1930,99 @@ function headerFooterDeKT({ tenDe }) {
  * @param {string}  [p.capCho=""] - để trống, GV tự điền tay
  * Trả về mảng children — dùng riêng 1 section KHÔNG có header/footer, KHÔNG số trang.
  */
-function toPhanChuong({ logoBuffer, lop, tenChuong, danhSachBai, coTongKet = false, co45 = true, co90 = true }) {
-  const { ImageRun } = require("docx");
+function toPhanChuong({
+  // ── TRUYỀN VÀO (đổi theo môn/chương) ──
+  logoBuffer, khungBuffer, lop, tenChuong, danhSachBai, coTongKet = false,
+  // ── TRUYỀN VÀO (ít đổi, có mặc định) ──
+  loaiBan  = "BẢN GIÁO VIÊN",                    // "BẢN GIÁO VIÊN" | "BẢN HỌC SINH"
+  boSach   = "KẾT NỐI TRI THỨC VỚI CUỘC SỐNG",   // bộ sách
+  phienBan = "CS2627",                            // THCS: CS2627 · THPT: PT2627
+  nam      = new Date().getFullYear(),            // năm bản quyền (mặc định năm hiện tại)
+}) {
+  // ── CỐ ĐỊNH: tên hệ thống/trung tâm, 2 đường kẻ, nhãn "Cấp cho", footer bản quyền, mọi cỡ/màu/bố cục ──
+  const { ImageRun, HorizontalPositionRelativeFrom, VerticalPositionRelativeFrom, TextWrappingType } = require("docx");
   const logoWidth = 2880000;
-  const logoHeight = Math.round(logoWidth * 1024 / 1280); // tỉ lệ logo gốc 1280×1024
-
+  const logoHeight = Math.round(logoWidth * 1024 / 1280);
   const out = [];
 
-  // Logo
-  out.push(new Paragraph({
-    alignment: AlignmentType.CENTER,
-    spacing: { before: 80, after: 20 },
-    children: [new ImageRun({
-      data: logoBuffer,
-      transformation: { width: Math.round(logoWidth / 9144), height: Math.round(logoHeight / 9144) },
-      type: "png",
-    })],
-  }));
+  // Khung hoa văn viền trang bìa — CỐ ĐỊNH (khung_bia.jpg trong kho): ảnh floating, SAU chữ,
+  // neo theo trang, cách mép ~1,5cm mỗi cạnh (khớp mẫu chuẩn DS7). Bỏ qua nếu không truyền khung.
+  const khungRun = khungBuffer ? new ImageRun({
+    data: khungBuffer, type: "png",
+    transformation: { width: Math.round(6395720 / 9525), height: Math.round(9681845 / 9525) },
+    floating: {
+      horizontalPosition: { relative: HorizontalPositionRelativeFrom.PAGE, offset: 582295 },
+      verticalPosition:   { relative: VerticalPositionRelativeFrom.PAGE,   offset: 505142 },
+      behindDocument: true, allowOverlap: true,
+      wrap: { type: TextWrappingType.NONE },
+    },
+  }) : null;
 
-  // Tên hệ thống — 20pt (line height rộng hơn để không chồng chữ)
-  out.push(new Paragraph({
-    alignment: AlignmentType.CENTER,
-    spacing: { before: 0, after: 60, line: 320 },
-    children: [run("HỆ THỐNG PHÁT TRIỂN NGUỒN LỰC HIẾU HỌC", { bold: true, color: "1F3864", size: 40 })],
-  }));
+  // Logo (kèm khung viền nếu có — khung neo cùng trang bìa, nằm sau chữ)
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 80, after: 20 },
+    children: [ ...(khungRun ? [khungRun] : []), new ImageRun({ data: logoBuffer, transformation: { width: Math.round(logoWidth/9144), height: Math.round(logoHeight/9144) }, type: "png" })] }));
 
-  // Tên trung tâm — 16pt
-  out.push(new Paragraph({
-    alignment: AlignmentType.CENTER,
-    spacing: { before: 0, after: 20, line: 280 },
-    children: [run("TRUNG TÂM BỒI DƯỠNG VĂN HÓA VÀ LUYỆN THI HIẾU HỌC", { bold: true, color: "1F3864", size: 32 })],
-  }));
+  // Tên hệ thống — 18pt
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 60, line: 320 },
+    children: [run("HỆ THỐNG PHÁT TRIỂN NGUỒN LỰC HIẾU HỌC", { bold: true, color: "1F3864", size: 36 })] }));
+
+  // Tên trung tâm — 14pt
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 20, line: 280 },
+    children: [run("TRUNG TÂM BỒI DƯỠNG VĂN HÓA VÀ LUYỆN THI HIẾU HỌC", { bold: true, color: "1F3864", size: 28 })] }));
 
   // Đường kẻ kép
-  out.push(new Paragraph({ spacing: { before: 20, after: 20 },
+  out.push(new Paragraph({ spacing: { before: 20, after: 20 }, indent: { left: 454, right: 454 },
     border: { bottom: { style: BorderStyle.DOUBLE, size: 6, color: "1565C0", space: 1 } }, children: [] }));
-
   // Dòng trắng
   out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220 }, children: [] }));
 
-  // TOÁN [lớp] — 48pt (line height rộng để không chồng chữ)
-  out.push(new Paragraph({
-    alignment: AlignmentType.CENTER,
-    spacing: { before: 0, after: 60, line: 400 },
-    children: [run(lop, { bold: true, color: "1565C0", size: 48 })],
-  }));
-  out.push(para([run("KẾT NỐI TRI THỨC VỚI CUỘC SỐNG", { bold: true, color: C_GRAY, size: 28 })],
+  // Lớp/môn — 48pt
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 60, line: 400 },
+    children: [run(lop, { bold: true, color: "1565C0", size: 96 })] }));
+  // Bộ sách — 14pt xám
+  out.push(para([run(boSach, { bold: true, color: C_GRAY, size: 28 })],
     { align: AlignmentType.CENTER, before: 0, after: 10 }));
-  out.push(para([run("BẢN GIÁO VIÊN", { bold: true, italic: true, color: "D84315", size: 28 })],
+  // Loại bản — 14pt cam nghiêng
+  out.push(para([run(loaiBan, { bold: true, italic: true, color: "D84315", size: 28 })],
     { align: AlignmentType.CENTER, before: 0, after: 20 }));
 
   // Đường kẻ đơn
-  out.push(new Paragraph({ spacing: { before: 20, after: 20 },
+  out.push(new Paragraph({ spacing: { before: 20, after: 20 }, indent: { left: 964, right: 964 },
     border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: "1565C0", space: 1 } }, children: [] }));
-
-  // A6 v9.0: 1 dòng trống trước tên chương (HP V10 Điều 51, mục 8)
+  // Dòng trắng trước tên chương
   out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220 }, children: [] }));
 
-  // Tên chương
+  // Tên chương — 14pt
   out.push(para([run(tenChuong, { bold: true, color: "1F3864", size: 28 })],
     { align: AlignmentType.CENTER, before: 0, after: 20 }));
 
-  // Danh sách bài — KHÔNG ghi số tiết, KHÔNG ghi mã định danh
+  // Danh sách bài — KHÔNG dấu ✦, tên bài 14pt đậm; KHÔNG số tiết, KHÔNG mã
   danhSachBai.forEach(b => {
-    out.push(new Paragraph({
-      spacing: { before: 10, after: 10, line: 220 }, indent: { left: 400 },
+    out.push(new Paragraph({ spacing: { before: 10, after: 10, line: 220 }, indent: { left: 400 },
       children: [
-        new TextRun({ text: "✦  ", font: TNR, color: "1565C0", size: 28 }),
         new TextRun({ text: `Bài ${b.soBai}. ${b.ten}`, font: TNR, bold: true, size: 28 }),
-      ],
-    }));
+      ] }));
   });
-
-  // Tổng kết chương (sơ đồ hệ thống hoá) — sau các bài, trước đề
+  // Tổng kết chương
   if (coTongKet) {
-    out.push(new Paragraph({
-      spacing: { before: 10, after: 10, line: 220 }, indent: { left: 400 },
+    out.push(new Paragraph({ spacing: { before: 10, after: 10, line: 220 }, indent: { left: 400 },
       children: [
-        new TextRun({ text: "✦  ", font: TNR, color: "1565C0", size: 28 }),
         new TextRun({ text: "Tổng kết chương", font: TNR, bold: true, size: 28 }),
-      ],
-    }));
+      ] }));
   }
-
-  // Đề kiểm tra — 1 đề 45' + 1 đề 90' / chương, KHÔNG ghi mã
-  if (co45) {
-    out.push(new Paragraph({
-      spacing: { before: 10, after: 10, line: 220 }, indent: { left: 400 },
-      children: [
-        new TextRun({ text: "✦  ", font: TNR, color: "1565C0", size: 28 }),
-        new TextRun({ text: "Đề kiểm tra 45 phút", font: TNR, bold: true, size: 28 }),
-      ],
-    }));
-  }
-  if (co90) {
-    out.push(new Paragraph({
-      spacing: { before: 10, after: 30, line: 220 }, indent: { left: 400 },
-      children: [
-        new TextRun({ text: "✦  ", font: TNR, color: "1565C0", size: 28 }),
-        new TextRun({ text: "Đề kiểm tra 90 phút", font: TNR, bold: true, size: 28 }),
-      ],
-    }));
-  }
-
-  // Đường kẻ đơn
-  out.push(new Paragraph({ spacing: { before: 20, after: 20 },
-    border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: "1565C0", space: 1 } }, children: [] }));
+  // (Đề kiểm tra: ĐỂ RIÊNG — KHÔNG liệt kê ở tờ phân chương)
 
   // Dòng trắng
   out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220 }, children: [] }));
-
-  // Cấp cho — thụt 1 tab
-  out.push(new Paragraph({
-    spacing: { before: 0, after: 30, line: 220 },
-    tabStops: [{ type: "left", position: 700 }],
+  // Cấp cho — để trống điền tay (thụt 1 tab)
+  out.push(new Paragraph({ spacing: { before: 0, after: 30, line: 220 }, tabStops: [{ type: "left", position: 700 }],
     children: [
-      new TextRun({ text: "\t", font: TNR }),
+      new TextRun({ text: "	", font: TNR }),
       new TextRun({ text: "Cấp cho: ", font: TNR, bold: true, size: 28 }),
       new TextRun({ text: "…………………………………………………………………", font: TNR, size: 28 }),
-    ],
-  }));
+    ] }));
+
+  // (Footer bản quyền: KHÔNG đặt ở thân — footerTPC() đã in ở CHÂN TRANG khi nối, tránh lặp dòng)
 
   return out;
 }

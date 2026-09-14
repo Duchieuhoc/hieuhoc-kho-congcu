@@ -1,0 +1,19 @@
+CẬP NHẬT KHO — MẪU TỜ PHÂN CHƯƠNG MỚI (bìa hoa văn + tách file riêng)
+=====================================================================
+Áp dụng CHUNG cho cả 3 nhánh: Đại · Hình · Vật lý.
+
+FILE THAY ĐỔI (đè bản cũ trong kho GitHub + nạp lại vào từng Project):
+  1. hieuhoc_template.js   — hàm toPhanChuong dựng lại theo mẫu chuẩn:
+       • khung hoa văn viền trang · lớp/môn 48pt · footer bản quyền
+       • bỏ dấu ✦ trước bài · 2 đường kẻ thụt trong khung
+       • phân định CỐ ĐỊNH / TRUYỀN (loaiBan · boSach · phienBan · nam có mặc định)
+  2. gop_chuong.js         — xuất TỜ PHÂN CHƯƠNG thành FILE RIÊNG
+       (TOPHANCHUONG_<ma>_GV.docx); file tổng TONGHOP KHÔNG còn bìa.
+  3. noi_tai_lieu.js       — section bìa: lề + khoảng cách footer riêng (footer 1560).
+  4. khung_bia.png         — TÀI NGUYÊN MỚI (nền trong suốt). *** THAY HẲN khung_bia.jpg ***
+       BẮT BUỘC đẩy file .png này lên kho; THIẾU nó nối chương sẽ báo lỗi.
+
+LƯU Ý ĐỒNG BỘ:
+  - Template upload web = đè, không merge → clone bản mới nhất làm nền.
+  - Sửa file chung ở 1 nhánh -> nạp lại vào 2 nhánh còn lại trước khi dùng.
+  - Chờ Giám đốc cấp SỐ MỐC KHO mới để đóng dấu phiên bản ở đầu 3 file .js.

@@ -43,6 +43,7 @@ const { noiTaiLieu } = require('./noi_tai_lieu.js');
 
 const KHO  = __dirname;
 const LOGO = path.join(KHO, 'logo_hieuhoc.png');   // PNG thật (mốc 20f)
+const KHUNG = path.join(KHO, 'khung_bia.png');  // khung hoa văn viền trang bìa
 
 function docChuongDir(chuongDir) {
   const cfgPath = path.join(chuongDir, '00_CHUONG.json');
@@ -106,12 +107,12 @@ async function gopChuong(chuongDir, out) {
   for (const f of manh) for (const s of (f.sections || [])) secs.push(giaiSection(s, f));
 
   // tự dựng tờ phân chương từ nội dung gom được
-  const bai   = secs.filter(s => s.loai === 'buildBai').sort((a, b) => (a.soBai||0) - (b.soBai||0));
+  const bai   = secs.filter(s => s.loai === 'buildBai' && s.__nhom !== 'tongket').sort((a, b) => (a.soBai||0) - (b.soBai||0));
   const has45 = secs.some(s => s.__nhom === 'de' && s.__thoiluong === 45);
   const has90 = secs.some(s => s.__nhom === 'de' && s.__thoiluong === 90);
   const hasTK = secs.some(s => s.__nhom === 'tongket');
   const phanChuong = {
-    loai: 'phanChuong', logo: LOGO, lop: cfg.lop, tenChuong: cfg.tenChuong,
+    loai: 'phanChuong', logo: LOGO, khung: KHUNG, lop: cfg.lop, tenChuong: cfg.tenChuong,
     danhSachBai: bai.map(s => ({ soBai: s.soBai, ten: s.tenBai })),
     coTongKet: hasTK, co45: false, co90: false,  // [V12] đề để RIÊNG — không nối vào file tổng
   };
@@ -133,9 +134,15 @@ async function gopChuong(chuongDir, out) {
     out = `/mnt/user-data/outputs/${base}.docx`;
   }
 
+  const tpcOut = out.includes('TONGHOP_')
+    ? out.replace('TONGHOP_', 'TOPHANCHUONG_')
+    : path.join(path.dirname(out), `TOPHANCHUONG_${cfg.ma || 'CHUONG'}_GV.docx`);
+
   console.log(`📑 Ghép chương: ${cfg.tenChuong}`);
-  console.log(`   ${bai.length} bài${hasTK ? ' + tổng kết' : ''}  → ${secsNoi.length + 1} section (đề 45/90 để RIÊNG, không nối)`);
-  return noiTaiLieu({ out, sections: [phanChuong, ...secsNoi] });
+  console.log(`   ${bai.length} bài${hasTK ? ' + tổng kết' : ''}  → tờ phân chương RIÊNG + file tổng ${secsNoi.length} section (đề để RIÊNG)`);
+  await noiTaiLieu({ out: tpcOut, sections: [phanChuong] });
+  console.log(`  ✓ Tờ phân chương RIÊNG → ${tpcOut}`);
+  return noiTaiLieu({ out, sections: secsNoi });
 }
 
 module.exports = { gopChuong };
