@@ -44,7 +44,7 @@ Dựng nhanh 1 Paragraph từ nội dung string|mảng trộn — dùng nội b�
 ### `nhanDang(yArr)`
 ### `phuongPhapGiai(buocArr, opts = {})`
 ### `phanTich(noiDung)`
-[A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài toán mẫu" và "Lời giải"; gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). NHÃN đứng RIÊNG 1 dòng; nội dung viết chảy tự nhiên. noiDung: string|mảng-trộn (1 đoạn) HOẶC { doan:[block1, block2,...] } để tách NHIỀU đoạn (chỉ khi sang một ý thật sự khác).
+[A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài tập mẫu" và "Lời giải"; gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). NHÃN đứng RIÊNG 1 dòng; nội dung viết chảy tự nhiên. noiDung: string|mảng-trộn (1 đoạn) HOẶC { doan:[block1, block2,...] } để tách NHIỀU đoạn (chỉ khi sang một ý thật sự khác).
 ### `dangToanDayDu({ saiLamArr, soDang, ghiNhoArr, viDuLoiGiai, loiGiaiND, tenDang, ma, viDuDeBai, viDuCacCau, viDuThamChieu, viDuCoHinh, viDuHinhBenPhai, viDuHinhBenTrai, phanTich, soBai, mucDo, deBai, cacCau, thamChieu })`
 Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến khích AI Soạn dùng hàm này
 ### `baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })`

@@ -1,6 +1,14 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 29a (2026-09-14)
+Mốc kho      : 29b (2026-09-15)
+
+[29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
+      • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"
+        (chỗ DUY NHẤT in ra Word). +3 chú thích/thông báo lỗi đồng bộ chữ (không đổi hành vi).
+      • API_REFERENCE.md (trong kho): mô tả A.1 đổi "Bài toán mẫu" → "Bài tập mẫu".
+      • Template version giữ v10.22 (chỉ đổi chuỗi nhãn, không đổi API/hành vi hàm).
+      • Nền tảng 29a (neo ② đã gỡ ở v10.21/28z) GIỮ NGUYÊN — 29b chỉ chồng thêm việc đổi nhãn.
+      • File CHUNG mọi môn → nạp lại MỌI Project OB. one-writer: phối hợp máy Hình khi upload đè.
 
 [29a] MẪU TỜ PHÂN CHƯƠNG MỚI (Ông Bụt Vật Lý, 2026-09-14, chỉ đạo Giám đốc) — bìa hoa văn + tách file riêng:
       • toPhanChuong(): viết lại theo mẫu chuẩn (DS7) — khung hoa văn (khung_bia.png floating behindDoc, nền

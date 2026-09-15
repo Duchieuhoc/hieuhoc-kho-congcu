@@ -20,7 +20,7 @@
  *            nhưng KHÔNG còn gộp; đừng truyền dsNguon vào trangCuoiChuong.
  *   [MỐC] Bump v9.9 → v10.0 cắt mớ stamp cũ (thầy chốt 09/08). Từ đây MỘT số duy nhất cho
  *         template + API_REFERENCE (v10.0). Chữ ký hàm sinh tự động qua sinh_apiref.js.
- *   [ĐỒNG BỘ HP] Cấu trúc Dạng toán (A.1: Bài toán mẫu→Phân tích→Lời giải→Phương pháp chung
+ *   [ĐỒNG BỘ HP] Cấu trúc Dạng toán (A.1: Bài tập mẫu→Phân tích→Lời giải→Phương pháp chung
  *         →Sai lầm→Ghi nhớ) nay ĐÃ khớp HP V11.1 Điều 23.2 (V11 gốc còn tả khung cũ — đã sửa).
  *
  * CHANGELOG v9.6 (Ông Bụt — vá Nhóm A+B sau phiên nghiệm thu B04, 05/08/2026):
@@ -1368,7 +1368,7 @@ function phuongPhapGiai(buocArr, opts = {}) {
   return out;
 }
 
-// [A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài toán mẫu" và "Lời giải";
+// [A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài tập mẫu" và "Lời giải";
 //   gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). NHÃN đứng RIÊNG 1 dòng;
 //   nội dung viết chảy tự nhiên. noiDung: string|mảng-trộn (1 đoạn) HOẶC { doan:[block1, block2,...] }
 //   để tách NHIỀU đoạn (chỉ khi sang một ý thật sự khác).
@@ -1445,7 +1445,7 @@ function dangToanDayDu(p) {
   //   hệ thống hoá, không để soạn viên tự ý bỏ mục ở bài này mà giữ ở bài khác.
   if (!p.saiLamArr || !p.saiLamArr.length)
     throw new Error(`\n[LỖI KHUNG A.1] Dạng ${p.soDang ?? "?"} THIẾU dòng ✗→✓ "cần tránh" (saiLamArr) trong Ghi nhớ.\n`
-      + `  HP Điều 23.2 (A.1 mới) — mỗi Dạng: Bài toán mẫu → Phân tích và hướng dẫn giải → Lời giải → GHI NHỚ (cần nhớ + ✗→✓).\n`
+      + `  HP Điều 23.2 (A.1 mới) — mỗi Dạng: Bài tập mẫu → Phân tích và hướng dẫn giải → Lời giải → GHI NHỚ (cần nhớ + ✗→✓).\n`
       + `→ Bổ saiLamArr:[{sai,dung}] — lỗi HS THẬT, cốt lõi; render GỘP dưới nhãn "Ghi nhớ".`);
   if (!p.ghiNhoArr || !p.ghiNhoArr.length)
     throw new Error(`\n[LỖI KHUNG A.1] Dạng ${p.soDang ?? "?"} THIẾU ý "cần nhớ" (ghiNhoArr) trong Ghi nhớ.\n`
@@ -1459,7 +1459,7 @@ function dangToanDayDu(p) {
       + `→ truyền viDuLoiGiai:{cacBuoc:[...], ketLuan:[...]} — KHÓA ĐÚNG là viDuLoiGiai (loiGiaiND được nhận làm bí danh).`);
   let out = [];
   out.push(...tieuDeDang({ soDang: p.soDang, tenDang: p.tenDang, ma: p.ma }));
-  out.push(...viDu({ nhan: "Bài toán mẫu", deBai: p.viDuDeBai, cacCau: p.viDuCacCau,
+  out.push(...viDu({ nhan: "Bài tập mẫu", deBai: p.viDuDeBai, cacCau: p.viDuCacCau,
     thamChieu: p.viDuThamChieu, coHinh: p.viDuCoHinh, hinhBenPhai: p.viDuHinhBenPhai || p.viDuHinhBenTrai }));
   if (p.phanTich) out.push(...phanTich(p.phanTich));
   const _viDuLoiGiai = _xuLyTrungHinhLoiGiai(p);   // [v10.6] tự bỏ hình lời giải nếu trùng byte hình đề
