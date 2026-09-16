@@ -180,3 +180,62 @@ class HinhKhoiHop(HinhCoBan):
                            (W - a / 2, Hh - a / 2), (a / 2, Hh - a / 2)]:
                 self.ghi_chu(ox + cx, oy + cy, g)
         return self
+
+
+# ═══ [29c] Ông Bụt 2026-09-16 · DS8 Chương 2 (Hằng đẳng thức) ═══
+def khoiLapPhuongKhoetGoc(canhLon='2x+3', canhCon='x+1', chuThich=None,
+                          out='khoi_khoet_goc', tra_bytes=False, S=4.0, a=1.6):
+    """KHỐI LẬP PHƯƠNG cạnh 'canhLon' khoét 1 khối lập phương cạnh 'canhCon' ở góc
+       TRÊN-TRƯỚC-PHẢI (phối cảnh xiên cavalier). Nét khuất = đường đứt. Nhãn BIẾN.
+       (Port render_b07.py đã đạt — engine TikZ 2D không dựng phối cảnh 3D khoét-mặt-L)."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.patches import Polygon
+    _ANG = math.radians(40.0); _CO = 0.5
+    def PP(x, y, z): return (x + _CO*z*math.cos(_ANG), y + _CO*z*math.sin(_ANG))
+    def canh(ax, p1, p2, dut=False, rong=1.6, mau="#1a1a1a"):
+        A, B = PP(*p1), PP(*p2)
+        ax.plot([A[0], B[0]], [A[1], B[1]],
+                linestyle=(0, (4, 3)) if dut else "-",
+                linewidth=rong, color=mau, solid_capstyle="round", zorder=5)
+    def mat(ax, pts, mau):
+        ax.add_patch(Polygon([PP(*p) for p in pts], closed=True,
+                             facecolor=mau, edgecolor="none", zorder=1))
+    def nh(ax, p, t, dx=0.0, dy=0.0, ha="center", va="center"):
+        q = PP(*p)
+        ax.text(q[0]+dx, q[1]+dy, f"${t}$", fontsize=17, ha=ha, va=va, zorder=8, color="#111")
+    c = S - a
+    fig, ax = plt.subplots(figsize=(4.2, 4.0)); ax.set_aspect("equal"); ax.axis("off")
+    C_TRUOC="#ffffff"; C_TREN="#eef1f5"; C_PHAI="#e2e7ee"; C_TRONG="#c9d2df"; C_DAY="#d6dde7"
+    mat(ax, [(0,0,0),(S,0,0),(S,c,0),(c,c,0),(c,S,0),(0,S,0)], C_TRUOC)
+    mat(ax, [(0,S,0),(c,S,0),(c,S,a),(S,S,a),(S,S,S),(0,S,S)], C_TREN)
+    mat(ax, [(S,0,0),(S,c,0),(S,c,a),(S,S,a),(S,S,S),(S,0,S)], C_PHAI)
+    mat(ax, [(c,c,a),(S,c,a),(S,S,a),(c,S,a)], C_TRONG)
+    mat(ax, [(c,c,0),(S,c,0),(S,c,a),(c,c,a)], C_DAY)
+    mat(ax, [(c,c,0),(c,S,0),(c,S,a),(c,c,a)], C_TRONG)
+    canh(ax, (0,0,S), (S,0,S), dut=True, rong=1.2)
+    canh(ax, (0,0,S), (0,S,S), dut=True, rong=1.2)
+    canh(ax, (0,0,0), (0,0,S), dut=True, rong=1.2)
+    for seg in [((0,0,0),(S,0,0)),((S,0,0),(S,c,0)),((S,c,0),(c,c,0)),((c,c,0),(c,S,0)),
+                ((c,S,0),(0,S,0)),((0,S,0),(0,0,0)),((S,0,0),(S,0,S)),((0,S,0),(0,S,S)),
+                ((0,S,S),(S,S,S)),((S,0,S),(S,S,S)),((c,c,a),(S,c,a)),((c,c,a),(c,S,a)),
+                ((c,S,a),(S,S,a)),((S,c,a),(S,S,a)),((c,c,0),(c,c,a)),((S,c,0),(S,c,a)),
+                ((c,S,0),(c,S,a))]:
+        canh(ax, *seg)
+    nh(ax, (0, S/2.0, 0), canhLon, dx=-0.28, ha="right")
+    nh(ax, ((c+S)/2.0, (c+S)/2.0, a), canhCon, dy=0.02)
+    if chuThich:
+        ax.text(0.5, -0.02, chuThich, transform=ax.transAxes, ha="center", va="top",
+                fontsize=13, fontstyle="italic", color="#111")
+    xs=[PP(x,y,z)[0] for x in (0,S) for y in (0,S) for z in (0,S)]
+    ys=[PP(x,y,z)[1] for x in (0,S) for y in (0,S) for z in (0,S)]
+    m=0.9
+    ax.set_xlim(min(xs)-m-0.6, max(xs)+m+0.6); ax.set_ylim(min(ys)-m-(0.4 if chuThich else 0), max(ys)+m)
+    png = f'/tmp/{out}.png'
+    fig.savefig(png, dpi=200, bbox_inches="tight", pad_inches=0.06, transparent=True)
+    plt.close(fig)
+    return open(png, 'rb').read() if tra_bytes else png
+
+# [29c] gắn làm staticmethod class entry → vào bản trích + gọi qua instance
+HinhKhoiHop.khoiLapPhuongKhoetGoc = staticmethod(khoiLapPhuongKhoetGoc)

@@ -1,4 +1,4 @@
-// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.22 [29a] (2026-09-14): MẪU TỜ PHÂN CHƯƠNG MỚI (chỉ đạo Giám đốc) — toPhanChuong viết lại: khung hoa văn khung_bia.png (floating behindDoc, nền TRONG SUỐT), lớp/môn 48pt, footer bản quyền, 'Cấp cho:', BỎ ✦ trước bài, 2 đường kẻ thụt 454/964 nằm trong khung; +tham số loaiBan/boSach/phienBan/nam (có mặc định), bỏ co45/co90. gop_chuong: xuất TỜ PHÂN CHƯƠNG thành FILE RIÊNG (TOPHANCHUONG_<ma>_GV), TONGHOP bỏ bìa, lọc tổng kết khỏi danhSachBai. noi_tai_lieu: section bìa lề 1021 + footer 1560. +TÀI NGUYÊN khung_bia.png THAY khung_bia.jpg (bắt buộc). Đồng bộ 3 nhánh. | VERSION: v10.21 [28z] (2026-09-10): A1 · Điều 18 MỚI — gỡ guard neo mục ② (viDuLyThuyet nhận hinhBenPhai/hinhBenTrai chảy qua viDu); hinhVeTextBox ngưỡng >8cm → căn giữa (cũ 9.1). Nghiệm thu PILOT_HINH 4/4 (neo② · neo Các dạng · >8cm giữa · Đúng/Sai giữa); OB QC XML pass. | VERSION: v10.20 (2026-09-08) [28y]: A.1-MỚI (chỉ đạo Giám đốc, in dạy DS8 hợp lý) — (1) phanTich() đổi nhãn → "Phân tích và hướng dẫn giải:" (nhãn RIÊNG dòng, nội dung chảy, +khe {doan:[...]} tách nhiều đoạn); (2) dangToanDayDu BỎ render phuongPhapArr (Phương pháp chung); (3) +ghiNhoGop() render ghiNhoArr + saiLamArr(✗→✓) dưới MỘT nhãn "Ghi nhớ", bỏ nhãn "Sai lầm thường gặp" riêng, guard ≤3 DÒNG; (4) guard khung A.1 cập nhật thông báo. Đồng bộ HP V11.9 · Chuẩn · Phụ lục v1.5 · Instructions · QC · API. Máy Hình nghỉ (cửa one-writer). | VERSION: v10.19 (2026-09-06) [28x]: 3 SỬA phát sinh khi QC DS8_CH01_B03 — (1) dangToanDayDu nhận loiGiaiND làm BÍ DANH của viDuLoiGiai + CHẶN fail-im-lặng (thiếu lời giải mẫu → THROW thay vì render "Lời giải:" rỗng); (2) viDu/viDuLyThuyet thêm khe loiGiaiND/viDuLoiGiai → Ví dụ ② có lời giải TỪNG BƯỚC (giữ dapAn làm đường tắt cũ); (3) +soGachTren() overline OMML <m:bar> qua _dmath (số học gạch-trên, cho ⑥/⑦). Additive, output bài cũ KHÔNG đổi. | VERSION: v10.18 (2026-09-06) [28w]: KHOFIX canBac — trả qua _dmath (gắn _hhComp) để _mathChild gỡ vỏ khi lồng trong phanSo/luyThua/ngoac (28r sót canBac → <m:oMath> lồng, Word chối mở; lxml/LibreOffice lọt). Additive, canBac đứng riêng KHÔNG đổi. Phát hiện khi QC DS8_CH01_B02. | VERSION: v10.17 (2026-09-06) [28v]: 3 SỬA phát sinh khi QC DS8_CH01_B01 — (1) KHOFIX baiTapTaiLop +anLoiGiai (regression 28t: guard bản-HS dán sang mà quên khai tham số → ReferenceError mọi lần gọi mục ④); (2) GUARD _dapAnViDu: dapAn là mảng-TRỘN chữ+công thức (quên bọc [[…]]) → THROW chỉ cách sửa, thay vì render "undefined)"; (3) +Cửa kiemMay quét "undefined" (chặn xuất). CHỈ SỬA-LỖI/THÊM-GUARD — KHÔNG đổi API. | VERSION: v10.16 (2026-09-05) [28t]: KHOFIX-mathLong — _mathChild đệ quy (flatMap) gỡ vỏ phần tử phanSo/luyThua trong MẢNG → hết <m:oMath> LỒNG <m:oMath> (Word TỪ CHỐI MỞ; lxml/LibreOffice lọt). +Cửa kiemMay chặn oMath-lồng. KHOFIX-deKT — cửa nhận chữ ký "THỜI GIAN: … PHÚT" (Đ57.1) + căn lề chỉ đếm <w:jc> (bỏ tab-stop TN). +bangDungSai({banHS}) & tuLuanBTVN({anLoiGiai}) hỗ trợ bản HS (additive). CHỈ SỬA-LỖI/THÊM — không đổi API. | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
+// HIEUHOC_TEMPLATE — CHÍNH THỨC | VERSION: v10.23 [29c] (2026-09-16): CỦNG CỐ CỬA kiemMay (Ông Bụt Đại số, DS8 Chương 2) — (1) +cửa (a4) SCAN STACK OMML: bắt <m:e> lồng <m:e> NON-ADJACENT (cửa a3 regex-kề lọt) + <m:oMath> lồng theo tổ tiên; (2) kiemMay +quét WELL-FORMED nhẹ MỌI part .xml/.rels: bắt token rác <0/> (docx serialize hụt phần tử → Word đòi Repair) mà cửa cũ (chỉ regex nội dung) lọt. Additive — KHÔNG đụng cửa cũ, KHÔNG đổi API. Phát hiện khi chẩn đoán B09-L1. | VERSION: v10.22 [29a] (2026-09-14): MẪU TỜ PHÂN CHƯƠNG MỚI (chỉ đạo Giám đốc) — toPhanChuong viết lại: khung hoa văn khung_bia.png (floating behindDoc, nền TRONG SUỐT), lớp/môn 48pt, footer bản quyền, 'Cấp cho:', BỎ ✦ trước bài, 2 đường kẻ thụt 454/964 nằm trong khung; +tham số loaiBan/boSach/phienBan/nam (có mặc định), bỏ co45/co90. gop_chuong: xuất TỜ PHÂN CHƯƠNG thành FILE RIÊNG (TOPHANCHUONG_<ma>_GV), TONGHOP bỏ bìa, lọc tổng kết khỏi danhSachBai. noi_tai_lieu: section bìa lề 1021 + footer 1560. +TÀI NGUYÊN khung_bia.png THAY khung_bia.jpg (bắt buộc). Đồng bộ 3 nhánh. | VERSION: v10.21 [28z] (2026-09-10): A1 · Điều 18 MỚI — gỡ guard neo mục ② (viDuLyThuyet nhận hinhBenPhai/hinhBenTrai chảy qua viDu); hinhVeTextBox ngưỡng >8cm → căn giữa (cũ 9.1). Nghiệm thu PILOT_HINH 4/4 (neo② · neo Các dạng · >8cm giữa · Đúng/Sai giữa); OB QC XML pass. | VERSION: v10.20 (2026-09-08) [28y]: A.1-MỚI (chỉ đạo Giám đốc, in dạy DS8 hợp lý) — (1) phanTich() đổi nhãn → "Phân tích và hướng dẫn giải:" (nhãn RIÊNG dòng, nội dung chảy, +khe {doan:[...]} tách nhiều đoạn); (2) dangToanDayDu BỎ render phuongPhapArr (Phương pháp chung); (3) +ghiNhoGop() render ghiNhoArr + saiLamArr(✗→✓) dưới MỘT nhãn "Ghi nhớ", bỏ nhãn "Sai lầm thường gặp" riêng, guard ≤3 DÒNG; (4) guard khung A.1 cập nhật thông báo. Đồng bộ HP V11.9 · Chuẩn · Phụ lục v1.5 · Instructions · QC · API. Máy Hình nghỉ (cửa one-writer). | VERSION: v10.19 (2026-09-06) [28x]: 3 SỬA phát sinh khi QC DS8_CH01_B03 — (1) dangToanDayDu nhận loiGiaiND làm BÍ DANH của viDuLoiGiai + CHẶN fail-im-lặng (thiếu lời giải mẫu → THROW thay vì render "Lời giải:" rỗng); (2) viDu/viDuLyThuyet thêm khe loiGiaiND/viDuLoiGiai → Ví dụ ② có lời giải TỪNG BƯỚC (giữ dapAn làm đường tắt cũ); (3) +soGachTren() overline OMML <m:bar> qua _dmath (số học gạch-trên, cho ⑥/⑦). Additive, output bài cũ KHÔNG đổi. | VERSION: v10.18 (2026-09-06) [28w]: KHOFIX canBac — trả qua _dmath (gắn _hhComp) để _mathChild gỡ vỏ khi lồng trong phanSo/luyThua/ngoac (28r sót canBac → <m:oMath> lồng, Word chối mở; lxml/LibreOffice lọt). Additive, canBac đứng riêng KHÔNG đổi. Phát hiện khi QC DS8_CH01_B02. | VERSION: v10.17 (2026-09-06) [28v]: 3 SỬA phát sinh khi QC DS8_CH01_B01 — (1) KHOFIX baiTapTaiLop +anLoiGiai (regression 28t: guard bản-HS dán sang mà quên khai tham số → ReferenceError mọi lần gọi mục ④); (2) GUARD _dapAnViDu: dapAn là mảng-TRỘN chữ+công thức (quên bọc [[…]]) → THROW chỉ cách sửa, thay vì render "undefined)"; (3) +Cửa kiemMay quét "undefined" (chặn xuất). CHỈ SỬA-LỖI/THÊM-GUARD — KHÔNG đổi API. | VERSION: v10.16 (2026-09-05) [28t]: KHOFIX-mathLong — _mathChild đệ quy (flatMap) gỡ vỏ phần tử phanSo/luyThua trong MẢNG → hết <m:oMath> LỒNG <m:oMath> (Word TỪ CHỐI MỞ; lxml/LibreOffice lọt). +Cửa kiemMay chặn oMath-lồng. KHOFIX-deKT — cửa nhận chữ ký "THỜI GIAN: … PHÚT" (Đ57.1) + căn lề chỉ đếm <w:jc> (bỏ tab-stop TN). +bangDungSai({banHS}) & tuLuanBTVN({anLoiGiai}) hỗ trợ bản HS (additive). CHỈ SỬA-LỖI/THÊM — không đổi API. | VERSION: v10.15 (2026-09-05) [28s]: KHOFIX-ngoac — ngoac() sinh <m:e><m:e> LỒNG ĐÔI trong <m:d> → Word TỪ CHỐI MỞ FILE (lxml/LibreOffice lọt vì không render OMML). Sửa: bỏ lớp m:e tự bọc (createMathBase() đã bọc sẵn). +Cửa kiemMay (a3) chặn <m:e> lồng <m:e>. CHỈ SỬA-LỖI — không đổi API (ngoac(bieuThuc) y nguyên). | VERSION: v10.14 (2026-09-05) [28r]: DS7 "Số hữu tỉ" — (1) luyThua/phanSo NHẬN OMML LỒNG (cơ số phân số/âm/lồng, phân số kép) qua _mathChild — hết lỗi String(OMML)="[object Object]"; (2) +ngoac() delimiter OMML cho cơ số âm/biểu thức; (3) +bangSoLieu() bảng số liệu tổng quát, ô nhận string|number|OMML; (4) hinh_daiso.py +truc_so_huu_ti() (trục âm/dương, chia đoạn n phần, nhãn phân số, điểm khuyết bài đọc). CHỈ THÊM/MỞ RỘNG — KHÔNG đổi API cũ (luyThua(2,3)/phanSo(1,2) chạy y nguyên). | VERSION: v10.13 (2026-09-04): (1) MÃ DẠNG về 11pt (tieuDeDang: SZ_SMALL, bỏ "-2" cũ =10pt) — HP Đ13 mã định danh 11pt; (2) traLoiNgan() +tham số thamChieu (cờ nguồn/"Tự soạn", Đ5.7.1 — đồng bộ cauTracNghiem). CHỈ THÊM/SỬA-CỠ, không đổi API cũ. | v10.12 (2026-09-03) | ĐỀ KIỂM TRA: bỏ para RỖNG cuối headerDeKiemTra (dòng trắng thừa trên Phần I — HP Đ17.4/A2 cấm khoảng bằng đoạn rỗng); khoảng cách bảng↔Phần I do before:THO_RONG của tieuDePhanI_DeKT lo. Áp CHUNG mọi đề KT về sau. | v10.11 (2026-08-13) | GUARD "Ví dụ rỗng": viDuLyThuyet chỉ có hình (không đề & không câu hỏi) → CHẶN, buộc chèn HÌNH MINH HOẠ thẳng qua hinhVe (bỏ nhãn "Ví dụ:" thừa cho hình 8.X đi kèm định nghĩa). | v10.10 (2026-08-13) | LAYOUT CÂU HỎI a,b,c ĐỒNG BỘ ②④⑤: (1) layoutCauHoi dồn 1 dòng CHỈ KHI vừa cột, không thì mỗi câu xuống hàng; (2) bài CÓ hình bên phải (viDu mục③ / baiTapTaiLop / tuLuanBTVN) → ÉP xuống hàng (cột hẹp, không dồn ngang); (3) viDu/viDuLyThuyet nhận `dapAn` → in "Trả lời:" cho bản đầy đủ. | v10.9: sửa THẬT regex nhãn nhân đôi (split \t). | v10.7: hình tự đọc tỉ lệ PNG. | v10.6: cửa trùng-byte hình TỰ BỎ. | v10.3: +GUARD KHUNG A.1.
 // File DUY NHẤT. Scripts require("./hieuhoc_template.js").
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -308,6 +308,41 @@ function taoTaiLieuDeKT({ tenDe, children, headerFooter = true }) {
 // [v9.4] BỘ KIỂM TRÌNH BÀY — quét document.xml tìm lỗi trình bày CHUNG.
 // Chỉ kiểm cái ĐO ĐƯỢC CHẮC CHẮN (không báo oan). Trả mảng lỗi (rỗng = sạch).
 // Mở rộng dần: mỗi khi gặp loại lỗi trình bày mới, thêm một mục ở đây.
+// ═══ [29c] Ông Bụt 2026-09-16 · củng cố cửa OMML/XML (DS8 Chương 2) ═══
+//   Vá 2 lỗ hổng phát hiện khi chẩn đoán B09-L1: (1) cửa (a3) chặn m:e lồng m:e
+//   bằng regex KỀ (<m:e>\s*<m:e) → LỌT khi lồng qua nội dung trung gian
+//   (non-adjacent). (2) kiemMay KHÔNG parse well-formed → token rác <0/>
+//   (docx serialize hụt phần tử) LỌT. 2 helper dưới bịt cả hai — additive,
+//   KHÔNG đụng cửa cũ; cửa (a3) regex-kề giữ nguyên làm lớp phụ.
+function _quetXmlRac(xml) {
+  // Well-formed NHẸ (không cần thư viện): tên element hợp lệ bắt đầu chữ cái/_/':'.
+  // '<' theo sau số/khoảng trắng/ký tự lạ = token rác (vd <0/>). Bỏ comment & CDATA.
+  const sach = xml.replace(/<!--[\s\S]*?-->/g, '').replace(/<!\[CDATA\[[\s\S]*?\]\]>/g, '');
+  const m = sach.match(/<(?![a-zA-Z_:/!?])[^>]{0,20}>/);
+  return m ? m[0] : null;
+}
+function _scanOmmlLong(xml) {
+  // Ancestor-depth CHÍNH XÁC bằng stack (không phụ thuộc regex kề). Bắt:
+  //   • <m:e> có CHA TRỰC TIẾP <m:e>  (OOXML cấm — Word chối mở)
+  //   • <m:oMath> có TỔ TIÊN <m:oMath> (oMath là gốc math, không lồng)
+  // KHÔNG báo oan m:e qua m:d/m:sSup/m:f (hợp lệ) hay 2 oMath song song.
+  const loi = [];
+  const re = /<(\/?)(m:[a-zA-Z]+)\b([^>]*?)(\/?)>/g;
+  const stack = [];
+  let mth;
+  while ((mth = re.exec(xml)) !== null) {
+    const dong = mth[1] === '/', ten = mth[2], tuDong = mth[4] === '/';
+    if (dong) {
+      for (let i = stack.length - 1; i >= 0; i--) { if (stack[i] === ten) { stack.length = i; break; } }
+      continue;
+    }
+    if (ten === 'm:e' && stack.length && stack[stack.length - 1] === 'm:e') loi.push('m:e-truc-tiep');
+    if (ten === 'm:oMath' && stack.includes('m:oMath')) loi.push('oMath-long');
+    if (!tuDong) stack.push(ten);
+  }
+  return [...new Set(loi)];
+}
+
 function _kiemTrinhBay(xml) {
   const loi = [];
 
@@ -329,6 +364,13 @@ function _kiemTrinhBay(xml) {
   // [28t · KHOFIX-mathLong] <m:oMath> LỒNG trong <m:oMath> — Word chối mở (lxml/LibreOffice lọt). Do nhét PS/LT (đã là oMath) vào MẢNG của ngoac/luyThua/phanSo.
   if (/<m:oMath\b[^>]*>(?:(?!<\/m:oMath>)[\s\S])*?<m:oMath\b/.test(xml))
     loi.push("OMML hỏng: <m:oMath> LỒNG <m:oMath> — Word TỪ CHỐI MỞ FILE (LibreOffice/lxml lọt). Nguyên nhân: nhét object math (phanSo/luyThua) vào MẢNG tham số ngoac/luyThua/phanSo mà _mathChild chưa gỡ vỏ. Cần KHOFIX-mathLong (_mathChild flatMap đệ quy).");
+  // (a4) [29c] OMML lồng — SCAN STACK (bao trùm a3/oMath ở trên): bắt cả trường hợp lồng
+  //      NON-ADJACENT (a3 regex-kề lọt). m:e trực tiếp trong m:e → Word chối mở.
+  const _nest = _scanOmmlLong(xml);
+  if (_nest.includes('m:e-truc-tiep'))
+    loi.push("OMML hỏng (a4-stack): <m:e> chứa TRỰC TIẾP <m:e> (kể cả cách nhau nội dung) — Word TỪ CHỐI MỞ FILE. Chuẩn OOXML: mỗi <m:d> đúng 1 <m:e>, m:e không bọc m:e. Xuất qua ngoac()/hàm kho đã vá KHOFIX-ngoac.");
+  if (_nest.includes('oMath-long'))
+    loi.push("OMML hỏng (a4-stack): <m:oMath> có TỔ TIÊN <m:oMath> — Word TỪ CHỐI MỞ FILE. Nguyên nhân: nhét object math (phanSo/luyThua/canBac) vào MẢNG tham số mà _mathChild chưa gỡ vỏ.");
 
   // (b) Cỡ 12pt — đã bỏ khỏi hệ thống (HP Điều 13.2)
   if (xml.includes('w:val="24"'))
@@ -409,6 +451,14 @@ function kiemMay(bufOrPath, opts = {}) {
   const zip = new AdmZipL(buf);
   const xml = zip.readAsText("word/document.xml");
   const loi = _kiemTrinhBay(xml);
+
+  // [29c] WELL-FORMED nhẹ MỌI part .xml/.rels — bắt token rác <0/> (docx serialize hụt
+  //   phần tử → Word đòi Repair). Cửa cũ chỉ regex nội dung, KHÔNG parse → lọt. Additive.
+  for (const ent of zip.getEntries()) {
+    if (!/\.(xml|rels)$/.test(ent.entryName)) continue;
+    const rac = _quetXmlRac(zip.readAsText(ent.entryName));
+    if (rac) loi.push(`XML không hợp lệ trong "${ent.entryName}": token rác "${rac}" — tên element sai chuẩn (vd <0/> do serialize hụt phần tử). Word ĐÒI REPAIR. Kiểm phần tử truyền vào (undefined/số lọt chỗ cần XmlComponent).`);
+  }
 
   if (xml.includes("[object Object]"))
     loi.push('Có "[object Object]" — đối tượng lọt vào chỗ cần string (kiểm tham số hàm).');

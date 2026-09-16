@@ -1,6 +1,21 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
-Mốc kho      : 29b (2026-09-15)
+
+[29c] VÁ KHO DS8 CHƯƠNG 2 — HẰNG ĐẲNG THỨC (Ông Bụt Đại số, 2026-09-16):
+      A. HÌNH ĐẠI SỐ — +3 hàm generator ĐỘC LẬP (không qua PHANH/.ve(); tái dùng bản .tex/.py
+         đã đạt; giấu toạ độ Đ5.9; gắn @staticmethod class entry → vào bản trích + gọi qua instance):
+           • hinh_daiso.py    : hinhDienTichDaiSo(kieu=catghep|chia4|vien) — cắt-ghép a²−b², vuông
+                                chia 4 phần (a+b)², mảnh vườn viền.
+           • hinh_tron_ve.py  : vanhKhan(R,r,toVanh) — hai đường tròn đồng tâm, bán kính nhãn giữa đoạn.
+           • hinh_khoihop.py  : khoiLapPhuongKhoetGoc(canhLon,canhCon) — khối lập phương khoét góc
+                                (matplotlib cavalier, port render_b07 đã đạt).
+           • hinh_core.py     : +render_tikz_doc()/_m() (helper render standalone dùng chung).
+         Regression hàm cũ 4/4 OK (additive, 0 hỏng).
+      B. hieuhoc_template.js v10.23 — củng cố cửa kiemMay (a4 OMML stack + well-formed mọi part).
+      C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
+      D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
+      GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
+Mốc kho      : 29c (2026-09-16)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

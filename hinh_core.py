@@ -70,3 +70,30 @@ import hinh_phang as _phang          # noqa: E402  (import cuối là chủ ý �
 _o_vuong = _phang._o_vuong
 _thu_tu  = _phang._thu_tu
 _do_goc  = _phang._do_goc
+
+
+# ═══ [29c] Ông Bụt 2026-09-16 · DS8 Chương 2 (Hằng đẳng thức) ═══
+# HÌNH ĐẠI SỐ MINH HOẠ (nhãn BIẾN) — generator ĐỘC LẬP, KHÔNG qua PHANH/HinhCoBan.
+#   Lý do tách engine: hình cắt-ghép/vành-khăn/khối-khoét là minh hoạ nhãn-biến
+#   (a, b, x-2y…) — KHÔNG có quan hệ toạ-độ-số để PHANH verify. Ép vào .ve() phải
+#   mổ render loop (rủi ro 20+ hàm cũ). Generator độc lập: tái dùng bản .tex/.py
+#   ĐÃ ĐẠT (QC pass), giấu toạ độ (Đ5.9), 0 rủi ro regression.
+def render_tikz_doc(tex_full, out, tra_bytes=False, dpi=200):
+    """Biên dịch MỘT tài liệu TikZ standalone ĐẦY ĐỦ (documentclass→end) → PNG.
+       Khác _render (nhận thân tikz + preamble cố định): hàm hình đại số cần preamble
+       riêng (arrows.meta, even odd rule, style tô) nên tự cấp trọn tài liệu."""
+    open(f'/tmp/{out}.tex', 'w').write(tex_full)
+    subprocess.run(['pdflatex', '-interaction=nonstopmode', f'{out}.tex'],
+                   cwd='/tmp', capture_output=True)
+    subprocess.run(['pdftoppm', '-png', '-r', str(dpi), f'{out}.pdf', out],
+                   cwd='/tmp', capture_output=True)
+    png = f'/tmp/{out}-1.png'
+    if not os.path.exists(png):
+        return None
+    return open(png, 'rb').read() if tra_bytes else png
+
+def _m(s, macdinh):
+    """Nhãn: None → mặc định (biến); có $ → giữ; ngược lại bọc để in toán."""
+    if s is None:
+        return macdinh
+    return str(s)

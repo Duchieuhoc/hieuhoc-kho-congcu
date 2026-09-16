@@ -1,0 +1,27 @@
+════════════════════════════════════════════════════
+ĐẨY LÊN KHO GitHub (hieuhoc-kho-congcu) · mốc 29c · 2026-09-16
+════════════════════════════════════════════════════
+
+Upload các file này lên Duchieuhoc/hieuhoc-kho-congcu (web), THAY bản cũ, commit 1 lần:
+
+  THAY (7 file):
+   1. hieuhoc_template.js   → v10.23: +cửa kiemMay (a4) scan-stack OMML + well-formed mọi part
+   2. hinh_core.py          → +render_tikz_doc() / _m() (helper render standalone)
+   3. hinh_daiso.py         → +hinhDienTichDaiSo(catghep|chia4|vien)
+   4. hinh_tron_ve.py       → +vanhKhan(R,r)
+   5. hinh_khoihop.py       → +khoiLapPhuongKhoetGoc(canhLon,canhCon)
+   6. sinh_bantrich.py      → class entry linh hoạt (chạy cho mọi mạch module)
+   7. 00_KHO_VERSION.txt    → mốc 29c + changelog
+
+  THÊM MỚI (3 bản trích DS8 Chương 2):
+   8. BAN_TRICH_HAM_DS8_CH02__daiso.md
+   9. BAN_TRICH_HAM_DS8_CH02__tron_ve.md
+  10. BAN_TRICH_HAM_DS8_CH02__khoihop.md
+
+LƯU Ý:
+- hieuhoc_template.js LÀ FILE CHUNG với máy Hình. Bản này clone-đè từ 29b (không merge).
+  Trước khi đẩy: chắc máy Hình KHÔNG đang sửa template (one-writer).
+- KHÔNG đẩy: node_modules (gitignore), DS8_CH02_B09.docx (nội dung bài — kho không chứa).
+- Tương thích ngược 100%: mọi hàm cũ không đổi (regression 4/4 OK); chỉ THÊM/CỦNG CỐ.
+
+SAU KHI ĐẨY: mốc kho phải là 29c (đối chiếu 00_KHO_VERSION.txt đầu phiên).

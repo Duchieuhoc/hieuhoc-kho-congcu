@@ -42,7 +42,18 @@ def _co_toa_do(func):
 
 def sinh(ten_module, ma_chuong=None, noi_bo=False):
     mod = importlib.import_module(ten_module)
-    Hinh = mod.Hinh
+    # [29c] Class entry LINH HOẠT: module Hình học dùng 'Hinh'; mạch chuyên (tron_ve→HinhTron,
+    #   khoihop→HinhKhoiHop) không có 'Hinh'. Lấy 'Hinh' nếu có (giữ hành vi cũ), ngược lại
+    #   class con HinhCoBan ĐẦU TIÊN định nghĩa NGAY trong module này.
+    Hinh = getattr(mod, 'Hinh', None)
+    if Hinh is None:
+        import hinh_coban as _hcb
+        for _n, _c in inspect.getmembers(mod, inspect.isclass):
+            if issubclass(_c, _hcb.HinhCoBan) and _c is not _hcb.HinhCoBan and _c.__module__ == mod.__name__:
+                Hinh = _c
+                break
+        if Hinh is None:
+            raise SystemExit(f"[sinh_bantrich] {ten_module}: không tìm thấy class entry (Hinh / con HinhCoBan).")
     src_lines = inspect.getsource(mod).splitlines()
 
     # metadata phân tầng — đọc Ở KHO (nguồn sự thật)
@@ -56,7 +67,7 @@ def sinh(ten_module, ma_chuong=None, noi_bo=False):
     tree = ast.parse(inspect.getsource(mod))
     lineno = {}
     for node in ast.walk(tree):
-        if isinstance(node, ast.ClassDef) and node.name == 'Hinh':
+        if isinstance(node, ast.ClassDef) and node.name == Hinh.__name__:
             for sub in node.body:
                 if isinstance(sub, ast.FunctionDef):
                     lineno[sub.name] = sub.lineno

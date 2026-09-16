@@ -145,3 +145,43 @@ class HinhTron(hinh_coban.HinhCoBan):
         if giay is not None:
             self.kim(R, giay/5.0,               loai='giay', tam=tam)   # kim giây (đỏ)
         return R
+
+
+# ═══ [29c] Ông Bụt 2026-09-16 · DS8 Chương 2 (Hằng đẳng thức) ═══
+import hinh_core as _HC
+def vanhKhan(R='R', r='r', toVanh=True, chuThich=None,
+             out='vanh_khan', tra_bytes=False):
+    """VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R),
+       mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh)."""
+    R = _HC._m(R, 'R'); r = _HC._m(r, 'r')
+    to = (r'\fill[cyan!14, even odd rule] (O) circle (\R) (O) circle (\r);'
+          if toVanh else '')
+    cap = ''
+    if chuThich:
+        cap = (r'\node[below,font=\itshape] at (0,CAPY) {CAPT};'
+               .replace('CAPT', chuThich).replace('CAPY', r'-\R-0.55'))
+    body = r'''\documentclass[border=6pt]{standalone}
+\usepackage{tikz}\usetikzlibrary{arrows.meta}
+\begin{document}
+\begin{tikzpicture}[font=\normalsize]
+  \def\R{3.0}\def\r{1.7}
+  \coordinate (O) at (0,0);
+  @@TO@@
+  \draw[line width=0.8pt] (O) circle (\R);
+  \draw[line width=0.8pt] (O) circle (\r);
+  % bán kính ngoài R (hướng 35°) + nhãn giữa đoạn
+  \draw (O) -- (35:\R);
+  \node[above,font=\small] at (35:{\R/2}) {$@@R@@$};
+  % bán kính trong r (hướng -125°) + nhãn giữa đoạn
+  \draw (O) -- (-125:\r);
+  \node[below left,font=\small] at (-125:{\r/2}) {$@@r@@$};
+  \fill (O) circle (1.6pt); \node[above right,font=\small] at (O) {$O$};
+  @@CAP@@
+\end{tikzpicture}
+\end{document}'''
+    body = (body.replace('@@TO@@', to).replace('@@R@@', R).replace('@@r@@', r)
+                .replace('@@CAP@@', cap))
+    return _HC.render_tikz_doc(body, out, tra_bytes)
+
+# [29c] gắn làm staticmethod class entry → vào bản trích + gọi qua instance
+HinhTron.vanhKhan = staticmethod(vanhKhan)
