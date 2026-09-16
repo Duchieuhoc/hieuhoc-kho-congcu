@@ -1,0 +1,27 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29d
+=============================
+Repo: github.com/Duchieuhoc/hieuhoc-kho-congcu
+Chỉ THẦY push được. Việc này BẮT BUỘC làm TRƯỚC khi giao
+GIAO_AISOAN__HH7_CH09_B31__L1 cho AI Soạn.
+
+CÓ GÌ TRONG GÓI (3 file — upload ĐÈ lên bản cùng tên trên GitHub):
+  1. hinh_dagiac.py           ← +hàm diem_doi_xung_tam (kê bổ 29d)
+  2. BAN_TRICH_HAM_HH7_CH04.md ← regen (nay 64 hàm, có diem_doi_xung_tam)
+  3. 00_KHO_VERSION.txt        ← bump mốc 29c → 29d (+changelog [29d])
+
+CÁCH ĐẨY (web GitHub, nhanh nhất):
+  1. Mở repo → vào từng file ở trên → "Edit" (bút chì) hoặc "Upload files".
+  2. Kéo-thả 3 file này đè lên.
+  3. Commit message gợi ý:
+     "[29d] Kê bổ diem_doi_xung_tam (mạch tam giác) — mở phiếu HH7_CH09_B31"
+  4. Commit changes.
+
+KIỂM TRA SAU PUSH:
+  - Mở 00_KHO_VERSION.txt trên GitHub → dòng "Mốc kho : 29d".
+  - AI Soạn bụng kho → dòng "Mốc kho" phải ra 29d.
+  → Khớp thì mới kéo-thả GIAO_AISOAN cho AI Soạn.
+
+THAY ĐỔI LÀ CỘNG THÊM (additive) — 0 hồi quy; đã import OK + PHANH PASS
+toàn bộ 12 hình Bài 31. GitHub luôn giữ bản đủ nên chỉ cần đè 3 file đổi.
+
+© Hiếu Học — CS2627 · Ông Bụt · 2026-09-16

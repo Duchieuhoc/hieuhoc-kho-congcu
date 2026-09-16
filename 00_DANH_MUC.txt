@@ -1,9 +1,13 @@
-DANH MỤC — CAPNHAT_KHO KHOFIX-ngoac (28s)
-Tệp                    | Trạng thái | Ghi chú
------------------------|-----------|-------------------------------------------
-hieuhoc_template.js    | ĐÃ SỬA    | ngoac() bỏ m:e lồng + cửa kiemMay a3 + stamp v10.15[28s]
-API_REFERENCE.md       | REGEN     | tự sinh lại (v10.15) — nạp 2 Project
-00_KHO_VERSION.txt     | BUMP      | 28q→28s (+ghi bù [28r][28s])
-KHOFIX_ngoac_28s.patch | tham chiếu| git diff hieuhoc_template.js (áp: git apply)
-00_DOC_TRUOC_KHI_PUSH.md| hướng dẫn | luật one-writer + việc thầy làm
-00_DANH_MUC.txt        | mục lục   | tệp này
+DANH MỤC — CAPNHAT_KHO__29d.zip
+================================
+Chiều: OB → thầy · Đích: thầy PUSH GitHub (hieuhoc-kho-congcu)
+Lý do phiên này có sửa kho: kê bổ 1 hàm mạch tam giác.
+
+FILE                          | TRẠNG THÁI | GHI CHÚ
+------------------------------|-----------|-------------------------------------------
+hinh_dagiac.py                | ĐÃ SỬA    | +diem_doi_xung_tam(new,P,O) trước def tam_giac_canh
+BAN_TRICH_HAM_HH7_CH04.md     | REGEN     | 64 hàm (sinh_bantrich hinh_tamgiac HH7_CH04)
+00_KHO_VERSION.txt            | ĐÃ SỬA    | bump 29c→29d + changelog [29d]
+00_DAY_LEN_KHO__29d.txt       | MỚI       | hướng dẫn push
+
+© Hiếu Học — CS2627 · Ông Bụt · 2026-09-16

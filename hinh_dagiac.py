@@ -135,6 +135,21 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         d = ((px - mx)*nx + (py - my)*ny) / nn             # phản chiếu qua đường (M, pháp tuyến n)
         self._diem(new, px - 2*d*nx, py - 2*d*ny, nhan, mau=mau)
         return self
+    def diem_doi_xung_tam(self, new, P, O, nhan='below', mau=None):
+        """Đặt điểm 'new' = ẢNH của P qua TÂM ĐỐI XỨNG O (phép đối xứng tâm) — new = 2·O − P,
+        tức O là TRUNG ĐIỂM của đoạn P–new. P, O phải ĐÃ đặt trước. Máy tự tính (KHÔNG cho
+        toạ độ). Dùng dựng điểm 'lấy P sao cho M là trung điểm AP' (đối đỉnh qua M): ảnh của
+        đỉnh qua trung điểm cạnh, kỹ thuật dựng tam giác bằng nhau qua điểm giữa (SBT B31 H.9.13;
+        trọng tâm/đối xứng tâm mạch tam giác 7→9). PHANH kiểm O là trung điểm P–new + thẳng hàng.
+        dau_bang/dau_goc_bang gọi SAU để đánh dấu cặp bằng/đối đỉnh. mau='red' → chấm đỏ (điểm dựng)."""
+        for t in (P, O):
+            if t not in self.V:
+                raise ValueError(f"[diem_doi_xung_tam] điểm '{t}' chưa đặt.")
+        px, py = self.V[P]; ox, oy = self.V[O]
+        self._diem(new, 2*ox - px, 2*oy - py, nhan, mau=mau)   # new = 2O − P
+        self.rb.append({'loai':'trung_diem','M':O,'doan':(P, new)})
+        self.rb.append({'loai':'thang_hang','diem':[P, O, new]})
+        return self
     def tam_giac_canh(self, A, B, Cc, AB, BC, CA, goc_o=(0.0, 0.0)):
         """Tam giác ABC dựng từ 3 CẠNH cho sẵn (SSS): |AB|, |BC|, |CA| (đơn vị bất kỳ,
         giữ ĐÚNG TỈ LỆ). Đáy BC nằm ngang: B dưới-trái (0,0), C dưới-phải (BC,0);
