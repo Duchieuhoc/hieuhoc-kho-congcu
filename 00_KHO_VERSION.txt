@@ -1,6 +1,19 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29f] BỔ KHO HÌNH CHƯƠNG II — Hóa lớp 7 Phân tử·Liên kết (Ông Bụt Hóa, 2026-09-16, mở soạn B05·B06·B07):
+      • hinh_hoa_ch02.py [MỚI] : 5 hàm generator độc lập (nghĩa-thuần, layout ẩn trong kho Đ5.9):
+          – phan_tu(cong_thuc)                     mô hình quả cầu-que 1 phân tử (H2,Cl2,O2,N2,HCl,CO2,H2O,CH4,NH3)
+          – mo_hinh_hat(loai,...)                  mẫu chất: kim_loai/khi_don/phan_tu/mang_ion (Hình 5.1)
+          – hop_hat(items)                         hộp hạt trừu tượng (SBT phân loại đơn/hợp chất/hỗn hợp)
+          – lien_ket_ion(cho,nhan,so_e,...)        sơ đồ nhường e → ion (NaCl 6.2, MgO 6.3)
+          – lien_ket_cht(cong_thuc)                sơ đồ cặp e dùng chung (H2,Cl2,N2,O2,HCl,H2O — 6.4/6.5/6.6)
+        Màu/bán kính nguyên tố (MAU_NT/BK_NT). Text hình CHỈ ASCII/ký hiệu (pdflatex không dựng dấu TV) —
+        chú thích tiếng Việt do AI Soạn đặt ở Word. PHANH: layout hợp lệ, sum(cấu hình)=Z ở sơ đồ ion.
+        Class entry Hinh (@staticmethod) → sinh_bantrich native (BAN_TRICH_HAM_HOA7_CH02.md).
+      Nghiệm thu: 8/8 render (CH4·H2O·kim_loai Cu·mang_ion NaCl·hop_hat·ion NaCl+MgO·cht O2+H2); soi mắt đạt.
+      Additive, 0 hỏng nhánh nguyên tử (ch01) & Toán.
+
 [29e] BỔ KHO HÌNH NGUYÊN TỬ — Hóa lớp 7 Chương I (Ông Bụt Hóa, 2026-09-16, mở soạn HOA7_CH01_B02):
       • hinh_hoa_ch01.py [MỚI] : thư viện dựng hình nguyên tử — 3 hàm generator ĐỘC LẬP
         (như hình đại số minh hoạ; NGHĨA-THUẦN, máy tự bố trí vòng+chấm e, KHÔNG toạ độ tay Đ5.9):
@@ -36,7 +49,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29e (2026-09-16)
+Mốc kho      : 29f (2026-09-16)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

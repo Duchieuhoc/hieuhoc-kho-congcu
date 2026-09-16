@@ -1,14 +1,6 @@
-DANH MỤC — CAPNHAT_KHO__29e.zip
-================================
-Chiều: OB (Hóa) → thầy · Đích: thầy PUSH GitHub (hieuhoc-kho-congcu)
-Lý do phiên này có sửa kho: BỔ module hình nguyên tử cho Hóa lớp 7 Chương I
-(kho 29d chỉ có nhánh Toán, không hàm Hóa → AI Soạn chặn khi soạn HOA7_CH01_B02).
-
-FILE                          | TRẠNG THÁI | GHI CHÚ
-------------------------------|-----------|-------------------------------------------
-hinh_hoa_ch01.py              | MỚI       | 3 hàm: nguyen_tu_bo ⭐ / nguyen_tu_hat_nhan / mo_hinh_hanh_tinh + hằng MAU_EPN
-BAN_TRICH_HAM_HOA7_CH01.md    | MỚI       | 3 cửa render (sinh_bantrich native)
-00_KHO_VERSION.txt            | ĐÃ SỬA    | bump 29d→29e + changelog [29e]
-00_DAY_LEN_KHO__29e.txt       | MỚI       | hướng dẫn push
-
-© Hiếu Học — CS2627 · Ông Bụt (Hóa) · 2026-09-16
+CAPNHAT_KHO__29f.zip — OB(Hóa)→thầy PUSH GitHub
+Lý do: bổ hàm hình Chương II (mô hình phân tử/hạt + sơ đồ liên kết) — mở khoá B05·B06·B07.
+  hinh_hoa_ch02.py            | MỚI    | phan_tu · mo_hinh_hat · hop_hat · lien_ket_ion · lien_ket_cht
+  BAN_TRICH_HAM_HOA7_CH02.md  | MỚI    | 5 hàm (inspect)
+  00_KHO_VERSION.txt          | ĐÃ SỬA | 29e→29f
+  00_DAY_LEN_KHO__29f.txt     | MỚI    | hướng dẫn push

@@ -1,0 +1,9 @@
+ĐẨY LÊN KHO GITHUB — CAPNHAT_KHO__29f (repo: hieuhoc-kho-congcu)
+================================================================
+Add file → Upload files → kéo-thả (Commit main):
+  • hinh_hoa_ch02.py            (MỚI — 5 hàm hình Chương II)
+  • BAN_TRICH_HAM_HOA7_CH02.md  (MỚI)
+  • 00_KHO_VERSION.txt          (ĐÈ — đã bump 29f)
+Sau push: bụng kho đầu thread → 00_KHO_VERSION.txt = "Mốc kho: 29f".
+⚠️ Nếu chưa push 29e (hinh_hoa_ch01) thì push CẢ 2 gói (29e + 29f) — 29f không thay 29e.
+KIỂM: python3 -c "import hinh_hoa_ch02 as H;H.lien_ket_ion(11,[2,8,1],'Na',17,[2,8,7],'Cl',1,'Na^+','Cl^-',tra_bytes=True);print('OK 29f')"
