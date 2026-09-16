@@ -1,13 +1,14 @@
-DANH MỤC — CAPNHAT_KHO__29d.zip
+DANH MỤC — CAPNHAT_KHO__29e.zip
 ================================
-Chiều: OB → thầy · Đích: thầy PUSH GitHub (hieuhoc-kho-congcu)
-Lý do phiên này có sửa kho: kê bổ 1 hàm mạch tam giác.
+Chiều: OB (Hóa) → thầy · Đích: thầy PUSH GitHub (hieuhoc-kho-congcu)
+Lý do phiên này có sửa kho: BỔ module hình nguyên tử cho Hóa lớp 7 Chương I
+(kho 29d chỉ có nhánh Toán, không hàm Hóa → AI Soạn chặn khi soạn HOA7_CH01_B02).
 
 FILE                          | TRẠNG THÁI | GHI CHÚ
 ------------------------------|-----------|-------------------------------------------
-hinh_dagiac.py                | ĐÃ SỬA    | +diem_doi_xung_tam(new,P,O) trước def tam_giac_canh
-BAN_TRICH_HAM_HH7_CH04.md     | REGEN     | 64 hàm (sinh_bantrich hinh_tamgiac HH7_CH04)
-00_KHO_VERSION.txt            | ĐÃ SỬA    | bump 29c→29d + changelog [29d]
-00_DAY_LEN_KHO__29d.txt       | MỚI       | hướng dẫn push
+hinh_hoa_ch01.py              | MỚI       | 3 hàm: nguyen_tu_bo ⭐ / nguyen_tu_hat_nhan / mo_hinh_hanh_tinh + hằng MAU_EPN
+BAN_TRICH_HAM_HOA7_CH01.md    | MỚI       | 3 cửa render (sinh_bantrich native)
+00_KHO_VERSION.txt            | ĐÃ SỬA    | bump 29d→29e + changelog [29e]
+00_DAY_LEN_KHO__29e.txt       | MỚI       | hướng dẫn push
 
-© Hiếu Học — CS2627 · Ông Bụt · 2026-09-16
+© Hiếu Học — CS2627 · Ông Bụt (Hóa) · 2026-09-16

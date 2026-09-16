@@ -1,0 +1,13 @@
+ĐẨY LÊN KHO GITHUB — CAPNHAT_KHO__29e (repo: hieuhoc-kho-congcu)
+================================================================
+1. Vào https://github.com/Duchieuhoc/hieuhoc-kho-congcu (web).
+2. Add file → Upload files → kéo-thả:
+     • hinh_hoa_ch01.py            (file MỚI)
+     • BAN_TRICH_HAM_HOA7_CH01.md  (file MỚI)
+     • 00_KHO_VERSION.txt          (ĐÈ bản cũ — đã bump 29e)
+3. Commit changes (thẳng nhánh main).
+4. Xong: OB & AI Soạn đầu thread sau bụng kho → 00_KHO_VERSION.txt = "Mốc kho: 29e".
+
+KIỂM SAU PUSH (tuỳ chọn): tại máy bất kỳ
+   cd ~ && rm -rf kho && git clone --depth 1 <repo> kho && cd kho && npm install
+   python3 -c "import hinh_hoa_ch01 as H; H.nguyen_tu_bo(17,[2,8,7],'Cl',tra_bytes=True); print('OK 29e')"

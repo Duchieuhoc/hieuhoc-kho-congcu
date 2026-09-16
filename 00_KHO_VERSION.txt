@@ -1,6 +1,19 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29e] BỔ KHO HÌNH NGUYÊN TỬ — Hóa lớp 7 Chương I (Ông Bụt Hóa, 2026-09-16, mở soạn HOA7_CH01_B02):
+      • hinh_hoa_ch01.py [MỚI] : thư viện dựng hình nguyên tử — 3 hàm generator ĐỘC LẬP
+        (như hình đại số minh hoạ; NGHĨA-THUẦN, máy tự bố trí vòng+chấm e, KHÔNG toạ độ tay Đ5.9):
+          – nguyen_tu_bo(Z,cau_hinh,nhan,hien_e)  ⭐ Bohr (gánh ~80% hình chương;
+            hien_e=False = sơ đồ "chưa hoàn thiện" cho đề hoàn thiện Hình 2.11/2.20)
+          – nguyen_tu_hat_nhan(so_p,so_n,cau_hinh_vo)  hạt nhân vẽ rõ p/n + vỏ e
+          – mo_hinh_hanh_tinh()  Rutherford, quỹ đạo elip
+        Hằng MAU_EPN (3 màu e/p/n). PHANH ngữ nghĩa: sum(cau_hinh)==Z, lớp1≤2, lớp2≤8 → raise.
+        Class entry Hinh (@staticmethod) để sinh_bantrich nhận (tiền lệ 29c).
+      • BAN_TRICH_HAM_HOA7_CH01.md [MỚI] — 3 cửa render (sinh_bantrich native).
+      Nghiệm thu §3: import OK · Cl[2,8,7]+17 · O đề vòng-trống / đáp[2,6] · Si[2,8,4] · He 2p2n[2] ·
+        C 6p6n[2,4] · Rutherford elip · PHANH bắt sum≠Z & lớp1>2. 7/7 render đạt. Additive, 0 hỏng Toán.
+
 [29d] KÊ BỔ ĐỐI XỨNG TÂM — mạch TAM GIÁC (Ông Bụt Hình, 2026-09-16, mở phiếu khai nghĩa HH7_CH09):
       • hinh_dagiac.py : +diem_doi_xung_tam(new, P, O) — đặt new = ẢNH của P qua TÂM O
         (đối xứng tâm; O = trung điểm P–new). Nghĩa-thuần, KHÔNG toạ độ; PHANH kiểm
@@ -23,7 +36,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29d (2026-09-16)
+Mốc kho      : 29e (2026-09-16)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"
