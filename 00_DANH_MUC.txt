@@ -1,6 +1,9 @@
-CAPNHAT_KHO__29f.zip — OB(Hóa)→thầy PUSH GitHub
-Lý do: bổ hàm hình Chương II (mô hình phân tử/hạt + sơ đồ liên kết) — mở khoá B05·B06·B07.
-  hinh_hoa_ch02.py            | MỚI    | phan_tu · mo_hinh_hat · hop_hat · lien_ket_ion · lien_ket_cht
-  BAN_TRICH_HAM_HOA7_CH02.md  | MỚI    | 5 hàm (inspect)
-  00_KHO_VERSION.txt          | ĐÃ SỬA | 29e→29f
-  00_DAY_LEN_KHO__29f.txt     | MỚI    | hướng dẫn push
+CAPNHAT_KHO__29g — push GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit changes
+Mốc kho: 29f → 29g (2026-09-17)
+
+file — thao tác — ghi chú
+hieuhoc_template.js — ĐÈ — v10.24 [29g]: bangSoLieu() & bangDungSai() +cantSplit mọi hàng + tableHeader tiêu đề (bảng liền khối, không vỡ trang). Chữ ký hàm KHÔNG đổi.
+00_KHO_VERSION.txt  — ĐÈ — +block [29g], dòng "Mốc kho" bump 29g.
+
+KHÔNG kèm: BAN_TRICH_HAM_* / API_REFERENCE (chữ ký hàm không đổi → không regen).
+Sau push: kho GitHub ra mốc 29g. Bài cũ (29f) dựng lại vẫn chạy, bảng chỉ đẹp hơn.

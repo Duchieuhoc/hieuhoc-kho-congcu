@@ -1,6 +1,13 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29g] BẢNG LIỀN KHỐI — KHÔNG VỠ TRANG (Ông Bụt Hóa, 2026-09-17, chỉ đạo Giám đốc — phát hiện khi QC HOA7_CH02_B06):
+      • hieuhoc_template.js v10.24 : bangSoLieu() & bangDungSai()
+          – +cantSplit:true MỌI hàng   → bảng không bị bẻ giữa hàng khi rơi cuối trang (bảng ngắn tự nhảy nguyên khối sang trang sau).
+          – +tableHeader:true tiêu đề  → tiêu đề tự LẶP nếu bảng buộc qua trang (không mất cột).
+      CHỮ KÝ HÀM KHÔNG ĐỔI → KHÔNG regen BAN_TRICH_HAM/API_REFERENCE; bài cũ dựng lại chỉ đẹp hơn, 0 hỏng.
+      Thay workaround PageBreak thủ công (B06-L1). Nghiệm thu: dựng 2 bảng → w:cantSplit=9, w:tblHeader=2. Đồng bộ 3 nhánh.
+
 [29f] BỔ KHO HÌNH CHƯƠNG II — Hóa lớp 7 Phân tử·Liên kết (Ông Bụt Hóa, 2026-09-16, mở soạn B05·B06·B07):
       • hinh_hoa_ch02.py [MỚI] : 5 hàm generator độc lập (nghĩa-thuần, layout ẩn trong kho Đ5.9):
           – phan_tu(cong_thuc)                     mô hình quả cầu-que 1 phân tử (H2,Cl2,O2,N2,HCl,CO2,H2O,CH4,NH3)
@@ -49,7 +56,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29f (2026-09-16)
+Mốc kho      : 29g (2026-09-17)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"
