@@ -1,6 +1,20 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29i] MỞ ẨN-NHÃN TAM GIÁC — mạch TAM GIÁC (Ông Bụt Hình, 2026-09-17, khép H.9.5 phiếu HH7_CH09_B31):
+      • hinh_dagiac.py : tam_giac_goc(..., +an_nhan=False) — an_nhan=True ⇒ tam giác TRƠN
+        (ẩn CẢ nhãn đỉnh LẪN chấm, tái dùng đường nhan=None/moc=False CÓ SẴN của _diem).
+        Cho hình minh họa/Nhận xét không ghi tên đỉnh (SGK H.9.5 vuông/tù). Mặc định False =
+        hành vi cũ; PHANH vẫn kiểm góc qua tên nội bộ. Additive, 0 hỏng. Vá tiếp mạch 29d.
+        (Ban đầu đánh 29h; đổi 29i để tránh trùng số với [29h] Hóa cùng ngày — hai thay đổi rời file.)
+      • BAN_TRICH_HAM_HH7_CH04.md — tái sinh (tam_giac_goc có an_nhan; vẫn 64 hàm).
+      Verify: import OK · H.9.5 an_nhan render khớp SGK · 12/12 hình B31 PHANH ĐẠT.
+
+[29h] tenBaiHoc soBai RỖNG — MỤC ⑤ TỔNG KẾT CHƯƠNG (Ông Bụt Hóa, 2026-09-17, dựng HOA7_CH02_TK):
+      • hieuhoc_template.js v10.25 : tenBaiHoc() khối định danh — soBai rỗng → in tiêu đề KHÔNG tiền tố "BÀI"
+        (trước in "BÀI undefined"). Hoàn thiện [28m] (đã làm ở header trang, sót ở khối định danh chính).
+      Qua cửa định danh (chữ ký "Thời lượng:"). Additive, KHÔNG đổi API (bài có soBai in y cũ). 0 hỏng.
+
 [29g] BẢNG LIỀN KHỐI — KHÔNG VỠ TRANG (Ông Bụt Hóa, 2026-09-17, chỉ đạo Giám đốc — phát hiện khi QC HOA7_CH02_B06):
       • hieuhoc_template.js v10.24 : bangSoLieu() & bangDungSai()
           – +cantSplit:true MỌI hàng   → bảng không bị bẻ giữa hàng khi rơi cuối trang (bảng ngắn tự nhảy nguyên khối sang trang sau).
@@ -56,7 +70,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29g (2026-09-17)
+Mốc kho      : 29i (2026-09-17)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

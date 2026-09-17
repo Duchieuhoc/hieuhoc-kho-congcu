@@ -1,9 +1,17 @@
-CAPNHAT_KHO__29g — push GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit changes
-Mốc kho: 29f → 29g (2026-09-17)
+DANH MỤC — CAPNHAT_KHO__29i.zip  (GỘP 2 gói 29h)
+=================================================
+Chiều: OB -> thầy · Đích: thầy PUSH GitHub (1 lần)
+Gỡ trùng số: Hóa giữ [29h], Hình đổi [29i]; gộp 1 commit -> mốc 29i.
 
-file — thao tác — ghi chú
-hieuhoc_template.js — ĐÈ — v10.24 [29g]: bangSoLieu() & bangDungSai() +cantSplit mọi hàng + tableHeader tiêu đề (bảng liền khối, không vỡ trang). Chữ ký hàm KHÔNG đổi.
-00_KHO_VERSION.txt  — ĐÈ — +block [29g], dòng "Mốc kho" bump 29g.
+FILE                          | TRẠNG THÁI | GHI CHÚ
+------------------------------|-----------|-------------------------------------------
+hieuhoc_template.js           | (Hóa)     | v10.25 — NGUYÊN VĂN gói Hóa, không sửa
+hinh_dagiac.py                | (Hình)    | + tam_giac_goc(an_nhan=False)
+BAN_TRICH_HAM_HH7_CH04.md     | (Hình)    | regen — tam_giac_goc có an_nhan
+00_KHO_VERSION.txt            | GỘP       | nền 29g + [29h] Hóa + [29i] Hình, mốc 29i
+00_DAY_LEN_KHO__29i.txt       | MỚI       | hướng dẫn push
 
-KHÔNG kèm: BAN_TRICH_HAM_* / API_REFERENCE (chữ ký hàm không đổi → không regen).
-Sau push: kho GitHub ra mốc 29g. Bài cũ (29f) dựng lại vẫn chạy, bảng chỉ đẹp hơn.
+=> Thay cho CẢ CAPNHAT_KHO__29h (Hóa) và CAPNHAT_KHO__29h (Hình). Bỏ 2 gói 29h cũ.
+KHÔNG đụng: hinh_hoa_ch01/ch02.py, bản trích Hóa, các module khác.
+
+(c) Hiếu Học — CS2627 · Ông Bụt · 2026-09-17

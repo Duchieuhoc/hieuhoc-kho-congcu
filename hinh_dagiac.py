@@ -69,7 +69,7 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         if danh_dau:
             self.dau_bang(A, B, 1); self.dau_bang(A, Cc, 1)
         return self
-    def tam_giac_goc(self, A, B, Cc, goc_B, goc_C, day=4.0, goc_o=(0.0, 0.0)):
+    def tam_giac_goc(self, A, B, Cc, goc_B, goc_C, day=4.0, goc_o=(0.0, 0.0), an_nhan=False):
         """Tam giác ABC với GÓC cho sẵn: góc tại B = goc_B, góc tại C = goc_C
         (góc A tự = 180 − goc_B − goc_C). Đáy BC nằm ngang: B dưới-trái (0,0),
         C dưới-phải (day,0); A đỉnh trên = giao hai tia BA, CA. VẼ SẠCH 3 cạnh
@@ -79,7 +79,10 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         góc vuông đánh bằng goc_vuong((cạnh1,đỉnh,cạnh2)). Xương sống mạch tính-góc
         tam giác (HH7-CH04 → tam giác thường theo góc mọi lớp).
         goc_o=(dx,dy): DỜI cả tam giác đi (dx,dy) đơn vị vẽ — đặt NHIỀU tam giác cạnh nhau
-        trong 1 hình (hình nhận dạng cặp/bộ tam giác bằng nhau); mặc định (0,0) = gốc."""
+        trong 1 hình (hình nhận dạng cặp/bộ tam giác bằng nhau); mặc định (0,0) = gốc.
+        an_nhan=True: tam giác TRƠN — ẩn CẢ nhãn đỉnh LẪN chấm đỉnh (tam giác minh hoạ/
+        Nhận xét không ghi tên đỉnh, vd SGK H.9.5 vuông/tù). PHANH vẫn kiểm góc (tên nội bộ);
+        so_do_goc/goc_vuong gọi SAU vẫn vẽ cung/ô vuông đúng chỗ."""
         goc_A = 180.0 - goc_B - goc_C
         if goc_B <= 0 or goc_C <= 0 or goc_A <= 0:
             raise ValueError(f"[tam_giac_goc] góc B={goc_B}°, C={goc_C}° ⇒ A={goc_A}°: "
@@ -90,9 +93,15 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         ba = day * math.sin(cR) / math.sin(bR + cR)   # BA = day·sinC / sin(B+C)
         xA = ba * math.cos(bR); yA = ba * math.sin(bR)
         ox, oy = goc_o
-        self._diem(B, ox+0.0, oy+0.0, 'below left')
-        self._diem(Cc, ox+day, oy+0.0, 'below right')
-        self._diem(A, ox+xA, oy+yA, 'above')
+        # an_nhan=True → tam giác TRƠN (ẩn cả nhãn đỉnh lẫn chấm) cho hình MINH HOẠ /
+        # Nhận xét không ghi tên đỉnh (vd SGK H.9.5). PHANH vẫn kiểm góc qua tên nội bộ.
+        nB = None if an_nhan else 'below left'
+        nC = None if an_nhan else 'below right'
+        nA = None if an_nhan else 'above'
+        mv = not an_nhan
+        self._diem(B, ox+0.0, oy+0.0, nB, moc=mv)
+        self._diem(Cc, ox+day, oy+0.0, nC, moc=mv)
+        self._diem(A, ox+xA, oy+yA, nA, moc=mv)
         self._da_giac(A, B, Cc)
         # PHANH: đối chiếu CẢ BA góc (đỉnh Ở GIỮA: ten=[cạnh1, đỉnh, cạnh2])
         self.rb.append({'loai':'goc','ten':[A, B, Cc],'do': round(goc_B, 6)})

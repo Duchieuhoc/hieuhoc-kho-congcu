@@ -1,0 +1,33 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29i  (GỘP 2 gói 29h trùng số)
+=======================================================
+Repo: github.com/Duchieuhoc/hieuhoc-kho-congcu   ·  Chỉ THẦY push.
+
+VÌ SAO GỘP: có HAI gói cùng đánh số 29h —
+  • Hóa : sửa hieuhoc_template.js (tenBaiHoc soBai rỗng)   -> giữ nhãn [29h]
+  • Hình: sửa hinh_dagiac.py (tam_giac_goc an_nhan)         -> đổi thành [29i]
+Hai thay đổi RỜI FILE, chỉ trùng nhau ở SỐ MỐC + 00_KHO_VERSION.txt.
+Nếu push rời từng gói: gói sau ghi đè 00_KHO_VERSION -> MẤT changelog gói
+trước. Gộp 1 gói này push 1 lần: cả hai thay đổi + đủ changelog, mốc -> 29i.
+
+CÓ GÌ TRONG GÓI (4 file — upload ĐÈ, commit 1 lần):
+  1. hieuhoc_template.js       <- bản Hóa v10.25 (NGUYÊN VĂN, không đụng)
+  2. hinh_dagiac.py            <- bản Hình + tam_giac_goc(an_nhan)
+  3. BAN_TRICH_HAM_HH7_CH04.md <- regen (an_nhan)
+  4. 00_KHO_VERSION.txt        <- nền 29g + [29h] Hóa + [29i] Hình, mốc -> 29i
+
+=> THAY THẾ cả gói CAPNHAT_KHO__29h của Hóa LẪN của Hình. KHÔNG push
+   thêm bản 29h nào nữa (tránh trùng số).
+
+CÁCH ĐẨY: repo -> Upload files -> kéo-thả 4 file này đè lên -> Commit changes.
+  Commit message: "[29i] gộp: an_nhan (Hình) + tenBaiHoc soBai rỗng (Hóa) — hết trùng 29h"
+
+KIỂM TRA SAU PUSH (bụng lại):
+  - 00_KHO_VERSION.txt: "Mốc kho : 29i" + đủ [29i][29h][29g]...[29a]
+  - hinh_dagiac.py: tam_giac_goc(...) có "an_nhan=False):"
+  - hieuhoc_template.js: dòng đầu ghi "v10.25 [29h]"
+  Đủ 3 dấu -> kho 29i sạch, giao AI Soạn được.
+
+An toàn: 4 file này là TẤT CẢ file hai gói đụng tới; các module khác
+(hinh_hoa_ch01/ch02, bản trích Hóa...) KHÔNG nằm trong gói -> không bị đè.
+
+(c) Hiếu Học — CS2627 · Ông Bụt (Hình) phối hợp luồng Hóa · 2026-09-17
