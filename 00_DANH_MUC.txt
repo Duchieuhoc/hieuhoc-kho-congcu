@@ -1,17 +1,9 @@
-DANH MỤC — CAPNHAT_KHO__29i.zip  (GỘP 2 gói 29h)
-=================================================
-Chiều: OB -> thầy · Đích: thầy PUSH GitHub (1 lần)
-Gỡ trùng số: Hóa giữ [29h], Hình đổi [29i]; gộp 1 commit -> mốc 29i.
-
-FILE                          | TRẠNG THÁI | GHI CHÚ
-------------------------------|-----------|-------------------------------------------
-hieuhoc_template.js           | (Hóa)     | v10.25 — NGUYÊN VĂN gói Hóa, không sửa
-hinh_dagiac.py                | (Hình)    | + tam_giac_goc(an_nhan=False)
-BAN_TRICH_HAM_HH7_CH04.md     | (Hình)    | regen — tam_giac_goc có an_nhan
-00_KHO_VERSION.txt            | GỘP       | nền 29g + [29h] Hóa + [29i] Hình, mốc 29i
-00_DAY_LEN_KHO__29i.txt       | MỚI       | hướng dẫn push
-
-=> Thay cho CẢ CAPNHAT_KHO__29h (Hóa) và CAPNHAT_KHO__29h (Hình). Bỏ 2 gói 29h cũ.
-KHÔNG đụng: hinh_hoa_ch01/ch02.py, bản trích Hóa, các module khác.
-
-(c) Hiếu Học — CS2627 · Ông Bụt · 2026-09-17
+DANH MỤC — CAPNHAT_KHO__29k.zip  (thầy PUSH GitHub, 1 lần cho cả phần còn lại chương IX)
+FILE                          | GHI CHÚ
+------------------------------|-------------------------------------------------
+hinh_coban.py                 | +duong_song_song_qua +chan_phan_giac +trung_truc_doan
+hinh_tron_ve.py               | +duong_tron_qua
+BAN_TRICH_HAM_HH7_CH04.md     | regen (4 hàm mới)
+00_KHO_VERSION.txt            | [29j]+[29k], mốc 29k
+00_DAY_LEN_KHO__29k.txt       | hướng dẫn (thay cho 29j)
+(c) Hiếu Học — CS2627 · 2026-09-18

@@ -299,6 +299,66 @@ class HinhCoBan:
         qua con đường nghĩa của chúng nên KHÔNG thêm ràng buộc (Đ5.9 vẫn kín)."""
         self.tikz.append(('duong', A, B, mau, net)); return self
 
+    def duong_song_song_qua(self, ten, P, A, B, mau='red', net='dut', nua_dai=3.0):
+        """ĐƯỜNG THẲNG tên 'ten' QUA điểm P (đã đặt) và SONG SONG với đoạn/hướng AB
+        (A,B đã đặt). Máy tính hướng từ AB, đặt đường qua P (KHÔNG cho toạ độ). Đăng ký
+        vào duong_data để giao()/diem_tren() dùng được. Dùng dựng ĐƯỜNG PHỤ song song ở
+        lời giải (vd 'qua M kẻ đường ∥ AC cắt AB tại R'): gọi giao() SAU để lấy giao điểm.
+        Mặc định đỏ nét đứt (yếu tố dựng thêm). PHANH kiểm P thẳng hàng trên đường + song_song với AB."""
+        import math as _m
+        (ax, ay) = self.V[A]; (bx, by) = self.V[B]; (px, py) = self.V[P]
+        goc_do = _m.degrees(_m.atan2(by - ay, bx - ax))
+        rA, rB, _, _ = self._dat_duong(ten, goc_do, (px, py), nua_dai=nua_dai)
+        self.rb.append({'loai': 'song_song', 'doan1': (rA, rB), 'doan2': (A, B)})
+        self.rb.append({'loai': 'thang_hang', 'diem': [rA, P, rB]})
+        self.tikz.append(('duong', rA, rB, mau, net))
+        return self
+
+    def chan_phan_giac(self, D, A, B, C, nhan='below', mau=None, ve_doan=True):
+        """D = CHÂN đường phân giác TRONG góc A trên cạnh BC (giao tia phân giác góc A với BC).
+        A,B,C đã đặt. Máy tính theo định lí đường phân giác: BD/DC = AB/AC (KHÔNG cho toạ độ).
+        Mặc định vẽ đoạn A–D. PHANH kiểm D thẳng hàng B,C. Dùng: đường phân giác đơn (AD),
+        và tâm nội tiếp (giao 2 đường A–D, B–E). dau_goc_bang(('B','A','D')) & (('D','A','C'))
+        gọi SAU để đánh dấu 2 góc bằng. mau='red' → chấm đỏ (điểm dựng ở lời giải)."""
+        import math as _m
+        (ax, ay) = self.V[A]; (bx, by) = self.V[B]; (cx, cy) = self.V[C]
+        cAB = _m.hypot(bx - ax, by - ay); cAC = _m.hypot(cx - ax, cy - ay)
+        t = cAB / (cAB + cAC)                      # BD/BC = AB/(AB+AC)
+        dx, dy = bx + t * (cx - bx), by + t * (cy - by)
+        self._diem(D, dx, dy, nhan, moc=True, mau=mau)
+        self.rb.append({'loai': 'thang_hang', 'diem': [B, D, C]})
+        if ve_doan:
+            self.tikz.append(('doan', A, D, mau, 'lien', None))
+        return self
+
+    def trung_truc_doan(self, ten, A, B, tam=None, o_vuong=True, vach=True,
+                        mau='red', net='dut', nua_dai=3.0):
+        """ĐƯỜNG TRUNG TRỰC của đoạn AB ĐÃ ĐẶT (vuông góc AB tại trung điểm). Khác trung_truc()
+        (hàm kia TỰ đặt A,B mới) — hàm này dùng cho cạnh của HÌNH đã dựng (trung trực tam giác).
+        Đăng ký duong_data[ten] → giao()/diem_tren() dùng được (dựng tâm ngoại tiếp = giao 2 trung
+        trực). tam='tên' → đặt & hiện trung điểm; o_vuong → ô vuông tại trung điểm; vach → 2 gạch
+        MA=MB. Mặc định đỏ nét đứt (đường phụ). PHANH kiểm trung điểm + vuông góc."""
+        import math as _m
+        (ax, ay) = self.V[A]; (bx, by) = self.V[B]
+        mx, my = (ax + bx) / 2.0, (ay + by) / 2.0
+        L = _m.hypot(bx - ax, by - ay) or 1.0
+        ux, uy = (bx - ax) / L, (by - ay) / L        # hướng AB
+        px, py = -uy, ux                              # pháp tuyến (hướng trung trực)
+        mid = tam if tam is not None else f'_tt{ten}'
+        self._diem(mid, mx, my, 'below' if tam is not None else None, moc=(tam is not None))
+        rA, rB = f'R{ten}0', f'R{ten}1'
+        self._diem(rA, mx - px * nua_dai, my - py * nua_dai, nhan=None, moc=False)
+        self._diem(rB, mx + px * nua_dai, my + py * nua_dai, nhan=None, moc=False)
+        self.duong_data[ten] = (rA, rB); self._tren[ten] = 0
+        self.rb.append({'loai': 'trung_diem', 'M': mid, 'doan': (A, B)})
+        self.rb.append({'loai': 'thang_hang', 'diem': [rA, mid, rB]})
+        self.tikz.append(('duong', rA, rB, mau, net))
+        if vach:
+            self.tikz.append(('gach_bang', A, mid)); self.tikz.append(('gach_bang', mid, B))
+        if o_vuong:
+            self.goc_vuong((A, mid, rB))
+        return self
+
     # ── [13/08] ĐƯỜNG + NHIỀU ĐIỂM rải ĐỀU, CĂN GIỮA (đường tự co vừa điểm — hết méo) ──
     def duong_diem(self, ten, ds_diem, nhan2dau=None, an_nhan=False, mau=None, net='lien', diem_do=()):
         """ĐƯỜNG THẲNG mang danh sách điểm ĐÃ SẮP THỨ TỰ (trái→phải): rải ĐỀU và CĂN GIỮA;

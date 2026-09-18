@@ -1,6 +1,24 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29k] KÊ BỔ ĐỒNG QUY TAM GIÁC — mạch chung (Ông Bụt Hình, 2026-09-18, mở B34/B35 đường đồng quy):
+      • hinh_coban.py : +chan_phan_giac(D,A,B,C) — D=chân phân giác trong góc A trên BC (định lí
+        phân giác BD/DC=AB/AC); +trung_truc_doan(ten,A,B) — trung trực đoạn ĐÃ CÓ (⊥ tại trung điểm,
+        đăng ký duong_data → giao). 
+      • hinh_tron_ve.py: +duong_tron_qua(tam,qua) — đường tròn tâm 'tam' qua điểm 'qua' (bán kính tự tính).
+      ⇒ trọng tâm/trực tâm GHÉP từ primitive; tâm nội tiếp (chan_phan_giac×2 + giao), tâm ngoại tiếp
+        (trung_truc_doan×2 + giao) + đường tròn ngoại tiếp (duong_tron_qua). Additive, 0 hồi quy.
+      Verify: import OK · phân giác/trung trực đơn · tâm nội tiếp · tâm ngoại tiếp + đường tròn ngoại tiếp
+        (render qua 3 đỉnh) PHANH ĐẠT · B31 12/12 + B32 SGK 6/6 không hồi quy.
+
+[29j] KÊ BỔ ĐƯỜNG SONG SONG QUA ĐIỂM — mạch chung (Ông Bụt Hình, 2026-09-18, mở phiếu HH7_CH09_B32):
+      • hinh_coban.py : +duong_song_song_qua(ten, P, A, B, mau='red', net='dut', nua_dai=3.0)
+        — đặt ĐƯỜNG tên 'ten' qua điểm P, SONG SONG hướng AB (máy tính hướng, KHÔNG toạ độ);
+        đăng ký duong_data → giao()/diem_tren() dùng được. Dựng đường phụ ∥ ở lời giải
+        (B32 H.9.15 xOy 2 song song · H.9.16 MR∥AC cắt AB,BI · Bài 9.5). PHANH kiểm song_song + P thẳng hàng.
+      • BAN_TRICH_HAM_HH7_CH04.md — tái sinh (thêm duong_song_song_qua).
+      Additive, 0 hồi quy (kế thừa vào mọi mạch). Verify: import OK · H.9.15/16/Bài9.5 PHANH ĐẠT + render.
+
 [29i] MỞ ẨN-NHÃN TAM GIÁC — mạch TAM GIÁC (Ông Bụt Hình, 2026-09-17, khép H.9.5 phiếu HH7_CH09_B31):
       • hinh_dagiac.py : tam_giac_goc(..., +an_nhan=False) — an_nhan=True ⇒ tam giác TRƠN
         (ẩn CẢ nhãn đỉnh LẪN chấm, tái dùng đường nhan=None/moc=False CÓ SẴN của _diem).
@@ -70,7 +88,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29i (2026-09-17)
+Mốc kho      : 29k (2026-09-18)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

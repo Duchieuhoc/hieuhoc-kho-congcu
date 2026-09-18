@@ -1,0 +1,15 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29k  (GỘP: gồm cả 29j song song)
+==========================================================
+Repo: github.com/Duchieuhoc/hieuhoc-kho-congcu · Chỉ THẦY push.
+=> Gói này THAY cho CAPNHAT_KHO__29j (đừng push 29j nữa — 29k đã gồm).
+
+CÓ GÌ (4 file — upload ĐÈ, commit 1 lần):
+  1. hinh_coban.py   <- GitHub 29i + duong_song_song_qua + chan_phan_giac + trung_truc_doan
+  2. hinh_tron_ve.py <- GitHub 29i + duong_tron_qua
+  3. BAN_TRICH_HAM_HH7_CH04.md <- regen (đủ 4 hàm mới)
+  4. 00_KHO_VERSION.txt        <- nền 29i + [29j] + [29k], mốc -> 29k
+
+Commit: "[29k] chan_phan_giac + trung_truc_doan + duong_tron_qua + duong_song_song_qua (đồng quy B34/B35)"
+Sau push kiểm: 00_KHO_VERSION "Mốc kho : 29k"; hinh_coban.py có chan_phan_giac & trung_truc_doan; hinh_tron_ve.py có duong_tron_qua.
+Additive, 0 hồi quy (B31/B32 kiểm lại đạt). 4 hàm ở base → mọi mạch kế thừa.
+(c) Hiếu Học — CS2627 · Ông Bụt · 2026-09-18

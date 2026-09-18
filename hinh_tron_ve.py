@@ -28,6 +28,25 @@ class HinhTron(hinh_coban.HinhCoBan):
         self.tikz.append(('tron', tam, float(ban_kinh), mau, net))
         return self
 
+    def duong_tron_qua(self, tam, qua, mau=None, net='lien', hien_tam=True):
+        """ĐƯỜNG TRÒN tâm 'tam' đi QUA điểm 'qua' (cả hai ĐÃ đặt). Bán kính = |tam→qua|,
+        máy tự tính — KHÔNG cho số (Đ5.9). Dùng vẽ ĐƯỜNG TRÒN NGOẠI TIẾP (tâm O cách đều
+        3 đỉnh: duong_tron_qua(O, A) → tự đi qua B, C nếu OA=OB=OC) hoặc nội tiếp
+        (tâm I, qua chân vuông góc). PHANH kiểm 'qua' nằm trên đường tròn."""
+        import math as _m
+        if tam not in self.V:
+            raise ValueError(f"duong_tron_qua: chưa đặt tâm '{tam}'.")
+        if qua not in self.V:
+            raise ValueError(f"duong_tron_qua: chưa đặt điểm 'qua'='{qua}'.")
+        (ox, oy) = self.V[tam]; (qx, qy) = self.V[qua]
+        r = _m.hypot(qx - ox, qy - oy)
+        if not hien_tam:
+            self.moc.discard(tam); self.nhan[tam] = None
+        self.tron[tam] = r
+        self.tikz.append(('tron', tam, r, mau, net))
+        self.rb.append({'loai': 'diem_tren_tron', 'diem': qua, 'tam': tam, 'ban_kinh': r})
+        return self
+
     def diem_tren_tron(self, ten, tam, goc_o_tam, nhan='above right', mau=None):
         """Điểm 'ten' NẰM TRÊN đường tròn tâm 'tam', định vị bằng GÓC Ở TÂM 'goc_o_tam'
         (độ, đo ngược chiều kim đồng hồ từ hướng ngang) — KHÔNG tọa độ. PHANH kiểm
