@@ -1,0 +1,11 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29l
+=============================
+Repo: github.com/Duchieuhoc/hieuhoc-kho-congcu · Chỉ THẦY push.
+CÓ GÌ (3 file — upload ĐÈ, commit 1 lần):
+  1. hinh_coban.py            <- GitHub 29k + diem_quay(new,P,tam,goc)
+  2. BAN_TRICH_HAM_HH7_CH04.md <- regen (thêm diem_quay)
+  3. 00_KHO_VERSION.txt        <- nền 29k + [29l], mốc -> 29l
+Commit: "[29l] diem_quay — phép quay điểm (đóng phiếu HH7_CH09 OnTap H.9.26)"
+Sau push kiểm: Mốc kho 29l; hinh_coban.py có "def diem_quay". Additive, 0 hồi quy.
+=> Đây là hàm CUỐI cho chương IX. Sau 29l: kho đủ 100% để giao AI Soạn cả loạt B31→OnTap.
+(c) Hiếu Học — CS2627 · Ông Bụt · 2026-09-18

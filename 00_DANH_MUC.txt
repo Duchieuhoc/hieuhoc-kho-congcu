@@ -1,9 +1,2 @@
-DANH MỤC — CAPNHAT_KHO__29k.zip  (thầy PUSH GitHub, 1 lần cho cả phần còn lại chương IX)
-FILE                          | GHI CHÚ
-------------------------------|-------------------------------------------------
-hinh_coban.py                 | +duong_song_song_qua +chan_phan_giac +trung_truc_doan
-hinh_tron_ve.py               | +duong_tron_qua
-BAN_TRICH_HAM_HH7_CH04.md     | regen (4 hàm mới)
-00_KHO_VERSION.txt            | [29j]+[29k], mốc 29k
-00_DAY_LEN_KHO__29k.txt       | hướng dẫn (thay cho 29j)
-(c) Hiếu Học — CS2627 · 2026-09-18
+DANH MỤC — CAPNHAT_KHO__29l.zip
+hinh_coban.py (+diem_quay) · BAN_TRICH_HAM_HH7_CH04.md (regen) · 00_KHO_VERSION.txt (29l) · 00_DAY_LEN_KHO__29l.txt

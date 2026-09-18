@@ -1,6 +1,13 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29l] KÊ BỔ PHÉP QUAY ĐIỂM — mạch chung (Ông Bụt Hình, 2026-09-18, đóng phiếu HH7_CH09 OnTap):
+      • hinh_coban.py : +diem_quay(new, P, tam, goc) — new = ảnh P khi QUAY quanh tam góc 'goc'
+        (độ, dương=ngược kim). |tam→new|=|tam→P|. Dựng tam giác ĐỀU/vuông cân trên cạnh, quay điểm.
+        (OnTap SBT H.9.26: tam giác AMN đều = M quay quanh A 60°). PHANH kiểm 2 bán kính bằng.
+      • BAN_TRICH_HAM_HH7_CH04.md — tái sinh (thêm diem_quay).
+      Additive, 0 hồi quy. Verify: H.9.26 PHANH ĐẠT + render; B31 12/12.
+
 [29k] KÊ BỔ ĐỒNG QUY TAM GIÁC — mạch chung (Ông Bụt Hình, 2026-09-18, mở B34/B35 đường đồng quy):
       • hinh_coban.py : +chan_phan_giac(D,A,B,C) — D=chân phân giác trong góc A trên BC (định lí
         phân giác BD/DC=AB/AC); +trung_truc_doan(ten,A,B) — trung trực đoạn ĐÃ CÓ (⊥ tại trung điểm,
@@ -88,7 +95,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29k (2026-09-18)
+Mốc kho      : 29l (2026-09-18)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

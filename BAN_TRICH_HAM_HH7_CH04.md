@@ -35,6 +35,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `diem_luoi(ten, cot, hang, mau=None, nhan='above right', cham=True)` | Điểm 'ten' tại NÚT (cột,hàng) — chỉ số nguyên, dữ kiện đề (như số đo góc). mau='red' → chấm đỏ (điểm dựng ở lời giải). nhan=None → KHÔNG hiện nhãn tên; cham=False → KHÔNG vẽ chấm. → Hình đa giác/gấp-khúc trên lưới (đếm trục, vẽ-thêm): dùng nhan=None, cham=False cho SẠCH. |
 | `diem_ngoai(ten, duong, phia=None, mau=None, doc=0.0)` | Điểm 'ten' KHÔNG thuộc 'duong'. phia ∈ {'tren','duoi','trai','phai'}. doc: dời điểm DỌC theo đường (đơn vị vẽ) để đặt nhiều điểm ngoài phân biệt. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `diem_ngoai_goc(ten, goc, lech=0, xa=1.6, mau=None)` | Điểm 'ten' nằm NGOÀI 'goc' (bộ 3 (cạnh1,đỉnh,cạnh2) đã khai qua goc/chum_tia). Đối xứng với diem_trong: đặt theo hướng PHÂN GIÁC NGOÀI (miền phản xạ) → chắc chắn ngoài góc. lech=số độ xoay hướng ngoài (đặt nhiều điểm ngoài phân biệt; PHANH vẫn kiểm phải nằm ngoài, xoay quá tay vào trong → dừng). xa=khoảng cách từ đỉnh. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `diem_quay(new, P, tam, goc, nhan='above right', mau=None)` | Đặt điểm 'new' = ẢNH của P khi QUAY quanh 'tam' một góc 'goc' (độ, dương = ngược chiều kim). P, tam đã đặt. Máy tự tính (KHÔNG cho toạ độ). |tam→new| = |tam→P| và góc P-tam-new = |goc|. Dùng dựng tam giác ĐỀU/VUÔNG CÂN trên cạnh (đỉnh thứ 3 = ảnh quay 60°/90°), điểm quay quanh tâm. PHANH kiểm 2 bán kính bằng. dau_bang/dau_goc_bang gọi SAU để đánh dấu. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `diem_tren(ten, duong, thu_tu=None, mau=None)` | Điểm 'ten' ∈ 'duong'. thu_tu=số nguyên xếp thứ tự nhiều điểm trên 1 đường. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `diem_tren_tron(ten, tam, goc_o_tam, nhan='above right', mau=None)` | Điểm 'ten' NẰM TRÊN đường tròn tâm 'tam', định vị bằng GÓC Ở TÂM 'goc_o_tam' (độ, đo ngược chiều kim đồng hồ từ hướng ngang) — KHÔNG tọa độ. PHANH kiểm khoảng cách tới tâm = bán kính. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `diem_trong(ten, goc, lech=0, xa=1.3, mau=None)` | Điểm 'ten' nằm TRONG 'goc' (bộ 3 (cạnh1,đỉnh,cạnh2) đã khai qua goc/chum_tia). lech=số độ xoay quanh đỉnh so phân giác trong (đặt NHIỀU điểm trong phân biệt; xoay quá tay ra ngoài → PHANH dừng). xa=khoảng cách từ đỉnh. mau='red' → chấm đỏ. |
@@ -96,4 +97,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 68 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 69 hàm khai nghĩa (phơi) · 1 cửa render · 9 hàm hạ tầng (ẩn khỏi bản phát).

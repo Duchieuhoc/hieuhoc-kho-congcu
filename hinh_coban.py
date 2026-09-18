@@ -314,6 +314,21 @@ class HinhCoBan:
         self.tikz.append(('duong', rA, rB, mau, net))
         return self
 
+    def diem_quay(self, new, P, tam, goc, nhan='above right', mau=None):
+        """Đặt điểm 'new' = ẢNH của P khi QUAY quanh 'tam' một góc 'goc' (độ, dương = ngược
+        chiều kim). P, tam đã đặt. Máy tự tính (KHÔNG cho toạ độ). |tam→new| = |tam→P| và
+        góc P-tam-new = |goc|. Dùng dựng tam giác ĐỀU/VUÔNG CÂN trên cạnh (đỉnh thứ 3 = ảnh
+        quay 60°/90°), điểm quay quanh tâm. PHANH kiểm 2 bán kính bằng. dau_bang/dau_goc_bang
+        gọi SAU để đánh dấu. mau='red' → chấm đỏ (điểm dựng ở lời giải)."""
+        import math as _m
+        (px, py) = self.V[P]; (ox, oy) = self.V[tam]
+        a = _m.radians(goc); dx, dy = px - ox, py - oy
+        nx = ox + dx*_m.cos(a) - dy*_m.sin(a)
+        ny = oy + dx*_m.sin(a) + dy*_m.cos(a)
+        self._diem(new, nx, ny, nhan, moc=True, mau=mau)
+        self.rb.append({'loai': 'canh_bang', 'cac_doan': [(tam, P), (tam, new)]})
+        return self
+
     def chan_phan_giac(self, D, A, B, C, nhan='below', mau=None, ve_doan=True):
         """D = CHÂN đường phân giác TRONG góc A trên cạnh BC (giao tia phân giác góc A với BC).
         A,B,C đã đặt. Máy tính theo định lí đường phân giác: BD/DC = AB/AC (KHÔNG cho toạ độ).
