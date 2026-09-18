@@ -88,7 +88,8 @@ class Hinh(HinhCoBan):
     # ═══════════════════════════════════════════════════════════════
     def truc_so_huu_ti(self, tu=-1, den=4, chia=1, diem=None,
                        hien_nhan_diem=True, moc_nhan=None,
-                       mui_ten_am=False, goc_ten='0'):
+                       mui_ten_am=False, goc_ten='0',
+                       khoang_to=None, vach_dut=None):
         """TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương.
 
         tu, den        : biên NGUYÊN trái/phải của trục (tu có thể < 0). Cần tu < den.
@@ -103,6 +104,11 @@ class Hinh(HinhCoBan):
         moc_nhan       : list số NGUYÊN được ghi nhãn dưới vạch chính; None → ghi MỌI số nguyên.
         mui_ten_am     : True → phía âm cũng có mũi tên (mặc định False: chỉ kéo dài, chuẩn SGK).
         goc_ten        : nhãn tại vị trí 0 (mặc định '0').
+        khoang_to      : list (x1, x2, nhan) — tô DẢI + mũi tên 2 đầu giữa hai giá trị trên trục,
+                         ghi `nhan` (nhãn độ dài, vd "0,5") NGAY TRÊN dải. Biểu diễn "độ chính xác"
+                         (khoảng làm tròn). x1, x2 nhận Fraction|(tử,mẫu)|int|float|"a/b".
+        vach_dut       : list giá trị — vẽ VẠCH ĐỨNG NÉT ĐỨT tại các giá trị (kể cả giá trị lẻ
+                         không rơi vạch phụ), vd trung điểm 46,5. Nhận cùng kiểu giá trị như trên.
 
         Máy tự tính toạ độ từ GIÁ TRỊ — AI Soạn không đụng toạ độ thô (Đ5.9).
         """
@@ -169,7 +175,97 @@ class Hinh(HinhCoBan):
             if hien_nhan_diem and nhan is not None:
                 self.ghi_chu(x, -0.44, _nhan_frac(q) if nhan == 'auto' else str(nhan))
 
+        # ── VẠCH ĐỨT (giá trị lẻ, vd trung điểm 46,5) ──
+        for vi, gt in enumerate(vach_dut or []):
+            q = _toFrac(gt)
+            if q < tu or q > den:
+                raise ValueError(f"[truc_so_huu_ti] vach_dut {gt} ngoài đoạn [{tu}, {den}]")
+            x = float(q) * SCALE
+            a, b = f'_vda{vi}', f'_vdb{vi}'
+            self._diem(a, x, 0.16, nhan=None, moc=False)
+            self._diem(b, x, -0.16, nhan=None, moc=False)
+            self.tikz.append(('doan', a, b, None, 'dut', 'manh'))
+
+        # ── KHOẢNG TÔ (dải "độ chính xác" + mũi tên 2 đầu + nhãn độ dài) ──
+        for ki, spec in enumerate(khoang_to or []):
+            x1, x2, nhanKC = spec[0], spec[1], spec[2]
+            q1, q2 = _toFrac(x1), _toFrac(x2)
+            for qq in (q1, q2):
+                if qq < tu or qq > den:
+                    raise ValueError(f"[truc_so_huu_ti] khoang_to {qq} ngoài đoạn [{tu}, {den}]")
+            xa, xb = float(q1) * SCALE, float(q2) * SCALE
+            ya, yb = f'_kca{ki}', f'_kcb{ki}'
+            YKC = 0.30                                   # dải nằm TRÊN trục
+            self._diem(ya, xa, YKC, nhan=None, moc=False)
+            self._diem(yb, xb, YKC, nhan=None, moc=False)
+            self.tikz.append(('khoang', ya, yb, str(nhanKC)))
+
         self.ghi_chu(-0.30, 0.30, '')   # giữ khoảng trên gốc (nhãn 0 nằm dưới)
+        return self
+
+    def truc_do_chinh_xac(self, trai, phai, a, do_chinh_xac=None, nhan_a='a'):
+        """TRỤC SỐ 'ĐỘ CHÍNH XÁC LÀM TRÒN' — đoạn cục bộ [trai; phai] (KHÔNG cần gốc 0).
+
+        Dựng trọn cảnh minh họa làm tròn (SGK Toán 7 Hình 2.1):
+          · trục ngang chỉ trong đoạn [trai; phai] (hai mốc nguyên liền kề), mũi tên 2 đầu;
+          · điểm a nằm giữa, nhãn `nhan_a` phía trên; vạch đứt tại trung điểm (trai+phai)/2;
+          · dải "độ chính xác" từ mốc GẦN a nhất tới trung điểm, nhãn = do_chinh_xac (vd "0,5").
+
+        trai, phai     : hai mốc NGUYÊN liền kề (phai = trai + 1). Vd 46, 47.
+        a              : giá trị điểm cần làm tròn (trai < a < phai) — float | "a/b" | (tử,mẫu) | Fraction.
+        do_chinh_xac   : nhãn độ dài dải (vd "0,5"); None → tự ghi "0,5" (một nửa đơn vị).
+        nhan_a         : nhãn trên điểm a (mặc định 'a').
+
+        Máy tự tính toạ độ — AI Soạn chỉ khai GIÁ TRỊ (Đ5.9). Nền sạch, không lưới.
+        """
+        from fractions import Fraction
+        if not (isinstance(trai, int) and isinstance(phai, int)) or phai != trai + 1:
+            raise ValueError("[truc_do_chinh_xac] cần trai, phai NGUYÊN liền kề (phai = trai+1)")
+
+        def _toF(v):
+            if isinstance(v, Fraction): return v
+            if isinstance(v, tuple):    return Fraction(v[0], v[1])
+            if isinstance(v, int):      return Fraction(v)
+            if isinstance(v, float):    return Fraction(v).limit_denominator(10000)
+            if isinstance(v, str):
+                s = v.strip().replace(',', '.')
+                return Fraction(s) if '/' in s else Fraction(s).limit_denominator(10000)
+            return Fraction(v)
+
+        qa = _toF(a)
+        if not (trai < qa < phai):
+            raise ValueError(f"[truc_do_chinh_xac] a={a} phải nằm trong ({trai}; {phai})")
+        self._nen_luoi = False
+        SCALE = 4.2                          # đoạn 1 đơn vị kéo rộng cho thoáng
+        mid = Fraction(trai + phai, 2)       # trung điểm
+        moc_gan = trai if abs(qa - trai) <= abs(qa - phai) else phai  # mốc gần a nhất
+
+        def _X(q): return (float(q) - trai) * SCALE   # gốc vẽ đặt tại `trai`
+
+        xL, xR = _X(Fraction(trai)), _X(Fraction(phai))
+        # trục: 1 đường mũi tên 2 đầu, thò nhẹ ngoài 2 mốc
+        self._diem('_dcL', xL - 0.5, 0.0, nhan=None, moc=False)
+        self._diem('_dcR', xR + 0.5, 0.0, nhan=None, moc=False)
+        self.tikz.append(('truc2dau', '_dcL', '_dcR'))
+        # hai mốc nguyên + nhãn
+        for n in (trai, phai):
+            x = _X(Fraction(n))
+            self._vach_ht(x, f'dc{n}', chinh=True)
+            self.ghi_chu(x, -0.46, self._so(n))
+        # vạch đứt trung điểm
+        xm = _X(mid)
+        self._diem('_dcma', xm, 0.18, nhan=None, moc=False)
+        self._diem('_dcmb', xm, -0.18, nhan=None, moc=False)
+        self.tikz.append(('doan', '_dcma', '_dcmb', None, 'dut', 'manh'))
+        # điểm a + nhãn trên
+        xa = _X(qa)
+        self._diem('_dcA', xa, 0.0, nhan=None, moc=True)
+        self.ghi_chu(xa, 0.34, str(nhan_a))
+        # dải độ chính xác: từ mốc gần a → trung điểm
+        xg = _X(Fraction(moc_gan))
+        self._diem('_dckA', xg, 0.34, nhan=None, moc=False)
+        self._diem('_dckB', xm, 0.34, nhan=None, moc=False)
+        self.tikz.append(('khoang', '_dckA', '_dckB', do_chinh_xac or '0,5'))
         return self
 
     def _vach_ht(self, x, tag, chinh=True):

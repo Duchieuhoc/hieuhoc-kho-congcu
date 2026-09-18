@@ -1,6 +1,15 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29m] BỔ HÀM HÌNH "ĐỘ CHÍNH XÁC LÀM TRÒN" — mạch đại số DS7 (Ông Bụt Đại số, 2026-09-19, mở phiếu DS7_CH02_B05 Hình 1):
+      • hinh_daiso.py: +truc_do_chinh_xac(trai,phai,a,do_chinh_xac,nhan_a) — dựng trọn cảnh làm tròn
+        SGK Toán 7 Hình 2.1 (trục [trai;phai] mũi 2 đầu · điểm a · vạch đứt trung điểm · dải độ chính xác).
+      • truc_so_huu_ti: +2 tham số tùy chọn khoang_to=[(x1,x2,nhan)] (tô dải+nhãn độ dài) và
+        vach_dut=[gt] (vạch đứng nét đứt tại giá trị lẻ). ADDITIVE — chữ ký cũ chạy y nguyên.
+      • hinh_coban.py: +2 nhánh render 'khoang' (mũi tên 2 đầu + nhãn) và 'truc2dau' (đường mũi 2 đầu).
+      • Regen BAN_TRICH_HAM_DS7_CH02__daiso.md (44 hàm phơi). Import-test + render Hình 1 PASS (mắt OB).
+      • CHỈ THÊM — KHÔNG đổi API/hành vi hàm cũ. Mạch hình học/hóa KHÔNG đụng. 0 hồi quy.
+
 [29l] KÊ BỔ PHÉP QUAY ĐIỂM — mạch chung (Ông Bụt Hình, 2026-09-18, đóng phiếu HH7_CH09 OnTap):
       • hinh_coban.py : +diem_quay(new, P, tam, goc) — new = ảnh P khi QUAY quanh tam góc 'goc'
         (độ, dương=ngược kim). |tam→new|=|tam→P|. Dựng tam giác ĐỀU/vuông cân trên cạnh, quay điểm.
@@ -95,7 +104,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29l (2026-09-18)
+Mốc kho      : 29m (2026-09-19)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

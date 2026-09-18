@@ -857,6 +857,13 @@ class HinhCoBan:
             elif k=='doan_nhan':
                 A,B,txt = el[1],el[2],el[3]
                 L.append(f'  \\node[above,font=\\small] at ($({C._san(A)})!0.5!({C._san(B)})$) {{{txt}}};')
+            elif k=='khoang':
+                A,B,txt = el[1],el[2],el[3]
+                L.append(f'  \\draw[thick,<->,gray] ({C._san(A)})--({C._san(B)});')
+                L.append(f'  \\node[above=1pt,font=\\footnotesize] at ($({C._san(A)})!0.5!({C._san(B)})$) {{{txt}}};')
+            elif k=='truc2dau':
+                A,B = el[1],el[2]
+                L.append(f'  \\draw[very thick,<->] ({C._san(A)})--({C._san(B)});')
             elif k in ('gach_bang','gach_bang_don'):
                 A,B = el[1],el[2]; Ap,Bp = self.V[A],self.V[B]
                 mx,my = (Ap[0]+Bp[0])/2,(Ap[1]+Bp[1])/2
