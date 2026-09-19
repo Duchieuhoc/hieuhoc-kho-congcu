@@ -1,6 +1,13 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29p] KHOFIX canBac NHẬN OMML — mạch đại số DS7 (Ông Bụt Đại số, 2026-09-20, phiếu DS7_CH02_B06):
+      • hieuhoc_template.js canBac(): createMathBase children [MathRunSized(String(soHang))] → _mathChild(soHang).
+        canBac là hàm math CUỐI còn ép String (phanSo/luyThua/ngoac/soGachTren đã chuyển _mathChild từ 28r).
+        Biểu thức phức đặt DƯỚI căn (√(191²), √(3²/7²), tổng căn ở tử/mẫu…) hết serialize [object Object].
+      • ADDITIVE — string/number chạy y nguyên (stress-test 7/7 + toàn bài B06 98 khối căn: sạch, oMath depth=1).
+      • Nền 29o (mạch Hình 29n/29o giữ nguyên). Regen BAN_TRICH_HAM_DS7_CH02__daiso.md. CHỈ SỬA 1 dòng — 0 hồi quy.
+
 [29o] TRUNG TRỰC BẤT ĐỐI XỨNG (cắt đuôi thừa) — mạch chung (Ông Bụt Hình, 2026-09-19, QC B35):
       • hinh_coban.py : trung_truc_doan(..., +nua_dai_lui) — nua_dai = độ dài phía VÀO TRONG hình
         (tự hướng theo centroid các điểm), nua_dai_lui = đuôi phía kia (ngắn, vd 0.5). Bỏ None = đối xứng cũ.
@@ -117,7 +124,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29o (2026-09-19)
+Mốc kho      : 29p (2026-09-20)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

@@ -2480,10 +2480,10 @@ function canBac(soHang, bacCan = 2) {
         name: "m:deg",
         children: bacCan == 2 ? [] : [new MathRunSized(String(bacCan))],
       }),
-      createMathBase({ children: [new MathRunSized(String(soHang))] }),
+      createMathBase({ children: _mathChild(soHang) }),
     ],
   });
-  return _dmath(rad);  // [28w] KHOFIX: qua _dmath → gắn _hhComp để _mathChild gỡ vỏ khi lồng trong phanSo/luyThua/ngoac (28r sót canBac → trước đây <m:oMath> lồng, Word chối mở). canBac đứng riêng KHÔNG đổi.
+  return _dmath(rad);  // [28w] KHOFIX: qua _dmath → gắn _hhComp để _mathChild gỡ vỏ khi lồng trong phanSo/luyThua/ngoac (28r sót canBac → trước đây <m:oMath> lồng, Word chối mở). canBac đứng riêng KHÔNG đổi. [29n] canBac NHẬN OMML: _mathChild(soHang) thay String() — biểu thức phức đặt dưới căn (√(191²), √(3²/7²)…) hết [object Object].
 }
 
 /**
