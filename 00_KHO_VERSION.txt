@@ -1,6 +1,12 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29o] TRUNG TRỰC BẤT ĐỐI XỨNG (cắt đuôi thừa) — mạch chung (Ông Bụt Hình, 2026-09-19, QC B35):
+      • hinh_coban.py : trung_truc_doan(..., +nua_dai_lui) — nua_dai = độ dài phía VÀO TRONG hình
+        (tự hướng theo centroid các điểm), nua_dai_lui = đuôi phía kia (ngắn, vd 0.5). Bỏ None = đối xứng cũ.
+        ⇒ trung trực chỉ chạm điểm giao O/D + thò nhẹ, KHÔNG kéo dài chiếm chỗ (thầy yêu cầu).
+      Additive, 0 hồi quy (không truyền nua_dai_lui → y như cũ). Verify: f02/f03/f24 gọn, chạm O.
+
 [29n] ẨN HẲN ĐIỂM PHỤ DỰNG tên prefix "_" — mạch chung (Ông Bụt Hình, 2026-09-19, vá lỗ hổng QC B34):
       • hinh_coban.py (render): điểm tên bắt đầu bằng "_" → BỎ QUA cả nhãn LẪN chấm ở tầng vẽ
         (trước chỉ loại khỏi bbox). ⇒ điểm phụ dựng qua trung_diem/giao/diem_trong/chan_phan_giac
@@ -111,7 +117,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29n (2026-09-19)
+Mốc kho      : 29o (2026-09-19)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

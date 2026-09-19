@@ -347,7 +347,7 @@ class HinhCoBan:
         return self
 
     def trung_truc_doan(self, ten, A, B, tam=None, o_vuong=True, vach=True,
-                        mau='red', net='dut', nua_dai=3.0):
+                        mau='red', net='dut', nua_dai=3.0, nua_dai_lui=None):
         """ĐƯỜNG TRUNG TRỰC của đoạn AB ĐÃ ĐẶT (vuông góc AB tại trung điểm). Khác trung_truc()
         (hàm kia TỰ đặt A,B mới) — hàm này dùng cho cạnh của HÌNH đã dựng (trung trực tam giác).
         Đăng ký duong_data[ten] → giao()/diem_tren() dùng được (dựng tâm ngoại tiếp = giao 2 trung
@@ -362,8 +362,23 @@ class HinhCoBan:
         mid = tam if tam is not None else f'_tt{ten}'
         self._diem(mid, mx, my, 'below' if tam is not None else None, moc=(tam is not None))
         rA, rB = f'R{ten}0', f'R{ten}1'
-        self._diem(rA, mx - px * nua_dai, my - py * nua_dai, nhan=None, moc=False)
-        self._diem(rB, mx + px * nua_dai, my + py * nua_dai, nhan=None, moc=False)
+        if nua_dai_lui is None:
+            d_toi, d_lui = nua_dai, nua_dai          # đối xứng (như cũ)
+        else:
+            # tự xác định phía "vào trong" = phía centroid các điểm đã đặt (trừ mốc _/R)
+            import math as _mm
+            _ps=[(x,y) for tn,(x,y) in self.V.items() if not (tn.startswith('_') or tn.startswith('R'))]
+            if _ps:
+                cx=sum(p[0] for p in _ps)/len(_ps); cy=sum(p[1] for p in _ps)/len(_ps)
+                _dot=(cx-mx)*px+(cy-my)*py
+                _sgn=1.0 if _dot>=0 else -1.0
+            else:
+                _sgn=1.0
+            # +perp là phía "vào trong" khi _sgn>0
+            d_toi, d_lui = nua_dai, nua_dai_lui
+            if _sgn<0: px, py = -px, -py    # lật để +perp luôn hướng vào trong
+        self._diem(rA, mx - px * d_lui, my - py * d_lui, nhan=None, moc=False)
+        self._diem(rB, mx + px * d_toi, my + py * d_toi, nhan=None, moc=False)
         self.duong_data[ten] = (rA, rB); self._tren[ten] = 0
         self.rb.append({'loai': 'trung_diem', 'M': mid, 'doan': (A, B)})
         self.rb.append({'loai': 'thang_hang', 'diem': [rA, mid, rB]})

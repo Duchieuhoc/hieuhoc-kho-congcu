@@ -1,2 +1,1 @@
-DANH MỤC — CAPNHAT_KHO__29n.zip
-hinh_coban.py (render ẩn điểm _) · BAN_TRICH regen · 00_KHO_VERSION (29n) · 00_DAY_LEN
+CAPNHAT_KHO__29o: hinh_coban.py(trung_truc_doan +nua_dai_lui) · BAN_TRICH regen · 00_KHO_VERSION(29o) · hướng dẫn push

@@ -1,0 +1,9 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29o  (nền GitHub 29n)
+================================================
+3 file — upload ĐÈ, commit 1 lần:
+  1. hinh_coban.py            <- trung_truc_doan(+nua_dai_lui): trung trực bất đối xứng, cắt đuôi thừa
+  2. BAN_TRICH_HAM_HH7_CH04.md <- regen
+  3. 00_KHO_VERSION.txt        <- nền 29n + [29o], mốc -> 29o
+Commit: "[29o] trung_truc_doan bất đối xứng (nua_dai_lui) — cắt đuôi thừa"
+Additive, 0 hồi quy (không truyền nua_dai_lui → như cũ).
+(c) Hiếu Học · Ông Bụt · 2026-09-19
