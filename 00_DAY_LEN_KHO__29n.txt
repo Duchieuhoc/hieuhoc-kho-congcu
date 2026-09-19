@@ -1,0 +1,11 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29n
+=============================
+Repo: github.com/Duchieuhoc/hieuhoc-kho-congcu · Chỉ THẦY push.
+CÓ GÌ (3 file — upload ĐÈ, commit 1 lần; nền = GitHub 29m):
+  1. hinh_coban.py            <- render: điểm tên "_xxx" ẩn HẲN nhãn+chấm (vá lỗ hổng B34)
+  2. BAN_TRICH_HAM_HH7_CH04.md <- regen
+  3. 00_KHO_VERSION.txt        <- nền 29m + [29n], mốc -> 29n
+Commit: "[29n] ẩn hẳn điểm phụ dựng prefix _ (mở excenter/trọng tâm)"
+Sau push kiểm: Mốc kho 29n; render điểm _xxx không hiện nhãn/chấm. Additive, 0 hồi quy.
+=> Sau 29n: mở lại được các hình excenter/trọng tâm cần điểm phụ (B34/B35/Ôn tập).
+(c) Hiếu Học · Ông Bụt · 2026-09-19

@@ -1,2 +1,2 @@
-DANH MỤC — CAPNHAT_KHO__29l.zip
-hinh_coban.py (+diem_quay) · BAN_TRICH_HAM_HH7_CH04.md (regen) · 00_KHO_VERSION.txt (29l) · 00_DAY_LEN_KHO__29l.txt
+DANH MỤC — CAPNHAT_KHO__29n.zip
+hinh_coban.py (render ẩn điểm _) · BAN_TRICH regen · 00_KHO_VERSION (29n) · 00_DAY_LEN

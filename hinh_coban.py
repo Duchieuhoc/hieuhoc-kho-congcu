@@ -920,6 +920,7 @@ class HinhCoBan:
                 nhan_net_da.add(tn)
         for tn in self.V:
             if tn in nhan_net_da: continue
+            if tn.startswith('_'): continue   # [29n] điểm phụ dựng (tên _xxx): ẩn HẲN nhãn + chấm
             pos = self.nhan.get(tn,'above right'); an_nhan = (pos is None)
             if tn in self.moc:
                 lbl = '' if an_nhan else f'node[{pos}]{{${tn}$}}'
