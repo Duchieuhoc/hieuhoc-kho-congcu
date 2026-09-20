@@ -418,6 +418,142 @@ class HinhKhoiHop(HinhCoBan):
         return self
 
 
+    def _ve_net(self, faces, to_mat=None):
+        """Vẽ 1 KHAI TRIỂN (net): mỗi mặt = list tên đỉnh (đa giác). Cạnh CHUNG 2 mặt = NẾP GẤP
+        (nét đứt); cạnh chỉ thuộc 1 mặt = BAO NGOÀI (nét liền). Tự phân loại theo trùng lặp toạ độ.
+        to_mat: dict {chỉ_số_mặt: màu} → tô nhạt mặt đó (tuỳ chọn)."""
+        from collections import defaultdict
+        dem = defaultdict(list)
+        for poly in faces:
+            k = len(poly)
+            for i in range(k):
+                A, B = poly[i], poly[(i + 1) % k]
+                (xa, ya), (xb, yb) = self.V[A], self.V[B]
+                key = tuple(sorted([(round(xa, 3), round(ya, 3)), (round(xb, 3), round(yb, 3))]))
+                dem[key].append((A, B))
+        if to_mat:
+            for idx, mau in to_mat.items():
+                self.to_mien(*faces[idx], mau=mau)
+        for segs in dem.values():
+            A, B = segs[0]
+            self.doan(A, B, net=('dut' if len(segs) >= 2 else 'lien'))
+        return self
+
+    def khai_trien_hop(self, dai, rong, cao, nhan=None, so_mat=False,
+                       goc_o=(0.0, 0.0), ten='KT'):
+        """KHAI TRIỂN (net) HÌNH HỘP CHỮ NHẬT dạng CHỮ THẬP (H10.4 · H10.6):
+        4 mặt bên thành DẢI ngang (rộng dai·rong·dai·rong, cao=cao) + mặt TRÊN & DƯỚI gắn vào
+        mặt thứ 2. Nếp gấp (cạnh trong) NÉT ĐỨT, bao ngoài nét liền — máy tự phân loại.
+
+        dai,rong,cao : 3 kích thước hộp (độ dài VẼ) > 0.
+        nhan   : dict {'dai':.., 'rong':.., 'cao':..} ghi số đo (string/biểu thức, tự bọc $…$).
+        so_mat : True → đánh số (1)…(6) vào giữa 6 mặt (như H10.6 HD4).
+        goc_o,ten : dời net + tiền tố tên đỉnh (ẩn).
+        Máy tự tính toạ độ (Đ5.9).
+        """
+        if not (dai > 0 and rong > 0 and cao > 0):
+            raise ValueError("[khai_trien_hop] dai, rong, cao đều phải > 0")
+        self._nen_luoi = False
+        ox, oy = goc_o
+        p = ten
+        xs = [0, dai, dai + rong, 2 * dai + rong, 2 * dai + 2 * rong]
+
+        def R(nm, x0, y0, x1, y1):
+            b = f'{p}{nm}'
+            self._diem(b + 'a', ox + x0, oy + y0, nhan=None, moc=False)
+            self._diem(b + 'b', ox + x1, oy + y0, nhan=None, moc=False)
+            self._diem(b + 'c', ox + x1, oy + y1, nhan=None, moc=False)
+            self._diem(b + 'd', ox + x0, oy + y1, nhan=None, moc=False)
+            return [b + 'a', b + 'b', b + 'c', b + 'd']
+        # dải 4 mặt bên (1)(2)(3)(4) + mặt trên (5) & dưới (6) gắn mặt (2)
+        F = [R('f1', xs[0], 0, xs[1], cao),
+             R('f2', xs[1], 0, xs[2], cao),
+             R('f3', xs[2], 0, xs[3], cao),
+             R('f4', xs[3], 0, xs[4], cao),
+             R('f5', xs[1], cao, xs[2], cao + dai),
+             R('f6', xs[1], -dai, xs[2], 0)]
+        self._ve_net(F)
+
+        # nhãn số đo (a=dai dưới mặt1, b=rong dưới mặt2, c=cao trái mặt1)
+        nhan = nhan or {}
+        if nhan.get('dai'):
+            self.ghi_chu(ox + dai / 2, oy - 0.32, _mathwrap(nhan['dai']))
+        if nhan.get('rong'):
+            self.ghi_chu(ox + dai + rong / 2, oy - 0.32, _mathwrap(nhan['rong']))
+        if nhan.get('cao'):
+            self.ghi_chu(ox - 0.34, oy + cao / 2, _mathwrap(nhan['cao']))
+        # đánh số mặt (1)…(6)
+        if so_mat:
+            tam = [(dai / 2, cao / 2), (dai + rong / 2, cao / 2),
+                   (dai + rong + dai / 2, cao / 2), (2 * dai + rong + rong / 2, cao / 2),
+                   (dai + rong / 2, cao + dai / 2), (dai + rong / 2, -dai / 2)]
+            for i, (cx, cy) in enumerate(tam, 1):
+                self.ghi_chu(ox + cx, oy + cy, f'({i})')
+        return self
+
+    def khai_trien_lang_tru(self, day, cao, nhan_cao=None, so_mat=False,
+                            goc_o=(0.0, 0.0), ten='KL'):
+        """KHAI TRIỂN (net) LĂNG TRỤ ĐỨNG đáy đa giác (H10.22 · H10.24 · H10.32):
+        DẢI n mặt bên hình chữ nhật (rộng = độ dài từng CẠNH ĐÁY, cao = chiều cao lăng trụ)
+        + 2 ĐA GIÁC ĐÁY gắn TRÊN & DƯỚI mặt bên đầu. Nếp gấp NÉT ĐỨT, bao ngoài liền.
+
+        day  : SPEC đáy (như lang_tru_dung): tam_giac/thang_vuong/thang_can/chu_nhat/binh_hanh/
+               ngu_giac_nha/da_giac. Đáy MANG 'nhan' → ghi số đo cạnh (trên các mặt bên tương ứng).
+        cao  : chiều cao lăng trụ (rộng của dải = độ dài cạnh đáy; cao dải = cao). > 0.
+        nhan_cao : nhãn ghi chiều cao (vd '12 cm') trên 1 mặt bên.
+        so_mat   : True → đánh số (1)…(n) các mặt bên (như H10.24).
+        goc_o,ten: dời net + tiền tố tên đỉnh (ẩn).
+        Máy tự tính toạ độ + phân loại nếp gấp (Đ5.9).
+        """
+        pts, canh_nhan = _day_polygon(day)
+        n = len(pts)
+        if n < 3:
+            raise ValueError("[khai_trien_lang_tru] đáy cần ≥ 3 đỉnh")
+        if not (cao > 0):
+            raise ValueError("[khai_trien_lang_tru] cao > 0")
+        self._nen_luoi = False
+        ox, oy = goc_o
+        p = ten
+        # độ dài từng cạnh đáy (rộng mỗi mặt bên trong dải)
+        canh = [math.hypot(pts[(i + 1) % n][0] - pts[i][0], pts[(i + 1) % n][1] - pts[i][1])
+                for i in range(n)]
+        xcum = [0.0]
+        for c in canh:
+            xcum.append(xcum[-1] + c)
+
+        def R(nm, x0, y0, x1, y1):
+            b = f'{p}{nm}'
+            self._diem(b + 'a', ox + x0, oy + y0, nhan=None, moc=False)
+            self._diem(b + 'b', ox + x1, oy + y0, nhan=None, moc=False)
+            self._diem(b + 'c', ox + x1, oy + y1, nhan=None, moc=False)
+            self._diem(b + 'd', ox + x0, oy + y1, nhan=None, moc=False)
+            return [b + 'a', b + 'b', b + 'c', b + 'd']
+        faces = [R(f'r{i}', xcum[i], 0, xcum[i + 1], cao) for i in range(n)]
+        # 2 đáy: gắn trên & dưới mặt bên ĐẦU (r0), chia sẻ cạnh [0, canh0]
+        # đáy trên = pts dời lên (y += cao); đáy dưới = pts lật (y = -y)
+        def DAY(nm, fn):
+            names = []
+            for i, (px, py) in enumerate(pts):
+                a = f'{p}{nm}{i}'
+                x, y = fn(px, py)
+                self._diem(a, ox + x, oy + y, nhan=None, moc=False)
+                names.append(a)
+            return names
+        day_tren = DAY('dt', lambda px, py: (px, cao + py))
+        day_duoi = DAY('dd', lambda px, py: (px, -py))
+        self._ve_net(faces + [day_tren, day_duoi])
+
+        # nhãn số đo cạnh đáy (trên đỉnh mỗi mặt bên tương ứng) + chiều cao
+        for i in range(n):
+            if canh_nhan[i]:
+                self.ghi_chu(ox + (xcum[i] + xcum[i + 1]) / 2, oy + cao + 0.30, canh_nhan[i])
+        if nhan_cao:
+            self.ghi_chu(ox + xcum[-1] + 0.36, oy + cao / 2, _mathwrap(nhan_cao))
+        if so_mat:
+            for i in range(n):
+                self.ghi_chu(ox + (xcum[i] + xcum[i + 1]) / 2, oy + cao / 2, f'({i + 1})')
+        return self
+
 # ═══ [29c] Ông Bụt 2026-09-16 · DS8 Chương 2 (Hằng đẳng thức) ═══
 def khoiLapPhuongKhoetGoc(canhLon='2x+3', canhCon='x+1', chuThich=None,
                           out='khoi_khoet_goc', tra_bytes=False, S=4.0, a=1.6):

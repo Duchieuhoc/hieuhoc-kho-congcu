@@ -1,6 +1,20 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29r] +2 HÀM KHAI TRIỂN (NET) — đóng Nhóm 3 hình Chương X (Ông Bụt Hình, 2026-09-20, tiếp Batch 2 DA HH7C10):
+      • hinh_khoihop.py: +khai_trien_hop(dai,rong,cao, nhan, so_mat, goc_o, ten) — NET HÌNH HỘP CHỮ NHẬT
+        dạng CHỮ THẬP (H10.4/H10.6): 4 mặt bên thành dải + mặt trên/dưới gắn mặt (2); so_mat=True đánh số
+        (1)…(6). +khai_trien_lang_tru(day, cao, nhan_cao, so_mat, goc_o, ten) — NET LĂNG TRỤ ĐỨNG đáy đa
+        giác (H10.22/H10.24/H10.32): dải n mặt bên (rộng = cạnh đáy) + 2 đa giác đáy gắn trên/dưới mặt đầu.
+        Đáy khai NGỮ NGHĨA (tái dùng _day_polygon: tam_giac/thang/chu_nhat/binh_hanh/ngu_giac_nha/da_giac).
+      • +_ve_net(faces): helper phân loại cạnh — cạnh CHUNG 2 mặt = NẾP GẤP (nét đứt), cạnh 1 mặt = bao ngoài
+        (liền) — máy tự đếm trùng lặp toạ độ, không khai tay. Dùng chung cho cả 2 net.
+      • Nền 29q (lang_tru_dung + engine xelatex) GIỮ NGUYÊN — additive, 0 hồi quy.
+      VERIFY: 4 net render kiểm mắt ĐẠT khớp SGK (hộp chữ thập có/không số · lăng trụ tam giác 3hcn+2tg khớp
+        H10.22 · lăng trụ thang); nếp gấp/bao ngoài phân loại đúng; cổng AST SẠCH (--kho hinh_hh7_ch10);
+        smoke 18/18; regen BAN_TRICH_HAM_HH7_CH10.md (74→76 hàm). Kho hình Chương X nay ĐỦ 4 nhóm
+        (hộp · lăng trụ 2 hướng · NET · ghép qua goc_o).
+
 [29q] +LĂNG TRỤ ĐỨNG đáy đa giác bất kỳ + ENTRY HH7_CH10 (Ông Bụt Hình, 2026-09-20, mở Pha khai nghĩa DA HH7C10 — Toán 7 Chương X "Một số hình khối trong thực tiễn"):
       • KHE HỞ: kho 29o có khoi_hop_chu_nhat (hộp) + net_hop_cat_goc (net DS8) nhưng KHÔNG có lăng
         trụ nào. Chương X (Bài 36 hộp/lập phương · Bài 37 lăng trụ đứng tam giác & tứ giác · cuối chương)
@@ -158,7 +172,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29q (2026-09-20)
+Mốc kho      : 29r (2026-09-20)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

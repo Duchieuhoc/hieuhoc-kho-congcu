@@ -1,0 +1,10 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29r  (nền GitHub 29q)
+================================================
+3 file — upload ĐÈ, commit 1 lần:
+  1. hinh_khoihop.py            <- +khai_trien_hop + khai_trien_lang_tru + _ve_net (2 hàm NET Chương X).
+                                   Hàm cũ (lang_tru_dung/khoi_hop/callout) GIỮ NGUYÊN.
+  2. BAN_TRICH_HAM_HH7_CH10.md  <- regen (74 -> 76 hàm)
+  3. 00_KHO_VERSION.txt         <- nền 29q + [29r], mốc -> 29r
+Commit: "[29r] khai_trien_hop + khai_trien_lang_tru (net hình hộp & lăng trụ) — đóng Nhóm 3 Chương X"
+Additive, 0 hồi quy. Kéo (pull) remote mới nhất trước khi đè.
+(c) Hiếu Học · Ông Bụt · 2026-09-20
