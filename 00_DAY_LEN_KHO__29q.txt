@@ -1,0 +1,15 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29q  (nền GitHub 29p — KHOFIX canBac, Đại số)
+======================================================================
+5 file — upload ĐÈ/THÊM, commit 1 lần:
+  1. hinh_core.py               <- _render ƯU TIÊN xelatex + Latin Modern Roman (render ĐỦ DẤU tiếng Việt
+                                   trong hình); có ĐƯỜNG LÙI pdflatex nếu máy thiếu xelatex (không vỡ).
+                                   render_tikz_doc (hình đại số/Hóa) GIỮ pdflatex — không đổi.
+  2. hinh_khoihop.py            <- +lang_tru_dung (lăng trụ đứng đáy đa giác bất kỳ) + callout nét đứt.
+  3. hinh_hh7_ch10.py [MỚI]     <- ENTRY chương X
+  4. BAN_TRICH_HAM_HH7_CH10.md [MỚI] <- bản trích 74 hàm
+  5. 00_KHO_VERSION.txt         <- nền 29p (giữ nguyên) + [29q], mốc -> 29q
+Commit: "[29q] lang_tru_dung + entry HH7_CH10 + engine xelatex (dấu Việt trong hình, fallback pdflatex)"
+⚙️ MÁY RENDER: nên có xelatex + font Latin Modern OTF (đủ dấu Việt); thiếu vẫn chạy (tự lùi pdflatex).
+Regression đa môn 9/9 ĐẠT, dáng hình cũ giữ nguyên (LM Roman ≡ Computer Modern).
+Kéo (pull) bản remote mới nhất trước khi đè (remote đã 29p; các file trên KHÔNG va 29p).
+(c) Hiếu Học · Ông Bụt · 2026-09-20

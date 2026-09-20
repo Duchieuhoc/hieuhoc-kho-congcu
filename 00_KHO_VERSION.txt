@@ -1,6 +1,40 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29q] +LĂNG TRỤ ĐỨNG đáy đa giác bất kỳ + ENTRY HH7_CH10 (Ông Bụt Hình, 2026-09-20, mở Pha khai nghĩa DA HH7C10 — Toán 7 Chương X "Một số hình khối trong thực tiễn"):
+      • KHE HỞ: kho 29o có khoi_hop_chu_nhat (hộp) + net_hop_cat_goc (net DS8) nhưng KHÔNG có lăng
+        trụ nào. Chương X (Bài 36 hộp/lập phương · Bài 37 lăng trụ đứng tam giác & tứ giác · cuối chương)
+        ~80–100 hình khối 3D: lăng trụ đáy tam giác/thang/tứ giác/ngũ giác, cả 2 hướng (đứng & nằm).
+      • hinh_khoihop.py: +lang_tru_dung(day, cao, huong='ngang'|'dung', sau='phai'|'trai', nhan_canh_ben,
+        ten_dinh, chu_thich, to_day, goc_o, ten) — LĂNG TRỤ ĐỨNG đáy ĐA GIÁC BẤT KỲ, phối cảnh xiên
+        (cavalier 40°/co 0,5), NÉT KHUẤT TỰ TÍNH theo che (luật bao lồi near∪far — đỉnh xa nằm trong
+        bao ⇒ khuất nét đứt). huong='ngang' (2 đáy trước/sau, trục lùi sâu: lăng kính/lều/máng/khay/bể)
+        · 'dung' (2 đáy trên/dưới, cạnh bên đứng: H10.19/10.21). ten_dinh=['A','B','C'] → đáy kia tự
+        thêm dấu phẩy A'B'C'. Đáy khai NGỮ NGHĨA (Đ5.9): tam_giac(a,b,c) · thang_vuong · thang_can ·
+        chu_nhat · binh_hanh · ngu_giac_nha · da_giac. PHANH: cạnh bên bằng nhau.
+      • HỘP CÓ NHÃN 8 đỉnh + ĐƯỜNG CHÉO (Bài 36 · bài 10.7 · câu TN đếm đường chéo) = lang_tru_dung
+        (đáy chu_nhat, huong='dung', ten_dinh=['A','B','C','D']) rồi doan('A',"C'") vẽ chéo không gian /
+        doan('A','C') chéo mặt — KHÔNG cần hàm riêng (doan qua cổng AST vì nhận TÊN đỉnh, không toạ độ).
+      • +hinh_hh7_ch10.py [ENTRY MỚI] = compose(HinhDaGiac + HinhTron + HinhKhoiHop). 74 hàm phơi.
+      • Helper module-level: _day_polygon (spec đáy→toạ độ+nhãn cạnh) · _hull (bao lồi) · _in_poly.
+        khoi_hop_chu_nhat / net_hop_cat_goc / khoiLapPhuongKhoetGoc GIỮ NGUYÊN — additive, 0 hồi quy.
+      • Nền 29p (KHOFIX canBac mạch Đại số) GIỮ NGUYÊN — 29q chỉ chồng thêm mạch Hình, không đụng template.
+      VERIFY: 6 hình đại diện (tam giác đứng/ngang · thang vuông ngang · ngũ giác nhà · tứ giác đứng
+        + callout · tam giác đứng số đo) + hộp nhãn+chéo render kiểm mắt ĐẠT, nét khuất chuẩn; PHANH
+        pass hết; cổng AST cua_quet_hinh SẠCH (--kho hinh_hh7_ch10, lang_tru_dung + doan); smoke import
+        18/18; khoi_hop_chu_nhat cũ (DS8) không hồi quy. +BAN_TRICH_HAM_HH7_CH10.md (74 hàm).
+      • [refine] _callout_langtru: nét dẫn chú thích đổi LIỀN→NÉT ĐỨT + xếp nhãn đều dọc (hết rối).
+        Quy ước AI Soạn: đường chéo KHÔNG GIAN của khối vẽ NÉT ĐỨT (nằm trong lòng khối) — doan(...,net='dut').
+      • [GỠ FONT — engine] hinh_core.py _render: ƯU TIÊN xelatex + Latin Modern Roman (≡ Computer
+        Modern → hình cũ GIỮ NGUYÊN DÁNG) ⇒ render ĐỦ DẤU tiếng Việt trong hình (Đỉnh/Cạnh bên/Mặt đáy…,
+        chú thích Hóa/Vật lý về sau). CÓ ĐƯỜNG LÙI: máy thiếu xelatex/font → tự về pdflatex (T1) —
+        hình vẫn ra, chỉ rớt dấu như cũ (KHÔNG vỡ máy nào). render_tikz_doc (hình đại số/Hóa nhãn-biến,
+        ASCII theo thiết kế) GIỮ pdflatex — không đổi. Gỡ dứt điểm việc treo font từ 28p/29f.
+        ⚙️ YÊU CẦU MÁY (khuyến nghị): cài xelatex + font Latin Modern OTF để có dấu Việt; thiếu vẫn chạy (lùi pdflatex).
+      • REGRESSION đa môn (engine xelatex) ĐẠT 9/9: tam giác+góc · góc-đường thẳng (prime x′y′) · lục giác+chéo ·
+        đường tròn · tia số+bước nhảy · đối xứng (hình vuông) · lăng trụ+callout Việt · Hóa nguyên tử Cl · Hóa CO₂ —
+        dáng y hệt bản cũ, prime/góc/lưới/màu đúng. Fallback pdflatex test: không crash, hình vẫn ra.
+
 [29p] KHOFIX canBac NHẬN OMML — mạch đại số DS7 (Ông Bụt Đại số, 2026-09-20, phiếu DS7_CH02_B06):
       • hieuhoc_template.js canBac(): createMathBase children [MathRunSized(String(soHang))] → _mathChild(soHang).
         canBac là hàm math CUỐI còn ép String (phanSo/luyThua/ngoac/soGachTren đã chuyển _mathChild từ 28r).
@@ -124,7 +158,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29p (2026-09-20)
+Mốc kho      : 29q (2026-09-20)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

@@ -47,20 +47,41 @@ def _san(t): return t.replace("'","p")
 
 # ─────────── RENDER TikZ → PNG (biên dịch thuần, KHÔNG hard-code 2D) ───────────
 def _render(tikz, out, tra_bytes=False):
-    tex=(r'\documentclass[border=4pt]{standalone}'
-         r'\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}'
-         r'\usepackage{tikz}\usepackage{amsmath}'
-         r'\usepackage{newunicodechar}'
-         r'\newunicodechar{′}{\ensuremath{{}^{\prime}}}'      # U+2032 prime  → x′
-         r'\newunicodechar{″}{\ensuremath{{}^{\prime\prime}}}' # U+2033 dprime → x″
-         r'\usetikzlibrary{angles,quotes,intersections,calc}\begin{document}'
-         +tikz+r'\end{document}')
-    open(f'/tmp/{out}.tex','w').write(tex)
-    subprocess.run(['pdflatex','-interaction=nonstopmode',f'{out}.tex'],cwd='/tmp',capture_output=True)
-    subprocess.run(['pdftoppm','-png','-r','150',f'{out}.pdf',out],cwd='/tmp',capture_output=True)
-    png=f'/tmp/{out}-1.png'
-    if not os.path.exists(png): return None
-    return open(png,'rb').read() if tra_bytes else png
+    _body = (r'\usepackage{tikz}\usepackage{amsmath}'
+             r'\usepackage{newunicodechar}'
+             r'\newunicodechar{′}{\ensuremath{{}^{\prime}}}'      # U+2032 prime  → x′
+             r'\newunicodechar{″}{\ensuremath{{}^{\prime\prime}}}' # U+2033 dprime → x″
+             r'\usetikzlibrary{angles,quotes,intersections,calc}\begin{document}'
+             + tikz + r'\end{document}')
+    for _e in ('.pdf', '-1.png'):                 # dọn bản cũ (tránh nhận nhầm pdf tồn đọng)
+        try: os.remove(f'/tmp/{out}{_e}')
+        except OSError: pass
+    # ƯU TIÊN xelatex + Latin Modern Roman (≡ Computer Modern) → render ĐỦ DẤU tiếng Việt.
+    xe = (r'\documentclass[border=4pt]{standalone}'
+          r'\usepackage{fontspec}\setmainfont{Latin Modern Roman}' + _body)
+    open(f'/tmp/{out}.tex', 'w').write(xe)
+    try:
+        subprocess.run(['xelatex', '-interaction=nonstopmode', f'{out}.tex'],
+                       cwd='/tmp', capture_output=True)
+    except (FileNotFoundError, OSError):
+        pass
+    # THIẾU xelatex/font (máy chỉ có pdflatex) → tự LÙI pdflatex (T1) — hình vẫn ra,
+    #   chỉ rớt dấu tiếng Việt như trước (an toàn tuyệt đối, không vỡ máy cũ).
+    if not os.path.exists(f'/tmp/{out}.pdf'):
+        pl = (r'\documentclass[border=4pt]{standalone}'
+              r'\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}' + _body)
+        open(f'/tmp/{out}.tex', 'w').write(pl)
+        try:
+            subprocess.run(['pdflatex', '-interaction=nonstopmode', f'{out}.tex'],
+                           cwd='/tmp', capture_output=True)
+        except (FileNotFoundError, OSError):
+            pass
+    subprocess.run(['pdftoppm', '-png', '-r', '150', f'{out}.pdf', out],
+                   cwd='/tmp', capture_output=True)
+    png = f'/tmp/{out}-1.png'
+    if not os.path.exists(png):
+        return None
+    return open(png, 'rb').read() if tra_bytes else png
 
 # ═══════════ GÓI LUẬT MẶC ĐỊNH (cầu tương thích) ═══════════
 # Nạp luật 2D + helper đo (để mọi kho import hinh_core có sẵn luật phẳng, Toán 7 nguyên vẹn).
