@@ -568,17 +568,20 @@ class HinhKhoiHop(HinhCoBan):
                 self.ghi_chu(ox + (xcum[i] + xcum[i + 1]) / 2, oy + cao / 2, f'({i + 1})')
         return self
 
-    def khoi_lap_phuong_chia_o(self, n, o_roi=True, nhan_donvi='1 dm',
-                               goc_o=(0.0, 0.0), ten='CO'):
-        """KHỐI LẬP PHƯƠNG chia n×n×n Ô ĐƠN VỊ (H10.8 — giới thiệu thể tích).
+    def khoi_hop_chia_o(self, dai, rong, cao, o_roi=True, nhan_donvi='1 dm',
+                        goc_o=(0.0, 0.0), ten='CO'):
+        """KHỐI HỘP CHỮ NHẬT chia dai×rong×cao Ô ĐƠN VỊ (H10.8 — giới thiệu thể tích: hộp 5×2×4).
+        dai = số ô ngang (mặt trước), rong = số ô sâu, cao = số ô đứng (đều nguyên ≥ 1).
         Kẻ lưới ô trên 3 mặt THẤY (trước·trên·phải); 3 cạnh khuất tại đỉnh sau-dưới nét đứt.
-        o_roi=True → kèm 1 lập phương ĐƠN VỊ rời bên phải + nhãn 'nhan_donvi' (vd '1 dm').
+        o_roi=True → kèm 1 lập phương ĐƠN VỊ rời + nhãn 'nhan_donvi' (vd '1 dm').
         Máy tự tính toạ độ (Đ5.9). Góc phối cảnh ≡ khoi_hop_chu_nhat."""
-        if n < 1:
-            raise ValueError("[khoi_lap_phuong_chia_o] n phải ≥ 1")
+        dai, rong, cao = int(dai), int(rong), int(cao)
+        if not (dai >= 1 and rong >= 1 and cao >= 1):
+            raise ValueError("[khoi_hop_chia_o] dai, rong, cao đều phải ≥ 1 (số ô nguyên)")
         self._nen_luoi = False
         ang = math.radians(_GOC_SAU); cs = _CO_SAU * math.cos(ang); sn = _CO_SAU * math.sin(ang)
         ox, oy = goc_o; p = ten
+        A, B, C = dai, cao, rong        # i-ngang=dai · j-đứng=cao · k-sâu=rong
         def pt(i, j, k):
             nm = f'{p}_{i}_{j}_{k}'
             if nm not in self.V:
@@ -586,24 +589,32 @@ class HinhKhoiHop(HinhCoBan):
             return nm
         def seg(a, b, net='lien'):
             self.doan(pt(*a), pt(*b), net=net)
-        # 12 cạnh ngoài: 9 liền + 3 khuất tại (0,0,n)
-        for a, b in [((0,0,0),(n,0,0)),((n,0,0),(n,n,0)),((n,n,0),(0,n,0)),((0,n,0),(0,0,0)),
-                     ((n,0,0),(n,0,n)),((n,n,0),(n,n,n)),((0,n,0),(0,n,n)),
-                     ((n,0,n),(n,n,n)),((n,n,n),(0,n,n))]:
+        # 12 cạnh ngoài: 9 liền + 3 khuất tại (0,0,C)
+        for a, b in [((0,0,0),(A,0,0)),((A,0,0),(A,B,0)),((A,B,0),(0,B,0)),((0,B,0),(0,0,0)),
+                     ((A,0,0),(A,0,C)),((A,B,0),(A,B,C)),((0,B,0),(0,B,C)),
+                     ((A,0,C),(A,B,C)),((A,B,C),(0,B,C))]:
             seg(a, b)
-        for a, b in [((0,0,0),(0,0,n)),((0,0,n),(n,0,n)),((0,0,n),(0,n,n))]:
+        for a, b in [((0,0,0),(0,0,C)),((0,0,C),(A,0,C)),((0,0,C),(0,B,C))]:
             seg(a, b, 'dut')
         # lưới ô trên 3 mặt thấy (liền)
-        for t in range(1, n):
-            seg((t,0,0),(t,n,0)); seg((0,t,0),(n,t,0))     # trước
-            seg((t,n,0),(t,n,n)); seg((0,n,t),(n,n,t))     # trên
-            seg((n,t,0),(n,t,n)); seg((n,0,t),(n,n,t))     # phải
+        for t in range(1, A):
+            seg((t,0,0),(t,B,0)); seg((t,B,0),(t,B,C))          # trước dọc · trên dọc
+        for t in range(1, B):
+            seg((0,t,0),(A,t,0)); seg((A,t,0),(A,t,C))          # trước ngang · phải dọc
+        for t in range(1, C):
+            seg((0,B,t),(A,B,t)); seg((A,0,t),(A,B,t))          # trên sâu · phải sâu
         # ô đơn vị rời + nhãn
         if o_roi:
-            self.khoi_hop_chu_nhat(1, 1, 1, goc_o=(ox + n + 1.3, oy), ten=p + 'u')
+            self.khoi_hop_chu_nhat(1, 1, 1, goc_o=(ox + A + 1.3, oy), ten=p + 'u')
             if nhan_donvi:
-                self.ghi_chu(ox + n + 1.3 + 0.5 + 0.5 * cs, oy - 0.42, _mathwrap(nhan_donvi))
+                self.ghi_chu(ox + A + 1.3 + 0.5 + 0.5 * cs, oy - 0.42, _mathwrap(nhan_donvi))
         return self
+
+    def khoi_lap_phuong_chia_o(self, n, o_roi=True, nhan_donvi='1 dm',
+                               goc_o=(0.0, 0.0), ten='CO'):
+        """KHỐI LẬP PHƯƠNG chia n×n×n Ô ĐƠN VỊ (trường hợp riêng của khoi_hop_chia_o, dai=rong=cao=n)."""
+        return self.khoi_hop_chia_o(n, n, n, o_roi=o_roi, nhan_donvi=nhan_donvi,
+                                    goc_o=goc_o, ten=ten)
 
     def khoi_ghep_lapphuong(self, danh_sach_o, goc_o=(0.0, 0.0), ten='GL'):
         """KHỐI GHÉP từ các LẬP PHƯƠNG ĐƠN VỊ đặt theo Ô NGUYÊN (x,y,z) — gốc (0,0,0)

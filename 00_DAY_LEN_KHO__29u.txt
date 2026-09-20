@@ -1,0 +1,10 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29u  (nền GitHub 29t)
+================================================
+3 file — upload ĐÈ, commit 1 lần:
+  1. hinh_khoihop.py            <- +khoi_hop_chia_o (HHCN chia ô, cho H10.8 = 5×2×4).
+                                   khoi_lap_phuong_chia_o thành wrapper. Hàm cũ GIỮ NGUYÊN.
+  2. BAN_TRICH_HAM_HH7_CH10.md  <- regen (78 -> 79 hàm)
+  3. 00_KHO_VERSION.txt         <- nền 29t + [29u], mốc -> 29u
+Commit: "[29u] khoi_hop_chia_o — HHCN chia ô (H10.8 5×2×4)"
+Additive, 0 hồi quy. Kéo (pull) remote mới nhất trước khi đè.
+(c) Hiếu Học · Ông Bụt · 2026-09-20
