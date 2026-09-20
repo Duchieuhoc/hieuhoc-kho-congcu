@@ -1,7 +1,13 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.25)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.25 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.26)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.26 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
+### `tieuDeKhoiTracNghiem()`
+[V12.1 · 29y] SƠ ĐỒ KHỐI ④ BÀI TẬP VỀ NHÀ — 2 KHỐI: A. Trắc nghiệm (Phần I/II/III con) + B. Tự luận Thay sơ đồ PHẲNG cũ A/B/C/D (tieuDePhanI/II/III + tieuDeTuLuan — GIỮ để không phá bài cũ). HP V12.1 Đ22.4·23.2 · Instructions AI Soạn Đại số V12.1 §④ · Phụ lục Đại số v1.7 §6. Khối A/B = cấp cha (đậm + gạch chân); Phần I/II/III = cấp con (đậm, KHÔNG tiền tố A/B/C).
+### `tieuDeKhoiTuLuan(soBai, tongDiem)`
+### `tieuDePhanI_TN(soCau, tongDiem)`
+### `tieuDePhanII_TN(soCau, soMenhDe, tongDiem)`
+### `tieuDePhanIII_TN(soCau, tongDiem)`
 ### `kiemMay(bufOrPath, opts = {})`
 [v9.7] CỬA KIỂM MÁY CHUNG — kiemMay(bufOrPath, opts) Code hóa checklist máy (HP Điều 61). AI Soạn (qua xuatFile) và AI QC (gọi trực tiếp trên file nhận) dùng CHUNG một cửa. Bắt cả failure IM LẶNG.
 ### `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })`
@@ -129,4 +135,4 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 70 hàm + 18 hằng/tham chiếu · template v10.25 (2026-09-08) · sinh_apiref.js.*
+*Tự sinh: 75 hàm + 18 hằng/tham chiếu · template v10.26 (2026-09-08) · sinh_apiref.js.*

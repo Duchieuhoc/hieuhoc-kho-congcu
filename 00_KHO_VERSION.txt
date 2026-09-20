@@ -1,7 +1,15 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
-[ĐỒNG BỘ · 2026-09-20 · OB Đại số] API_REFERENCE.md regen khớp template v10.25 (gate đồng bộ §7 QUY_UOC: template↔API cùng snapshot). Trước đó API kẹt v10.21 (2026-09-08) trong khi template đã v10.25. KHÔNG đổi template/hàm → KHÔNG bump mốc kho (giữ 29x). Chỉ đồng bộ tài liệu tham chiếu.
+[29y] BỔ 5 HÀM KHỐI ④ V12.1 — sơ đồ Bài tập về nhà A/B (Ông Bụt Đại số, 2026-09-20, phát hiện QC pilot DS7_CH06_B20):
+      • hieuhoc_template.js v10.26: +tieuDeKhoiTracNghiem() "A. BÀI TẬP TRẮC NGHIỆM" (đậm+gạch)
+        +tieuDeKhoiTuLuan(soBai,tongDiem) "B. BÀI TẬP TỰ LUẬN" (đậm+gạch)
+        +tieuDePhanI_TN(soCau,tongDiem) / tieuDePhanII_TN(soCau,soMenhDe,tongDiem) / tieuDePhanIII_TN(soCau,tongDiem)
+        → "Phần I/II/III. …" cấp CON (đậm, KHÔNG tiền tố A/B/C). Đúng HP V12.1 Đ22.4·23.2 · Phụ lục Đại số v1.7 §6.
+      • ADDITIVE: GIỮ tieuDePhanI/II/III + tieuDeTuLuan (A/B/C/D phẳng cũ) — bài cũ không đổi. 0 hồi quy.
+      • Nghiệm thu: dựng lại B20 bằng hàm mới → output GIỐNG HỆT bản workaround (209 đoạn, đậm/gạch khớp), qua cửa kiemMay.
+      • API_REFERENCE.md regen v10.26 (75 hàm). Nền 29x (mạch Hình giữ nguyên). Thay workaround thủ công của AI Soạn.
+
 
 [29x] BỔ 2 HÀM HÌNH TRỤC SỐ — mạch đại số DS7 (Ông Bụt Đại số, 2026-09-20, phiếu DS7_CH02_B07):
       • hinh_daiso.py +dung_can_hai(canh,nhan_diem,nhan_can) — dựng √2 trên trục bằng compa

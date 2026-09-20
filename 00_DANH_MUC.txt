@@ -1,11 +1,11 @@
-DANH MỤC GÓI — CAPNHAT_KHO__29x_apiref.zip
-Chiều: OB → thầy → PUSH ĐÈ GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu · Commit changes)
-Đóng: OB Đại số · 2026-09-20
+DANH MỤC — CAPNHAT_KHO__29y.zip
+Chiều: OB → thầy → PUSH ĐÈ GitHub (hieuhoc-kho-congcu · Commit changes)
+Đóng: OB Đại số · 2026-09-20 · phiên thợ-công-cụ (sau QC pilot DS7_CH06_B20)
 
-FILE — THAY/THÊM — GHI CHÚ
-API_REFERENCE.md   — THAY  — regen từ template v10.25 (sinh_apiref.js). Trước: v10.21 (lệch). 70 hàm, chữ ký khớp.
-00_KHO_VERSION.txt — THAY  — +1 dòng note [ĐỒNG BỘ 2026-09-20]. KHÔNG bump mốc (giữ 29x — template/hàm không đổi).
+FILE — THAY — GHI CHÚ
+hieuhoc_template.js — THAY — v10.26 [29y]: +5 hàm khối ④ V12.1 (tieuDeKhoiTracNghiem/TuLuan + tieuDePhanI/II/III_TN). ADDITIVE, giữ hàm cũ.
+API_REFERENCE.md    — THAY — regen v10.26 (75 hàm), có 5 hàm mới.
+00_KHO_VERSION.txt  — THAY — +block [29y] (mốc kho mới = 29y).
 
-VIỆC THẦY LÀM: upload đè 2 file trên vào repo → Commit. Sau đó OB & AI Soạn bụng kho sẽ có API khớp v10.25.
-KHÔNG đụng hieuhoc_template.js (không sửa hàm) → không ảnh hưởng one-writer.
-CỜ NHỎ (bỏ qua được): sinh_apiref in ngày header "2026-09-08" cho v10.25 (ngày hardcode lệch) — chỉ mỹ thuật, version string đúng.
+VIỆC THẦY: upload đè 3 file trên vào repo → Commit. Sau đó OB & AI Soạn bụng kho có mốc 29y + hàm khối A/B.
+one-writer: chỉ THÊM hàm (không đụng hàm Hình) → an toàn với máy Hình. Nếu máy Hình đang sửa template → hợp nhất trước khi đè.
