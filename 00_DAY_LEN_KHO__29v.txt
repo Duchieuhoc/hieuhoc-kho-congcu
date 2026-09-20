@@ -1,0 +1,10 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29v  (nền GitHub 29u)
+================================================
+3 file — upload ĐÈ, commit 1 lần:
+  1. hinh_khoihop.py            <- _callout_langtru +part 'duong_cheo' (nhãn Đường chéo). Hàm khác GIỮ NGUYÊN.
+  2. BAN_TRICH_HAM_HH7_CH10.md  <- regen
+  3. 00_KHO_VERSION.txt         <- nền 29u + [29v], mốc -> 29v
+Commit: "[29v] callout +duong_cheo (nhãn Đường chéo cho H10.1)"
+Additive, 0 hồi quy. Kéo (pull) remote mới nhất trước khi đè.
+=> AI Soạn dựng lại Hình 1 (thêm chú thích ('duong_cheo','Đường chéo')) ở L2.
+(c) Hiếu Học · Ông Bụt · 2026-09-20

@@ -280,7 +280,7 @@ class HinhKhoiHop(HinhCoBan):
         ten_dinh: list tên đỉnh ĐÁY GỐC (vd ['A','B','C']) → đáy còn lại tự thêm dấu phẩy (A',B',C');
                   HOẶC (đáy_dưới, đáy_trên) = 2 bộ tên KHÁC CHỮ (vd (['M','N','P','Q'],['E','F','G','H']) → MNPQ.EFGH).
                   None → đỉnh ẩn (không chấm, không nhãn) như hình minh hoạ số đo.
-        chu_thich: list (part, chữ) chú thích có nét dẫn — part∈{dinh,canh_ben,canh_day,mat_day,mat_ben}
+        chu_thich: list (part, chữ) chú thích có nét dẫn — part∈{dinh,canh_ben,canh_day,mat_day,mat_ben,duong_cheo}
                   (H10.19 Đỉnh/Cạnh bên/Mặt đáy/Cạnh đáy).
         to_day  : tô nhạt mặt đáy thấy rõ (near).
         goc_o,ten: dời khối + tiền tố tên đỉnh ẩn (đặt >1 khối/1 hình).
@@ -398,13 +398,19 @@ class HinhKhoiHop(HinhCoBan):
         # cạnh đáy: cạnh đáy dưới (far) THẤY RÕ nằm phải nhất
         vfe = [i for i in range(n) if not an[i] and not an[(i + 1) % n]]
         i_cd = max(vfe, key=lambda i: mid(far[i], far[(i + 1) % n])[0], default=i_vis)
+        _cx = sum(x for x, _ in near + far) / (2 * n)
+        _cy = sum(y for _, y in near + far) / (2 * n)
+        _mbc = mid(mid(near[i_cb], far[i_cb]), mid(near[(i_cb + 1) % n], far[(i_cb + 1) % n]))
+        _vx, _vy = _mbc[0] - _cx, _mbc[1] - _cy
+        _L = math.hypot(_vx, _vy) or 1.0
+        _mb = (_mbc[0] + _vx / _L * 0.8, _mbc[1] + _vy / _L * 0.8)   # đẩy RA NGOÀI tâm → nét dẫn mặt bên KHÔNG dính đường chéo (qua tâm)
         tg = {
             'dinh':     near[i_dinh],
             'canh_ben': mid(near[i_cb], far[i_cb]),
-            'mat_ben':  mid(mid(near[i_cb], far[i_cb]),
-                            mid(near[(i_cb + 1) % n], far[(i_cb + 1) % n])),
+            'mat_ben':  _mb,
             'mat_day':  (sum(x for x, _ in near) / n, sum(y for _, y in near) / n),
             'canh_day': mid(far[i_cd], far[(i_cd + 1) % n]),
+            'duong_cheo': (_cx, _cy),
         }
         items = [(p, t) for (p, t) in
                  (chu_thich.items() if isinstance(chu_thich, dict) else chu_thich) if p in tg]

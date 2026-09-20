@@ -1,6 +1,15 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29v] +CHÚ THÍCH "ĐƯỜNG CHÉO" cho callout hộp/lăng trụ (Ông Bụt Hình, 2026-09-20, QC V3 thầy bắt: Hình 1 vẽ chéo AC′ nhưng THIẾU nhãn "Đường chéo"):
+      • hinh_khoihop.py: _callout_langtru +part 'duong_cheo' → nét dẫn trỏ TÂM khối (đường chéo không gian
+        đi qua tâm). Nay chu_thich nhận đủ 6 part: dinh · canh_ben · canh_day · mat_ben · mat_day · duong_cheo.
+        (H10.1 định nghĩa cần nhãn Đỉnh/Cạnh bên/Mặt bên/Mặt đáy/Cạnh đáy/ĐƯỜNG CHÉO.)
+      • GỐC LỖI: phiếu OB Bài 36 liệt kê 5 chú thích, SÓT "Đường chéo" (OB Pha A thiếu, KHÔNG phải AI Soạn sai).
+        Đã bổ vào phiếu. Nền 29u GIỮ NGUYÊN — additive, 0 hồi quy.
+      • [refine] điểm trỏ 'mat_ben' ĐẨY RA NGOÀI tâm → nét dẫn Mặt bên KHÔNG dính đường chéo (qua tâm) — thầy yêu cầu.
+      VERIFY: Hình 1 render 6 chú thích + chéo AC′ nét đứt, nhãn "Đường chéo" trỏ đúng, nét dẫn Mặt bên tách khỏi chéo; cổng AST SẠCH; smoke 18/18; regen bản trích.
+
 [29u] TỔNG QUÁT HOÁ CHIA Ô → HỘP CHỮ NHẬT (Ông Bụt Hình, 2026-09-20, đọc NGUON Bài 36 lộ H10.8 là HHCN 5×2×4):
       • hinh_khoihop.py: +khoi_hop_chia_o(dai,rong,cao, o_roi, nhan_donvi, goc_o, ten) — hộp CHỮ NHẬT chia
         dai×rong×cao ô đơn vị (H10.8 thật = 5×2×4=40, KHÔNG phải lập phương n³). khoi_lap_phuong_chia_o(n)
@@ -209,7 +218,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29u (2026-09-20)
+Mốc kho      : 29v (2026-09-20)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"
