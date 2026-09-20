@@ -568,6 +568,79 @@ class HinhKhoiHop(HinhCoBan):
                 self.ghi_chu(ox + (xcum[i] + xcum[i + 1]) / 2, oy + cao / 2, f'({i + 1})')
         return self
 
+    def khoi_lap_phuong_chia_o(self, n, o_roi=True, nhan_donvi='1 dm',
+                               goc_o=(0.0, 0.0), ten='CO'):
+        """KHỐI LẬP PHƯƠNG chia n×n×n Ô ĐƠN VỊ (H10.8 — giới thiệu thể tích).
+        Kẻ lưới ô trên 3 mặt THẤY (trước·trên·phải); 3 cạnh khuất tại đỉnh sau-dưới nét đứt.
+        o_roi=True → kèm 1 lập phương ĐƠN VỊ rời bên phải + nhãn 'nhan_donvi' (vd '1 dm').
+        Máy tự tính toạ độ (Đ5.9). Góc phối cảnh ≡ khoi_hop_chu_nhat."""
+        if n < 1:
+            raise ValueError("[khoi_lap_phuong_chia_o] n phải ≥ 1")
+        self._nen_luoi = False
+        ang = math.radians(_GOC_SAU); cs = _CO_SAU * math.cos(ang); sn = _CO_SAU * math.sin(ang)
+        ox, oy = goc_o; p = ten
+        def pt(i, j, k):
+            nm = f'{p}_{i}_{j}_{k}'
+            if nm not in self.V:
+                self._diem(nm, ox + i + cs * k, oy + j + sn * k, nhan=None, moc=False)
+            return nm
+        def seg(a, b, net='lien'):
+            self.doan(pt(*a), pt(*b), net=net)
+        # 12 cạnh ngoài: 9 liền + 3 khuất tại (0,0,n)
+        for a, b in [((0,0,0),(n,0,0)),((n,0,0),(n,n,0)),((n,n,0),(0,n,0)),((0,n,0),(0,0,0)),
+                     ((n,0,0),(n,0,n)),((n,n,0),(n,n,n)),((0,n,0),(0,n,n)),
+                     ((n,0,n),(n,n,n)),((n,n,n),(0,n,n))]:
+            seg(a, b)
+        for a, b in [((0,0,0),(0,0,n)),((0,0,n),(n,0,n)),((0,0,n),(0,n,n))]:
+            seg(a, b, 'dut')
+        # lưới ô trên 3 mặt thấy (liền)
+        for t in range(1, n):
+            seg((t,0,0),(t,n,0)); seg((0,t,0),(n,t,0))     # trước
+            seg((t,n,0),(t,n,n)); seg((0,n,t),(n,n,t))     # trên
+            seg((n,t,0),(n,t,n)); seg((n,0,t),(n,n,t))     # phải
+        # ô đơn vị rời + nhãn
+        if o_roi:
+            self.khoi_hop_chu_nhat(1, 1, 1, goc_o=(ox + n + 1.3, oy), ten=p + 'u')
+            if nhan_donvi:
+                self.ghi_chu(ox + n + 1.3 + 0.5 + 0.5 * cs, oy - 0.42, _mathwrap(nhan_donvi))
+        return self
+
+    def khoi_ghep_lapphuong(self, danh_sach_o, goc_o=(0.0, 0.0), ten='GL'):
+        """KHỐI GHÉP từ các LẬP PHƯƠNG ĐƠN VỊ đặt theo Ô NGUYÊN (x,y,z) — gốc (0,0,0)
+        (H10.11 bài 10.1 đếm khối · H10.18 khay đá). Che khuất đúng (khối gần che khối xa,
+        painter xa→gần tô mặt trắng); vẽ CẠNH của MẶT LỘ để đếm được từng khối.
+        danh_sach_o = [(x,y,z), ...] (x phải, y lên, z lùi sâu). Máy tự tính toạ độ (Đ5.9)."""
+        if not danh_sach_o:
+            raise ValueError("[khoi_ghep_lapphuong] danh_sach_o rỗng")
+        self._nen_luoi = False
+        ang = math.radians(_GOC_SAU); cs = _CO_SAU * math.cos(ang); sn = _CO_SAU * math.sin(ang)
+        ox, oy = goc_o; p = ten
+        cells = set((int(a), int(b), int(c)) for a, b, c in danh_sach_o)
+        cache = {}
+        def pt(i, j, k):
+            key = (i, j, k)
+            if key not in cache:
+                nm = f'{p}_{i}_{j}_{k}'
+                self._diem(nm, ox + i + cs * k, oy + j + sn * k, nhan=None, moc=False)
+                cache[key] = nm
+            return cache[key]
+        def mat(x, y, z, loai):
+            if loai == 'truoc':  return [(x,y,z),(x+1,y,z),(x+1,y+1,z),(x,y+1,z)]
+            if loai == 'tren':   return [(x,y+1,z),(x+1,y+1,z),(x+1,y+1,z+1),(x,y+1,z+1)]
+            return [(x+1,y,z),(x+1,y+1,z),(x+1,y+1,z+1),(x+1,y,z+1)]   # phai
+        # painter: XA trước (z lớn·y lớn·x lớn) → GẦN sau (tô trắng đè)
+        for (x, y, z) in sorted(cells, key=lambda c: (c[2], c[1], c[0]), reverse=True):
+            for loai in ('truoc', 'tren', 'phai'):
+                self.to_mien(*[pt(*v) for v in mat(x, y, z, loai)], mau='white')
+        # cạnh MẶT LỘ (không có khối kề phía đó)
+        for (x, y, z) in cells:
+            for loai, kề in (('truoc', (x,y,z-1)), ('tren', (x,y+1,z)), ('phai', (x+1,y,z))):
+                if kề not in cells:
+                    f = mat(x, y, z, loai)
+                    for i in range(4):
+                        self.doan(pt(*f[i]), pt(*f[(i+1) % 4]))
+        return self
+
 # ═══ [29c] Ông Bụt 2026-09-16 · DS8 Chương 2 (Hằng đẳng thức) ═══
 def khoiLapPhuongKhoetGoc(canhLon='2x+3', canhCon='x+1', chuThich=None,
                           out='khoi_khoet_goc', tra_bytes=False, S=4.0, a=1.6):

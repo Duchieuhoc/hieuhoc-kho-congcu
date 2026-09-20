@@ -1,0 +1,10 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29t  (nền GitHub 29s)
+================================================
+3 file — upload ĐÈ, commit 1 lần:
+  1. hinh_khoihop.py            <- +khoi_lap_phuong_chia_o + khoi_ghep_lapphuong. Hàm cũ GIỮ NGUYÊN.
+  2. BAN_TRICH_HAM_HH7_CH10.md  <- regen (76 -> 78 hàm)
+  3. 00_KHO_VERSION.txt         <- nền 29s + [29t], mốc -> 29t
+Commit: "[29t] khoi_lap_phuong_chia_o + khoi_ghep_lapphuong — đóng nốt hình Bài 36"
+Additive, 0 hồi quy. Kéo (pull) remote mới nhất trước khi đè.
+=> Kho hình Bài 36 ĐỦ. OB tiếp: hoàn tất phiếu (Hình 12-14) + dựng NGUON + đóng GIAO_AISOAN L1.
+(c) Hiếu Học · Ông Bụt · 2026-09-20

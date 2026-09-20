@@ -1,6 +1,21 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29t] +2 HÀM KHỐI LẬP PHƯƠNG ĐƠN VỊ — đóng nốt hình Bài 36 (Ông Bụt Hình, 2026-09-20, YC bổ sung Bài 36 mục a):
+      • hinh_khoihop.py: +khoi_lap_phuong_chia_o(n, o_roi, nhan_donvi, goc_o, ten) — lập phương chia n×n×n
+        Ô ĐƠN VỊ, kẻ lưới 3 mặt thấy + 3 cạnh khuất nét đứt + ô đơn vị rời (H10.8 giới thiệu thể tích).
+        +khoi_ghep_lapphuong(danh_sach_o, goc_o, ten) — khối ghép từ lập phương đơn vị theo ô nguyên
+        (x,y,z), che khuất painter xa→gần (tô mặt trắng) + vẽ cạnh MẶT LỘ để đếm (H10.11 bài 10.1,
+        H10.18 khay đá 18 ô). Góc phối cảnh ≡ khoi_hop_chu_nhat.
+      • Nền 29s GIỮ NGUYÊN — additive, 0 hồi quy.
+      VERIFY: chia 3×3×3 (đếm 27 ô + ô đơn vị rời) · bậc thang · khay 18 ô đếm đúng, che khuất sạch;
+        cổng AST SẠCH (--kho hinh_hh7_ch10, cell-coord nguyên qua như diem_luoi); smoke 18/18; regen
+        BAN_TRICH_HAM_HH7_CH10.md (76→78 hàm). ⚠️ GHI CHÚ: khối ghép occlusion PHỨC TẠP (khối chồng nhiều
+        lớp lồng nhau) có thể lộ cạnh sau qua mặt trước (engine tô trước-vẽ cạnh sau); hình chương (bậc
+        thang, khay phẳng) KHÔNG dính. Cần occlusion nặng → về sau thêm op filldraw.
+      ⇒ Kho hình Bài 36 ĐỦ: hộp/lập phương nhãn+chéo · net · lập phương chia ô · khối ghép. Vật thật
+        (khay/thùng/hộp sữa…) vẽ lại bằng hộp kích thước (khoi_hop_chu_nhat) — chốt (b) của thầy.
+
 [29s] LĂNG TRỤ 2 bộ tên đỉnh + BẢN TRÍCH tự-phục-vụ (Ông Bụt Hình, 2026-09-20, Pha A khai nghĩa Bài 36 — chế độ B: AI Soạn tự dựng từ bản trích):
       • lang_tru_dung: ten_dinh nay nhận (đáy_dưới, đáy_trên) = 2 BỘ TÊN KHÁC CHỮ (MNPQ.EFGH — bài 10.7,
         H10.2) ngoài list phẳng tự-thêm-phẩy (MNPQ.M'N'P'Q'). Additive, tương thích ngược 100%.
@@ -185,7 +200,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29s (2026-09-20)
+Mốc kho      : 29t (2026-09-20)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"
