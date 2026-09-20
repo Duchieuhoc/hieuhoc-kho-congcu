@@ -1,1 +1,11 @@
-CAPNHAT_KHO__29o: hinh_coban.py(trung_truc_doan +nua_dai_lui) · BAN_TRICH regen · 00_KHO_VERSION(29o) · hướng dẫn push
+DANH MỤC GÓI — CAPNHAT_KHO__29x_apiref.zip
+Chiều: OB → thầy → PUSH ĐÈ GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu · Commit changes)
+Đóng: OB Đại số · 2026-09-20
+
+FILE — THAY/THÊM — GHI CHÚ
+API_REFERENCE.md   — THAY  — regen từ template v10.25 (sinh_apiref.js). Trước: v10.21 (lệch). 70 hàm, chữ ký khớp.
+00_KHO_VERSION.txt — THAY  — +1 dòng note [ĐỒNG BỘ 2026-09-20]. KHÔNG bump mốc (giữ 29x — template/hàm không đổi).
+
+VIỆC THẦY LÀM: upload đè 2 file trên vào repo → Commit. Sau đó OB & AI Soạn bụng kho sẽ có API khớp v10.25.
+KHÔNG đụng hieuhoc_template.js (không sửa hàm) → không ảnh hưởng one-writer.
+CỜ NHỎ (bỏ qua được): sinh_apiref in ngày header "2026-09-08" cho v10.25 (ngày hardcode lệch) — chỉ mỹ thuật, version string đúng.

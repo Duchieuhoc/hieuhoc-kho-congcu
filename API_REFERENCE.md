@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.21)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.21 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.25)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.25 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `kiemMay(bufOrPath, opts = {})`
@@ -67,7 +67,15 @@ Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến kh
 header/footer trang Word cho ĐỀ KIỂM TRA — ĐÚNG MẪU headerFooterBaiHoc, KHÔNG làm khác. Chỉ thay định danh: "Bài n. Tên | Lớp" → tên đề (dạng thường, truyền sẵn). Footer y hệt mẫu: © Hiếu Học - TL nội bộ + slogan + số trang (PageNumber.CURRENT — tự chạy theo vị trí khi gộp file).
 
 ## phần 4 — tờ phân chương (AI QC dùng)
-### `toPhanChuong({ logoBuffer, lop, tenChuong, danhSachBai, coTongKet = false, co45 = true, co90 = true })`
+### `toPhanChuong({
+  // ── TRUYỀN VÀO (đổi theo môn/chương) ──
+  logoBuffer, khungBuffer, lop, tenChuong, danhSachBai, coTongKet = false,
+  // ── TRUYỀN VÀO (ít đổi, có mặc định) ──
+  loaiBan  = "BẢN GIÁO VIÊN",                    // "BẢN GIÁO VIÊN" | "BẢN HỌC SINH"
+  boSach   = "KẾT NỐI TRI THỨC VỚI CUỘC SỐNG",   // bộ sách
+  phienBan = "CS2627",                            // THCS: CS2627 · THPT: PT2627
+  nam      = new Date().getFullYear(),            // năm bản quyền (mặc định năm hiện tại)
+})`
 ### `footerTPC()`
 Footer riêng cho tờ phân chương (khác footer file bài học — không số trang)
 ### `headerRong()`
@@ -101,10 +109,9 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam
 ### `hinhVe({ imageBuffer, rongCm = 8, tiLeGoc, chuThich })`
 ### `hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {})`
-22a2. ĐẶT HÌNH (HP V12.0 Điều 18 — mốc kho 28z, A1): MẶC ĐỊNH **neo phải MỌI mục** (kể cả ② lý thuyết + Các dạng) — truyền `hinhBenPhai:{imageBuffer,rongCm,tiLeGoc}` vào viDuLyThuyet / viDu / baiTapTaiLop / tuLuanBTVN / dangToanDayDu. **3 NGOẠI LỆ căn giữa** (dùng `hinhVe`): (1) hình rộng **>8cm** · (2) câu Đúng/Sai Phần II · (3) sau hình còn <3 dòng chữ. **BỘ 2–3 hình nhỏ liên quan** → cùng hàng, cả cụm căn giữa: `hangHinh` (1 hàng ≤3, không viền, chuẩn hoá caoCm) / `luoiHinh` (1–3→1 hàng · 4=2+2 · 5=3+2 · 6=3+3).
+22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3 hình, KHÔNG viền, ô căn dọc giữa, CHUẨN HOÁ cùng chiều cao (caoCm). `luoiHinh`: tự chia hàng theo số lượng đã chốt — 1–3→1 hàng · 4→2+2 · 5→3+2 · 6→3+3. Chỉ dùng cho hình nhỏ + bộ liên quan; hình đơn/lớn/Phần II → vẫn hinhVe (dòng riêng).
 ### `luoiHinh(items, opts = {})`
 ### `hinhVeTextBox({ imageBuffer, rongCm = 6, tiLeGoc, chuThich })`
-[V12] Chặn khi `rongCm > 8` (Điều 18: hình >8cm phải chuyển `hinhVe` căn giữa). Thường được gọi qua `hinhBenPhai`, không gọi trực tiếp.
 ### `paraCoHinhPhai(anhFloating, noiDungInline, opts = {})`
 ### `hePhuongTrinh(danhSachPT)`
 ### `paraHePhuongTrinh(danhSachPT, opts = {})`
@@ -122,4 +129,4 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 70 hàm + 18 hằng/tham chiếu · template v10.21 (2026-09-08) · sinh_apiref.js.*
+*Tự sinh: 70 hàm + 18 hằng/tham chiếu · template v10.25 (2026-09-08) · sinh_apiref.js.*

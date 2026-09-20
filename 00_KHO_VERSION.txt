@@ -1,6 +1,8 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[ĐỒNG BỘ · 2026-09-20 · OB Đại số] API_REFERENCE.md regen khớp template v10.25 (gate đồng bộ §7 QUY_UOC: template↔API cùng snapshot). Trước đó API kẹt v10.21 (2026-09-08) trong khi template đã v10.25. KHÔNG đổi template/hàm → KHÔNG bump mốc kho (giữ 29x). Chỉ đồng bộ tài liệu tham chiếu.
+
 [29x] BỔ 2 HÀM HÌNH TRỤC SỐ — mạch đại số DS7 (Ông Bụt Đại số, 2026-09-20, phiếu DS7_CH02_B07):
       • hinh_daiso.py +dung_can_hai(canh,nhan_diem,nhan_can) — dựng √2 trên trục bằng compa
         (SGK Hình 2.3: hình vuông cạnh c + 2 đường chéo + E + trục Ox + đường tròn tâm O bán kính OE
