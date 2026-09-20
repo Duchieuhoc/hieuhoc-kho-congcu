@@ -268,6 +268,116 @@ class Hinh(HinhCoBan):
         self.tikz.append(('khoang', '_dckA', '_dckB', do_chinh_xac or '0,5'))
         return self
 
+    def dung_can_hai(self, canh=2, nhan_diem='A', nhan_can=None):
+        """DỰNG √2 (hoặc √(canh²/2)) TRÊN TRỤC SỐ bằng compa — SGK Toán 7 Hình 2.3.
+
+        Compose ngữ nghĩa: máy tự dựng hình vuông cạnh `canh` + hai đường chéo cắt tại tâm E,
+        rồi trục Ox (gốc O), đường tròn tâm O bán kính OE, cắt tia Ox tại điểm A = nửa đường chéo
+        = canh·√2/2. Với canh=2 → A = √2 (đúng SGK).
+
+        AI Soạn CHỈ khai giá trị `canh` — KHÔNG đụng toạ độ/bán kính thô (Đ5.9).
+
+        canh       : cạnh hình vuông dựng (mặc định 2 → ra √2).
+        nhan_diem  : nhãn điểm giao trên trục (mặc định 'A').
+        nhan_can   : nhãn giá trị dưới điểm A (vd '√2'); None → không ghi (đúng SGK, để HS nhận).
+        """
+        import math as _m
+        self._nen_luoi = False
+        c = float(canh)
+        nua_cheo = c * _m.sqrt(2) / 2         # OE = A trên trục
+        # ── Hình vuông MNPQ cạnh c, đặt phía trên-trái, tách khỏi trục ──
+        oy = 1.9                               # nâng hình vuông cao hơn (tách khỏi đường tròn)
+        ox = -c - 1.4                          # đặt lệch trái gốc O nhiều hơn
+        M=(ox, oy+c); N=(ox+c, oy+c); P=(ox+c, oy); Q=(ox, oy)
+        for tn,(px,py) in [('M',M),('N',N),('P',P),('Q',Q)]:
+            self._diem(tn, px, py, nhan='above' if py>oy else 'below', moc=True)
+        for a,b in [('M','N'),('N','P'),('P','Q'),('Q','M')]:
+            self.tikz.append(('doan', a, b, None, 'lien', None))
+        # hai đường chéo + tâm E
+        self.tikz.append(('doan','M','P',None,'lien',None))
+        self.tikz.append(('doan','N','Q',None,'lien',None))
+        ex,ey = (ox+c/2, oy+c/2)
+        self._diem('E', ex, ey, nhan='above right', moc=True)
+        self.ghi_chu((M[0]+N[0])/2, M[1]+0.12, self._so(int(c)) if c==int(c) else str(c))
+        # ── Trục Ox: gốc O tại (0,0), mũi tên 2 đầu ──
+        SC = 1.0
+        xO = 0.0
+        self._diem('O', xO, 0.0, nhan=None, moc=True)
+        xR = nua_cheo*SC + 1.2
+        self._diem('_ox_L', -0.6, 0.0, nhan=None, moc=False)
+        self._diem('_ox_R', xR, 0.0, nhan=None, moc=False)
+        self.tikz.append(('truc2dau','_ox_L','_ox_R'))
+        self.ghi_chu(xO, -0.44, '0')
+        self.ghi_chu(xR-0.05, 0.22, 'x')
+        # ── Đường tròn tâm O bán kính OE (=nua_cheo) → điểm A trên tia Ox ──
+        self.tikz.append(('tron','O', nua_cheo*SC, None, 'dut'))
+        xA = nua_cheo*SC
+        self._diem(nhan_diem, xA, 0.0, nhan='above', moc=True)
+        if nhan_can:
+            self.ghi_chu(xA, -0.34, str(nhan_can))
+        return self
+
+    def truc_doan_doc_diem(self, trai, phai, chia=10, diem=None,
+                           hien_nhan_diem=False, moc_nhan=None):
+        """TRỤC SỐ ĐOẠN PHÓNG TO để ĐỌC ĐIỂM — biên THẬP PHÂN, chia nhỏ, kéo rộng.
+
+        Dùng cho bài "quan sát hình, đọc số biểu diễn bởi điểm" (SGK 2.15, 2.22):
+        đoạn [trai; phai] (biên thập phân được), chia `chia` vạch nhỏ, hiển thị rộng đủ
+        để các điểm không chồng. Điểm KHÔNG ghi đáp số (Đ35) trừ khi hien_nhan_diem=True.
+
+        trai, phai      : biên đoạn — nhận float | "a/b" | (tử,mẫu) | Fraction (THẬP PHÂN OK).
+        chia            : số vạch nhỏ chia đều đoạn (mặc định 10).
+        diem            : list (gt, ten) hoặc (gt, ten, nhan) — gt trong [trai; phai].
+        hien_nhan_diem  : False (mặc định) → KHÔNG ghi giá trị dưới điểm (bài đọc điểm).
+        moc_nhan        : list giá trị được ghi nhãn ở vạch (mặc định: chỉ 2 biên trai, phai).
+
+        Máy tự tính toạ độ — AI Soạn khai GIÁ TRỊ (Đ5.9). Nền sạch.
+        """
+        from fractions import Fraction
+        def _toF(v):
+            if isinstance(v, Fraction): return v
+            if isinstance(v, tuple):    return Fraction(v[0], v[1])
+            if isinstance(v, int):      return Fraction(v)
+            if isinstance(v, float):    return Fraction(v).limit_denominator(100000)
+            if isinstance(v, str):
+                s=v.strip().replace(',', '.'); return Fraction(s) if '/' in s else Fraction(s).limit_denominator(100000)
+            return Fraction(v)
+        self._nen_luoi = False
+        qt, qp = _toF(trai), _toF(phai)
+        if qt >= qp:
+            raise ValueError("[truc_doan_doc_diem] cần trai < phai")
+        RONG = 10.0                            # bề rộng vẽ (đơn vị vẽ) — kéo rộng để đọc điểm
+        span = float(qp - qt)
+        def _X(q): return (float(q) - float(qt)) / span * RONG
+        # trục mũi 2 đầu
+        self._diem('_dL', -0.5, 0.0, nhan=None, moc=False)
+        self._diem('_dR', RONG+0.5, 0.0, nhan=None, moc=False)
+        self.tikz.append(('truc2dau','_dL','_dR'))
+        # vạch chia nhỏ
+        for i in range(chia+1):
+            q = qt + (qp-qt)*Fraction(i, chia)
+            x = _X(q)
+            chinh = (i==0 or i==chia)
+            self._vach_ht(x, f'_dv{i}', chinh=chinh)
+        # nhãn biên (chỉ 2 đầu, hoặc moc_nhan)
+        show = moc_nhan if moc_nhan is not None else [trai, phai]
+        for gt in show:
+            q=_toF(gt); x=_X(q)
+            s=str(gt).replace('.', ',') if not isinstance(gt,str) else gt.replace('.', ',')
+            self.ghi_chu(x, -0.42, s)
+        # điểm đọc
+        for spec in (diem or []):
+            gt, ten = spec[0], spec[1]
+            nhan = spec[2] if len(spec)>2 else None
+            q=_toF(gt)
+            if q<qt or q>qp:
+                raise ValueError(f"[truc_doan_doc_diem] điểm {gt} ngoài [{trai};{phai}]")
+            x=_X(q)
+            self._diem(ten, x, 0.0, nhan='above', moc=True)
+            if hien_nhan_diem and nhan is not None:
+                self.ghi_chu(x, -0.42, str(nhan))
+        return self
+
     def _vach_ht(self, x, tag, chinh=True):
         """Vạch chia dọc trục hữu tỉ: chính (dài) cho số nguyên, phụ (ngắn) cho phần chia."""
         h = 0.13 if chinh else 0.08

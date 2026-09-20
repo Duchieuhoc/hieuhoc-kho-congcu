@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29x] BỔ 2 HÀM HÌNH TRỤC SỐ — mạch đại số DS7 (Ông Bụt Đại số, 2026-09-20, phiếu DS7_CH02_B07):
+      • hinh_daiso.py +dung_can_hai(canh,nhan_diem,nhan_can) — dựng √2 trên trục bằng compa
+        (SGK Hình 2.3: hình vuông cạnh c + 2 đường chéo + E + trục Ox + đường tròn tâm O bán kính OE
+        → điểm A = nửa đường chéo). Compose ngữ nghĩa, KHÔNG phơi bán kính thô (qua op 'tron' nội bộ).
+      • hinh_daiso.py +truc_doan_doc_diem(trai,phai,chia,diem,hien_nhan_diem) — trục đoạn PHÓNG TO
+        biên THẬP PHÂN (vd [4,6;4,7]), kéo rộng 10 đơn vị vẽ để đọc điểm không chồng. Bài đọc-điểm
+        SGK 2.15/2.22, mặc định KHÔNG in đáp số (Đ35).
+      • Giải 2 CHẶN B07 (Hình 1 dựng √2 · Hình 5 đọc điểm đoạn thập phân). Render mắt OB PASS.
+      • ADDITIVE — không đụng hàm cũ. Nền 29w (mạch Hình giữ nguyên). Regen bản trích. 0 hồi quy.
+
 [29w] +KHỐI GHÉP HỘP KÍCH THƯỚC TỰ DO — mở Bài 37 (Ông Bụt Hình, 2026-09-20, khảo sát Bài 37 lộ khe hở compose):
       • hinh_khoihop.py: +khoi_hop_ghep(danh_sach_khoi, goc_o, ten) — ghép nhiều HỘP kích thước tự do
         [(x,y,z,dai,rong,cao)...], che khuất painter (tô mặt trắng) + vẽ cạnh mặt lộ (tâm mặt không nằm
@@ -228,7 +238,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29w (2026-09-20)
+Mốc kho      : 29x (2026-09-20)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"
