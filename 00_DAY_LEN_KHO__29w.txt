@@ -1,0 +1,10 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29w  (nền GitHub 29v)
+================================================
+3 file — upload ĐÈ, commit 1 lần:
+  1. hinh_khoihop.py            <- +khoi_hop_ghep (ghép hộp kích thước tự do, cho H10.35). Hàm khác GIỮ NGUYÊN.
+  2. BAN_TRICH_HAM_HH7_CH10.md  <- regen
+  3. 00_KHO_VERSION.txt         <- nền 29v + [29w], mốc -> 29w
+Commit: "[29w] khoi_hop_ghep — ghép hộp tự do (khối L Bài 37)"
+Additive, 0 hồi quy. Kéo (pull) remote mới nhất trước khi đè.
+=> Kho phủ đủ hình Bài 37. OB tiếp: phiếu + NGUON Bài 37.
+(c) Hiếu Học · Ông Bụt · 2026-09-20

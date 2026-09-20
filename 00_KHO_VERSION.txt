@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29w] +KHỐI GHÉP HỘP KÍCH THƯỚC TỰ DO — mở Bài 37 (Ông Bụt Hình, 2026-09-20, khảo sát Bài 37 lộ khe hở compose):
+      • hinh_khoihop.py: +khoi_hop_ghep(danh_sach_khoi, goc_o, ten) — ghép nhiều HỘP kích thước tự do
+        [(x,y,z,dai,rong,cao)...], che khuất painter (tô mặt trắng) + vẽ cạnh mặt lộ (tâm mặt không nằm
+        trong khối khác). Cho H10.35 (2 lăng trụ ghép khối L). Khác khoi_ghep_lapphuong (chỉ ô đơn vị).
+      • QUYẾT khảo sát Bài 37: H10.30 (bể bơi) = 1 lăng trụ TIẾT DIỆN LỒI → dùng lang_tru_dung đáy 'da_giac'
+        (kho có sẵn, KHÔNG đẻ hàm). H10.32 (net ghép 2D) → AI ghép đa giác 2D. Chỉ H10.35 (lõm) cần hàm mới.
+      • Nền 29v GIỮ NGUYÊN. Regen bản trích. Additive, 0 hồi quy.
+      VERIFY: khối L (2 hộp) render occlusion sạch · bể bơi da_giac khớp SGK · cổng AST SẠCH · smoke 18/18.
+      ⇒ Kho phủ đủ hình Bài 37: lăng trụ đứng tam giác/tứ giác 2 hướng · callout · net · nhãn 2 bộ · ghép hộp · tiết diện đa giác.
+
 [29v] +CHÚ THÍCH "ĐƯỜNG CHÉO" cho callout hộp/lăng trụ (Ông Bụt Hình, 2026-09-20, QC V3 thầy bắt: Hình 1 vẽ chéo AC′ nhưng THIẾU nhãn "Đường chéo"):
       • hinh_khoihop.py: _callout_langtru +part 'duong_cheo' → nét dẫn trỏ TÂM khối (đường chéo không gian
         đi qua tâm). Nay chu_thich nhận đủ 6 part: dinh · canh_ben · canh_day · mat_ben · mat_day · duong_cheo.
@@ -218,7 +228,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29v (2026-09-20)
+Mốc kho      : 29w (2026-09-20)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

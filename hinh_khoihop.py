@@ -658,6 +658,55 @@ class HinhKhoiHop(HinhCoBan):
                         self.doan(pt(*f[i]), pt(*f[(i+1) % 4]))
         return self
 
+    def khoi_hop_ghep(self, danh_sach_khoi, goc_o=(0.0, 0.0), ten='HG'):
+        """KHỐI GHÉP từ nhiều HỘP CHỮ NHẬT kích thước TỰ DO (H10.35 — 2 lăng trụ ghép hình chữ L).
+        Khác khoi_ghep_lapphuong (chỉ ô đơn vị): mỗi khối có VỊ TRÍ + KÍCH THƯỚC riêng.
+        danh_sach_khoi = [(x,y,z, dai,rong,cao), ...] (x phải·y lên·z lùi sâu; dai ngang·rong sâu·cao đứng).
+        Che khuất painter xa→gần (tô mặt trắng); vẽ CẠNH mặt lộ (không có khối kề che). Máy tự tính toạ độ."""
+        if not danh_sach_khoi:
+            raise ValueError("[khoi_hop_ghep] danh_sach_khoi rỗng")
+        self._nen_luoi = False
+        ang = math.radians(_GOC_SAU); cs = _CO_SAU * math.cos(ang); sn = _CO_SAU * math.sin(ang)
+        ox, oy = goc_o; p = ten
+        K = [tuple(float(v) for v in k) for k in danh_sach_khoi]
+        cache = {}
+        def pt(x, y, z):
+            key = (round(x, 4), round(y, 4), round(z, 4))
+            if key not in cache:
+                nm = f'{p}_{len(cache)}'
+                self._diem(nm, ox + x + cs * z, oy + y + sn * z, nhan=None, moc=False)
+                cache[key] = nm
+            return cache[key]
+        def mat(x, y, z, d, r, c, loai):
+            if loai == 'truoc':  return [(x,y,z),(x+d,y,z),(x+d,y+c,z),(x,y+c,z)]         # k=z (gần)
+            if loai == 'tren':   return [(x,y+c,z),(x+d,y+c,z),(x+d,y+c,z+r),(x,y+c,z+r)] # y+c
+            return [(x+d,y,z),(x+d,y+c,z),(x+d,y+c,z+r),(x+d,y,z+r)]                       # x+d (phải)
+        def _phu(px, py, pz, exclude):
+            # điểm (px,py,pz) có NẰM TRONG (kể cả mặt) một khối khác không → mặt bị che
+            for j,(x,y,z,d,r,c) in enumerate(K):
+                if j == exclude: continue
+                if x-1e-6 <= px <= x+d+1e-6 and y-1e-6 <= py <= y+c+1e-6 and z-1e-6 <= pz <= z+r+1e-6:
+                    return True
+            return False
+        # painter: xa (z lớn) trước → gần (z nhỏ) sau; tô 3 mặt gần trắng
+        order = sorted(range(len(K)), key=lambda i: (K[i][2]+K[i][5], K[i][1], K[i][0]), reverse=True)
+        for i in order:
+            x,y,z,d,r,c = K[i]
+            for loai in ('truoc','tren','phai'):
+                self.to_mien(*[pt(*v) for v in mat(x,y,z,d,r,c,loai)], mau='white')
+        # cạnh MẶT LỘ: mặt bị che nếu TÂM mặt nằm trong khối khác
+        for i,(x,y,z,d,r,c) in enumerate(K):
+            checks = {'truoc': (x+d/2, y+c/2, z-1e-3),
+                      'tren':  (x+d/2, y+c+1e-3, z+r/2),
+                      'phai':  (x+d+1e-3, y+c/2, z+r/2)}
+            for loai,(cxp,cyp,czp) in checks.items():
+                if _phu(cxp,cyp,czp,i):
+                    continue
+                f = mat(x,y,z,d,r,c,loai)
+                for t in range(4):
+                    self.doan(pt(*f[t]), pt(*f[(t+1)%4]))
+        return self
+
 # ═══ [29c] Ông Bụt 2026-09-16 · DS8 Chương 2 (Hằng đẳng thức) ═══
 def khoiLapPhuongKhoetGoc(canhLon='2x+3', canhCon='x+1', chuThich=None,
                           out='khoi_khoet_goc', tra_bytes=False, S=4.0, a=1.6):
