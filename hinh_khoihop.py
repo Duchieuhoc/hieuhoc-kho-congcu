@@ -263,14 +263,22 @@ class HinhKhoiHop(HinhCoBan):
                       to_day=False, goc_o=(0.0, 0.0), ten='L'):
         """LĂNG TRỤ ĐỨNG đáy ĐA GIÁC bất kỳ — phối cảnh xiên, NÉT KHUẤT tự tính theo che.
 
-        day     : SPEC đáy (xem _day_polygon): tam_giac / thang_vuong / thang_can /
-                  chu_nhat / binh_hanh / ngu_giac_nha / da_giac. Mang 'nhan' để ghi số đo cạnh đáy.
+        day     : dict SPEC đáy {'loai':.., <số đo>, 'nhan':{cạnh:nhãn}}. Loại + KHOÁ số đo:
+                  · tam_giac     {a,b,c}                  nhan {a,b,c}
+                  · thang_vuong  {day_lon,day_nho,cao}    nhan {day_lon,day_nho,cao,canh_xien}
+                  · thang_can    {day_lon,day_nho,cao}    nhan {day_lon,day_nho,canh_ben}
+                  · chu_nhat     {a,b}                    nhan {a,b}
+                  · binh_hanh    {canh_day,canh_ben,goc}  nhan {canh_day,canh_ben}
+                  · ngu_giac_nha {rong,cao_than,cao_dinh} nhan {rong,cao_than,mai}
+                  · da_giac      {diem:[(x,y)..], nhan_canh:[..]}
+                  VD: lang_tru_dung({'loai':'tam_giac','a':6,'b':10,'c':8,'nhan':{'a':'6 cm'}}, cao=12, huong='ngang')
         cao     : ĐỘ DÀI cạnh bên = chiều cao lăng trụ đứng (>0).
         huong   : 'ngang' — hai mặt đáy là mặt TRƯỚC/SAU, trục lùi sâu (lăng kính/lều/máng/khay/bể);
                   'dung'  — hai mặt đáy NẰM NGANG (trên/dưới), cạnh bên THẲNG ĐỨNG (H10.19/10.21).
         sau     : 'phai'|'trai' — (chỉ 'ngang') chiều lùi sâu lên phải hay lên trái.
         nhan_canh_ben : nhãn ghi 1 cạnh bên thấy rõ (vd '20 cm').
-        ten_dinh: list tên đỉnh ĐÁY GỐC (vd ['A','B','C']) → đáy còn lại tự thêm dấu phẩy (A',B',C').
+        ten_dinh: list tên đỉnh ĐÁY GỐC (vd ['A','B','C']) → đáy còn lại tự thêm dấu phẩy (A',B',C');
+                  HOẶC (đáy_dưới, đáy_trên) = 2 bộ tên KHÁC CHỮ (vd (['M','N','P','Q'],['E','F','G','H']) → MNPQ.EFGH).
                   None → đỉnh ẩn (không chấm, không nhãn) như hình minh hoạ số đo.
         chu_thich: list (part, chữ) chú thích có nét dẫn — part∈{dinh,canh_ben,canh_day,mat_day,mat_ben}
                   (H10.19 Đỉnh/Cạnh bên/Mặt đáy/Cạnh đáy).
@@ -310,11 +318,16 @@ class HinhKhoiHop(HinhCoBan):
 
         # ── tên đỉnh: đáy GỐC (không phẩy) = near(ngang) / far=đáy dưới(dung) ──
         if ten_dinh:
-            base = list(ten_dinh)
-            if len(base) != n:
-                raise ValueError(f"[lang_tru_dung] ten_dinh cần đủ {n} tên")
-            pr = [b + "'" for b in base]
-            near_names, far_names = (base, pr) if huong == 'ngang' else (pr, base)
+            # ten_dinh: list PHẲNG ['A','B','C'] → đáy kia tự thêm dấu phẩy (A'B'C');
+            #   HOẶC (đáy_dưới, đáy_trên) = 2 bộ tên RÕ cho 2 đáy khác chữ (MNPQ.EFGH — bài 10.7).
+            if len(ten_dinh) == 2 and all(isinstance(x, (list, tuple)) for x in ten_dinh):
+                duoi, tren = list(ten_dinh[0]), list(ten_dinh[1])
+            else:
+                duoi = list(ten_dinh); tren = [b + "'" for b in duoi]
+            if len(duoi) != n or len(tren) != n:
+                raise ValueError(f"[lang_tru_dung] mỗi bộ ten_dinh cần đủ {n} tên")
+            # 'dung': đáy DƯỚI = far, đáy TRÊN = near · 'ngang': đáy TRƯỚC(gốc)=near, SAU=far
+            near_names, far_names = (tren, duoi) if huong == 'dung' else (duoi, tren)
         else:
             near_names = [f'{p}n{i}' for i in range(n)]
             far_names  = [f'{p}f{i}' for i in range(n)]
@@ -497,8 +510,9 @@ class HinhKhoiHop(HinhCoBan):
         DẢI n mặt bên hình chữ nhật (rộng = độ dài từng CẠNH ĐÁY, cao = chiều cao lăng trụ)
         + 2 ĐA GIÁC ĐÁY gắn TRÊN & DƯỚI mặt bên đầu. Nếp gấp NÉT ĐỨT, bao ngoài liền.
 
-        day  : SPEC đáy (như lang_tru_dung): tam_giac/thang_vuong/thang_can/chu_nhat/binh_hanh/
-               ngu_giac_nha/da_giac. Đáy MANG 'nhan' → ghi số đo cạnh (trên các mặt bên tương ứng).
+        day  : dict SPEC đáy — KHOÁ số đo GIỐNG lang_tru_dung (tam_giac{a,b,c} · thang_vuong ·
+               thang_can · chu_nhat{a,b} · binh_hanh · ngu_giac_nha · da_giac). Đáy MANG 'nhan'
+               → ghi số đo cạnh (trên các mặt bên tương ứng).
         cao  : chiều cao lăng trụ (rộng của dải = độ dài cạnh đáy; cao dải = cao). > 0.
         nhan_cao : nhãn ghi chiều cao (vd '12 cm') trên 1 mặt bên.
         so_mat   : True → đánh số (1)…(n) các mặt bên (như H10.24).

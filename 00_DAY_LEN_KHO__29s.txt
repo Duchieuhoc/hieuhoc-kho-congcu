@@ -1,0 +1,11 @@
+ĐẨY LÊN KHO GITHUB — MỐC 29s  (nền GitHub 29r)
+================================================
+3 file — upload ĐÈ, commit 1 lần:
+  1. hinh_khoihop.py            <- lang_tru_dung: ten_dinh nhận 2 bộ tên đỉnh (MNPQ.EFGH) +
+                                   docstring bổ khoá dict 'day' + ví dụ. Hàm khác GIỮ NGUYÊN.
+  2. BAN_TRICH_HAM_HH7_CH10.md  <- regen (76 hàm, đã có khoá day + ví dụ cho chế độ B)
+  3. 00_KHO_VERSION.txt         <- nền 29r + [29s], mốc -> 29s
+Commit: "[29s] lang_tru_dung 2 bộ tên đỉnh + bản trích tự-phục-vụ (khoá day + ví dụ)"
+Additive, 0 hồi quy. Kéo (pull) remote mới nhất trước khi đè.
+=> Sau mốc này: kho + bản trích ĐỦ để AI Soạn tự dựng hình Chương X (chế độ B). OB vá khe hở khi phát sinh + QC V2.
+(c) Hiếu Học · Ông Bụt · 2026-09-20

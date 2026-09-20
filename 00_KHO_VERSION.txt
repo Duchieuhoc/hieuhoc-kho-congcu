@@ -1,6 +1,19 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[29s] LĂNG TRỤ 2 bộ tên đỉnh + BẢN TRÍCH tự-phục-vụ (Ông Bụt Hình, 2026-09-20, Pha A khai nghĩa Bài 36 — chế độ B: AI Soạn tự dựng từ bản trích):
+      • lang_tru_dung: ten_dinh nay nhận (đáy_dưới, đáy_trên) = 2 BỘ TÊN KHÁC CHỮ (MNPQ.EFGH — bài 10.7,
+        H10.2) ngoài list phẳng tự-thêm-phẩy (MNPQ.M'N'P'Q'). Additive, tương thích ngược 100%.
+        Khe hở lộ ngay hình đầu Bài 36 (đặt tên 2 đáy khác bộ chữ) — vá trước khi AI Soạn tắc.
+      • BẢN TRÍCH tự-phục-vụ (thầy chốt chế độ B): bổ vào docstring lang_tru_dung KHOÁ dict 'day' theo
+        từng loại đáy (tam_giac{a,b,c} · thang_vuong{day_lon,day_nho,cao} · thang_can · chu_nhat{a,b} ·
+        binh_hanh{canh_day,canh_ben,goc} · ngu_giac_nha{rong,cao_than,cao_dinh} · da_giac) + 1 VÍ DỤ gọi.
+        Trước: khoá chỉ nằm trong _day_polygon (helper '_' bị ẩn khỏi bản trích Đ5.9) → AI Soạn không thấy.
+        khai_trien_lang_tru trỏ cùng khoá. ⇒ AI Soạn tự dựng KHÔNG đoán sai tham số.
+      • Nền 29r (2 net) GIỮ NGUYÊN. Regen BAN_TRICH_HAM_HH7_CH10.md (76 hàm, khoá+VD đã vào).
+      VERIFY: MNPQ.EFGH + MNPQ.M'N'P'Q' render đúng (nét khuất chuẩn); smoke import + cổng AST SẠCH;
+        bản trích chứa khoá day + ví dụ. Additive, 0 hồi quy.
+
 [29r] +2 HÀM KHAI TRIỂN (NET) — đóng Nhóm 3 hình Chương X (Ông Bụt Hình, 2026-09-20, tiếp Batch 2 DA HH7C10):
       • hinh_khoihop.py: +khai_trien_hop(dai,rong,cao, nhan, so_mat, goc_o, ten) — NET HÌNH HỘP CHỮ NHẬT
         dạng CHỮ THẬP (H10.4/H10.6): 4 mặt bên thành dải + mặt trên/dưới gắn mặt (2); so_mat=True đánh số
@@ -172,7 +185,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29r (2026-09-20)
+Mốc kho      : 29s (2026-09-20)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"
