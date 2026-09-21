@@ -1,11 +1,16 @@
-DANH MỤC — CAPNHAT_KHO__29y.zip
-Chiều: OB → thầy → PUSH ĐÈ GitHub (hieuhoc-kho-congcu · Commit changes)
-Đóng: OB Đại số · 2026-09-20 · phiên thợ-công-cụ (sau QC pilot DS7_CH06_B20)
+00_DANH_MUC — CAPNHAT_KHO__30b  (OB Đại số → Giám đốc UPLOAD ĐÈ GitHub: hieuhoc-kho-congcu)
+Đóng 2026-09-22. Căn cứ: YEUCAU_OB DS6_CH03_B13 (pilot) — bổ hàm nhiet_ke_cot.
 
-FILE — THAY — GHI CHÚ
-hieuhoc_template.js — THAY — v10.26 [29y]: +5 hàm khối ④ V12.1 (tieuDeKhoiTracNghiem/TuLuan + tieuDePhanI/II/III_TN). ADDITIVE, giữ hàm cũ.
-API_REFERENCE.md    — THAY — regen v10.26 (75 hàm), có 5 hàm mới.
-00_KHO_VERSION.txt  — THAY — +block [29y] (mốc kho mới = 29y).
+FILE                     | TRẠNG THÁI | GHI CHÚ
+-------------------------|------------|------------------------------------------------------
+hinh_toado.py            | SỬA        | +method nhiet_ke_cot (vùng DÙNG CHUNG — báo máy Hình)
+00_KHO_VERSION.txt       | SỬA        | +entry [30b] (bump mốc); có ghi chú version file từng stale
+00_MUC_LUC_HAM.md        | SỬA (regen)| +nhiet_ke_cot vào mục lục tra "đã-có-chưa"
+BAN_TRICH_HAM_DS6.md     | SỬA (regen)| +nhiet_ke_cot; vá bản 04/09 thiếu truc_so_huu_ti/truc_doan_doc_diem
+00_DANH_MUC.txt          | —          | file này
 
-VIỆC THẦY: upload đè 3 file trên vào repo → Commit. Sau đó OB & AI Soạn bụng kho có mốc 29y + hàm khối A/B.
-one-writer: chỉ THÊM hàm (không đụng hàm Hình) → an toàn với máy Hình. Nếu máy Hình đang sửa template → hợp nhất trước khi đè.
+KHÔNG kèm: API_REFERENCE.md (KHÔNG đổi — chỉ thêm hàm Python, JS nguyên) · node_modules · file khác.
+
+⚠️ UPLOAD: hinh_toado.py là VÙNG DÙNG CHUNG (Hình↔Đại số). Trước khi push:
+   một-máy-một-lúc + BÁO MÁY HÌNH (Quy ước sửa kho §2 điều 5). Sau push: mốc kho GitHub = 30b.
+   → cập nhật "mốc kho yêu cầu" trong luật (Instructions AI Soạn Đại số / Phụ lục) → 30b.

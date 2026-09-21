@@ -316,6 +316,87 @@ class Hinh(HinhCoBan):
                 self.ghi_chu(x, -0.42, str(nhan))
         return self
 
+    def nhiet_ke_cot(self, cot, thang=(-20, 50), buoc=10, don_vi='\u00b0C',
+                     hien_muc_so=False):
+        """NHIET KE COT \u2014 nhieu thang do DUNG canh nhau, doc muc thuy ngan.
+
+        cot         : list (ten, muc) \u2014 moi nhiet ke: ten = nhan duoi cot (rong \u2192 khong ghi);
+                      muc = muc thuy ngan (nguyen, theo don vi thang).
+        thang       : (min, max) bien thang chia (nguyen), min < max.
+        buoc        : moi vach chinh ung bao nhieu don vi; chia het (max-min).
+        don_vi      : chuoi don vi ghi o dau moi thang ('\u00b0C').
+        hien_muc_so : False (mac dinh) \u2192 KHONG ghi so tai dinh cot (muc la cai HS doc, \u110435);
+                      True \u2192 ghi (dung cho loi giai).
+
+        May tu tinh toa do tu GIA TRI \u2014 AI Soan chi khai cot/thang/buoc (\u11045.9).
+        """
+        tmin, tmax = thang
+        # \u2500\u2500 PHANH kiem (\u11045.9) \u2500\u2500
+        if not (isinstance(tmin, int) and isinstance(tmax, int)) or tmin >= tmax:
+            raise ValueError("[nhiet_ke_cot] thang can (min,max) NGUYEN va min < max")
+        if not isinstance(buoc, int) or buoc < 1:
+            raise ValueError("[nhiet_ke_cot] buoc phai NGUYEN >= 1")
+        if (tmax - tmin) % buoc != 0:
+            raise ValueError(f"[nhiet_ke_cot] buoc {buoc} khong chia het khoang [{tmin},{tmax}]")
+        cot = list(cot or [])
+        if not cot:
+            raise ValueError("[nhiet_ke_cot] can it nhat mot cot (ten, muc)")
+        self._nen_luoi = False
+
+        VY = 0.55 / buoc          # don vi ve tren moi 1 don vi thang
+        W = 0.40                  # be rong ong
+        PITCH = 1.55              # khoang cach tam hai nhiet ke
+        INSET = 0.06              # thuy ngan thut vao so voi thanh ong
+        y0 = 0.0
+        yTop = (tmax - tmin) * VY
+        dv = str(don_vi).replace('\u00b0', r'$^\circ$')   # \u00b0 \u2192 math cho TikZ
+
+        for i, spec in enumerate(cot):
+            ten, muc = spec[0], spec[1]
+            if not isinstance(muc, int):
+                raise ValueError(f"[nhiet_ke_cot] muc cot {i+1} phai NGUYEN")
+            if muc < tmin or muc > tmax:
+                raise ValueError(f"[nhiet_ke_cot] muc {muc} ngoai thang [{tmin},{tmax}]")
+            xL = i * PITCH; xR = xL + W; xC = (xL + xR) / 2
+            ymuc = (muc - tmin) * VY
+            p = f'nk{i}_'
+            # ong: hai thanh + nap tren
+            self._diem(p+'bl', xL, y0, nhan=None, moc=False)
+            self._diem(p+'tl', xL, yTop + 0.14, nhan=None, moc=False)
+            self._diem(p+'br', xR, y0, nhan=None, moc=False)
+            self._diem(p+'tr', xR, yTop + 0.14, nhan=None, moc=False)
+            self.tikz.append(('doan', p+'bl', p+'tl', None, 'lien', 'manh'))
+            self.tikz.append(('doan', p+'br', p+'tr', None, 'lien', 'manh'))
+            self.tikz.append(('doan', p+'tl', p+'tr', None, 'lien', 'manh'))
+            # bau chua (day) + cot thuy ngan do
+            self._diem(p+'gbl', xL - 0.12, y0 - 0.34, nhan=None, moc=False)
+            self._diem(p+'gbr', xR + 0.12, y0 - 0.34, nhan=None, moc=False)
+            self._diem(p+'gtr', xR + 0.12, y0, nhan=None, moc=False)
+            self._diem(p+'gtl', xL - 0.12, y0, nhan=None, moc=False)
+            self.to_mien(p+'gbl', p+'gbr', p+'gtr', p+'gtl', mau='red!85')
+            self._diem(p+'mbl', xL + INSET, y0, nhan=None, moc=False)
+            self._diem(p+'mbr', xR - INSET, y0, nhan=None, moc=False)
+            self._diem(p+'mtr', xR - INSET, ymuc, nhan=None, moc=False)
+            self._diem(p+'mtl', xL + INSET, ymuc, nhan=None, moc=False)
+            self.to_mien(p+'mbl', p+'mbr', p+'mtr', p+'mtl', mau='red!85')
+            # vach chinh + so (trai ong), max o tren xuong min
+            v = tmin
+            while v <= tmax:
+                yv = (v - tmin) * VY
+                a, b = f'{p}wa{v-tmin}', f'{p}wb{v-tmin}'
+                self._diem(a, xL - 0.14, yv, nhan=None, moc=False)
+                self._diem(b, xL, yv, nhan=None, moc=False)
+                self.tikz.append(('doan', a, b, None, 'lien', 'manh'))
+                self.ghi_chu(xL - 0.42, yv, self._so(v))
+                v += buoc
+            # don vi dau thang + nhan cot + so muc (tuy chon)
+            self.ghi_chu(xR + 0.26, yTop + 0.12, dv)
+            if ten:
+                self.ghi_chu(xC, y0 - 0.60, str(ten))
+            if hien_muc_so:
+                self.ghi_chu(xR + 0.32, ymuc, self._so(muc))
+        return self
+
     def _vach_ht(self, x, tag, chinh=True):
         """Vạch chia dọc trục hữu tỉ: chính (dài) cho số nguyên, phụ (ngắn) cho phần chia."""
         h = 0.13 if chinh else 0.08

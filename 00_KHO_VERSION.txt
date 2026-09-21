@@ -1,6 +1,17 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30b] BO HAM NHIET KE COT — hinh_toado.py (Ong But Dai so, 2026-09-22, phieu YEUCAU_OB DS6_CH03_B13 pilot):
+      • hinh_toado.py +nhiet_ke_cot(cot, thang=(-20,50), buoc=10, don_vi='°C', hien_muc_so=False)
+        — nhieu thang do DUNG canh nhau, doc muc thuy ngan (SGK BT 3.1). Compose: to_mien (cot do)+doan (ong/vach)+ghi_chu.
+        May tu tinh toa do tu gia tri (D5.9). PHANH: min<max nguyen · buoc>=1 chia het khoang · moi muc trong [min,max].
+        hien_muc_so=False → KHONG lo so dinh cot (D35).
+      • Dung tang hinh_toado.py (vung dung chung toa do/thang) — KHONG tao module moi (co san sau B1/30a).
+      • Nghiem thu: render 4 nhiet ke (-10/30/0/-20, thang -20→50 buoc 10) khop SGK; PHANH bat 4 ca sai; rong_cm=5,3.
+      • Regen: 00_MUC_LUC_HAM.md + BAN_TRICH_HAM_DS6.md (ban 04/09 thieu — nay du). API_REFERENCE.md KHONG doi.
+      • VUNG DUNG CHUNG: da sua hinh_toado.py → upload MOT-MAY-MOT-LUC, BAO MAY HINH truoc khi push (Quy uoc sua kho §2 dieu 5, §4).
+      • GHI CHU DONG BO: version file truoc dung o [29y]; repo thuc da co 29z (muc luc ham) + 30a (tach hinh_toado.py) chua ghi vao file nay. Entry 30b bo tren nen 30a.
+
 [29y] BỔ 5 HÀM KHỐI ④ V12.1 — sơ đồ Bài tập về nhà A/B (Ông Bụt Đại số, 2026-09-20, phát hiện QC pilot DS7_CH06_B20):
       • hieuhoc_template.js v10.26: +tieuDeKhoiTracNghiem() "A. BÀI TẬP TRẮC NGHIỆM" (đậm+gạch)
         +tieuDeKhoiTuLuan(soBai,tongDiem) "B. BÀI TẬP TỰ LUẬN" (đậm+gạch)
