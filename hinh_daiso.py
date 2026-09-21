@@ -550,3 +550,106 @@ def hinhDienTichDaiSo(kieu='catghep', nhan=None, chuThich=None,
 
 # [29c] gắn làm staticmethod class entry → vào bản trích (sinh_bantrich) + gọi qua instance
 Hinh.hinhDienTichDaiSo = staticmethod(hinhDienTichDaiSo)
+
+
+# ═══ [29y] Ông Bụt 2026-09-21 · DS9 Chương I (Phương trình & hệ hai ẩn) ═══
+# MẶT PHẲNG TOẠ ĐỘ Oxy + ĐỒ THỊ ĐƯỜNG THẲNG — generator ĐỘC LẬP (khuôn hinhDienTichDaiSo).
+#   KHE HỞ: module đã "đặt nền trục toạ độ (lớp 7→9)" nhưng mới có tia số/trục số 1 chiều;
+#   CH1 Toán 9 cần mặt phẳng Oxy + đồ thị đường thẳng (theo PT ax+by=c / 2 điểm) + điểm có
+#   nhãn + đường gióng. TikZ dựng gọn, clip trong khung; 0 rủi ro base renderer (Đ như 29c).
+#   Toạ độ điểm/PT là GIÁ TRỊ toán học (nội dung bài), không phải toạ độ vẽ thô.
+def _mptd_fmt(v):
+    return ('%g' % v).replace('.', ',')
+
+def _mptd_abc(d):
+    """Chuẩn hoá 1 khai báo đường thẳng về (a,b,c) của a*x+b*y=c."""
+    if 'pt' in d:      a, b, c = d['pt']
+    elif 'hs' in d:    m, k = d['hs']; a, b, c = -m, 1, k
+    elif 'dung' in d:  a, b, c = 1, 0, d['dung']
+    elif 'ngang' in d: a, b, c = 0, 1, d['ngang']
+    elif 'qua' in d:
+        (x1, y1), (x2, y2) = d['qua']
+        a, b, c = (y2 - y1), -(x2 - x1), (y2 - y1) * x1 - (x2 - x1) * y1
+    else:
+        raise ValueError("[hinhMatPhangToaDo] đường thẳng cần 1 trong: pt/hs/dung/ngang/qua")
+    return float(a), float(b), float(c)
+
+def _mptd_pts(a, b, c, xr, yr):
+    xmin, xmax = xr; ymin, ymax = yr
+    if abs(b) < 1e-9:
+        x = c / a
+        return (x, ymin - 1), (x, ymax + 1), (x, ymax * 0.62)
+    f = lambda x: (c - a * x) / b
+    xa = xmax * 0.58
+    return (xmin - 1, f(xmin - 1)), (xmax + 1, f(xmax + 1)), (xa, f(xa))
+
+def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
+                      duongThang=None, diem=None, chuThich=None,
+                      scale=0.72, out='mp_toado', tra_bytes=False):
+    """MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG
+       THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng nét đứt.
+
+       xRange, yRange : (min,max) miền vẽ 2 trục (số nguyên).
+       buoc  : bước chia vạch/lưới (mặc định 1).   luoi : True → lưới ô mờ.
+       duongThang : list dict, mỗi đường khai 1 trong —
+                      pt=(a,b,c) → a x + b y = c  ·  hs=(m,k) → y = m x + k  ·
+                      dung=k → x=k  ·  ngang=k → y=k  ·  qua=((x1,y1),(x2,y2)) —
+                    kèm nhan (chuỗi, vd 'd_1'), net ('lien'|'dut'), mau (vd 'blue!75'),
+                    viTriNhan (anchor TikZ, mặc định 'above right').
+       diem  : list dict toa=(x,y) + nhan (vd 'M(1;\\,2)') + viTri (anchor, mặc định
+                'above right') + giong (True → gióng nét đứt xuống 2 trục) + mau.
+       chuThich : caption 'Hình N' căn giữa dưới.
+    """
+    duongThang = duongThang or []; diem = diem or []
+    xmin, xmax = xRange; ymin, ymax = yRange
+    L = [r'\documentclass[tikz,border=6pt]{standalone}',
+         r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g,>={Stealth[length=2.4mm]},'
+         r'line join=round,every node/.style={font=\normalsize}]' % scale]
+    if luoi:
+        L.append(r'\draw[help lines,gray!35,step=%g] (%g,%g) grid (%g,%g);'
+                 % (buoc, xmin, ymin, xmax, ymax))
+    L.append(r'\draw[->,thick] (%g,0) -- (%g,0) node[right] {$x$};' % (xmin - 0.4, xmax + 0.7))
+    L.append(r'\draw[->,thick] (0,%g) -- (0,%g) node[above] {$y$};' % (ymin - 0.4, ymax + 0.7))
+    L.append(r'\node[below left] at (0,0) {$O$};')
+    n = xmin
+    while n <= xmax + 1e-9:
+        if abs(n) > 1e-9:
+            L.append(r'\draw (%g,-0.08) -- (%g,0.08);' % (n, n))
+            L.append(r'\node[below,font=\footnotesize] at (%g,-0.06) {$%s$};' % (n, _mptd_fmt(n)))
+        n += buoc
+    n = ymin
+    while n <= ymax + 1e-9:
+        if abs(n) > 1e-9:
+            L.append(r'\draw (-0.08,%g) -- (0.08,%g);' % (n, n))
+            L.append(r'\node[left,font=\footnotesize] at (-0.08,%g) {$%s$};' % (n, _mptd_fmt(n)))
+        n += buoc
+    for d in duongThang:
+        a, b, c = _mptd_abc(d)
+        (px1, py1), (px2, py2), (lx, ly) = _mptd_pts(a, b, c, xRange, yRange)
+        net = 'dashed' if d.get('net') == 'dut' else 'solid'
+        mau = d.get('mau', 'blue!75')
+        L.append(r'\begin{scope}\clip (%g,%g) rectangle (%g,%g);' % (xmin, ymin, xmax, ymax))
+        L.append(r'\draw[very thick,%s,%s] (%g,%g) -- (%g,%g);' % (mau, net, px1, py1, px2, py2))
+        L.append(r'\end{scope}')
+        if d.get('nhan'):
+            L.append(r'\node[%s,%s,font=\small] at (%g,%g) {$%s$};'
+                     % (d.get('viTriNhan', 'above right'), mau, lx, ly, d['nhan']))
+    for p in diem:
+        x, y = p['toa']; mau = p.get('mau', 'black')
+        if p.get('giong'):
+            L.append(r'\draw[dashed,gray!70] (%g,%g) -- (%g,0);' % (x, y, x))
+            L.append(r'\draw[dashed,gray!70] (%g,%g) -- (0,%g);' % (x, y, y))
+        L.append(r'\fill[%s] (%g,%g) circle (2.2pt);' % (mau, x, y))
+        if p.get('nhan'):
+            L.append(r'\node[%s,font=\small] at (%g,%g) {$%s$};'
+                     % (p.get('viTri', 'above right'), x, y, p['nhan']))
+    if chuThich:
+        L.append(r'\node[below,font=\itshape] at (%g,%g) {%s};'
+                 % ((xmin + xmax) / 2.0, ymin - 1.0, chuThich))
+    L.append(r'\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(L), out, tra_bytes)
+
+# [29y] gắn làm staticmethod class entry → vào bản trích (sinh_bantrich) + gọi qua instance
+Hinh.hinhMatPhangToaDo = staticmethod(hinhMatPhangToaDo)
