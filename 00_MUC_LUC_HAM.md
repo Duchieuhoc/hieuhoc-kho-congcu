@@ -29,17 +29,12 @@
 | `tam_giac_goc(A, B, Cc, goc_B, goc_C, day=4.0, goc_o=(0.0, 0.0), an_nhan=False)` | Tam giác ABC với GÓC cho sẵn: góc tại B = goc_B, góc tại C = goc_C (góc A tự = 180 − goc_B − goc_C) | `hinh_dagiac.py` | method | — |
 | `tu_giac(A, B, Cc, D, loai=None)` | Tứ giác 4 đỉnh lồi, chiều kim đồng hồ | `hinh_dagiac.py` | method | — |
 
-## Số & Đại số (tia số/trục số/toạ độ/diện tích đại số)  · 7 hàm
+## Số & Đại số (tia số/trục số/toạ độ/diện tích đại số)  · 2 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
 | `dung_can_hai(canh=2, nhan_diem='A', nhan_can=None)` | DỰNG √2 (hoặc √(canh²/2)) TRÊN TRỤC SỐ bằng compa — SGK Toán 7 Hình 2.3 | `hinh_daiso.py` | method | L6→9→THPT |
 | `hinhDienTichDaiSo(kieu='catghep', nhan=None, chuThich=None, out='dientich_daiso', tra_bytes=False)` | HÌNH DIỆN TÍCH đại số (nhãn BIẾN, giấu toạ độ) | `hinh_daiso.py` | generator | L6→9→THPT |
-| `hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True, duongThang=None, diem=None, chuThich=None, scale=0.72, out='mp_toado', tra_bytes=False)` | MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng né | `hinh_daiso.py` | generator | L6→9→THPT |
-| `tia_so(gia_tri_max=None, buoc=1, diem=None, hien_nhan_diem=True, moc_nhan=None, ti_le=True, mui_ten=True, goc_ten='O', nhay=None)` | TIA SỐ tự nhiên — gốc bên trái, mũi tên sang phải; vạch chia + nhãn số + điểm đánh dấu | `hinh_daiso.py` | method | L6→9→THPT |
-| `truc_do_chinh_xac(trai, phai, a, do_chinh_xac=None, nhan_a='a')` | TRỤC SỐ 'ĐỘ CHÍNH XÁC LÀM TRÒN' — đoạn cục bộ [trai; phai] (KHÔNG cần gốc 0) | `hinh_daiso.py` | method | L6→9→THPT |
-| `truc_doan_doc_diem(trai, phai, chia=10, diem=None, hien_nhan_diem=False, moc_nhan=None)` | TRỤC SỐ ĐOẠN PHÓNG TO để ĐỌC ĐIỂM — biên THẬP PHÂN, chia nhỏ, kéo rộng | `hinh_daiso.py` | method | L6→9→THPT |
-| `truc_so_huu_ti(tu=-1, den=4, chia=1, diem=None, hien_nhan_diem=True, moc_nhan=None, mui_ten_am=False, goc_ten='0', khoang_to=None, vach_dut=None)` | TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương | `hinh_daiso.py` | method | L6→9→THPT |
 
 ## Đối xứng  · 2 hàm
 
@@ -82,6 +77,16 @@
 | `khoi_lap_phuong_chia_o(n, o_roi=True, nhan_donvi='1 dm', goc_o=(0.0, 0.0), ten='CO')` | KHỐI LẬP PHƯƠNG chia n×n×n Ô ĐƠN VỊ (trường hợp riêng của khoi_hop_chia_o, dai=rong=cao=n). | `hinh_khoihop.py` | method | — |
 | `lang_tru_dung(day, cao, huong='ngang', sau='phai', nhan_canh_ben=None, ten_dinh=None, chu_thich=None, to_day=False, goc_o=(0.0, 0.0), ten='L')` | LĂNG TRỤ ĐỨNG đáy ĐA GIÁC bất kỳ — phối cảnh xiên, NÉT KHUẤT tự tính theo che | `hinh_khoihop.py` | method | — |
 | `net_hop_cat_goc(dai, rong, canh_goc, nhan=None, to_goc=True, goc_o=(0.0, 0.0), ten='N')` | NET (khai triển 2D) miếng bìa chữ nhật CẮT 4 GÓC hình vuông → gấp thành hộp | `hinh_khoihop.py` | method | — |
+
+## Toạ độ & trục số (DÙNG CHUNG)  · 5 hàm
+
+| Hàm | Nghĩa | File | Kiểu | Tầng |
+|---|---|---|---|---|
+| `hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True, duongThang=None, diem=None, chuThich=None, scale=0.72, out='mp_toado', tra_bytes=False)` | MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng né | `hinh_toado.py` | generator | L6→9→THPT |
+| `tia_so(gia_tri_max=None, buoc=1, diem=None, hien_nhan_diem=True, moc_nhan=None, ti_le=True, mui_ten=True, goc_ten='O', nhay=None)` | TIA SỐ tự nhiên — gốc bên trái, mũi tên sang phải; vạch chia + nhãn số + điểm đánh dấu | `hinh_toado.py` | method | L6→9→THPT |
+| `truc_do_chinh_xac(trai, phai, a, do_chinh_xac=None, nhan_a='a')` | TRỤC SỐ 'ĐỘ CHÍNH XÁC LÀM TRÒN' — đoạn cục bộ [trai; phai] (KHÔNG cần gốc 0) | `hinh_toado.py` | method | L6→9→THPT |
+| `truc_doan_doc_diem(trai, phai, chia=10, diem=None, hien_nhan_diem=False, moc_nhan=None)` | TRỤC SỐ ĐOẠN PHÓNG TO để ĐỌC ĐIỂM — biên THẬP PHÂN, chia nhỏ, kéo rộng | `hinh_toado.py` | method | L6→9→THPT |
+| `truc_so_huu_ti(tu=-1, den=4, chia=1, diem=None, hien_nhan_diem=True, moc_nhan=None, mui_ten_am=False, goc_ten='0', khoang_to=None, vach_dut=None)` | TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương | `hinh_toado.py` | method | L6→9→THPT |
 
 ## Đường tròn (dựng)  · 11 hàm
 
