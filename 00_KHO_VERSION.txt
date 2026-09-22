@@ -1,6 +1,15 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30c] VA LOI CHAM DIEM TRUC/TIA SO — hinh_toado.py (Ong But Dai so QC, 2026-09-22, phat hien QC pilot DS6_CH03_B13):
+      • BUG: ve() dong [29n] "if tn.startswith('_'): continue" (an diem dung phu) NUOT luon diem danh dau
+        cua truc_so_huu_ti (_hp{idx}) va tia_so/_danh_dau (_pd{idx}) → MOI diem tren truc/tia so KHONG hien cham dam.
+        Regression tu [29n] (mach Hinh) de len primitive dung chung Dai so. AI Soan goi ham DUNG.
+      • FIX: doi ten diem danh dau _hp{idx}->hp{idx}, _pd{idx}->pd{idx} (bo underscore) → cham 1.6pt hien lai.
+        KHONG dung dong [29n] (giu an diem dung phu cua Hinh). Chu ky ham GIU NGUYEN → API/muc luc/ban trich khong doi.
+      • Nghiem thu: re-render ANS Dang2 (-4;-2;0;3) + H8/H9 → cham dam hien dung tai diem; vach khac tron. rong_cm giu.
+      • VUNG DUNG CHUNG: sua hinh_toado.py → upload MOT-MAY-MOT-LUC, BAO MAY HINH (rui ro thap: chi doi 2 ten diem Dai so).
+
 [30b] BO HAM NHIET KE COT — hinh_toado.py (Ong But Dai so, 2026-09-22, phieu YEUCAU_OB DS6_CH03_B13 pilot):
       • hinh_toado.py +nhiet_ke_cot(cot, thang=(-20,50), buoc=10, don_vi='°C', hien_muc_so=False)
         — nhieu thang do DUNG canh nhau, doc muc thuy ngan (SGK BT 3.1). Compose: to_mien (cot do)+doan (ong/vach)+ghi_chu.

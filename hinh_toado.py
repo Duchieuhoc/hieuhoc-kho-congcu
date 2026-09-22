@@ -156,7 +156,7 @@ class Hinh(HinhCoBan):
             if q < tu or q > den:
                 raise ValueError(f"[truc_so_huu_ti] điểm {gt} ngoài đoạn [{tu}, {den}]")
             x = float(q) * SCALE
-            self._diem(f'_hp{idx}', x, 0.0, nhan=None, moc=True)     # chấm đậm
+            self._diem(f'hp{idx}', x, 0.0, nhan=None, moc=True)     # chấm đậm
             if ten:
                 self.ghi_chu(x, 0.34, str(ten))                     # nhãn tên (trên)
             if hien_nhan_diem and nhan is not None:
@@ -414,7 +414,7 @@ class Hinh(HinhCoBan):
 
     def _danh_dau(self, idx, x, gt, ten, hien_gt=False):
         """Chấm điểm tại x + nhãn tên (trên) + giá trị (dưới, nếu hien_gt)."""
-        self._diem(f'_pd{idx}', x, 0, nhan=None, moc=True)        # chấm đậm, không nhãn tự động
+        self._diem(f'pd{idx}', x, 0, nhan=None, moc=True)        # chấm đậm, không nhãn tự động
         if ten:
             self.ghi_chu(x, 0.34, str(ten))                      # nhãn tên — text mode (an toàn dấu/space)
         if hien_gt:
