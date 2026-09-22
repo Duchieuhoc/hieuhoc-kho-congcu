@@ -1,6 +1,14 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30d] PHIÊN THỢ-CÔNG-CỤ (Ong But Dai so, 2026-09-22) — 3 việc gộp từ QC B14 + gỡ sổ tồn 3.14:
+      • [VÁ ten tiếng Việt] hinh_core._mathlbl + hinh_coban op nhan_mut/nhan_duong: nhãn ASCII (x,y,Ox,AB) giữ math in nghiêng; nhãn có DẤU / khoảng trắng render TEXT mode (giữ dấu). Trước: ${ten}$ (math) làm vỡ "chiều dương"->"chiudng".
+      • [VÁ tia_diem nền] hinh_toado.Hinh.tia_diem override: tự đặt _nen_luoi=False (sơ đồ Đại số nền sạch; base hinh_coban mặc định có lưới cho hình học — GIỮ NGUYÊN cho Hình).
+      • [FEATURE mui_ten_dc] truc_so_huu_ti(..., mui_ten_dc=[(tu,den),…]): chuỗi cung có hướng (tái dùng op 'nhay') mô phỏng cộng/trừ trên trục số. KHÔNG ghi kết quả (Đ35). PHANH: mỗi mốc trong [tu,den]. → GỠ SỔ TỒN T-01 (BT 3.14).
+      • Nghiệm thu: 3.14a (-5)+3=-2, 3.14b (-3)+5=2 render đúng; "chiều dương" đúng dấu; tia_diem nền sạch; nhãn ASCII vẫn math; PHANH bắt mốc ngoài đoạn.
+      • Regen: 00_MUC_LUC_HAM + BAN_TRICH_HAM_DS6 (chữ ký truc_so_huu_ti +mui_ten_dc; +override tia_diem). API_REFERENCE (JS) KHÔNG đổi.
+      • VÙNG DÙNG CHUNG (hinh_core/hinh_coban base): thay đổi BACKWARD-COMPATIBLE (nhãn ASCII giữ nguyên math) → Hình không ảnh hưởng. Upload MỘT-MÁY-MỘT-LÚC, BÁO MÁY HÌNH.
+
 [30c] VA LOI CHAM DIEM TRUC/TIA SO — hinh_toado.py (Ong But Dai so QC, 2026-09-22, phat hien QC pilot DS6_CH03_B13):
       • BUG: ve() dong [29n] "if tn.startswith('_'): continue" (an diem dung phu) NUOT luon diem danh dau
         cua truc_so_huu_ti (_hp{idx}) va tia_so/_danh_dau (_pd{idx}) → MOI diem tren truc/tia so KHONG hien cham dam.

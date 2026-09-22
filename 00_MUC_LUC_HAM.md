@@ -1,7 +1,7 @@
 # 00_MUC_LUC_HAM — MỤC LỤC HÀM TỔNG (tra "đã-có-chưa" TRƯỚC khi viết)
 
 > **Tự sinh** bởi `sinh_mucluc.py` — TÁI DÙNG `sinh_bantrich.py` (Python) + `API_REFERENCE.md` (output `sinh_apiref.js`, JS). KHÔNG sửa tay.
-> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 21/09/2026.
+> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 22/09/2026.
 > **LUẬT VÀNG:** trước khi viết hàm mới → tra file này (Ctrl+F theo NGHĨA). Có hàm khớp → GỌI LẠI. Gần giống → MỞ RỘNG. Viết mới là bậc CUỐI.
 
 *Ẩn: hàm hạ tầng (`_…`) + cửa render (`ve`) theo Đ5.9. Base compose per-bài không vào kho → không liệt kê.*
@@ -78,16 +78,17 @@
 | `lang_tru_dung(day, cao, huong='ngang', sau='phai', nhan_canh_ben=None, ten_dinh=None, chu_thich=None, to_day=False, goc_o=(0.0, 0.0), ten='L')` | LĂNG TRỤ ĐỨNG đáy ĐA GIÁC bất kỳ — phối cảnh xiên, NÉT KHUẤT tự tính theo che | `hinh_khoihop.py` | method | — |
 | `net_hop_cat_goc(dai, rong, canh_goc, nhan=None, to_goc=True, goc_o=(0.0, 0.0), ten='N')` | NET (khai triển 2D) miếng bìa chữ nhật CẮT 4 GÓC hình vuông → gấp thành hộp | `hinh_khoihop.py` | method | — |
 
-## Toạ độ & trục số (DÙNG CHUNG)  · 6 hàm
+## Toạ độ & trục số (DÙNG CHUNG)  · 7 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
 | `hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True, duongThang=None, diem=None, chuThich=None, scale=0.72, out='mp_toado', tra_bytes=False)` | MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng né | `hinh_toado.py` | generator | L6→9→THPT |
 | `nhiet_ke_cot(cot, thang=(-20, 50), buoc=10, don_vi='°C', hien_muc_so=False)` | NHIET KE COT — nhieu thang do DUNG canh nhau, doc muc thuy ngan | `hinh_toado.py` | method | L6→9→THPT |
+| `tia_diem(*args, **kwargs)` | [Đại số] sơ đồ điểm trên đường thẳng — NỀN SẠCH (base hinh_coban mặc định có lưới). | `hinh_toado.py` | method | L6→9→THPT |
 | `tia_so(gia_tri_max=None, buoc=1, diem=None, hien_nhan_diem=True, moc_nhan=None, ti_le=True, mui_ten=True, goc_ten='O', nhay=None)` | TIA SỐ tự nhiên — gốc bên trái, mũi tên sang phải; vạch chia + nhãn số + điểm đánh dấu | `hinh_toado.py` | method | L6→9→THPT |
 | `truc_do_chinh_xac(trai, phai, a, do_chinh_xac=None, nhan_a='a')` | TRỤC SỐ 'ĐỘ CHÍNH XÁC LÀM TRÒN' — đoạn cục bộ [trai; phai] (KHÔNG cần gốc 0) | `hinh_toado.py` | method | L6→9→THPT |
 | `truc_doan_doc_diem(trai, phai, chia=10, diem=None, hien_nhan_diem=False, moc_nhan=None)` | TRỤC SỐ ĐOẠN PHÓNG TO để ĐỌC ĐIỂM — biên THẬP PHÂN, chia nhỏ, kéo rộng | `hinh_toado.py` | method | L6→9→THPT |
-| `truc_so_huu_ti(tu=-1, den=4, chia=1, diem=None, hien_nhan_diem=True, moc_nhan=None, mui_ten_am=False, goc_ten='0', khoang_to=None, vach_dut=None)` | TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương | `hinh_toado.py` | method | L6→9→THPT |
+| `truc_so_huu_ti(tu=-1, den=4, chia=1, diem=None, hien_nhan_diem=True, moc_nhan=None, mui_ten_am=False, goc_ten='0', khoang_to=None, vach_dut=None, mui_ten_dc=None)` | TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương | `hinh_toado.py` | method | L6→9→THPT |
 
 ## Đường tròn (dựng)  · 11 hàm
 
@@ -185,4 +186,4 @@
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 59 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 133.
+**Thống kê:** 60 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 134.

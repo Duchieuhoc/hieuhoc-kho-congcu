@@ -1,9 +1,14 @@
-00_DANH_MUC — CAPNHAT_KHO__30c  (OB Đại số QC → Giám đốc UPLOAD ĐÈ GitHub)
-Đóng 2026-09-22. Căn cứ: QC pilot DS6_CH03_B13 — vá lỗi chấm điểm trục/tia số.
+00_DANH_MUC — CAPNHAT_KHO__30d  (OB Đại số → Giám đốc UPLOAD ĐÈ GitHub)
+Đóng 2026-09-22. Phiên thợ-công-cụ: vá ten tiếng Việt + tia_diem nền sạch + hàm mui_ten_dc (gỡ sổ tồn 3.14).
 
-hinh_toado.py       | SỬA | đổi tên điểm đánh dấu _hp/_pd → hp/pd (chấm đậm hiện lại). KHÔNG đụng [29n].
-00_KHO_VERSION.txt  | SỬA | +entry [30c]
-00_DANH_MUC.txt     | —   | file này
+hinh_core.py         | SỬA | + _mathlbl (nhãn ASCII→math, có dấu→text)
+hinh_coban.py        | SỬA | nhan_mut/nhan_duong dùng _mathlbl (vá "chiều dương")
+hinh_toado.py        | SỬA | + tia_diem override nền sạch · + mui_ten_dc cho truc_so_huu_ti
+00_KHO_VERSION.txt   | SỬA | + entry [30d]
+00_MUC_LUC_HAM.md    | SỬA (regen) | + mui_ten_dc, + tia_diem (Đại số)
+BAN_TRICH_HAM_DS6.md | SỬA (regen) | cập nhật chữ ký
+00_DANH_MUC.txt      | —   | file này
 
-KHÔNG kèm: API/mục lục/bản trích (chữ ký hàm KHÔNG đổi → không regen).
-⚠️ hinh_toado.py VÙNG DÙNG CHUNG → upload một-máy-một-lúc + BÁO MÁY HÌNH (rủi ro thấp).
+KHÔNG kèm: API_REFERENCE (JS không đổi).
+⚠️ base hinh_core/hinh_coban là VÙNG DÙNG CHUNG. Thay đổi backward-compatible (nhãn ASCII giữ math → Hình không đổi).
+   Upload một-máy-một-lúc + BÁO MÁY HÌNH. Mốc kho sau upload = 30d.

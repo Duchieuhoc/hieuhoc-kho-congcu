@@ -846,7 +846,7 @@ class HinhCoBan:
                          f'($({C._san(A)})!1.15!({C._san(B)})$);')
             elif k=='nhan_mut':
                 mut, ten = el[1], el[2]
-                L.append(f'  \\node[above right] at ({C._san(mut)}) {{${ten}$}};')
+                L.append(f'  \\node[above right] at ({C._san(mut)}) {{{C._mathlbl(ten)}}};')
             elif k=='nhan_duoi':
                 mut, ten = el[1], el[2]
                 L.append(f'  \\node[below] at ({C._san(mut)}) {{{ten}}};')
@@ -914,7 +914,7 @@ class HinhCoBan:
                 ex,ey = self.V[ep]; tx,ty = self.V[tam]
                 dx,dy = ex-tx, ey-ty; Ln = math.hypot(dx,dy) or 1
                 px,py = ex+dx/Ln*0.32, ey+dy/Ln*0.32
-                L.append(f'  \\node at ({px:.3f},{py:.3f}) {{${ten}$}};')
+                L.append(f'  \\node at ({px:.3f},{py:.3f}) {{{C._mathlbl(ten)}}};')
             elif k=='goc':
                 ten,do,hien = el[1],el[2],el[3]
                 mau = el[4] if len(el)>4 else 'orange'

@@ -45,6 +45,11 @@ def _phanh(V, goc_de):
 # ─────────── tên coordinate an toàn cho TikZ ───────────
 def _san(t): return t.replace("'","p")
 
+def _mathlbl(t):
+    """Nhãn hình: ASCII (x, y, Ox, AB) -> math in nghiêng; có dấu tiếng Việt / khoảng trắng -> text (giữ dấu)."""
+    t = str(t)
+    return ('$%s$' % t) if (t.isascii() and ' ' not in t) else t
+
 # ─────────── RENDER TikZ → PNG (biên dịch thuần, KHÔNG hard-code 2D) ───────────
 def _render(tikz, out, tra_bytes=False):
     _body = (r'\usepackage{tikz}\usepackage{amsmath}'

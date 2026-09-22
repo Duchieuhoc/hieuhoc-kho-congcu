@@ -14,6 +14,11 @@ import hinh_core as _HC   # render_tikz_doc cho generator độc lập
 class Hinh(HinhCoBan):
     """Primitive toạ độ dùng chung — tia số, trục số, mặt phẳng toạ độ. Kế thừa base HinhCoBan."""
 
+    def tia_diem(self, *args, **kwargs):
+        """[Đại số] sơ đồ điểm trên đường thẳng — NỀN SẠCH (base hinh_coban mặc định có lưới)."""
+        self._nen_luoi = False
+        return super().tia_diem(*args, **kwargs)
+
     def tia_so(self, gia_tri_max=None, buoc=1, diem=None, hien_nhan_diem=True,
                moc_nhan=None, ti_le=True, mui_ten=True, goc_ten='O', nhay=None):
         """TIA SỐ tự nhiên — gốc bên trái, mũi tên sang phải; vạch chia + nhãn số + điểm đánh dấu.
@@ -76,7 +81,7 @@ class Hinh(HinhCoBan):
     def truc_so_huu_ti(self, tu=-1, den=4, chia=1, diem=None,
                        hien_nhan_diem=True, moc_nhan=None,
                        mui_ten_am=False, goc_ten='0',
-                       khoang_to=None, vach_dut=None):
+                       khoang_to=None, vach_dut=None, mui_ten_dc=None):
         """TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương.
 
         tu, den        : biên NGUYÊN trái/phải của trục (tu có thể < 0). Cần tu < den.
@@ -186,6 +191,14 @@ class Hinh(HinhCoBan):
             self._diem(ya, xa, YKC, nhan=None, moc=False)
             self._diem(yb, xb, YKC, nhan=None, moc=False)
             self.tikz.append(('khoang', ya, yb, str(nhanKC)))
+
+        # ── MŨI TÊN DI CHUYỂN (mô phỏng cộng/trừ: chuỗi cung có hướng, KHÔNG ghi kết quả — Đ35) ──
+        for seg in (mui_ten_dc or []):
+            a_v, b_v = _toFrac(seg[0]), _toFrac(seg[1])
+            for qq in (a_v, b_v):
+                if qq < tu or qq > den:
+                    raise ValueError(f"[truc_so_huu_ti] mui_ten_dc {seg} ngoài đoạn [{tu}, {den}]")
+            self.tikz.append(('nhay', float(a_v) * SCALE, float(b_v) * SCALE, None))
 
         self.ghi_chu(-0.30, 0.30, '')   # giữ khoảng trên gốc (nhãn 0 nằm dưới)
         return self
