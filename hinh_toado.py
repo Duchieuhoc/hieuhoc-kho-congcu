@@ -410,6 +410,47 @@ class Hinh(HinhCoBan):
                 self.ghi_chu(xR + 0.32, ymuc, self._so(muc))
         return self
 
+    def kim_tu_thap(self, hang, o_canh=0.95):
+        """KIM TỰ THÁP SỐ (2D) — tháp ô vuông, ô trên gối lệch nửa ô giữa 2 ô dưới.
+        Dùng cho bài "điền tháp" (ô trên = tích/tổng 2 ô dưới). CHỈ VẼ tháp + số/ô-trống;
+        KHÔNG tự tính (HS điền). Đây KHÔNG phải hình chóp không gian 3D (đó là hàm khác).
+
+        hang    : list các hàng TỪ ĐỈNH XUỐNG ĐÁY. Hàng k có k+1 ô (đỉnh 1 ô → đáy nhiều ô nhất).
+                  Mỗi ô: số | chuỗi (vd '?' cho ô cần điền) | '' (ô rỗng). Ví dụ B16:
+                  [['?'], ['?','?'], [-1,'?',1], [-1,'?','?',-1]].
+        o_canh  : cạnh ô vuông (đơn vị vẽ).
+        """
+        hang = [list(r) for r in (hang or [])]
+        # ── PHANH kiểm ──
+        if not hang:
+            raise ValueError("[kim_tu_thap] cần ít nhất 1 hàng")
+        for k, r in enumerate(hang):
+            if len(r) != k + 1:
+                raise ValueError(f"[kim_tu_thap] hàng {k+1} phải có {k+1} ô (từ đỉnh xuống: 1,2,3,…), đang có {len(r)}")
+        self._nen_luoi = False
+        C = float(o_canh)
+        for k, row in enumerate(hang):
+            n = len(row)
+            yT = -k * C
+            yB = yT - C
+            xL0 = -(n * C) / 2.0
+            for j, val in enumerate(row):
+                xL = xL0 + j * C
+                xR = xL + C
+                p = f'kt{k}_{j}_'
+                self._diem(p+'tl', xL, yT, nhan=None, moc=False)
+                self._diem(p+'tr', xR, yT, nhan=None, moc=False)
+                self._diem(p+'br', xR, yB, nhan=None, moc=False)
+                self._diem(p+'bl', xL, yB, nhan=None, moc=False)
+                self.tikz.append(('doan', p+'tl', p+'tr', None, 'lien', 'manh'))
+                self.tikz.append(('doan', p+'tr', p+'br', None, 'lien', 'manh'))
+                self.tikz.append(('doan', p+'br', p+'bl', None, 'lien', 'manh'))
+                self.tikz.append(('doan', p+'bl', p+'tl', None, 'lien', 'manh'))
+                s = '' if val is None else (self._so(val) if isinstance(val, (int, float)) else str(val))
+                if s != '':
+                    self.ghi_chu((xL + xR) / 2.0, (yT + yB) / 2.0, s)
+        return self
+
     def _vach_ht(self, x, tag, chinh=True):
         """Vạch chia dọc trục hữu tỉ: chính (dài) cho số nguyên, phụ (ngắn) cho phần chia."""
         h = 0.13 if chinh else 0.08

@@ -1,6 +1,14 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30e] BỔ HÀM KIM TỰ THÁP SỐ (2D) — hinh_toado.py (Ong But Dai so, 2026-09-22, chỉ đạo Giám đốc; phát sinh B16 Thử thách):
+      • kim_tu_thap(hang, o_canh=0.95): tháp ô vuông, ô trên gối lệch nửa ô giữa 2 ô dưới. hang = list hàng TỪ ĐỈNH XUỐNG ĐÁY (hàng k có k+1 ô); ô = số | '?' | ''. CHỈ VẼ, không tự tính (HS điền). Nền sạch.
+      • PHANH: hàng k phải có đúng k+1 ô (bố cục tam giác). Máy tự xếp toạ độ (Đ5.9).
+      • Nghiệm thu: B16 Thử thách [['?'],['?','?'],[-1,'?',1],[-1,'?','?',-1]] render đúng SGK 3.18; PHANH bắt hàng sai số ô.
+      • LƯU Ý PHÂN BIỆT: đây là THÁP SỐ 2D (Đại số) — KHÔNG phải hình chóp không gian 3D lớp 11 (đó là hàm riêng module hình-khối).
+      • Regen: 00_MUC_LUC_HAM + BAN_TRICH_HAM_DS6. API_REFERENCE (JS) KHÔNG đổi.
+      • Chạm hinh_toado.py (vùng dùng chung): THÊM hàm mới, backward-compatible → upload một-máy-một-lúc, BÁO MÁY HÌNH.
+
 [30d] PHIÊN THỢ-CÔNG-CỤ (Ong But Dai so, 2026-09-22) — 3 việc gộp từ QC B14 + gỡ sổ tồn 3.14:
       • [VÁ ten tiếng Việt] hinh_core._mathlbl + hinh_coban op nhan_mut/nhan_duong: nhãn ASCII (x,y,Ox,AB) giữ math in nghiêng; nhãn có DẤU / khoảng trắng render TEXT mode (giữ dấu). Trước: ${ten}$ (math) làm vỡ "chiều dương"->"chiudng".
       • [VÁ tia_diem nền] hinh_toado.Hinh.tia_diem override: tự đặt _nen_luoi=False (sơ đồ Đại số nền sạch; base hinh_coban mặc định có lưới cho hình học — GIỮ NGUYÊN cho Hình).
