@@ -542,7 +542,7 @@ const _RE_GLYPH = /[\u25B2\u25B3\u25BC\u25BD\u25B8\u25B9\u25BA\u25C4\u25CB\u25A1
 // Cambria Math đi kèm MỌI bản Office (Win+Mac) → font-proof đa nền (bài học B01: TNR máy thiếu glyph → fallback Ả Rập).
 // Tách riêng khỏi FONT_KYHIEU (Segoe UI Symbol dùng cho ký hiệu HÌNH — không đụng).
 const FONT_TOAN = "Cambria Math";
-const _RE_TOAN = /[\u2208\u2209\u2115\u2124\u211A\u211D\u2205\u2282\u2284\u2286\u2288\u222A\u2229\u21D2\u21D4\u2264\u2265\u2260\u00D7\u00F7\u2211\u220F\u221A\u2208]/;
+const _RE_TOAN = /[\u2208\u2209\u2115\u2124\u211A\u211D\u2205\u2282\u2284\u2286\u2288\u222A\u2229\u21D2\u21D4\u2264\u2265\u2260\u00D7\u00F7\u2211\u220F\u221A\u2208\u22EE]/;
 const C_BLACK = "000000";
 const C_RED = "C00000";
 const C_RED_ANSWER = "DC2626";

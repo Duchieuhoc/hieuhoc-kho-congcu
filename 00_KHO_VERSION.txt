@@ -1,6 +1,13 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30f] FONT-PROOF KÝ HIỆU CHIA HẾT ⋮ (U+22EE) — hieuhoc_template.js (Ong But Dai so QC, 2026-09-22, chặn từ B17):
+      • BUG: ⋮ (U+22EE) KHÔNG có trong _RE_TOAN/_RE_GLYPH → run() để ở Times New Roman → nguy cơ tofu/□ máy thiếu glyph (đúng lớp lỗi B01 TNR thiếu glyph).
+      • FIX: thêm \u22EE vào lớp ký tự _RE_TOAN (dòng 545) → ⋮ đẩy sang Cambria Math (FONT_TOAN, đi kèm mọi bản Office). 1 hunk.
+      • Nghiệm thu: rebuild B17 → 19/19 run chứa ⋮ gắn Cambria Math (0 run TNR). Khớp bản AI Soạn nộp.
+      • Chữ ký hàm KHÔNG đổi (regex nội bộ) → API_REFERENCE / mục lục / bản trích KHÔNG đổi.
+      • Chạm hieuhoc_template.js (vùng dùng chung): thêm 1 ký tự vào regex, backward-compatible. Upload một-máy-một-lúc, BÁO MÁY HÌNH.
+
 [30e] BỔ HÀM KIM TỰ THÁP SỐ (2D) — hinh_toado.py (Ong But Dai so, 2026-09-22, chỉ đạo Giám đốc; phát sinh B16 Thử thách):
       • kim_tu_thap(hang, o_canh=0.95): tháp ô vuông, ô trên gối lệch nửa ô giữa 2 ô dưới. hang = list hàng TỪ ĐỈNH XUỐNG ĐÁY (hàng k có k+1 ô); ô = số | '?' | ''. CHỈ VẼ, không tự tính (HS điền). Nền sạch.
       • PHANH: hàng k phải có đúng k+1 ô (bố cục tam giác). Máy tự xếp toạ độ (Đ5.9).

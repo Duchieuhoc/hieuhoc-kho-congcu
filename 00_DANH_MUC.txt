@@ -1,12 +1,9 @@
-00_DANH_MUC — CAPNHAT_KHO__30e  (OB Đại số → Giám đốc UPLOAD ĐÈ GitHub)
-Đóng 2026-09-22. Bổ hàm kim_tu_thap (tháp số 2D) — phát sinh B16 Thử thách.
+00_DANH_MUC — CAPNHAT_KHO__30f  (OB Đại số QC → Giám đốc UPLOAD ĐÈ GitHub)
+Đóng 2026-09-22. Font-proof ký hiệu chia hết ⋮ (U+22EE) — chặn từ QC B17.
 
-hinh_toado.py        | SỬA | + kim_tu_thap(hang, o_canh) — tháp ô vuông 2D, gối lệch nửa ô
-00_KHO_VERSION.txt   | SỬA | + entry [30e]
-00_MUC_LUC_HAM.md    | SỬA (regen) | + kim_tu_thap
-BAN_TRICH_HAM_DS6.md | SỬA (regen) | + kim_tu_thap
+hieuhoc_template.js  | SỬA | + \\u22EE vào _RE_TOAN (dòng 545) → ⋮ dùng Cambria Math (hết tofu)
+00_KHO_VERSION.txt   | SỬA | + entry [30f]
 00_DANH_MUC.txt      | —   | file này
 
-KHÔNG kèm: API_REFERENCE (JS không đổi).
-⚠️ THÊM hàm mới vào hinh_toado.py (vùng dùng chung), backward-compatible. Upload một-máy-một-lúc + BÁO MÁY HÌNH. Mốc sau upload = 30e.
-PHÂN BIỆT: kim_tu_thap = THÁP SỐ 2D (Đại số) ≠ hình chóp không gian 3D lớp 11 (hàm riêng, chưa làm).
+KHÔNG kèm: API_REFERENCE / mục lục / bản trích (regex nội bộ, chữ ký hàm không đổi).
+⚠️ hieuhoc_template.js VÙNG DÙNG CHUNG. Thêm 1 ký tự vào regex, backward-compatible. Upload một-máy-một-lúc + BÁO MÁY HÌNH. Mốc sau upload = 30f.
