@@ -1986,6 +1986,7 @@ function toPhanChuong({
   // ── TRUYỀN VÀO (đổi theo môn/chương) ──
   logoBuffer, khungBuffer, lop, tenChuong, danhSachBai, coTongKet = false,
   // ── TRUYỀN VÀO (ít đổi, có mặc định) ──
+  phanMon  = "",                                  // "" = không in (Toán); "VẬT LÝ"/"HÓA HỌC" → in dòng "PHÂN MÔN: …" dưới tên môn
   loaiBan  = "BẢN GIÁO VIÊN",                    // "BẢN GIÁO VIÊN" | "BẢN HỌC SINH"
   boSach   = "KẾT NỐI TRI THỨC VỚI CUỘC SỐNG",   // bộ sách
   phienBan = "CS2627",                            // THCS: CS2627 · THPT: PT2627
@@ -2029,8 +2030,13 @@ function toPhanChuong({
   out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220 }, children: [] }));
 
   // Lớp/môn — 48pt
-  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 60, line: 400 },
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: (phanMon ? 20 : 60), line: 400 },
     children: [run(lop, { bold: true, color: "1565C0", size: 96 })] }));
+  // Phân môn — 20pt (chỉ in khi truyền phanMon; Toán bỏ trống → không có dòng này)
+  if (phanMon) {
+    out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 60, line: 300 },
+      children: [run(`PHÂN MÔN: ${phanMon}`, { bold: true, color: "1565C0", size: 40 })] }));
+  }
   // Bộ sách — 14pt xám
   out.push(para([run(boSach, { bold: true, color: C_GRAY, size: 28 })],
     { align: AlignmentType.CENTER, before: 0, after: 10 }));

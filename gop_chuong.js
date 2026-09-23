@@ -113,7 +113,7 @@ async function gopChuong(chuongDir, out) {
   const has90 = secs.some(s => s.__nhom === 'de' && s.__thoiluong === 90);
   const hasTK = secs.some(s => s.__nhom === 'tongket');
   const phanChuong = {
-    loai: 'phanChuong', logo: LOGO, khung: KHUNG, lop: cfg.lop, tenChuong: cfg.tenChuong,
+    loai: 'phanChuong', logo: LOGO, khung: KHUNG, lop: cfg.lop, phanMon: cfg.phanMon || '', tenChuong: cfg.tenChuong,
     danhSachBai: bai.map(s => ({ soBai: s.soBai, ten: s.tenBai })),
     coTongKet: hasTK, co45: false, co90: false,  // [V12] đề để RIÊNG — không nối vào file tổng
   };

@@ -135,7 +135,7 @@ async function noiTaiLieu(manifest) {
           throw new Error(`[LOGO] "${sec.logo}" là JPEG (đội đuôi .png). Cần PNG thật (toPhanChuong ép type:"png").`);
         const children = H.toPhanChuong({
           logoBuffer, khungBuffer: sec.khung ? fs.readFileSync(sec.khung) : undefined,
-          lop: sec.lop, tenChuong: sec.tenChuong, danhSachBai: sec.danhSachBai,
+          lop: sec.lop, phanMon: sec.phanMon || '', tenChuong: sec.tenChuong, danhSachBai: sec.danhSachBai,
           coTongKet: !!sec.coTongKet,
         });
         sections.push({ properties: { page: { size: H.PAGE_SIZE, margin: { top: 1021, right: 1021, bottom: 1021, left: 1021, header: 709, footer: 1560 } } }, headers: { default: H.headerRong() }, footers: { default: H.footerTPC() }, children });
