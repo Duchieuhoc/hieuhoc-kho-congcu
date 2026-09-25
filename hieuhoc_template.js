@@ -809,7 +809,7 @@ function chuanHoaCauChu(str) {
 function toInline(input, opts = {}) {
   if (input === undefined || input === null) return [];
   if (Array.isArray(input)) {
-    return input.flatMap(item => (typeof item === "string" ? run(item, opts) : [item])).flat(Infinity); // [28p] phẳng
+    return input.flat(Infinity).flatMap(item => (typeof item === "string" ? run(item, opts) : [item])); // [FIX] phẳng TRƯỚC rồi run() — mảng lồng (vd ABS không spread) không còn rơi thành chuỗi trần bị docx bỏ
   }
   if (typeof input === "string") { const r = run(input, opts); return (Array.isArray(r) ? r : [r]); } // [28p]
   return [input]; // đã là 1 TextRun/Math object sẵn

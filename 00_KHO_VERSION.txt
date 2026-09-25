@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30h] FIX toInline mảng lồng + VẼ LẠI dung_can_hai (Ông Bụt Đại số, 2026-09-25, QC lại DS7_CH02_B07 theo phản hồi Giám đốc):
+      • hieuhoc_template.js toInline(): flat(Infinity) TRƯỚC rồi mới run() từng chuỗi (trước: map rồi flat → mảng lồng
+        rơi thành CHUỖI TRẦN, docx BỎ → mất chữ). Sửa lớp lỗi "câu/đề rỗng" khi AI Soạn quên spread hàm inline
+        (vd ABS('-7,5') không spread). ADDITIVE — mảng phẳng cho kết quả y hệt (test 4 ca OK). Cả kiemMay/LibreOffice
+        đều LỌT lỗi này (đề rỗng vẫn well-formed) → phải soi TEXT trong <w:t>, không tin render.
+      • hinh_daiso.py dung_can_hai(): vẽ lại theo SGK Hình 2.3 — 2 PANEL a)/b): a) hình vuông MNPQ đường chéo NÉT ĐỨT + E;
+        b) trục số gốc O (nhãn CHỮ 'O', không phải '0'), đường tròn nét đứt tâm O bán kính ME, điểm A. Bản cũ vẽ hình vuông
+        rời trục, ME không bằng bán kính vẽ ra → hình vô nghĩa. CHỈ đổi cách vẽ, chữ ký hàm không đổi.
+      • Nền 30g giữ nguyên (mạch Hình/Lý/Hóa). Không đổi API → không cần regen API_REFERENCE.
+
 [30g] FONT-PROOF GLYPH HY LẠP NHÃN HÌNH (α β γ…) — hinh_core.py + hinh_coban.py (Ông Bụt Hình, QC pilot HH9_CH04_B11, 2026-09-25):
       • BUG (rơi âm thầm): nhãn góc α/β truyền Unicode TRẦN qua nhan_goc()/ghi_chu() → render 'so_o' KHÔNG qua _mathlbl → node ra thẳng; _mathlbl cũ coi mọi non-ASCII = text → Latin Modern (font TEXT xelatex) THIẾU glyph Hy Lạp → node TRỐNG, KHÔNG báo lỗi. Cùng lớp lỗi B01/B17 (font thiếu glyph) nhưng ở phía HÌNH.
       • FIX: (1) hinh_core.py +_GREEK map + _greek_math(s) (bọc mỗi glyph Hy Lạp trong $...$, giữ nguyên nếu s đã có '$' hoặc không Hy Lạp); (2) _mathlbl() xử lý Hy Lạp qua _greek_math; (3) hinh_coban.py render 'so_o' bọc qua C._greek_math → nhan_goc/ghi_chu tự đúng. Text/ASCII/'a)'/số giữ nguyên → 0 regression.
@@ -298,7 +308,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 30g (2026-09-25)
+Mốc kho      : 30h (2026-09-25)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

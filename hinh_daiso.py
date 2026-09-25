@@ -15,52 +15,54 @@ class Hinh(hinh_toado.Hinh):
     """Entry Đại số — kế thừa primitive toạ độ (hinh_toado.Hinh) + phần thuần đại số."""
 
     def dung_can_hai(self, canh=2, nhan_diem='A', nhan_can=None):
-        """DỰNG √2 (hoặc √(canh²/2)) TRÊN TRỤC SỐ bằng compa — SGK Toán 7 Hình 2.3.
+        """DỰNG √2 TRÊN TRỤC SỐ bằng compa — SGK Toán 7 Hình 2.3 (2 panel a/b).
 
-        Compose ngữ nghĩa: máy tự dựng hình vuông cạnh `canh` + hai đường chéo cắt tại tâm E,
-        rồi trục Ox (gốc O), đường tròn tâm O bán kính OE, cắt tia Ox tại điểm A = nửa đường chéo
-        = canh·√2/2. Với canh=2 → A = √2 (đúng SGK).
+        a) Hình vuông MNPQ cạnh `canh`, hai đường chéo NÉT ĐỨT cắt tại E.
+        b) Trục số gốc O; đường tròn NÉT ĐỨT tâm O bán kính ME (= nửa đường chéo
+           = canh·√2/2); giao với tia Ox tại A. Với canh=2 → A = √2.
 
-        AI Soạn CHỈ khai giá trị `canh` — KHÔNG đụng toạ độ/bán kính thô (Đ5.9).
-
-        canh       : cạnh hình vuông dựng (mặc định 2 → ra √2).
-        nhan_diem  : nhãn điểm giao trên trục (mặc định 'A').
-        nhan_can   : nhãn giá trị dưới điểm A (vd '√2'); None → không ghi (đúng SGK, để HS nhận).
+        Hai panel xếp CHỒNG (a trên, b dưới), có nhãn 'a)'/'b)' như SGK — panel
+        rời nhau đúng tinh thần "dùng compa chuyển độ dài ME xuống trục".
+        AI Soạn CHỈ khai `canh` (Đ5.9).
         """
         import math as _m
         self._nen_luoi = False
         c = float(canh)
-        nua_cheo = c * _m.sqrt(2) / 2         # OE = A trên trục
-        # ── Hình vuông MNPQ cạnh c, đặt phía trên-trái, tách khỏi trục ──
-        oy = 1.9                               # nâng hình vuông cao hơn (tách khỏi đường tròn)
-        ox = -c - 1.4                          # đặt lệch trái gốc O nhiều hơn
-        M=(ox, oy+c); N=(ox+c, oy+c); P=(ox+c, oy); Q=(ox, oy)
+        nua_cheo = c * _m.sqrt(2) / 2
+
+        # ── PANEL a) hình vuông MNPQ cạnh c, canh giữa quanh x=0, phía trên ──
+        yb = 2.1                                  # đáy hình vuông
+        M=(-c/2, yb+c); N=(c/2, yb+c); P=(c/2, yb); Q=(-c/2, yb)
         for tn,(px,py) in [('M',M),('N',N),('P',P),('Q',Q)]:
-            self._diem(tn, px, py, nhan='above' if py>oy else 'below', moc=True)
+            self._diem(tn, px, py, nhan=('above' if py>yb else 'below'), moc=True)
         for a,b in [('M','N'),('N','P'),('P','Q'),('Q','M')]:
             self.tikz.append(('doan', a, b, None, 'lien', None))
-        # hai đường chéo + tâm E
-        self.tikz.append(('doan','M','P',None,'lien',None))
-        self.tikz.append(('doan','N','Q',None,'lien',None))
-        ex,ey = (ox+c/2, oy+c/2)
-        self._diem('E', ex, ey, nhan='above right', moc=True)
-        self.ghi_chu((M[0]+N[0])/2, M[1]+0.12, self._so(int(c)) if c==int(c) else str(c))
-        # ── Trục Ox: gốc O tại (0,0), mũi tên 2 đầu ──
-        SC = 1.0
-        xO = 0.0
-        self._diem('O', xO, 0.0, nhan=None, moc=True)
-        xR = nua_cheo*SC + 1.2
-        self._diem('_ox_L', -0.6, 0.0, nhan=None, moc=False)
-        self._diem('_ox_R', xR, 0.0, nhan=None, moc=False)
-        self.tikz.append(('truc2dau','_ox_L','_ox_R'))
-        self.ghi_chu(xO, -0.44, '0')
-        self.ghi_chu(xR-0.05, 0.22, 'x')
-        # ── Đường tròn tâm O bán kính OE (=nua_cheo) → điểm A trên tia Ox ──
-        self.tikz.append(('tron','O', nua_cheo*SC, None, 'dut'))
-        xA = nua_cheo*SC
-        self._diem(nhan_diem, xA, 0.0, nhan='above', moc=True)
+        # hai đường chéo NÉT ĐỨT + tâm E
+        self.tikz.append(('doan','M','P',None,'dut',None))
+        self.tikz.append(('doan','N','Q',None,'dut',None))
+        self._diem('E', 0.0, yb+c/2, nhan='above right', moc=True)
+        # nhãn cạnh "2" (hoặc c) trên cạnh MN
+        self.ghi_chu(0.0, yb+c+0.16, self._so(int(c)) if c==int(c) else self._so(c))
+        # nhãn panel a)
+        self.ghi_chu(0.0, yb-0.42, 'a)')
+
+        # ── PANEL b) trục số + đường tròn tâm O bán kính nua_cheo ──
+        # đặt trục ở y=0; đường tròn bán kính nua_cheo (<= ~1.4) nằm gọn dưới panel a
+        xL = -(nua_cheo + 0.8); xR = nua_cheo + 0.8
+        self._diem('_bxL', xL, 0.0, nhan=None, moc=False)
+        self._diem('_bxR', xR, 0.0, nhan=None, moc=False)
+        self.tikz.append(('truc2dau','_bxL','_bxR'))
+        self._diem('O', 0.0, 0.0, nhan=None, moc=True)          # gốc O (chấm)
+        self.ghi_chu(0.0, -0.40, 'O')                            # nhãn chữ O (không phải 0)
+        self.ghi_chu(xR-0.02, 0.22, 'x')
+        # đường tròn nét đứt tâm O bán kính nua_cheo
+        self.tikz.append(('tron','O', nua_cheo, None, 'dut'))
+        # điểm A = giao với tia Ox dương
+        self._diem(nhan_diem, nua_cheo, 0.0, nhan='above', moc=True)
         if nhan_can:
-            self.ghi_chu(xA, -0.34, str(nhan_can))
+            self.ghi_chu(nua_cheo, -0.40, str(nhan_can))
+        # nhãn panel b)
+        self.ghi_chu(0.0, -1.05, 'b)')
         return self
 
 
