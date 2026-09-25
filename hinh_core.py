@@ -45,9 +45,35 @@ def _phanh(V, goc_de):
 # ─────────── tên coordinate an toàn cho TikZ ───────────
 def _san(t): return t.replace("'","p")
 
+# ─────────── [30g] glyph Hy Lạp → lệnh toán (chống rơi âm thầm) ───────────
+# BUG (phát hiện QC HH9_CH04_B11, bài lượng giác đầu): nhãn góc α/β truyền dạng
+# Unicode trần → Latin Modern (font TEXT của xelatex) THIẾU glyph Hy Lạp → node
+# render TRỐNG, không báo lỗi. FIX: bọc từng glyph Hy Lạp trong $...$ để đẩy sang
+# font toán (đủ glyph). Chỉ đụng ký tự Hy Lạp — text/ASCII giữ nguyên → 0 regression.
+_GREEK = {
+    'α': r'\alpha', 'β': r'\beta', 'γ': r'\gamma', 'δ': r'\delta',
+    'ε': r'\varepsilon', 'θ': r'\theta', 'λ': r'\lambda', 'μ': r'\mu',
+    'π': r'\pi', 'ρ': r'\rho', 'σ': r'\sigma', 'τ': r'\tau',
+    'φ': r'\varphi', 'ϕ': r'\phi', 'χ': r'\chi', 'ψ': r'\psi', 'ω': r'\omega',
+    'Δ': r'\Delta', 'Ω': r'\Omega', 'Φ': r'\Phi', 'Σ': r'\Sigma',
+}
+def _has_greek(s):
+    return any(ch in _GREEK for ch in str(s))
+def _greek_math(s):
+    """Bọc mỗi glyph Hy Lạp trong s thành $\\cmd$. Nếu s đã chứa '$' (caller tự lo
+    math mode) hoặc không có glyph Hy Lạp → trả nguyên. 'góc α' -> 'góc $\\alpha$'."""
+    s = str(s)
+    if '$' in s or not _has_greek(s):
+        return s
+    return ''.join(('$%s$' % _GREEK[ch]) if ch in _GREEK else ch for ch in s)
+
 def _mathlbl(t):
-    """Nhãn hình: ASCII (x, y, Ox, AB) -> math in nghiêng; có dấu tiếng Việt / khoảng trắng -> text (giữ dấu)."""
+    """Nhãn hình: ASCII (x, y, Ox, AB) -> math in nghiêng; glyph Hy Lạp (α, β…) ->
+    bọc $...$ đúng font toán (chống rơi âm thầm, [30g]); có dấu tiếng Việt /
+    khoảng trắng -> text (giữ dấu)."""
     t = str(t)
+    if _has_greek(t):
+        return _greek_math(t)
     return ('$%s$' % t) if (t.isascii() and ' ' not in t) else t
 
 # ─────────── RENDER TikZ → PNG (biên dịch thuần, KHÔNG hard-code 2D) ───────────

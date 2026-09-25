@@ -1,6 +1,13 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30g] FONT-PROOF GLYPH HY LẠP NHÃN HÌNH (α β γ…) — hinh_core.py + hinh_coban.py (Ông Bụt Hình, QC pilot HH9_CH04_B11, 2026-09-25):
+      • BUG (rơi âm thầm): nhãn góc α/β truyền Unicode TRẦN qua nhan_goc()/ghi_chu() → render 'so_o' KHÔNG qua _mathlbl → node ra thẳng; _mathlbl cũ coi mọi non-ASCII = text → Latin Modern (font TEXT xelatex) THIẾU glyph Hy Lạp → node TRỐNG, KHÔNG báo lỗi. Cùng lớp lỗi B01/B17 (font thiếu glyph) nhưng ở phía HÌNH.
+      • FIX: (1) hinh_core.py +_GREEK map + _greek_math(s) (bọc mỗi glyph Hy Lạp trong $...$, giữ nguyên nếu s đã có '$' hoặc không Hy Lạp); (2) _mathlbl() xử lý Hy Lạp qua _greek_math; (3) hinh_coban.py render 'so_o' bọc qua C._greek_math → nhan_goc/ghi_chu tự đúng. Text/ASCII/'a)'/số giữ nguyên → 0 regression.
+      • Nghiệm thu: unit _greek_math PASS (α→$\alpha$, 'góc α'→'góc $\alpha$', '$\alpha$' giữ, 'a)' giữ); render α TRẦN → glyph HIỆN (soi mắt); rebuild 19 hình HH9_B11 OK, không $$ double-bọc; build B11 = 214 children (khớp).
+      • Chữ ký hàm KHÔNG đổi (chỉ thêm helper private _greek_math/_has_greek/_GREEK) → API_REFERENCE / mục lục / bản trích KHÔNG đổi.
+      • Chạm hinh_core.py + hinh_coban.py (vùng dùng chung): backward-compatible. Upload một-máy-một-lúc, BÁO MÁY ĐẠI SỐ.
+
 [30f] FONT-PROOF KÝ HIỆU CHIA HẾT ⋮ (U+22EE) — hieuhoc_template.js (Ong But Dai so QC, 2026-09-22, chặn từ B17):
       • BUG: ⋮ (U+22EE) KHÔNG có trong _RE_TOAN/_RE_GLYPH → run() để ở Times New Roman → nguy cơ tofu/□ máy thiếu glyph (đúng lớp lỗi B01 TNR thiếu glyph).
       • FIX: thêm \u22EE vào lớp ký tự _RE_TOAN (dòng 545) → ⋮ đẩy sang Cambria Math (FONT_TOAN, đi kèm mọi bản Office). 1 hunk.
@@ -291,7 +298,7 @@ KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
       C. sinh_bantrich.py — class entry LINH HOẠT (Hinh / con HinhCoBan) → chạy cho mọi mạch module.
       D. Sản phẩm: DS8_CH02_B09.docx build lại dùng hinhDienTichDaiSo('vien'). Bản trích 3 module.
       GIỚI HẠN: chưa mở MS Word thật xác nhận không-repair (A/C) — cần máy có Word kiểm cuối.
-Mốc kho      : 29x (2026-09-20)
+Mốc kho      : 30g (2026-09-25)
 
 [29b] THỐNG NHẤT NHÃN NHỊP 1 = "Bài tập mẫu" MỌI MÔN (Ông Bụt Đại số, 2026-09-15, chỉ đạo Giám đốc — đồng bộ HP V12.1 Điều 22.4·23.2 · Chuẩn trình bày v10.9 · Phụ lục Đại số v1.7 · API_REFERENCE):
       • hieuhoc_template.js: dangToanDayDu() đổi nhãn render hardcode "Bài toán mẫu" → "Bài tập mẫu"

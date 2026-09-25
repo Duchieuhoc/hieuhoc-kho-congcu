@@ -852,7 +852,9 @@ class HinhCoBan:
                 L.append(f'  \\node[below] at ({C._san(mut)}) {{{ten}}};')
             elif k=='so_o':
                 xx, yy, txt = el[1], el[2], el[3]
-                L.append(f'  \\node[font=\\small] at ({xx:.3f},{yy:.3f}) {{{txt}}};')
+                # [30g] glyph Hy Lạp (α/β…) -> $...$ đúng font toán, chống rơi âm thầm
+                # (nhan_goc/ghi_chu). Nhãn không Hy Lạp (số, 'a)', 'x') giữ nguyên.
+                L.append(f'  \\node[font=\\small] at ({xx:.3f},{yy:.3f}) {{{C._greek_math(txt)}}};')
             elif k=='tia':
                 O,Pp = el[1],el[2]; mui = el[3] if len(el)>3 else False
                 mau = el[4] if len(el)>4 and isinstance(el[4],str) else None
