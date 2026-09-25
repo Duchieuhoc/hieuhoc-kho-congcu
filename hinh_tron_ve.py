@@ -165,14 +165,136 @@ class HinhTron(hinh_coban.HinhCoBan):
             self.kim(R, giay/5.0,               loai='giay', tam=tam)   # kim giây (đỏ)
         return R
 
+    # ═══════════ [30i] LỚP 9 — TIẾP TUYẾN · QUẠT · VIÊN PHÂN (Ông Bụt Hình 2026-09-25) ═══════════
+    #   Xây nền hình đường tròn lớp 9 (CH5 Đường tròn). MO_HINH_KHO §3. Nền cũ (L6): đồng hồ/vòng quay.
+
+    def _don_vi(self, tam, diem):
+        """Trả (u_perp, u_ban_kinh): vectơ đơn vị VUÔNG GÓC bán kính & DỌC bán kính (tam→diem)."""
+        import math as _mm
+        ox, oy = self.V[tam]; px, py = self.V[diem]
+        dx, dy = px - ox, py - oy; L = _mm.hypot(dx, dy) or 1.0
+        return (-dy/L, dx/L), (dx/L, dy/L)
+
+    def _goc_polar(self, tam, diem):
+        """Góc cực (độ) của 'diem' quanh 'tam' (đo từ hướng ngang, ngược chiều kim)."""
+        import math as _mm
+        ox, oy = self.V[tam]; px, py = self.V[diem]
+        return _mm.degrees(_mm.atan2(py - oy, px - ox))
+
+    def tiep_tuyen(self, tam, tiep_diem, dai=1.7, mau=None, net='lien', o_vuong=False):
+        """TIẾP TUYẾN của đường tròn 'tam' tại 'tiep_diem' (đã đặt TRÊN đường tròn) — đoạn
+        thẳng qua tiếp điểm, VUÔNG GÓC bán kính, nửa dài 'dai' mỗi phía. o_vuong=True → vẽ
+        ô vuông góc (dấu ⊥ giữa bán kính và tiếp tuyến). KHÔNG tọa độ (Đ5.9)."""
+        if tam not in self.tron:
+            raise ValueError(f"tiep_tuyen: chưa khai đường tròn tâm '{tam}' (gọi duong_tron trước).")
+        if tiep_diem not in self.V:
+            raise ValueError(f"tiep_tuyen: chưa đặt tiếp điểm '{tiep_diem}'.")
+        (ux, uy), _ = self._don_vi(tam, tiep_diem)
+        px, py = self.V[tiep_diem]
+        t1, t2 = f'_tt{tiep_diem}A', f'_tt{tiep_diem}B'
+        self._diem(t1, px - dai*ux, py - dai*uy, None, moc=False)
+        self._diem(t2, px + dai*ux, py + dai*uy, None, moc=False)
+        self.tikz.append(('doan', t1, t2, mau, net, None))
+        if o_vuong:
+            self.tikz.append(('goc_vuong', [t2, tiep_diem, tam]))
+        return self
+
+    def hai_tiep_tuyen(self, tam, M, A='A', B='B', mau=None, o_vuong=True, noi_tam=False):
+        """HAI TIẾP TUYẾN kẻ từ điểm 'M' NẰM NGOÀI đường tròn 'tam': tạo hai tiếp điểm A, B
+        trên đường tròn + vẽ hai đoạn MA, MB. M đặt trước & phải ngoài đường tròn. o_vuong=True
+        → ô vuông tại A, B (bán kính ⊥ tiếp tuyến). noi_tam=True → nối đoạn OM. PHANH kiểm A,B
+        thuộc đường tròn (qua diem_tren_tron)."""
+        import math as _mm
+        if tam not in self.tron:
+            raise ValueError(f"hai_tiep_tuyen: chưa khai đường tròn tâm '{tam}'.")
+        if M not in self.V:
+            raise ValueError(f"hai_tiep_tuyen: chưa đặt điểm '{M}'.")
+        r = self.tron[tam]; ox, oy = self.V[tam]; mx, my = self.V[M]
+        d = _mm.hypot(mx - ox, my - oy)
+        if d <= r:
+            raise ValueError(f"hai_tiep_tuyen: '{M}' phải NẰM NGOÀI đường tròn (khoảng cách {d:.3f} ≤ R {r}).")
+        base = _mm.degrees(_mm.atan2(my - oy, mx - ox)); phi = _mm.degrees(_mm.acos(r/d))
+        self.diem_tren_tron(A, tam, base + phi, nhan='above left')
+        self.diem_tren_tron(B, tam, base - phi, nhan='below left')
+        if noi_tam:
+            self.tikz.append(('doan', tam, M, None, 'lien', None))
+        self.tikz.append(('doan', M, A, mau, 'lien', None))
+        self.tikz.append(('doan', M, B, mau, 'lien', None))
+        if o_vuong:
+            self.tikz.append(('goc_vuong', [M, A, tam]))
+            self.tikz.append(('goc_vuong', [M, B, tam]))
+        return self
+
+    def tiep_tuyen_chung(self, tam1, tam2, loai='ngoai', phia=1, mau=None, net='lien',
+                         tiep1='T', tiep2='T2', dai=0.7):
+        """TIẾP TUYẾN CHUNG NGOÀI của hai đường tròn 'tam1','tam2' (đã khai): tạo hai tiếp
+        điểm tiep1∈(tam1), tiep2∈(tam2) + vẽ đường tiếp tuyến qua chúng (kéo dài 'dai' mỗi
+        đầu). phia=±1 chọn 1 trong 2 tiếp tuyến chung ngoài. Điều kiện: hai đường tròn tách
+        rời (ngoài nhau). PHANH kiểm hai tiếp điểm thuộc đường tròn tương ứng."""
+        import math as _mm
+        if tam1 not in self.tron or tam2 not in self.tron:
+            raise ValueError("tiep_tuyen_chung: cần khai cả hai đường tròn trước.")
+        if loai != 'ngoai':
+            raise ValueError("tiep_tuyen_chung: hiện chỉ hỗ trợ loai='ngoai'.")
+        o1 = self.V[tam1]; o2 = self.V[tam2]; r1 = self.tron[tam1]; r2 = self.tron[tam2]
+        dx, dy = o2[0]-o1[0], o2[1]-o1[1]; d = _mm.hypot(dx, dy) or 1.0
+        ux, uy = dx/d, dy/d
+        c = max(-1.0, min(1.0, (r1 - r2)/d)); beta = _mm.acos(c) * phia
+        cb, sb = _mm.cos(beta), _mm.sin(beta)
+        nx, ny = ux*cb - uy*sb, ux*sb + uy*cb          # n = quay u góc beta
+        p1 = (o1[0] + r1*nx, o1[1] + r1*ny); p2 = (o2[0] + r2*nx, o2[1] + r2*ny)
+        self._diem(tiep1, p1[0], p1[1], 'above left', moc=True, mau=mau)
+        self._diem(tiep2, p2[0], p2[1], 'above right', moc=True, mau=mau)
+        self.rb.append({'loai':'diem_tren_tron','diem':tiep1,'tam':tam1,'ban_kinh':r1})
+        self.rb.append({'loai':'diem_tren_tron','diem':tiep2,'tam':tam2,'ban_kinh':r2})
+        tx, ty = p2[0]-p1[0], p2[1]-p1[1]; tl = _mm.hypot(tx, ty) or 1.0; tx, ty = tx/tl, ty/tl
+        e1, e2 = '_ttcA', '_ttcB'
+        self._diem(e1, p1[0]-dai*tx, p1[1]-dai*ty, None, moc=False)
+        self._diem(e2, p2[0]+dai*tx, p2[1]+dai*ty, None, moc=False)
+        self.tikz.append(('doan', e1, e2, mau, net, None))
+        return self
+
+    def hinh_quat(self, tam, A, B, mau='cyan!18', vien=True):
+        """TÔ MÀU HÌNH QUẠT TRÒN giới hạn bởi cung nhỏ AB và hai bán kính (tam)A, (tam)B
+        (A,B đã đặt trên đường tròn). Sweep A→B theo cung ≤180° (cung nhỏ). vien=True → vẽ
+        viền hai bán kính + cung."""
+        if tam not in self.tron:
+            raise ValueError(f"hinh_quat: chưa khai đường tròn tâm '{tam}'.")
+        r = self.tron[tam]; gA = self._goc_polar(tam, A); gB = self._goc_polar(tam, B)
+        gB2 = gA + (((gB - gA + 180) % 360) - 180)     # sweep về cung nhỏ (-180,180]
+        path = f'({_HC._san(tam)}) -- ({_HC._san(A)}) arc ({gA:.3f}:{gB2:.3f}:{r:.3f}) -- cycle'
+        self.tikz.append(('fill_raw', path, mau))
+        if vien:
+            self.tikz.append(('doan', tam, A, None, 'lien', None))
+            self.tikz.append(('doan', tam, B, None, 'lien', None))
+            self.cung(tam, gA, gB2, mau='black', net='lien', ban_kinh=r)
+        return self
+
+    def vien_phan(self, tam, A, B, mau='cyan!18', vien=True):
+        """TÔ MÀU HÌNH VIÊN PHÂN giới hạn bởi dây AB và cung nhỏ AB (A,B trên đường tròn
+        'tam'). vien=True → vẽ dây AB + cung."""
+        if tam not in self.tron:
+            raise ValueError(f"vien_phan: chưa khai đường tròn tâm '{tam}'.")
+        r = self.tron[tam]; gA = self._goc_polar(tam, A); gB = self._goc_polar(tam, B)
+        gB2 = gA + (((gB - gA + 180) % 360) - 180)
+        path = f'({_HC._san(A)}) arc ({gA:.3f}:{gB2:.3f}:{r:.3f}) -- cycle'
+        self.tikz.append(('fill_raw', path, mau))
+        if vien:
+            self.tikz.append(('doan', A, B, None, 'lien', None))
+            self.cung(tam, gA, gB2, mau='black', net='lien', ban_kinh=r)
+        return self
+
 
 # ═══ [29c] Ông Bụt 2026-09-16 · DS8 Chương 2 (Hằng đẳng thức) ═══
 import hinh_core as _HC
-def vanhKhan(R='R', r='r', toVanh=True, chuThich=None,
+def vanhKhan(R='R', r='r', toVanh=True, chuThich=None, nua=False,
              out='vanh_khan', tra_bytes=False):
     """VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R),
-       mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh)."""
+       mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh).
+       nua=True → NỬA vành khuyên (quạt giấy xoè nửa hình tròn — SGK 5.13)."""
     R = _HC._m(R, 'R'); r = _HC._m(r, 'r')
+    if nua:
+        return _vanhKhan_nua(R, r, toVanh, chuThich, out, tra_bytes)
     to = (r'\fill[cyan!14, even odd rule] (O) circle (\R) (O) circle (\r);'
           if toVanh else '')
     cap = ''
@@ -200,6 +322,38 @@ def vanhKhan(R='R', r='r', toVanh=True, chuThich=None,
 \end{document}'''
     body = (body.replace('@@TO@@', to).replace('@@R@@', R).replace('@@r@@', r)
                 .replace('@@CAP@@', cap))
+    return _HC.render_tikz_doc(body, out, tra_bytes)
+
+def _vanhKhan_nua(R, r, toVanh, chuThich, out, tra_bytes):
+    """[30i] NỬA vành khuyên (nửa trên) — quạt giấy xoè nửa hình tròn (SGK 5.13)."""
+    to = (r'\fill[cyan!14] (\R,0) arc (0:180:\R) -- (-\r,0) arc (180:0:\r) -- cycle;'
+          if toVanh else '')
+    cap = ''
+    if chuThich:
+        cap = (r'\node[below,font=\itshape] at (0,-0.35) {CAPT};'.replace('CAPT', chuThich))
+    body = r'''\documentclass[border=6pt]{standalone}
+\usepackage{tikz}\usetikzlibrary{arrows.meta}
+\begin{document}
+\begin{tikzpicture}[font=\normalsize]
+  \def\R{3.0}\def\r{1.2}
+  \coordinate (O) at (0,0);
+  @@TO@@
+  \draw[line width=0.8pt] (\R,0) arc (0:180:\R);
+  \draw[line width=0.8pt] (\r,0) arc (0:180:\r);
+  \draw[line width=0.8pt] (-\R,0)--(-\r,0);
+  \draw[line width=0.8pt] (\r,0)--(\R,0);
+  % bán kính ngoài R (hướng 60°) + nhãn giữa đoạn
+  \draw (O) -- (60:\R);
+  \node[above left,font=\small] at (60:{\R/2}) {$@@R@@$};
+  % chiều rộng phần giấy (R - r) hướng 120°
+  \draw[|<->|] (120:\r) -- (120:\R);
+  \node[left,font=\small] at (120:{(\R+\r)/2}) {$@@W@@$};
+  \fill (O) circle (1.6pt); \node[below,font=\small] at (O) {$O$};
+  @@CAP@@
+\end{tikzpicture}
+\end{document}'''
+    body = (body.replace('@@TO@@', to).replace('@@R@@', R)
+                .replace('@@W@@', 'w').replace('@@CAP@@', cap))
     return _HC.render_tikz_doc(body, out, tra_bytes)
 
 # [29c] gắn làm staticmethod class entry → vào bản trích + gọi qua instance

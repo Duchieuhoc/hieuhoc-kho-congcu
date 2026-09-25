@@ -1,21 +1,12 @@
-DANH MỤC GÓI — CAPNHAT_KHO__30g  (OB → thầy PUSH GitHub: hieuhoc-kho-congcu)
-Đóng: Ông Bụt (Hình) · 2026-09-25 · mốc kho 29x → 30g
+CAPNHAT_KHO — mốc 30i · 2026-09-25 · Ông Bụt Hình
+ĐÍCH: thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu), Commit changes.
 
-file                | thay/thêm | ghi chú
---------------------|-----------|---------------------------------------------------
-00_KHO_VERSION.txt  | thay      | +mốc [30g] lên đầu + bump "Mốc kho: 30g"
-hinh_core.py        | thay      | +_GREEK/_has_greek/_greek_math; _mathlbl xử lý Hy Lạp
-hinh_coban.py       | thay      | render 'so_o' bọc C._greek_math (nhan_goc/ghi_chu)
+FILE — THAY/THÊM — GHI CHÚ
+hinh_tron_ve.py            — THAY  — +6 hàm lớp 9 (tiep_tuyen, hai_tiep_tuyen, tiep_tuyen_chung, hinh_quat, vien_phan, vanhKhan nua)
+hinh_coban.py              — THAY  — +tuple 'fill_raw' trong ve() (tô miền có cung) — ADDITIVE
+hinh_hh9_ch05.py           — THÊM  — entry chương lớp 9 (đối xứng + đường tròn)
+BAN_TRICH_HAM_HH9_CH05.md  — THÊM  — bản trích tự sinh (đủ 6 hàm mới) — nạp vào Project AI Soạn
+00_KHO_VERSION.txt         — THAY  — bump mốc [30i]
 
-VIỆC THẦY:
-1. Vào repo GitHub hieuhoc-kho-congcu → upload đè 3 file này → Commit changes
-   (commit message gợi ý: "[30g] font-proof glyph Hy Lạp nhãn hình").
-2. Sau push: mốc kho GitHub thành 30g. Các phiên sau (OB + AI Soạn) bụng kho tự có bản vá.
-
-CHECKLIST 6 GẠCH (đã qua):
-① pull kho mới nhất ✓  ② quét trùng (không đẻ hàm song song, sửa gốc _mathlbl/so_o) ✓
-③ mở rộng-không-tách (thêm helper private) ✓  ④ máy khác không sửa file chung lúc này ✓
-⑤ PHANH-test min example (α trần → glyph hiện, soi mắt) ✓  ⑥ trọng tài: bài thật HH9_B11 ✓
-Regen: KHÔNG cần (chữ ký hàm không đổi) — chỉ bump 00_KHO_VERSION.txt + CHANGELOG.
-
-CHẠM VÙNG DÙNG CHUNG (hinh_core/hinh_coban) → BÁO MÁY ĐẠI SỐ trước khi họ sửa 2 file này.
+ĐÃ KIỂM: smoke import 12 module 1-process sạch · render + soi mắt 6 hình đạt · PHANH bắt đúng lỗi.
+KHÔNG đổi template → khỏi regen API_REFERENCE.

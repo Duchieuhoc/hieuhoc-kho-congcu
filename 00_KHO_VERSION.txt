@@ -1,6 +1,17 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30i] XÂY NỀN HÌNH ĐƯỜNG TRÒN LỚP 9 (Ông Bụt Hình, 2026-09-25, phục vụ HH9_CH05 Đường tròn):
+      • hinh_tron_ve.py: +6 hàm khai nghĩa lớp 9 — tiep_tuyen (tiếp tuyến tại điểm, ⊥ bán kính, tuỳ chọn ô vuông);
+        hai_tiep_tuyen (từ điểm ngoài M → 2 tiếp điểm A,B + 2 đoạn, PHANH kiểm A,B∈(O)); tiep_tuyen_chung
+        (tiếp tuyến chung ngoài 2 đường tròn, phia=±1); hinh_quat (tô màu quạt cung nhỏ + viền); vien_phan
+        (tô màu viên phân dây+cung); vanhKhan(nua=True) (nửa vành khuyên — quạt giấy 5.13).
+      • hinh_coban.py ve(): +tuple 'fill_raw' (tô miền CÓ CUNG — path tikz thô, nằm dưới nét) cho quạt/viên phân.
+        ADDITIVE — mọi hàm cũ chạy y nguyên (smoke import 12 module + render lại OK).
+      • hinh_hh9_ch05.py: entry chương MỚI (HinhDoiXung + HinhTron), LOP=[9]. import hinh_hh9_ch05 as H9C5.
+      • BAN_TRICH_HAM_HH9_CH05.md: tự sinh từ entry (đủ 6 hàm mới).
+      • Test render + soi mắt cả 6 hình đạt; PHANH bắt đúng lỗi M-nằm-trong. KHÔNG đổi template → khỏi regen API_REFERENCE.
+
 [30h] FIX toInline mảng lồng + VẼ LẠI dung_can_hai (Ông Bụt Đại số, 2026-09-25, QC lại DS7_CH02_B07 theo phản hồi Giám đốc):
       • hieuhoc_template.js toInline(): flat(Infinity) TRƯỚC rồi mới run() từng chuỗi (trước: map rồi flat → mảng lồng
         rơi thành CHUỖI TRẦN, docx BỎ → mất chữ). Sửa lớp lỗi "câu/đề rỗng" khi AI Soạn quên spread hàm inline

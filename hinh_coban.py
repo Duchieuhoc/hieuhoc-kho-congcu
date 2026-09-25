@@ -769,9 +769,13 @@ class HinhCoBan:
                 pts, mau = el[1], el[2]
                 path='--'.join(f'({C._san(p)})' for p in pts)
                 L.append(f'  \\fill[{mau}] {path}--cycle;')
+            elif el[0]=='fill_raw':
+                # [30i · L9 đường tròn] TÔ MIỀN CÓ CUNG (quạt/viên phân) — path tikz thô
+                # (coordinate + arc) do hàm khai nghĩa dựng sẵn. Nằm DƯỚI mọi nét.
+                L.append(f'  \\fill[{el[2]}] {el[1]};')
         for el in self.tikz:
             k = el[0]
-            if k=='to_mien':
+            if k in ('to_mien','fill_raw'):
                 continue
             if k=='luoi':
                 cot,hang = el[1],el[2]
