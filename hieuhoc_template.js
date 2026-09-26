@@ -1018,7 +1018,9 @@ function _dapAnViDu(dapAn) {
     { before: 0, after: 0 }) ];
 }
 
-function viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai }) {
+function viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai, dai = false }) {
+  // [30j] dai=true → mỗi câu (a,b,c) XUỐNG DÒNG riêng (không dồn cột). Mặc định false: ví dụ mục ③ giữ nguyên
+  //   cách dồn cột tiết kiệm. dangToanDayDu truyền dai:true để câu ở Bài tập mẫu của Dạng luôn rõ từng ý.
   const _lgVD = viDuLoiGiai || loiGiaiND;  // [28x] khe lời giải TỪNG BƯỚC cho Ví dụ ② (trước chỉ có dapAn → 1 dòng "Trả lời:"). Có _lgVD → gọi loiGiai(); không → giữ dapAn như cũ.
   thamChieu = _locNguon(thamChieu);
   _guardND(deBai, "viDu");
@@ -1056,7 +1058,7 @@ function viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai,
   }
   _appendHinh(out, coHinh, "coHinh");
   if (cacCau && cacCau.length) {
-    out.push(...layoutCauHoi(cacCau));
+    out.push(...layoutCauHoi(cacCau, { dai }));
   }
   if (_lgVD) out.push(...loiGiai(_lgVD)); else out.push(..._dapAnViDu(dapAn));
   return out;
@@ -1510,7 +1512,8 @@ function dangToanDayDu(p) {
   let out = [];
   out.push(...tieuDeDang({ soDang: p.soDang, tenDang: p.tenDang, ma: p.ma }));
   out.push(...viDu({ nhan: "Bài tập mẫu", deBai: p.viDuDeBai, cacCau: p.viDuCacCau,
-    thamChieu: p.viDuThamChieu, coHinh: p.viDuCoHinh, hinhBenPhai: p.viDuHinhBenPhai || p.viDuHinhBenTrai }));
+    thamChieu: p.viDuThamChieu, coHinh: p.viDuCoHinh, hinhBenPhai: p.viDuHinhBenPhai || p.viDuHinhBenTrai,
+    dai: true }));   // [30j] câu a,b,c ở Bài tập mẫu của Dạng luôn xuống dòng riêng cho rõ ý
   if (p.phanTich) out.push(...phanTich(p.phanTich));
   const _viDuLoiGiai = _xuLyTrungHinhLoiGiai(p);   // [v10.6] tự bỏ hình lời giải nếu trùng byte hình đề
   out.push(...loiGiai(_viDuLoiGiai));
@@ -1531,7 +1534,7 @@ function dangToanDayDu(p) {
  * @param {string} [p.thamChieu]
  * @param {string|Array} p.loiGiaiND
  */
-function baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai }) {  // [28v] +anLoiGiai: KHOFIX regression 28t (guard bản-HS dán sang mà quên khai tham số → ReferenceError); undefined ⇒ bản GV vẫn in lời giải
+function baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai, dai = false }) {  // [28v] +anLoiGiai: KHOFIX regression 28t (guard bản-HS dán sang mà quên khai tham số → ReferenceError); undefined ⇒ bản GV vẫn in lời giải. [30j] +dai: mỗi câu xuống dòng riêng (dùng khi câu chứa phân thức dài mà approxLen đếm thiếu → tránh dồn cột chật)
   thamChieu = _locNguon(thamChieu);
   _guardND(deBai, "baiTapTaiLop");
   _guardArr(cacCau, "baiTapTaiLop");
@@ -1566,7 +1569,7 @@ function baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHin
       { before: 0, after: 6 }));
   }
   _appendHinh(out, coHinh, "coHinh");
-  if (cacCau && cacCau.length) out.push(...layoutCauHoi(cacCau));
+  if (cacCau && cacCau.length) out.push(...layoutCauHoi(cacCau, { dai }));
   if (!anLoiGiai) out.push(...loiGiai(loiGiaiND));
   return out;
 }

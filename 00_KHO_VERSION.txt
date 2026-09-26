@@ -1,6 +1,19 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[30j] TÙY CHỌN "dai" — CÂU XUỐNG DÒNG RIÊNG (Ông Bụt Đại số, 2026-09-27, phục vụ pilot DS8_CH06_B21):
+      • hieuhoc_template.js:
+        - viDu(): +tham số dai=false. dai=true → mỗi câu (a,b,c) xuống DÒNG RIÊNG (không dồn cột tabLine).
+        - dangToanDayDu(): truyền dai:true cho "Bài tập mẫu" của Dạng → câu a/b/c của Dạng luôn rõ từng ý
+          (theo yêu cầu Giám đốc: "câu b xuống dòng cho rõ ý" ở các dạng toán).
+        - baiTapTaiLop(): +tham số dai=false → dùng khi câu chứa phân thức dài mà approxLen đếm thiếu
+          (docx object = 3 ký tự) khiến bị dồn cột chật. Đặt dai:true ở bài đó là câu xuống dòng riêng.
+      • ADDITIVE — mặc định dai=false ⇒ MỌI caller cũ chạy Y NGUYÊN (viDu mục ③, BT tại lớp không đặt dai
+        giữ dồn cột như trước). Chỉ Dạng bài tập mẫu đổi hành vi (luôn stack). Smoke: build lại B21 đầy đủ OK
+        (tenBaiHoc, mucTieu, viDuLyThuyet, dangToanDayDu×4, baiTapTaiLop×4, tuLuanBTVN, cauTracNghiem,
+        bangDungSai) — xuất docx sạch, máy quét 0 lỗi.
+      • KHÔNG đổi chữ ký hàm nào khác → khỏi regen API_REFERENCE (chỉ thêm 1 tham số tuỳ chọn, ghi chú ở đây).
+
 [30i] XÂY NỀN HÌNH ĐƯỜNG TRÒN LỚP 9 (Ông Bụt Hình, 2026-09-25, phục vụ HH9_CH05 Đường tròn):
       • hinh_tron_ve.py: +6 hàm khai nghĩa lớp 9 — tiep_tuyen (tiếp tuyến tại điểm, ⊥ bán kính, tuỳ chọn ô vuông);
         hai_tiep_tuyen (từ điểm ngoài M → 2 tiếp điểm A,B + 2 đoạn, PHANH kiểm A,B∈(O)); tiep_tuyen_chung

@@ -1,12 +1,31 @@
-CAPNHAT_KHO — mốc 30i · 2026-09-25 · Ông Bụt Hình
-ĐÍCH: thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu), Commit changes.
+=== 00_DANH_MUC — CAPNHAT_KHO__30j ===
+Chiều A: OB → thầy (PUSH GitHub: github.com/Duchieuhoc/hieuhoc-kho-congcu)
+Đóng gói: 2026-09-27 · OB Đại số
 
-FILE — THAY/THÊM — GHI CHÚ
-hinh_tron_ve.py            — THAY  — +6 hàm lớp 9 (tiep_tuyen, hai_tiep_tuyen, tiep_tuyen_chung, hinh_quat, vien_phan, vanhKhan nua)
-hinh_coban.py              — THAY  — +tuple 'fill_raw' trong ve() (tô miền có cung) — ADDITIVE
-hinh_hh9_ch05.py           — THÊM  — entry chương lớp 9 (đối xứng + đường tròn)
-BAN_TRICH_HAM_HH9_CH05.md  — THÊM  — bản trích tự sinh (đủ 6 hàm mới) — nạp vào Project AI Soạn
-00_KHO_VERSION.txt         — THAY  — bump mốc [30i]
+FILE                    | LOẠI              | GHI CHÚ
+hieuhoc_template.js     | công cụ ĐÃ SỬA    | v10.26 · +tùy chọn "dai" (viDu/baiTapTaiLop/dangToanDayDu)
+API_REFERENCE.md        | tự sinh (regen)   | 75 hàm · chữ ký viDu/baiTapTaiLop +dai=false
+00_KHO_VERSION.txt      | dấu phiên bản     | BUMP mốc [30j] (thêm ở đầu file)
 
-ĐÃ KIỂM: smoke import 12 module 1-process sạch · render + soi mắt 6 hình đạt · PHANH bắt đúng lỗi.
-KHÔNG đổi template → khỏi regen API_REFERENCE.
+--- NỘI DUNG SỬA (mốc 30j — ADDITIVE) ---
+Vấn đề gốc: approxLen() tính object docx (phân số/lũy thừa) chỉ 3 ký tự → câu chứa
+  phân thức dài bị coi là ngắn → dồn cột chật, câu b) không rõ ý.
+Sửa (3 điểm, hieuhoc_template.js):
+  • viDu(): +tham số dai=false. dai=true → mỗi câu (a,b,c) xuống DÒNG RIÊNG.
+  • dangToanDayDu(): tự truyền dai:true cho "Bài tập mẫu" của Dạng → câu luôn rõ từng ý.
+  • baiTapTaiLop(): +tham số dai=false → đặt dai:true khi câu chứa phân thức dài.
+An toàn: mặc định dai=false ⟹ MỌI caller cũ chạy Y NGUYÊN (viDu mục ③, BT tại lớp
+  không đặt dai giữ dồn cột như trước). Chỉ Dạng bài tập mẫu đổi hành vi (luôn stack).
+  KHÔNG đổi chữ ký hàm nào khác. Smoke: import template OK (76 hàm) + build lại B21
+  đầy đủ (tenBaiHoc, mucTieu, viDuLyThuyet, dangToanDayDu×4, baiTapTaiLop×4, tuLuanBTVN,
+  cauTracNghiem, bangDungSai) → xuất docx sạch, máy quét 0 lỗi.
+
+--- VIỆC CỦA THẦY ---
+1. Upload ĐÈ 3 file này lên GitHub (Commit changes) — GitHub luôn giữ bản đủ, chỉ đè file đổi.
+2. Sau push: chạy `git rev-parse HEAD` lấy SHA mới → điền vào 00_HOSO_BAI.txt của
+   LUU_BAI__DS8_CH06_B21 (chỗ "⏳ CHỜ SHA").
+3. (Tùy) cập nhật "mốc kho yêu cầu" trong Instructions_AI_Soan_DaiSo nếu muốn ép bài sau ≥30j.
+
+⚠️ ONE-WRITER (phối hợp máy Hình): template DÙNG CHUNG. Base trước sửa = mốc 30i
+   (HEAD aaba4ce). Nếu máy Hình có sửa template riêng CHƯA đồng bộ → HỢP NHẤT trước,
+   KHÔNG đè mù. Xác nhận Hình đang ở 30i rồi mới đè.

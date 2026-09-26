@@ -39,7 +39,7 @@ Dựng nhanh 1 Paragraph từ nội dung string|mảng trộn — dùng nội b�
 ### `tieuDeMucChinh(stt, ten)`
 ### `lyThuyet(text)`
 4. LÝ THUYẾT — 1 dòng nội dung thường
-### `viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai })`
+### `viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai, dai = false })`
 ### `layoutCauHoi(cauArr, opts = {})`
 ### `loiGiai(noiDung)`
 ### `saiLamThuongGap(loiArr, opts = {})`
@@ -53,7 +53,7 @@ Dựng nhanh 1 Paragraph từ nội dung string|mảng trộn — dùng nội b�
 [A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài tập mẫu" và "Lời giải"; gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). NHÃN đứng RIÊNG 1 dòng; nội dung viết chảy tự nhiên. noiDung: string|mảng-trộn (1 đoạn) HOẶC { doan:[block1, block2,...] } để tách NHIỀU đoạn (chỉ khi sang một ý thật sự khác).
 ### `dangToanDayDu({ saiLamArr, soDang, ghiNhoArr, viDuLoiGiai, loiGiaiND, tenDang, ma, viDuDeBai, viDuCacCau, viDuThamChieu, viDuCoHinh, viDuHinhBenPhai, viDuHinhBenTrai, phanTich, soBai, mucDo, deBai, cacCau, thamChieu })`
 Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến khích AI Soạn dùng hàm này
-### `baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })`
+### `baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai, dai = false })`
 ### `cauTracNghiem({ soCau, cauHoi, dapAn, thamChieu })`
 ### `bangDapAnPhanI(dapAnArr)`
 13. BẢNG ĐÁP ÁN PHẦN I (2 hàng × N cột, N=8 THCS, N=12 THPT) [v9.4] Đáp án Phần I trình bày MỘT DÒNG: "Câu 1 - B; Câu 2 - A; ..." (thay dạng bảng 2 hàng cũ — gọn hơn, đúng yêu cầu 25/07). Nhận mảng đáp án ['B','A','C',...]. Trả 1 Paragraph.
@@ -77,6 +77,7 @@ header/footer trang Word cho ĐỀ KIỂM TRA — ĐÚNG MẪU headerFooterBaiHo
   // ── TRUYỀN VÀO (đổi theo môn/chương) ──
   logoBuffer, khungBuffer, lop, tenChuong, danhSachBai, coTongKet = false,
   // ── TRUYỀN VÀO (ít đổi, có mặc định) ──
+  phanMon  = "",                                  // "" = không in (Toán); "VẬT LÝ"/"HÓA HỌC" → in dòng "PHÂN MÔN: …" dưới tên môn
   loaiBan  = "BẢN GIÁO VIÊN",                    // "BẢN GIÁO VIÊN" | "BẢN HỌC SINH"
   boSach   = "KẾT NỐI TRI THỨC VỚI CUỘC SỐNG",   // bộ sách
   phienBan = "CS2627",                            // THCS: CS2627 · THPT: PT2627
