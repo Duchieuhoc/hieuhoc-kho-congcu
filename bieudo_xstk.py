@@ -40,6 +40,34 @@ def _xuat(fig, out, tra_bytes):
 def _fmt(v):
     return f"{v:g}".replace("-", "−").replace(".", ",")
 
+# ── Bộ BIỂU TƯỢNG AN TOÀN (có glyph trong DejaVu Sans) cho bieu_do_tranh ──
+#   Emoji plane (🚗📕⚽👦…) CHƯA có font đen trong môi trường → sẽ ra ô vuông.
+#   Ánh xạ icon SGK → biểu tượng an toàn; khoá luôn ghi TÊN VẬT THẬT nên nghĩa không mất.
+ICON_AN_TOAN = "☺ ☹ ● ★ ✿ ✉ ☎ ◐".split()
+def _has_glyph(c):
+    """True nếu font DejaVu Sans có glyph cho ký tự c. Dùng FT2Font (không thêm phụ thuộc)."""
+    global _FT
+    try:
+        _FT
+    except NameError:
+        try:
+            from matplotlib.ft2font import FT2Font
+            from matplotlib.font_manager import findfont, FontProperties
+            _FT = FT2Font(findfont(FontProperties(family="DejaVu Sans")))
+        except Exception:
+            _FT = None
+    if _FT is None:
+        return True  # không kiểm được → không chặn
+    return _FT.get_char_index(ord(c)) != 0
+def _kiem_glyph(bt):
+    thieu = [c for c in bt if not _has_glyph(c)]
+    if thieu:
+        raise ValueError(
+            f"bieu_do_tranh: biểu tượng {thieu!r} KHÔNG có glyph trong font "
+            f"(sẽ vẽ ra ô vuông ▯). Dùng biểu tượng trong BỘ AN TOÀN: "
+            f"{' '.join(ICON_AN_TOAN)}. Icon emoji (🚗📕⚽👦…) chưa có font đen — "
+            f"tạm dùng ● và ghi tên vật ở khoá, hoặc báo Ông Bụt bổ font.")
+
 # ───────────────────────── BIỂU ĐỒ CỘT ─────────────────────────
 def bieu_do_cot(danh_muc, gia_tri, nhan_truc_dung="", nhan_truc_ngang="",
                 tieu_de="", huong="dung", hien_nhan=True, mau=None,
@@ -124,7 +152,9 @@ def bieu_do_tranh(hang, moi_icon, bieu_tuong="●", mau_icon=_C1,
                   cho_phep_le=True, tieu_de="", chu_thich_khoa=None,
                   out="bd_tranh", tra_bytes=False):
     """Biểu đồ tranh. hang=[{'nhan','so_luong'}]. Vẽ so_luong/moi_icon biểu tượng, lẻ ½.
-       chu_thich_khoa mặc định 'Mỗi <bt> ứng với <k> đơn vị'."""
+       chu_thich_khoa mặc định 'Mỗi <bt> ứng với <k> đơn vị'.
+       CHẶN TOFU: biểu tượng thiếu glyph → raise (không vẽ ô vuông câm)."""
+    _kiem_glyph(bieu_tuong)
     n = len(hang)
     so_icon_max = max((h["so_luong"] / moi_icon) for h in hang)
     fig, ax = _fig_ax(max(6.0, 0.55 * so_icon_max + 3.0), 0.62 * n + 1.4)

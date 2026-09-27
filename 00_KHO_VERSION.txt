@@ -1,6 +1,16 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[31b] CHỐT CHẶN TOFU cho bieu_do_tranh (Ông Bụt Đại số, 2026-09-28, phát hiện khi khai nghĩa B39).
+      • bieudo_xstk.py: bieu_do_tranh() nay KIỂM glyph biểu tượng trước khi vẽ. Biểu tượng thiếu
+        glyph trong font (emoji 🚗📕⚽👦…) → raise ValueError rõ ràng thay vì vẽ Ô VUÔNG câm ▯.
+        Thêm hằng ICON_AN_TOAN = ☺ ☹ ● ★ ✿ ✉ ☎ ◐ (các biểu tượng CÓ glyph trong DejaVu Sans).
+        Ánh xạ icon SGK → biểu tượng an toàn; khoá luôn ghi TÊN VẬT THẬT nên nghĩa không mất.
+      • NỢ KHO (chờ thầy cấp font): để icon ĐÚNG HÌNH (ô tô/sách/bóng/người) cần 1 font symbol đen
+        (vd Noto Emoji monochrome) — môi trường hiện chặn tải. Tạm dùng ● + tên vật ở khoá.
+      • Chữ ký hàm KHÔNG đổi → bản trích không đổi. Tương thích ngược.
+      Mốc kho: 2026-09-28 (giữ; chỉ vá nội bộ).
+
 [31a] BỘ HÀM BIỂU ĐỒ & MÔ HÌNH XÁC SUẤT — module MỚI bieudo_xstk.py (Ông Bụt Đại số, 2026-09-28,
       phục vụ soạn XS-TK Toán 6 Chương IX; dùng chung THCS 6·7·8·9 + THPT).
       • bieudo_xstk.py (matplotlib → PNG → H.hinhVe): bieu_do_cot (đứng/ngang, tự xử CỘT ÂM),
