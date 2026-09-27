@@ -1,6 +1,17 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[31a] BỘ HÀM BIỂU ĐỒ & MÔ HÌNH XÁC SUẤT — module MỚI bieudo_xstk.py (Ông Bụt Đại số, 2026-09-28,
+      phục vụ soạn XS-TK Toán 6 Chương IX; dùng chung THCS 6·7·8·9 + THPT).
+      • bieudo_xstk.py (matplotlib → PNG → H.hinhVe): bieu_do_cot (đứng/ngang, tự xử CỘT ÂM),
+        bieu_do_cot_kep (đa nhóm + chú giải, ngang, cột âm), bieu_do_tranh (icon lẻ ½),
+        vong_quay, xuc_xac, dong_xu, tui_bi, truc_kha_nang. Font DejaVu Sans (đủ dấu VN).
+      • sinh_bantrich.py: +chế độ MODULE ONE-SHOT (module không class Hinh → tài liệu hàm
+        module-level). Tương thích ngược — mọi module hình học cũ KHÔNG đổi.
+      • BAN_TRICH_HAM_DS6__bieudo.md: bản trích 8 hàm (tự sinh, cho AI Soạn).
+      • CHỜ MỞ RỘNG (THPT): bieu_do_quat, bieu_do_doan_thang, tan_so/tan_suat, histogram, box plot.
+      Mốc kho: 2026-09-28.
+
 [30j] TÙY CHỌN "dai" — CÂU XUỐNG DÒNG RIÊNG (Ông Bụt Đại số, 2026-09-27, phục vụ pilot DS8_CH06_B21):
       • hieuhoc_template.js:
         - viDu(): +tham số dai=false. dai=true → mỗi câu (a,b,c) xuống DÒNG RIÊNG (không dồn cột tabLine).
