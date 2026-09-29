@@ -1,6 +1,22 @@
-GÓI UPLOAD KHO 31a — BIỂU ĐỒ & MÔ HÌNH XÁC SUẤT (2026-09-28)
-00_DOC_TRUOC_UPLOAD__bieudo_31a.md  — đọc trước
-bieudo_xstk.py                      — module mới (8 hàm)
-sinh_bantrich.py                    — vá chế độ module one-shot
-BAN_TRICH_HAM_DS6__bieudo.md        — bản trích (tự sinh)
-00_KHO_VERSION.txt                  — bump mốc 2026-09-28
+╔══════════════════════════════════════════════════════════════╗
+║  CAPNHAT_KHO__31c — OB Đại số THPT → thầy PUSH GITHUB         ║
+║  Repo: github.com/Duchieuhoc/hieuhoc-kho-congcu · 30/09/2026  ║
+╚══════════════════════════════════════════════════════════════╝
+
+⚠️ SỬA MỐC: gói trước ghi nhầm [30a] (LÙI so với chuỗi kho đã tới [31b]).
+   Bản đúng = [31c], vá TRÊN bản kho mới nhất fetch lại (đã xác nhận [31b] là
+   HEAD hiện hành, template v10.26 [29y] không bị máy khác đụng).
+
+Đích: thầy UPLOAD ĐÈ 2 file dưới lên GitHub (web → Commit changes).
+
+┌─ FILE ──────────────────┬─ TRẠNG THÁI ─┬─ GHI CHÚ ───────────────────────┐
+│ hieuhoc_template.js     │ SỬA          │ [31c] _RE_TOAN +∀(U+2200)      │
+│                         │              │ +∃(U+2203) → Cambria Math.      │
+│                         │              │ Stamp → v10.27 [31c].           │
+│ 00_KHO_VERSION.txt      │ SỬA          │ +entry [31c]; Mốc kho→2026-09-30 │
+└─────────────────────────┴──────────────┴─────────────────────────────────┘
+
+• Vá trên bản HEAD [31b] → nối đúng chuỗi, KHÔNG nuốt sửa máy khác.
+• Chữ ký hàm KHÔNG đổi → KHÔNG regen BAN_TRICH_HAM / API_REFERENCE.
+• Import-test: require OK (93 hàm). Rebuild B01: ∀∃ 0 TNR / toàn Cambria; well-formed PASS; cửa quét sạch.
+• Bài cũ dựng lại: 0 hỏng (additive).

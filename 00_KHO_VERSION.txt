@@ -1,6 +1,12 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[31c] +∀∃ vào _RE_TOAN (Ông Bụt Đại số THPT, 2026-09-30, QC pilot DS10_CH01_B01).
+      • hieuhoc_template.js _RE_TOAN thêm ∀ (U+2200), ∃ (U+2203) → lượng từ logic THPT nay vào
+        Cambria Math (font-proof), hết lọt Times New Roman (tofu/fallback). Template stamp → v10.27.
+      • Chữ ký hàm KHÔNG đổi → KHÔNG regen BAN_TRICH_HAM/API. Bài cũ dựng lại: 0 hỏng (additive).
+      Mốc kho: 2026-09-30 (bump — đổi hành vi font ∀∃; luật 'mốc kho yêu cầu' THPT cập nhật theo).
+
 [31b] CHỐT CHẶN TOFU cho bieu_do_tranh (Ông Bụt Đại số, 2026-09-28, phát hiện khi khai nghĩa B39).
       • bieudo_xstk.py: bieu_do_tranh() nay KIỂM glyph biểu tượng trước khi vẽ. Biểu tượng thiếu
         glyph trong font (emoji 🚗📕⚽👦…) → raise ValueError rõ ràng thay vì vẽ Ô VUÔNG câm ▯.
