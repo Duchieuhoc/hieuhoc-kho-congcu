@@ -1,11 +1,13 @@
-CẬP NHẬT KHO GITHUB → mốc 2026-08-28k
-=====================================
-Upload 3 file này lên Duchieuhoc/hieuhoc-kho-congcu (web), THAY bản cũ, commit 1 lần:
-  1. hinh_coban.py               (thêm dau_bang kieu='cheo' [28j] + ghi_chu(x,y,chu) [28k])
-  2. BAN_TRICH_HAM_HH7_CH04.md   (bản trích regen)
-  3. 00_KHO_VERSION.txt          (mốc 28k, changelog 28j + 28k)
+CẬP NHẬT KHO 31h (v10.29) — TỜ PHÂN CHƯƠNG
+==========================================
+Thay đổi (file CHUNG, dùng chung 4 Project):
+  1) Thêm dòng "Số ĐTLL: 0935.460.138 - 0935.305.545" dưới tên trung tâm ở tờ phân chương.
+  2) Chân tờ bìa + phienBan mặc định: "CS2627" -> "HH2627".
 
-Hai hàm mới:
-- dau_bang(kieu='cheo'): dấu chéo × ×× để tách ≥4 nhóm cạnh bằng trong 1 hình.
-- ghi_chu(x,y,chu): ghi chữ tự do tại toạ độ (nhãn a)/b)/c)/d) cho hình gộp nhiều phần).
-TƯƠNG THÍCH NGƯỢC 100% (mặc định 'thang'; mọi hàm cũ không đổi).
+CÁCH ÁP DỤNG CHO HỆ THỐNG (chống lệch pha):
+  - Upload ĐÈ 2 file này lên GitHub repo hieuhoc-kho-congcu (web → kéo-thả → Commit changes):
+       • hieuhoc_template.js
+       • 00_KHO_VERSION.txt
+  - Từ lần bung kho sau, cả 4 Project (OB-DS, OB-Hình, OB_DS_THPT, OB_HH_THPT) đều nhận bìa mới.
+  - LƯU Ý: một thời điểm chỉ MỘT máy sửa file chung. Thay đổi này do máy OB Đại số thực hiện 30/09.
+  - Additive: chữ ký hàm KHÔNG đổi → KHÔNG cần regen API_REFERENCE / BAN_TRICH_HAM; bài cũ dựng lại chỉ đổi tờ bìa.

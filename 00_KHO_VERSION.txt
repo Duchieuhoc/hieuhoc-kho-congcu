@@ -1,6 +1,12 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[31h] hieuhoc_template.js v10.29 — TỜ PHÂN CHƯƠNG (Ông Bụt Đại số, chỉ đạo Giám đốc 30/09):
+      • Thêm dòng "Số ĐTLL: 0935.460.138 - 0935.305.545" ngay dưới tên trung tâm (đỏ + xanh, bắt mắt).
+      • footerTPC() + tham số phienBan mặc định: "CS2627" → "HH2627" (đồng bộ Hiến Pháp đổi tên CS2627 → HH2627).
+      • Additive: chỉ tờ phân chương (toPhanChuong/footerTPC) đổi; chữ ký hàm KHÔNG đổi → KHÔNG regen API/BAN_TRICH.
+      • FILE CHUNG → phải upload đè lên GitHub để cả 4 Project nhận.
+
 [31g] hinh_tap_hop.py — nhãn TIẾNG VIỆT trong hình (Ông Bụt Đại số THPT, 2026-09-30; bug do AI Soạn báo 🟡 khi dựng B02).
       • Thêm `_render_th` (RIÊNG module, KHÔNG đụng render_tikz_doc chung → 0 rủi ro hinh_daiso):
         ƯU TIÊN xelatex + Latin Modern Roman (đủ dấu tiếng Việt) → lùi pdflatex nếu thiếu xelatex.
