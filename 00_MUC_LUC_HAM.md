@@ -36,6 +36,12 @@
 | `dung_can_hai(canh=2, nhan_diem='A', nhan_can=None)` | DỰNG √2 (hoặc √(canh²/2)) TRÊN TRỤC SỐ bằng compa — SGK Toán 7 Hình 2.3 | `hinh_daiso.py` | method | L6→9→THPT |
 | `hinhDienTichDaiSo(kieu='catghep', nhan=None, chuThich=None, out='dientich_daiso', tra_bytes=False)` | HÌNH DIỆN TÍCH đại số (nhãn BIẾN, giấu toạ độ) | `hinh_daiso.py` | generator | L6→9→THPT |
 
+## Tập hợp (Ven & trục số tập hợp)  · 2 hàm
+| Hàm | Nghĩa | File | Kiểu | Tầng |
+|---|---|---|---|---|
+| `bieu_do_ven(kieu='cat', nhan=None, phan_tu=None, to=None, bao=None, out='ven', tra_bytes=False, chuThich=None)` | BIỂU ĐỒ VEN: 1 vòng/2 cắt/2 rời/lồng (⊂)/3 vòng; tô giao·hợp·hiệu·phần bù; điền phần tử & biểu thức đếm | `hinh_tap_hop.py` | generator | THPT (mở THCS) |
+| `truc_so_tap_hop(cac_khoang, out='truc_tap', tra_bytes=False, chuThich=None)` | TRỤC SỐ tập con của ℝ: khoảng/đoạn/nửa khoảng/tia, ngoặc [ ]( ), ±∞, tô miền, xếp tầng minh hoạ giao/hợp | `hinh_tap_hop.py` | generator | THPT (mở THCS) |
+
 ## Đối xứng  · 2 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |

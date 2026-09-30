@@ -1,6 +1,21 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[31d] BỘ HÀM HÌNH TẬP HỢP — module MỚI hinh_tap_hop.py (Ông Bụt Đại số THPT, 2026-09-30,
+      pilot hình DS10_CH01_B02 "Tập hợp và các phép toán"; dùng chung THPT, mở cho THCS nếu cần).
+      • hinh_tap_hop.py — 2 generator ĐỘC LẬP (mẫu hinhDienTichDaiSo, KHÔNG qua HinhCoBan/PHANH,
+        0 rủi ro hồi quy 20+ hàm hình học cũ):
+        - bieu_do_ven(kieu, nhan, phan_tu, to, bao, ...) : Ven 1 vòng / 2 vòng cắt / 2 vòng rời /
+          vòng lồng (con, minh hoạ N con Z con Q con R) / 3 vòng ; tô giao·hợp·hiệu·phần bù ;
+          điền phần tử & biểu thức đếm (16-x, x, 11-x) ; khung tập bao X. Ký hiệu N Z Q R blackboard-bold.
+        - truc_so_tap_hop(cac_khoang, ...) : trục số khoảng/đoạn/nửa khoảng/tia ; ngoặc [ ] ( ) ;
+          +-vô cực (mũi tên tia) ; tô miền ; nhiều khoảng XẾP TẦNG cùng thang đo -> minh hoạ giao/hợp.
+      • BAN_TRICH_HAM_DS10_CH01__taphop.md (THÊM MỚI, tự sinh) : bản trích 2 hàm cho AI Soạn.
+      • 00_MUC_LUC_HAM.md : +mục "Tập hợp" (2 hàm).
+      • Chữ ký template KHÔNG đổi -> KHÔNG regen API_REFERENCE. File mới thuần additive -> import cùng
+        hinh_core/hinh_coban/hinh_daiso: PASS. 17 ca render (mọi hình B02) test ĐẠT + soi mắt 6 ca khó.
+      Mốc kho: 2026-09-30 (bump - thêm năng lực hình; luật 'mốc kho yêu cầu' bài B02 = >= 31d).
+
 [31c] +∀∃ vào _RE_TOAN (Ông Bụt Đại số THPT, 2026-09-30, QC pilot DS10_CH01_B01).
       • hieuhoc_template.js _RE_TOAN thêm ∀ (U+2200), ∃ (U+2203) → lượng từ logic THPT nay vào
         Cambria Math (font-proof), hết lọt Times New Roman (tofu/fallback). Template stamp → v10.27.
