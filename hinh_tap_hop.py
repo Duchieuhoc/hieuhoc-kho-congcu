@@ -69,6 +69,47 @@ def _caption(chuThich, x, y):
             % (x, y, chuThich))
 
 
+# ─────────── [31g] render RIÊNG cho hình tập hợp (KHÔNG đụng render_tikz_doc chung) ───────────
+# BUG (QC pilot B02): render_tikz_doc dùng pdflatex, preamble thiếu font tiếng Việt →
+#   nhãn "Bóng đá"→"Bóng á", "Cầu lông"→"Cu lông" (rớt dấu + "đ"). Nhãn tập hợp thường là
+#   A/B/S/T/ℝ (không dấu) nên hiếm gặp, nhưng bài word-problem cần nhãn Việt.
+# FIX (mẫu hinh_core._render): ƯU TIÊN xelatex + Latin Modern Roman (đủ dấu tiếng Việt);
+#   THIẾU xelatex → LÙI pdflatex (bản gốc, ASCII/toán vẫn đúng, chỉ rớt dấu Việt như cũ).
+# Đặt RIÊNG trong module này → 0 rủi ro hồi quy hinh_daiso (vẫn dùng render_tikz_doc chung).
+import subprocess as _sp
+import os as _os
+
+
+def _render_th(tex_full, out, tra_bytes=False, dpi=200):
+    for _e in ('.pdf', '-1.png'):
+        try: _os.remove(f'/tmp/{out}{_e}')
+        except OSError: pass
+    # xelatex: chèn fontspec ngay sau \documentclass...{standalone}
+    xe = tex_full.replace(
+        '{standalone}',
+        '{standalone}\n\\usepackage{fontspec}\\setmainfont{Latin Modern Roman}', 1)
+    open(f'/tmp/{out}.tex', 'w').write(xe)
+    try:
+        _sp.run(['xelatex', '-interaction=nonstopmode', f'{out}.tex'],
+                cwd='/tmp', capture_output=True)
+    except (FileNotFoundError, OSError):
+        pass
+    # thiếu xelatex/font → lùi pdflatex với bản gốc (an toàn tuyệt đối)
+    if not _os.path.exists(f'/tmp/{out}.pdf'):
+        open(f'/tmp/{out}.tex', 'w').write(tex_full)
+        try:
+            _sp.run(['pdflatex', '-interaction=nonstopmode', f'{out}.tex'],
+                    cwd='/tmp', capture_output=True)
+        except (FileNotFoundError, OSError):
+            pass
+    _sp.run(['pdftoppm', '-png', '-r', str(dpi), f'{out}.pdf', out],
+            cwd='/tmp', capture_output=True)
+    png = f'/tmp/{out}-1.png'
+    if not _os.path.exists(png):
+        return None
+    return open(png, 'rb').read() if tra_bytes else png
+
+
 # ═══════════════════════ ① BIỂU ĐỒ VEN ═══════════════════════
 def bieu_do_ven(kieu='cat', nhan=None, phan_tu=None, to=None,
                 bao=None, out='ven', tra_bytes=False, chuThich=None):
@@ -195,7 +236,7 @@ def bieu_do_ven(kieu='cat', nhan=None, phan_tu=None, to=None,
 
     P.append(_caption(chuThich, cx, cy))
     P.append(_POST)
-    return _HC.render_tikz_doc('\n'.join(P), out, tra_bytes)
+    return _render_th('\n'.join(P), out, tra_bytes)
 
 
 # ═══════════════════════ ② TRỤC SỐ TẬP HỢP ═══════════════════════
@@ -292,7 +333,7 @@ def truc_so_tap_hop(cac_khoang, out='truc_tap', tra_bytes=False, chuThich=None):
         P.append(r'\node[below,font=\itshape] at (%s,%s) {%s};'
                  % (X((lo_i + hi_i) / 2), -(n - 1) * dy - 0.7, chuThich))
     P.append(_POST)
-    return _HC.render_tikz_doc('\n'.join(P), out, tra_bytes)
+    return _render_th('\n'.join(P), out, tra_bytes)
 
 
 def _ngoac(P, x, y, ch):

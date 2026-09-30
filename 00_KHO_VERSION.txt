@@ -1,6 +1,33 @@
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================
 
+[31g] hinh_tap_hop.py — nhãn TIẾNG VIỆT trong hình (Ông Bụt Đại số THPT, 2026-09-30; bug do AI Soạn báo 🟡 khi dựng B02).
+      • Thêm `_render_th` (RIÊNG module, KHÔNG đụng render_tikz_doc chung → 0 rủi ro hinh_daiso):
+        ƯU TIÊN xelatex + Latin Modern Roman (đủ dấu tiếng Việt) → lùi pdflatex nếu thiếu xelatex.
+        bieu_do_ven + truc_so_tap_hop trỏ sang _render_th.
+      • Trước: pdflatex, "Bóng đá"→"Bóng á", "Cầu lông"→"Cu lông" (rớt dấu). Nay đủ dấu.
+      • Kiểm chạy thật: nhãn Việt đủ dấu ✓; ℝℚℤℕ vẫn blackboard-bold ✓; 17 ca cũ không hồi quy.
+      • Chữ ký hàm KHÔNG đổi. B02 KHÔNG bị chặn bởi bug này (AI Soạn né bằng nhãn A/B chuẩn SGK).
+      Mốc kho: 2026-09-30 (nối tiếp [31f]).
+
+[31f] CỬA kiemMay (g) — regex trích dẫn loại [ ] (Ông Bụt Đại số THPT áp, 2026-09-30; lỗi do AI Soạn phát hiện khi dựng pilot B02, OB thẩm định + vá theo A↔C).
+      • hieuhoc_template.js: char-class quét nguồn `(... trang/bài ...)` đổi `[^)]` → `[^)\[\]]`.
+        Nửa khoảng "(a; b]" trước đây khiến regex vắt qua tới ")" kế (vd "(VDC)") → BẮT OAN "Bài N"
+        thành "nguồn ngoài lộ tên" (báo lỗi giả). Loại ngoặc vuông → hết oan; trích dẫn thật
+        (SGK trang…/SBT bài…) không chứa [ ] nên KHÔNG ảnh hưởng. Kiểm chạy thật: cũ bắt 3 (1 oan),
+        mới bắt 2 (đúng). Template stamp → v10.28.
+      Mốc kho: 2026-09-30 (nối tiếp [31e]).
+
+[31e] _RE_TOAN + ký hiệu TẬP HỢP (Ông Bụt Đại số THPT áp, 2026-09-30; lỗi do AI Soạn phát hiện khi dựng pilot B02, OB thẩm định + vá theo A↔C).
+      • hieuhoc_template.js: _RE_TOAN thêm ∞ (U+221E), ∖ (U+2216 hiệu tập), ⊃ (U+2283 chứa)
+        → hoàn tất định tuyến ký hiệu tập hợp vào Cambria Math (font-proof). Trước đó ±∞ / $S\setminus T$
+        / $S\supset T$ lọt Times New Roman = rủi ro tofu/fallback như ∀∃ ở [31c].
+      • Kiểm chạy thật (node): ∀∃∞∖⊃⊂∈ℝ∪∩ → Cambria ✓; chữ thường a/1 không dính ✓.
+      • Chữ ký hàm KHÔNG đổi → KHÔNG regen BAN_TRICH_HAM/API. Additive, bài cũ 0 hỏng.
+      • ⚠️ QUY TRÌNH: AI Soạn KHÔNG được tự sửa kho (Đ5.9 · A↔C) — chỉ báo [SỬA]. AI Soạn đã tự vá
+        (KHO_UPDATE) nhưng có gắn cờ minh bạch; OB KHÔNG push bản đó, tự áp lại trên HEAD + kiểm.
+      Mốc kho: 2026-09-30 (nối tiếp [31d]).
+
 [31d] BỘ HÀM HÌNH TẬP HỢP — module MỚI hinh_tap_hop.py (Ông Bụt Đại số THPT, 2026-09-30,
       pilot hình DS10_CH01_B02 "Tập hợp và các phép toán"; dùng chung THPT, mở cho THCS nếu cần).
       • hinh_tap_hop.py — 2 generator ĐỘC LẬP (mẫu hinhDienTichDaiSo, KHÔNG qua HinhCoBan/PHANH,
