@@ -1,22 +1,10 @@
-╔══════════════════════════════════════════════════════════════╗
-║  CAPNHAT_KHO__31c — OB Đại số THPT → thầy PUSH GITHUB         ║
-║  Repo: github.com/Duchieuhoc/hieuhoc-kho-congcu · 30/09/2026  ║
-╚══════════════════════════════════════════════════════════════╝
+CAPNHAT_KHO__31i — 2026-09-30 (OB Đại số THPT)
+Đích: Thầy UPLOAD ĐÈ lên GitHub (hieuhoc-kho-congcu), Commit changes.
+Nối tiếp HEAD [31h]. Một-máy-sửa: chỉ OB Đại số thao tác kho lúc này.
 
-⚠️ SỬA MỐC: gói trước ghi nhầm [30a] (LÙI so với chuỗi kho đã tới [31b]).
-   Bản đúng = [31c], vá TRÊN bản kho mới nhất fetch lại (đã xác nhận [31b] là
-   HEAD hiện hành, template v10.26 [29y] không bị máy khác đụng).
+FILE — trạng thái — ghi chú:
+- hinh_tap_hop.py   — THAY — vá _phantu [31i]: phần tử tên tiếng Việt đủ dấu (đối xứng _txt [31g]).
+- 00_KHO_VERSION.txt — THAY — +khối [31i] đầu file (nối [31h]).
 
-Đích: thầy UPLOAD ĐÈ 2 file dưới lên GitHub (web → Commit changes).
-
-┌─ FILE ──────────────────┬─ TRẠNG THÁI ─┬─ GHI CHÚ ───────────────────────┐
-│ hieuhoc_template.js     │ SỬA          │ [31c] _RE_TOAN +∀(U+2200)      │
-│                         │              │ +∃(U+2203) → Cambria Math.      │
-│                         │              │ Stamp → v10.27 [31c].           │
-│ 00_KHO_VERSION.txt      │ SỬA          │ +entry [31c]; Mốc kho→2026-09-30 │
-└─────────────────────────┴──────────────┴─────────────────────────────────┘
-
-• Vá trên bản HEAD [31b] → nối đúng chuỗi, KHÔNG nuốt sửa máy khác.
-• Chữ ký hàm KHÔNG đổi → KHÔNG regen BAN_TRICH_HAM / API_REFERENCE.
-• Import-test: require OK (93 hàm). Rebuild B01: ∀∃ 0 TNR / toàn Cambria; well-formed PASS; cửa quét sạch.
-• Bài cũ dựng lại: 0 hỏng (additive).
+KHÔNG kèm: template/bản trích/API (chữ ký hàm KHÔNG đổi → không regen).
+Sau push: fetch lại + chạy thật (render Ven tên VN) để xác nhận GitHub đúng.

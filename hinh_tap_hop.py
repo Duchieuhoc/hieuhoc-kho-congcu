@@ -43,11 +43,17 @@ def _txt(s):
 
 
 def _phantu(s):
-    """Phần tử điền trong vùng: bọc $...$ để in toán (số/ký hiệu), giữ nếu có sẵn."""
+    """Phần tử điền trong vùng: bọc $...$ để in toán (số/ký hiệu), giữ nếu có sẵn.
+    [31i] Chuỗi chứa dấu tiếng Việt (non-ASCII) → text thường (xelatex đủ dấu),
+    KHÔNG ép math mode (math italic Latin Modern rớt dấu: 'Bình'→'Bnh')."""
     if s is None:
         return ''
     s = str(s)
-    return s if ('$' in s) else '$%s$' % s
+    if '$' in s:
+        return s
+    if not s.isascii():            # [31i] tên/nhãn tiếng Việt có dấu → text thường
+        return s
+    return '$%s$' % s
 
 
 _PRE_VEN = (r'''\documentclass[border=6pt]{standalone}
