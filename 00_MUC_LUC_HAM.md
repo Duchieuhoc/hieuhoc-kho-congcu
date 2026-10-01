@@ -1,7 +1,7 @@
 # 00_MUC_LUC_HAM — MỤC LỤC HÀM TỔNG (tra "đã-có-chưa" TRƯỚC khi viết)
 
 > **Tự sinh** bởi `sinh_mucluc.py` — TÁI DÙNG `sinh_bantrich.py` (Python) + `API_REFERENCE.md` (output `sinh_apiref.js`, JS). KHÔNG sửa tay.
-> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 22/09/2026.
+> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 01/10/2026.
 > **LUẬT VÀNG:** trước khi viết hàm mới → tra file này (Ctrl+F theo NGHĨA). Có hàm khớp → GỌI LẠI. Gần giống → MỞ RỘNG. Viết mới là bậc CUỐI.
 
 *Ẩn: hàm hạ tầng (`_…`) + cửa render (`ve`) theo Đ5.9. Base compose per-bài không vào kho → không liệt kê.*
@@ -33,14 +33,8 @@
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
-| `dung_can_hai(canh=2, nhan_diem='A', nhan_can=None)` | DỰNG √2 (hoặc √(canh²/2)) TRÊN TRỤC SỐ bằng compa — SGK Toán 7 Hình 2.3 | `hinh_daiso.py` | method | L6→9→THPT |
+| `dung_can_hai(canh=2, nhan_diem='A', nhan_can=None)` | DỰNG √2 TRÊN TRỤC SỐ bằng compa — SGK Toán 7 Hình 2.3 (2 panel a/b) | `hinh_daiso.py` | method | L6→9→THPT |
 | `hinhDienTichDaiSo(kieu='catghep', nhan=None, chuThich=None, out='dientich_daiso', tra_bytes=False)` | HÌNH DIỆN TÍCH đại số (nhãn BIẾN, giấu toạ độ) | `hinh_daiso.py` | generator | L6→9→THPT |
-
-## Tập hợp (Ven & trục số tập hợp)  · 2 hàm
-| Hàm | Nghĩa | File | Kiểu | Tầng |
-|---|---|---|---|---|
-| `bieu_do_ven(kieu='cat', nhan=None, phan_tu=None, to=None, bao=None, out='ven', tra_bytes=False, chuThich=None)` | BIỂU ĐỒ VEN: 1 vòng/2 cắt/2 rời/lồng (⊂)/3 vòng; tô giao·hợp·hiệu·phần bù; điền phần tử & biểu thức đếm | `hinh_tap_hop.py` | generator | THPT (mở THCS) |
-| `truc_so_tap_hop(cac_khoang, out='truc_tap', tra_bytes=False, chuThich=None)` | TRỤC SỐ tập con của ℝ: khoảng/đoạn/nửa khoảng/tia, ngoặc [ ]( ), ±∞, tô miền, xếp tầng minh hoạ giao/hợp | `hinh_tap_hop.py` | generator | THPT (mở THCS) |
 
 ## Đối xứng  · 2 hàm
 
@@ -97,7 +91,7 @@
 | `truc_doan_doc_diem(trai, phai, chia=10, diem=None, hien_nhan_diem=False, moc_nhan=None)` | TRỤC SỐ ĐOẠN PHÓNG TO để ĐỌC ĐIỂM — biên THẬP PHÂN, chia nhỏ, kéo rộng | `hinh_toado.py` | method | L6→9→THPT |
 | `truc_so_huu_ti(tu=-1, den=4, chia=1, diem=None, hien_nhan_diem=True, moc_nhan=None, mui_ten_am=False, goc_ten='0', khoang_to=None, vach_dut=None, mui_ten_dc=None)` | TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương | `hinh_toado.py` | method | L6→9→THPT |
 
-## Đường tròn (dựng)  · 11 hàm
+## Đường tròn (dựng)  · 18 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -106,19 +100,26 @@
 | `diem_ban_kinh(ten, tam, goc, ban_kinh, nhan='above right', mau=None, hien=True)` | Điểm 'ten' cách tâm 'tam' đúng 'ban_kinh' (đơn vị vẽ) theo hướng 'goc' (độ, ngược chiều kim từ ngang) — KHÔNG tọa độ | `hinh_tron_ve.py` | method | — |
 | `diem_tren_tron(ten, tam, goc_o_tam, nhan='above right', mau=None)` | Điểm 'ten' NẰM TRÊN đường tròn tâm 'tam', định vị bằng GÓC Ở TÂM 'goc_o_tam' (độ, đo ngược chiều kim đồng hồ từ hướng ngang) — KHÔNG tọa độ | `hinh_tron_ve.py` | method | — |
 | `duong_tron(tam, ban_kinh=2.0, mau=None, net='lien', hien_tam=True)` | ĐƯỜNG TRÒN tâm 'tam', bán kính 'ban_kinh' (đơn vị vẽ) | `hinh_tron_ve.py` | method | — |
+| `duong_tron_ngoai_tiep(A, B, C, tam='O', mau=None, net='lien', hien_tam=True, noi_tam=False)` | ĐƯỜNG TRÒN NGOẠI TIẾP tam giác A,B,C (3 đỉnh ĐÃ đặt, không thẳng hàng) | `hinh_tron_ve.py` | method | — |
+| `duong_tron_noi_tiep(A, B, C, tam='I', mau=None, net='lien', hien_tam=True, chan_vuong=False)` | ĐƯỜNG TRÒN NỘI TIẾP tam giác A,B,C (3 đỉnh ĐÃ đặt) | `hinh_tron_ve.py` | method | — |
 | `duong_tron_qua(tam, qua, mau=None, net='lien', hien_tam=True)` | ĐƯỜNG TRÒN tâm 'tam' đi QUA điểm 'qua' (cả hai ĐÃ đặt) | `hinh_tron_ve.py` | method | — |
 | `goc_o_tam(tam, A, B, do=None, danh_dau=True)` | Góc ở tâm chắn bởi 2 bán kính 'tam'A, 'tam'B (A,B đã đặt trên đường tròn) | `hinh_tron_ve.py` | method | — |
+| `hai_tiep_tuyen(tam, M, A='A', B='B', mau=None, o_vuong=True, noi_tam=False)` | HAI TIẾP TUYẾN kẻ từ điểm 'M' NẰM NGOÀI đường tròn 'tam': tạo hai tiếp điểm A, B trên đường tròn + vẽ hai đoạn MA, MB | `hinh_tron_ve.py` | method | — |
+| `hinh_quat(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH QUẠT TRÒN giới hạn bởi cung nhỏ AB và hai bán kính (tam)A, (tam)B (A,B đã đặt trên đường tròn) | `hinh_tron_ve.py` | generator | — |
 | `kim(R, vi_tri, loai='gio', tam='O')` | Vẽ MỘT kim đồng hồ từ tâm 'tam' ra hướng 'vi_tri' (thang 12 giờ, cho phép LẺ: vd 3.5 = giữa số 3 và 4) | `hinh_tron_ve.py` | method | — |
 | `mat_dong_ho(gio=None, phut=0, giay=None, R=2.4, tam='O')` | ĐỒNG HỒ chuẩn HH6 — MỘT hàm ra đồng hồ hoàn chỉnh: vành tròn tâm 'tam' + 12 số (đặt bằng diem_tren_tron, nhãn toả ra ngoài) + tuỳ chọn các kim | `hinh_tron_ve.py` | method | — |
 | `so_quanh_tam(tam, ban_kinh, danh_sach, goc_dau=90, chieu=-1)` | Rải các nhãn 'danh_sach' ĐỀU quanh tâm 'tam' trên vòng bán kính 'ban_kinh', bắt đầu ở hướng 'goc_dau'° (mặc định 90 = trên đỉnh), bước 'chieu'*360/n ( | `hinh_tron_ve.py` | method | — |
-| `vanhKhan(R='R', r='r', toVanh=True, chuThich=None, out='vanh_khan', tra_bytes=False)` | VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R), mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh). | `hinh_tron_ve.py` | method | — |
+| `tiep_tuyen(tam, tiep_diem, dai=1.7, mau=None, net='lien', o_vuong=False)` | TIẾP TUYẾN của đường tròn 'tam' tại 'tiep_diem' (đã đặt TRÊN đường tròn) — đoạn thẳng qua tiếp điểm, VUÔNG GÓC bán kính, nửa dài 'dai' mỗi phía | `hinh_tron_ve.py` | method | — |
+| `tiep_tuyen_chung(tam1, tam2, loai='ngoai', phia=1, mau=None, net='lien', tiep1='T', tiep2='T2', dai=0.7)` | TIẾP TUYẾN CHUNG NGOÀI của hai đường tròn 'tam1','tam2' (đã khai): tạo hai tiếp điểm tiep1∈(tam1), tiep2∈(tam2) + vẽ đường tiếp tuyến qua chúng (kéo d | `hinh_tron_ve.py` | method | — |
+| `vanhKhan(R='R', r='r', toVanh=True, chuThich=None, nua=False, out='vanh_khan', tra_bytes=False)` | VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R), mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh) | `hinh_tron_ve.py` | method | — |
+| `vien_phan(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH VIÊN PHÂN giới hạn bởi dây AB và cung nhỏ AB (A,B trên đường tròn 'tam') | `hinh_tron_ve.py` | method | — |
 
 ## Dựng Word (template JS v10.26)  · 74 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
 | `approxLen(item)` | Ước lượng độ dài hiển thị — dùng để quyết định xếp cột/xuống hàng (công thức Math không có .length nên tính tượng trưng 3 ký tự) | `hieuhoc_template.js` | JS | — |
-| `baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })` | 13. BẢNG ĐÁP ÁN PHẦN I (2 hàng × N cột, N=8 THCS, N=12 THPT) [v9.4] Đáp án Phần I trình bày MỘT DÒNG: "Câu 1 - B; Câu 2 - A; ..." (thay dạng bảng 2 hà | `hieuhoc_template.js` | JS | — |
+| `baiTapTaiLop({ soBai, mucDo, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai, dai = false })` | 13. BẢNG ĐÁP ÁN PHẦN I (2 hàng × N cột, N=8 THCS, N=12 THPT) [v9.4] Đáp án Phần I trình bày MỘT DÒNG: "Câu 1 - B; Câu 2 - A; ..." (thay dạng bảng 2 hà | `hieuhoc_template.js` | JS | — |
 | `bangDapAnPhanI(dapAnArr)` | 13. BẢNG ĐÁP ÁN PHẦN I (2 hàng × N cột, N=8 THCS, N=12 THPT) [v9.4] Đáp án Phần I trình bày MỘT DÒNG: "Câu 1 - B; Câu 2 - A; ..." (thay dạng bảng 2 hà | `hieuhoc_template.js` | JS | — |
 | `bangDungSai(menhDeArr, opts = {})` | 14. BẢNG ĐÚNG/SAI — tỉ lệ CỐ ĐỊNH 80%-10%-10%, nền trắng chữ đen | `hieuhoc_template.js` | JS | — |
 | `bangNguonGoc({ soChuong, dsNguon })` | — | `hieuhoc_template.js` | JS | — |
@@ -189,8 +190,8 @@
 | `trangCuoiChuong({ dsLopBai, dsPhienBan })` | — | `hieuhoc_template.js` | JS | — |
 | `triTuyetDoi(bieuThuc)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 | `tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })` | Tiêu đề khối "D. TỰ LUẬN (n bài = Xđ)" | `hieuhoc_template.js` | JS | — |
-| `viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai })` | — | `hieuhoc_template.js` | JS | — |
+| `viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai, dai = false })` | — | `hieuhoc_template.js` | JS | — |
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 61 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 135.
+**Thống kê:** 68 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 142.

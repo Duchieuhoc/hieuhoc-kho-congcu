@@ -284,6 +284,82 @@ class HinhTron(hinh_coban.HinhCoBan):
             self.cung(tam, gA, gB2, mau='black', net='lien', ban_kinh=r)
         return self
 
+    # ═══════ [31j] LỚP 10 CH3 — ĐƯỜNG TRÒN NGOẠI/NỘI TIẾP TAM GIÁC (Ông Bụt Hình 2026-10-01) ═══════
+    #   Hệ thức lượng (HH10_CH03_B06): HĐ3 định lí sin (tam giác nội tiếp đường tròn, Hình 3),
+    #   HĐ4 công thức diện tích (đường tròn nội tiếp tâm I bán kính r, Hình 7). Máy tính TÂM
+    #   (Đ5.9 cho phép HÀM kho tính toạ độ; người/AI KHÔNG cho). PHANH: đỉnh/tiếp điểm nằm trên
+    #   đường tròn; nội tiếp tự kiểm d(I,cạnh)=r. Chữ ký MỞ (kế thừa lớp trên).
+
+    def duong_tron_ngoai_tiep(self, A, B, C, tam='O', mau=None, net='lien',
+                              hien_tam=True, noi_tam=False):
+        """ĐƯỜNG TRÒN NGOẠI TIẾP tam giác A,B,C (3 đỉnh ĐÃ đặt, không thẳng hàng). Máy tính
+        TÂM (giao 3 trung trực) + bán kính R=|tâm→A| — KHÔNG nhận toạ độ (Đ5.9). Đặt điểm 'tam'
+        tại tâm ngoại tiếp, vẽ đường tròn qua 3 đỉnh. noi_tam=True → nối 3 bán kính tâm→A,B,C.
+        PHANH kiểm A,B,C cùng nằm trên đường tròn (cách đều tâm)."""
+        import math as _mm
+        for _P in (A, B, C):
+            if _P not in self.V:
+                raise ValueError(f"duong_tron_ngoai_tiep: chưa đặt đỉnh '{_P}'.")
+        (xa, ya), (xb, yb), (xc, yc) = self.V[A], self.V[B], self.V[C]
+        d = 2.0 * (xa*(yb - yc) + xb*(yc - ya) + xc*(ya - yb))
+        if abs(d) < 1e-9:
+            raise ValueError("duong_tron_ngoai_tiep: 3 đỉnh thẳng hàng — không có đường tròn ngoại tiếp.")
+        a2, b2, c2 = xa*xa + ya*ya, xb*xb + yb*yb, xc*xc + yc*yc
+        ox = (a2*(yb - yc) + b2*(yc - ya) + c2*(ya - yb)) / d
+        oy = (a2*(xc - xb) + b2*(xa - xc) + c2*(xb - xa)) / d
+        r = _mm.hypot(xa - ox, ya - oy)
+        self._diem(tam, ox, oy, 'below' if hien_tam else None, moc=hien_tam)
+        self.tron[tam] = r
+        self.tikz.append(('tron', tam, r, mau, net))
+        for _P in (A, B, C):
+            self.rb.append({'loai': 'diem_tren_tron', 'diem': _P, 'tam': tam, 'ban_kinh': r})
+        if noi_tam:
+            for _P in (A, B, C):
+                self.tikz.append(('doan', tam, _P, None, 'lien', None))
+        return self
+
+    def duong_tron_noi_tiep(self, A, B, C, tam='I', mau=None, net='lien',
+                            hien_tam=True, chan_vuong=False):
+        """ĐƯỜNG TRÒN NỘI TIẾP tam giác A,B,C (3 đỉnh ĐÃ đặt). Máy tính TÂM (giao 3 phân giác:
+        I = (a·A + b·B + c·C)/(a+b+c), với a=BC, b=CA, c=AB) + bán kính r=S/p — KHÔNG nhận toạ
+        độ (Đ5.9). Đặt điểm 'tam' tại tâm nội tiếp, vẽ đường tròn. chan_vuong=True → đặt 3 chân
+        vuông góc (tiếp điểm) trên 3 cạnh + nối bán kính (chấm đỏ). PHANH tự kiểm d(I,BC)=r."""
+        import math as _mm
+        for _P in (A, B, C):
+            if _P not in self.V:
+                raise ValueError(f"duong_tron_noi_tiep: chưa đặt đỉnh '{_P}'.")
+        (xa, ya), (xb, yb), (xc, yc) = self.V[A], self.V[B], self.V[C]
+        a = _mm.hypot(xb - xc, yb - yc)   # cạnh đối A = BC
+        b = _mm.hypot(xc - xa, yc - ya)   # cạnh đối B = CA
+        c = _mm.hypot(xa - xb, ya - yb)   # cạnh đối C = AB
+        per = a + b + c
+        if per < 1e-9 or min(a, b, c) < 1e-9:
+            raise ValueError("duong_tron_noi_tiep: tam giác suy biến.")
+        ix = (a*xa + b*xb + c*xc) / per
+        iy = (a*ya + b*yb + c*yc) / per
+        S = abs((xb - xa)*(yc - ya) - (xc - xa)*(yb - ya)) / 2.0
+        p = per / 2.0
+        r = S / p
+        # PHANH tự kiểm: khoảng cách I→cạnh BC phải = r (verify incenter)
+        dBC = abs((xc - xb)*(iy - yb) - (ix - xb)*(yc - yb)) / (a or 1.0)
+        if abs(dBC - r) > 1e-6 * max(1.0, r):
+            raise ValueError(f"duong_tron_noi_tiep: PHANH lệch (d(I,BC)={dBC:.6f} ≠ r={r:.6f}).")
+        self._diem(tam, ix, iy, 'below' if hien_tam else None, moc=hien_tam)
+        self.tron[tam] = r
+        self.tikz.append(('tron', tam, r, mau, net))
+        if chan_vuong:
+            def _chan(ten, Px, Py, Qx, Qy, nhan):
+                vx, vy = Qx - Px, Qy - Py
+                L2 = vx*vx + vy*vy or 1.0
+                t = ((ix - Px)*vx + (iy - Py)*vy) / L2
+                self._diem(ten, Px + t*vx, Py + t*vy, nhan, moc=True, mau='red')
+                self.rb.append({'loai': 'diem_tren_tron', 'diem': ten, 'tam': tam, 'ban_kinh': r})
+                self.tikz.append(('doan', tam, ten, 'red', 'lien', None))
+            _chan('_tiepA', xb, yb, xc, yc, 'below')        # tiếp điểm trên BC
+            _chan('_tiepB', xc, yc, xa, ya, 'above right')  # tiếp điểm trên CA
+            _chan('_tiepC', xa, ya, xb, yb, 'above left')   # tiếp điểm trên AB
+        return self
+
 
 # ═══ [29c] Ông Bụt 2026-09-16 · DS8 Chương 2 (Hằng đẳng thức) ═══
 import hinh_core as _HC

@@ -1,14 +1,17 @@
-[31i] traLoiNgan +anDapAn — HOÀN THIỆN BỘ BẢN HỌC SINH (Ông Bụt Hóa, 2026-10-01):
-      • hieuhoc_template.js v10.30 : traLoiNgan({anDapAn}) → bỏ "Đáp án:", in "Trả lời: ……" cho bản HS.
-        (bangDungSai{banHS} + tuLuanBTVN{anLoiGiai} đã có từ 28t; traLoiNgan bị sót — nay bổ sung.)
-      Additive, chữ ký không đổi (anDapAn optional) → KHÔNG regen BAN_TRICH_HAM/API. Bài GV cũ 0 đổi.
+[31j] hinh_tron_ve.py — ĐƯỜNG TRÒN NGOẠI/NỘI TIẾP TAM GIÁC (Ông Bụt Hình THPT, 2026-10-01; mở mảng Hình 10 Ch3 Hệ thức lượng).
+      • +2 method trong HinhTron: `duong_tron_ngoai_tiep(A,B,C,tam='O',...)` (máy tính tâm = giao 3 trung trực, R=|OA|; PHANH 3 đỉnh trên đường tròn) · `duong_tron_noi_tiep(A,B,C,tam='I',chan_vuong=,...)` (tâm I=(a·A+b·B+c·C)/(a+b+c), r=S/p; PHANH tự kiểm d(I,cạnh)=r; chan_vuong → 3 tiếp điểm đỏ).
+      • Trọng tài: HH10_CH03_B06 HĐ3 (Hình 3 định lí sin) + HĐ4 (Hình 7 diện tích). Test công cụ: render ngoại tiếp + nội tiếp ĐẠT (3 đỉnh/3 tiếp điểm khớp, PHANH 0 raise).
+      • +ENTRY chương `hinh_hh10_ch03.py`: class Hinh(HinhDaGiac, HinhTron) — AI Soạn `import hinh_hh10_ch03 as H`.
+      • Additive: chỉ THÊM 2 method + 1 entry; chữ ký hàm cũ KHÔNG đổi → 0 regression (test import hinh_ch5/hinh_ch8 OK). Regen BAN_TRICH_HAM_HH10_CH03 + 00_MUC_LUC_HAM.
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_tron_ve.py · hinh_hh10_ch03.py (mới) · BAN_TRICH_HAM_HH10_CH03.md (mới) · 00_MUC_LUC_HAM.md · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-01 (nối tiếp [31i]).
 
 [31i] hinh_tap_hop.py — PHẦN TỬ trong vòng Ven đủ DẤU tiếng Việt (Ông Bụt Đại số THPT, 2026-09-30; lộ khi KIỂM KHO chạy thật sau push [31h]).
       • _phantu(): chuỗi non-ASCII (tên VN "An, Bình", "Cường") → text thường thay vì ép $...$ (math italic Latin Modern rớt dấu: "Bình"→"Bnh", "Cường"→"Cng").
       • Đối xứng với _txt() [31g] (đã xử nhãn tập). Nay cả NHÃN lẫn PHẦN TỬ đều đủ dấu.
       • Hồi quy: phần tử SỐ/ký hiệu (7, "2, 4", "-1, 6") GIỮ math mode (chỉ đổi hành vi chuỗi có dấu) → 0 hỏng ca cũ. Chữ ký hàm KHÔNG đổi → KHÔNG regen BAN_TRICH/API.
       • Kiểm chạy thật (xelatex): Ven tên VN đủ dấu ✓ · Ven số nguyên vẹn ✓.
-      Mốc kho: 2026-10-01 (nối tiếp [31i]).
+      Mốc kho: 2026-09-30 (nối tiếp [31h]).
 
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================

@@ -1,8 +1,14 @@
-CAPNHAT_KHO__31i — push GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit changes
-Mốc kho: 31h → 31i (2026-10-01)
+CAPNHAT_KHO__31j — 2026-10-01 (OB Hình THPT)
+Đích: Thầy UPLOAD ĐÈ lên GitHub (hieuhoc-kho-congcu), Commit changes.
+Nối tiếp HEAD [31i]. Một-máy-sửa: chỉ OB Hình thao tác kho lúc này.
 
-hieuhoc_template.js — ĐÈ — v10.30 [31i]: traLoiNgan() +anDapAn (hoàn thiện bộ bản Học sinh). Additive, chữ ký hàm KHÔNG đổi.
-00_KHO_VERSION.txt  — ĐÈ — +block [31i], mốc kho bump.
+FILE — trạng thái — ghi chú:
+- hinh_tron_ve.py          — THAY — +2 method đường tròn ngoại/nội tiếp tam giác [31j].
+- hinh_hh10_ch03.py        — THÊM MỚI — entry chương Hình 10 Ch3 (compose DaGiac+Tron).
+- BAN_TRICH_HAM_HH10_CH03.md — THÊM MỚI — bản trích hàm chương HH10_CH03 (cho AI Soạn).
+- 00_MUC_LUC_HAM.md        — THAY — regen (thêm 2 hàm mới).
+- 00_KHO_VERSION.txt       — THAY — +khối [31j] đầu file (nối [31i]).
 
-KHÔNG kèm BAN_TRICH_HAM_*/API_REFERENCE (chữ ký hàm không đổi).
-Lý do: dựng bản HS đề KT cần traLoiNgan ẩn đáp án — trước chỉ bangDungSai/tuLuanBTVN có, traLoiNgan sót.
+KHÔNG kèm: template/API (chữ ký hàm JS không đổi).
+Sau push: fetch lại + chạy thật (render ngoại/nội tiếp) để xác nhận GitHub đúng.
+Mốc kho mới: 2026-10-01.
