@@ -1,3 +1,11 @@
+[31n] hinh_ds11_luonggiac.py (MỚI) — HÌNH LƯỢNG GIÁC THPT: đường tròn lượng giác + góc lượng giác (Ông Bụt Đại số THPT, 2026-10-02; lộ khi QC pilot DS11_CH01_B01 — Giám đốc yêu cầu lý thuyết phải có hình minh họa, HP Đ22.5).
+      • File RIÊNG (KHÔNG đụng hinh_tron_ve.py của máy Hình — chống lệch pha); import hinh_tron_ve chỉ để gắn staticmethod vào class entry HinhTron. Generator độc lập như nua_duong_tron_don_vi, render qua _HC.render_tikz_doc (pdflatex-safe, nhãn math-mode).
+      • +`duong_tron_luong_giac(goc=None, ten_M='M', hien_sin_cos, goc_phan_tu, hien_A, R, ...)`: đường tròn đơn vị tâm O, điểm gốc A(1;0), chiều dương (+), trục x=cos/y=sin; điểm M tại góc α → máy TỰ tính (cosα,sinα) (Đ5.9, KHÔNG nhập toạ độ tay); gióng nét đứt + nhãn sin α/cos α + cung α + nhãn 4 góc phần tư I–IV. Trọng tài: SGK H1.7/H1.9b/H1.10.
+      • +`goc_luong_giac(goc_v, goc_m=None, chieu='duong'/'am', ...)`: tia đầu Ou, tia cuối Ov, cung cong + dấu ± chỉ chiều quay. Trọng tài: SGK H1.3.
+      • Render-test + SOI MẮT 2 hình ĐẠT (nhúng vào bài DS11_CH01_B01, 2 drawing, chú thích Hình 1/Hình 2). Chữ ký hàm MỚI → +BAN_TRICH_HAM_DS11_CH01__luonggiac.md (đi kèm). Additive — 0 đụng file cũ (import hinh_tron_ve/hinh_tap_hop OK).
+      • FILE THAY ĐỔI (upload GitHub): hinh_ds11_luonggiac.py (mới) · BAN_TRICH_HAM_DS11_CH01__luonggiac.md (mới) · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-02 (nối tiếp [31m]).
+
 [31m] hieuhoc_template.js — KÝ HIỆU LƯỢNG GIÁC loose-text vào Cambria Math (Ông Bụt Đại số THPT, 2026-10-01; lộ khi QC pilot DS11_CH01_B01 lượng giác — AI Soạn dừng Bước 0 báo [SỬA], OB thẩm định + áp theo A↔C Đ5.9).
       • _RE_TOAN (dòng 550) +Hy Lạp thường α-ω (U+03B1–03C9, gồm α π β γ δ θ φ ω) + Hy Lạp hoa Α-Ω (U+0391–03A9, gồm Δ Σ Π Φ Ω) + ° (U+00B0) + ′ (U+2032, dự phòng f′ chương đạo hàm). Đồng cơ chế vá ∀∃ [31c] / ±∞∖ [31e] của pilot DS10.
       • Lỗi gốc: α/π/° ở VĂN BẢN THƯỜNG (loose-text, ngoài OMML) nằm ở run không set rFonts → ăn docDefault Times New Roman → thiếu glyph → tofu/fallback (ĐÚNG cơ chế hỏng B01). π/∞/° BÊN TRONG OMML (phanSo/canBac…) đã an toàn sẵn.

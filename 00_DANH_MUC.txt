@@ -1,14 +1,7 @@
-========================================================
-CAPNHAT_KHO__31m  ·  2026-10-01  ·  OB Đại số THPT
-ĐÍCH: Thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu),
-      Commit changes. Chỉ đè 2 file dưới (GitHub giữ bản đủ).
-========================================================
-  hieuhoc_template.js   [THAY] v10.30 → v10.31 [31m]
-                        _RE_TOAN +Hy Lạp α-ω/Α-Ω +° +′ (ký hiệu lượng giác
-                        loose-text → Cambria Math, font-proof). Additive.
-  00_KHO_VERSION.txt    [THAY] +mục [31m], bump Mốc kho → 2026-10-01
-
-KHÔNG regen BAN_TRICH/API (chữ ký hàm không đổi).
-Sau push: HEAD kho ra mốc 2026-10-01 [31m]. AI Soạn re-bụng kho là có bản vá.
-→ Nhớ giao tiếp GIAO_AISOAN L2 (đã kèm) SAU KHI push xong.
-========================================================
+CAPNHAT_KHO__31n · 2026-10-02 · OB Đại số THPT
+ĐÍCH: Thầy UPLOAD ĐÈ lên GitHub (hieuhoc-kho-congcu), Commit changes.
+  hinh_ds11_luonggiac.py                       [MỚI] hàm vẽ đường tròn LG + góc LG
+  BAN_TRICH_HAM_DS11_CH01__luonggiac.md        [MỚI] bản trích 2 hàm
+  00_KHO_VERSION.txt                           [THAY] +[31n], Mốc kho → 2026-10-02
+File RIÊNG, KHÔNG đụng hinh_tron_ve.py (máy Hình). Additive, 0 regression.
+→ Sau push: kho ra mốc 2026-10-02 [31n]. Pin SHA mới vào 00_HOSO_BAI của LƯU_BÀI.
