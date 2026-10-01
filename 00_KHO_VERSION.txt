@@ -1,9 +1,14 @@
+[31i] traLoiNgan +anDapAn — HOÀN THIỆN BỘ BẢN HỌC SINH (Ông Bụt Hóa, 2026-10-01):
+      • hieuhoc_template.js v10.30 : traLoiNgan({anDapAn}) → bỏ "Đáp án:", in "Trả lời: ……" cho bản HS.
+        (bangDungSai{banHS} + tuLuanBTVN{anLoiGiai} đã có từ 28t; traLoiNgan bị sót — nay bổ sung.)
+      Additive, chữ ký không đổi (anDapAn optional) → KHÔNG regen BAN_TRICH_HAM/API. Bài GV cũ 0 đổi.
+
 [31i] hinh_tap_hop.py — PHẦN TỬ trong vòng Ven đủ DẤU tiếng Việt (Ông Bụt Đại số THPT, 2026-09-30; lộ khi KIỂM KHO chạy thật sau push [31h]).
       • _phantu(): chuỗi non-ASCII (tên VN "An, Bình", "Cường") → text thường thay vì ép $...$ (math italic Latin Modern rớt dấu: "Bình"→"Bnh", "Cường"→"Cng").
       • Đối xứng với _txt() [31g] (đã xử nhãn tập). Nay cả NHÃN lẫn PHẦN TỬ đều đủ dấu.
       • Hồi quy: phần tử SỐ/ký hiệu (7, "2, 4", "-1, 6") GIỮ math mode (chỉ đổi hành vi chuỗi có dấu) → 0 hỏng ca cũ. Chữ ký hàm KHÔNG đổi → KHÔNG regen BAN_TRICH/API.
       • Kiểm chạy thật (xelatex): Ven tên VN đủ dấu ✓ · Ven số nguyên vẹn ✓.
-      Mốc kho: 2026-09-30 (nối tiếp [31h]).
+      Mốc kho: 2026-10-01 (nối tiếp [31i]).
 
 KHO CÔNG CỤ HIẾU HỌC — DẤU PHIÊN BẢN
 =====================================

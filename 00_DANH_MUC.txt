@@ -1,10 +1,8 @@
-CAPNHAT_KHO__31i — 2026-09-30 (OB Đại số THPT)
-Đích: Thầy UPLOAD ĐÈ lên GitHub (hieuhoc-kho-congcu), Commit changes.
-Nối tiếp HEAD [31h]. Một-máy-sửa: chỉ OB Đại số thao tác kho lúc này.
+CAPNHAT_KHO__31i — push GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit changes
+Mốc kho: 31h → 31i (2026-10-01)
 
-FILE — trạng thái — ghi chú:
-- hinh_tap_hop.py   — THAY — vá _phantu [31i]: phần tử tên tiếng Việt đủ dấu (đối xứng _txt [31g]).
-- 00_KHO_VERSION.txt — THAY — +khối [31i] đầu file (nối [31h]).
+hieuhoc_template.js — ĐÈ — v10.30 [31i]: traLoiNgan() +anDapAn (hoàn thiện bộ bản Học sinh). Additive, chữ ký hàm KHÔNG đổi.
+00_KHO_VERSION.txt  — ĐÈ — +block [31i], mốc kho bump.
 
-KHÔNG kèm: template/bản trích/API (chữ ký hàm KHÔNG đổi → không regen).
-Sau push: fetch lại + chạy thật (render Ven tên VN) để xác nhận GitHub đúng.
+KHÔNG kèm BAN_TRICH_HAM_*/API_REFERENCE (chữ ký hàm không đổi).
+Lý do: dựng bản HS đề KT cần traLoiNgan ẩn đáp án — trước chỉ bangDungSai/tuLuanBTVN có, traLoiNgan sót.
