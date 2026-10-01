@@ -1,3 +1,12 @@
+[31l] hinh_tron_ve.py — NỬA ĐƯỜNG TRÒN ĐƠN VỊ (định nghĩa GTLG góc 0°–180°) (Ông Bụt Hình THPT, 2026-10-01; mở mảng Hình 10 Ch3 Bài 5).
+      • +generator `nua_duong_tron_don_vi(diem=[...], R, nhan_ABC, ...)` + `HinhTron.nua_duong_tron_don_vi` (staticmethod): hệ Oxy (trục mũi tên) + nửa đường tròn R=1 trên trục hoành (B(-1)→C(0,1)→A(1), đỏ) + nhãn ±1; mỗi điểm M tại góc xOM=α → máy tính toạ độ (cosα,sinα)·R (Đ5.9, KHÔNG nhập tay).
+      • Mỗi 'điểm' nhận nghĩa: ten·goc·ban_kinh·ox_ten/oy_ten (chân chiếu+chấm)·ox_nhan/oy_nhan (nhãn toạ độ x₀/-x₀/y₀)·cung('α'|số)·cung_r (nest cung)·cung_phu (góc MON…)·mau_diem. self-check: góc∈[0,180] (điểm trên nửa trên).
+      • Trọng tài: SGK H3.2 (định nghĩa, 2 TH nhọn/tù) · H3.3/3.4 (VD 135°/120° + chân N,P) · H3.5 (góc bù nhau M,M' đối xứng Oy) · H3.6 (góc phụ nhau M,N). Test render 6 biến thể ĐẠT (soi mắt khớp SGK).
+      • Nhãn ghép math-mode (`180°-α`→$180^\circ-\alpha$). Generator (như la_ban/vanhKhan) — không dùng self.rb; self-check góc + dựng toạ độ cos/sin.
+      • Additive: chỉ THÊM 1 generator; chữ ký hàm cũ KHÔNG đổi → 0 regression (import hinh_hh10_ch03/hinh_ch5/hinh_ch8 OK; entry Ch3 đã có sẵn qua HinhTron). Regen BAN_TRICH_HAM_HH10_CH03 + 00_MUC_LUC_HAM.
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_tron_ve.py · BAN_TRICH_HAM_HH10_CH03.md · 00_MUC_LUC_HAM.md · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-01 (nối tiếp [31k]).
+
 [31k] hinh_dagiac.py — LA BÀN ĐỊNH HƯỚNG + ĐA GIÁC CẠNH-GÓC (Ông Bụt Hình THPT, 2026-10-01; lấp nhánh DỪNG-báo bài định hướng/tứ giác đo đạc Ch3).
       • +method `da_giac_canh_goc(ten, canh, goc, huong_dau, chieu, khep, nhan_canh, danh_dau_goc)`: dựng đường gấp khúc/đa giác theo chuỗi CẠNH + GÓC TRONG (đi quanh chu vi), giữ TỈ LỆ cạnh, KHÔNG nhận toạ độ (Đ5.9). Công thức rẽ `huong += chieu*(180-g)`. PHANH 'goc' tái tính góc trong từ toạ độ cuối (dung sai 0.5°) — test âm xác nhận bắt lỗi (khai 90° / dựng 135° → DỪNG).
       • +generator `la_ban(huong=[(ten,mocNS,so_do,phia_EW)...], dai, chuThich)` + `HinhDaGiac.la_ban` (staticmethod): trục N-S-E-W mũi tên 2 đầu + tia hướng quy ước Sα°E/Nα°W… + cung góc α. Góc polar: N,E→90-α · N,W→90+α · S,E→-90+α · S,W→-90-α.

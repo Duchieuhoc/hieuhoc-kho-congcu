@@ -1,41 +1,37 @@
 ╔══════════════════════════════════════════════════════════════════╗
-║  CAPNHAT_KHO [31k] — LA BÀN + ĐA GIÁC CẠNH-GÓC (Hình THPT Ch3)      ║
+║  CAPNHAT_KHO [31l] — NỬA ĐƯỜNG TRÒN ĐƠN VỊ (Hình THPT Ch3 Bài 5)    ║
 ║  Ông Bụt · 2026-10-01 · upload ĐÈ lên GitHub kho công cụ            ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 REPO:  https://github.com/Duchieuhoc/hieuhoc-kho-congcu
 
 ── 4 FILE UPLOAD ĐÈ (commit changes) ──────────────────────────────
-  1. hinh_dagiac.py              ← +2 primitive (la_ban, da_giac_canh_goc) + 1 bug-fix
-  2. BAN_TRICH_HAM_HH10_CH03.md  ← bản trích tự sinh lại (khớp kho)
+  1. hinh_tron_ve.py             ← +generator nua_duong_tron_don_vi
+  2. BAN_TRICH_HAM_HH10_CH03.md  ← bản trích tự sinh lại
   3. 00_MUC_LUC_HAM.md           ← mục lục hàm tự sinh lại
-  4. 00_KHO_VERSION.txt          ← dấu mốc kho [31k]
+  4. 00_KHO_VERSION.txt          ← dấu mốc kho [31l]
 
-── CÁCH UPLOAD (web GitHub) ───────────────────────────────────────
-  Vào repo → kéo-thả 4 file này đè lên file cùng tên (ở thư mục gốc repo)
-  → "Commit changes". Xong. Mốc kho mới: 2026-10-01 [31k].
+── CÁCH UPLOAD ────────────────────────────────────────────────────
+  Vào repo → kéo-thả 4 file đè file cùng tên (thư mục gốc) → Commit changes.
+  Mốc kho mới: 2026-10-01 [31l].
 
-── [31k] CÓ GÌ MỚI ────────────────────────────────────────────────
-  ① la_ban(huong=[(ten, mocNS, so_do, phia_EW), ...], dai, chuThich)
-     → sơ đồ la bàn: trục N-S-E-W + tia hướng Sα°E / Nα°W… + cung góc α.
-     Dùng cho: SGK 3.8 (S70°E), SBT 3.10 (N24°E→N36°W), SBT 3.11.
-
-  ② da_giac_canh_goc(ten, canh, goc, huong_dau, chieu, khep, nhan_canh, danh_dau_goc)
-     → đường gấp khúc / đa giác dựng theo chuỗi CẠNH + GÓC TRONG (giữ tỉ lệ,
-     KHÔNG toạ độ — Đ5.9). PHANH tái tính góc trong từ toạ độ (dung sai 0.5°).
-     Dùng cho: SGK 3.11 (tứ giác đường hầm D-C-B-A, Ĉ=135° B̂=105°).
-
-  ③ BUG-FIX: nhãn tia la bàn để text-mode (`{d_1}`) → lỗi "Missing $" làm
-     pdflatex fail âm thầm (giữ PNG cũ). Đã bọc math-mode. + khử trùng brake góc.
+── [31l] CÓ GÌ MỚI ────────────────────────────────────────────────
+  nua_duong_tron_don_vi(diem=[...], R=3.0, nhan_ABC=False)
+    → hệ Oxy + nửa đường tròn R=1 trên trục hoành + điểm M tại góc xOM=α
+      (máy tính toạ độ cos/sin — Đ5.9). Mỗi điểm: ten·goc·ban_kinh·
+      ox_ten/oy_ten (chân chiếu)·ox_nhan/oy_nhan (nhãn x₀/-x₀/y₀)·cung·
+      cung_r·cung_phu·mau_diem.
+    Dùng cho Bài 5 (GTLG 0°–180°): H3.2 định nghĩa (2 TH nhọn/tù) ·
+      H3.3/3.4 (VD 135°/120°) · H3.5 (góc bù nhau) · H3.6 (góc phụ nhau).
 
 ── ĐÃ KIỂM (trước khi giao) ───────────────────────────────────────
-  ✓ Render 2 hàm với bài thật (SGK 3.8 + SGK 3.11) — soi mắt khớp nghĩa.
-  ✓ PHANH test âm: khai góc 90° / hình dựng 135° → DỪNG đúng.
-  ✓ Regen bản trích + mục lục (2 hàm mới có mặt).
-  ✓ Import-test 0 regression: hinh_hh10_ch03 · hinh_ch5 · hinh_ch8 OK.
+  ✓ Render 6 biến thể SGK (H3.2a/b, H3.3, H3.4, H3.5, H3.6) — soi mắt khớp SGK.
+  ✓ self-check góc∈[0,180]; toạ độ dựng cos/sin (không nhập tay).
+  ✓ Regen bản trích + mục lục (primitive có mặt).
+  ✓ 0 regression: import hinh_hh10_ch03 · hinh_ch5 · hinh_ch8 OK; entry Ch3
+    đã có sẵn qua HinhTron (KHÔNG cần entry mới cho B05).
   ✓ Chữ ký hàm cũ KHÔNG đổi (additive thuần).
 
 ── SAU KHI THẦY PUSH ──────────────────────────────────────────────
-  Mốc kho GitHub = 2026-10-01 [31k]. Luật (KE_CHUONG) đã ghi yêu cầu ≥ [31k].
-  → AI Soạn vào lượt L2 B06: (a) bỏ khung "Ví dụ N" + nguồn ở ví dụ mục ②
-    (chuẩn 1.17 / Đ22.4); (b) lấp Sổ tồn ⑥-LTC: SGK 3.8/3.11, SBT 3.10/3.11.
+  Mốc kho GitHub = 2026-10-01 [31l]. B05 mở khóa khai nghĩa hình →
+  OB soạn NGUON + PHIEU_KHAI_NGHIA B05 → giao AI Soạn.

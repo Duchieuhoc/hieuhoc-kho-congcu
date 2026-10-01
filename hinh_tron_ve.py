@@ -434,3 +434,111 @@ def _vanhKhan_nua(R, r, toVanh, chuThich, out, tra_bytes):
 
 # [29c] gắn làm staticmethod class entry → vào bản trích + gọi qua instance
 HinhTron.vanhKhan = staticmethod(vanhKhan)
+
+
+# ═══════ [31l] NỬA ĐƯỜNG TRÒN ĐƠN VỊ — ĐỊNH NGHĨA GTLG GÓC 0°–180° (Ông Bụt Hình THPT 2026-10-01) ═══════
+#   Bài HH10_CH03_B05: định nghĩa GTLG (H3.2) · VD 135°/120° (H3.3/3.4) · góc bù nhau (H3.5) · góc phụ nhau (H3.6).
+#   Hệ Oxy + nửa đường tròn R=1 trên trục hoành + điểm M tại góc xOM=α (máy tính toạ độ cos/sin — Đ5.9, KHÔNG nhập tay).
+def _ndtdv_lab(s):
+    """Nhãn math: 'α'→$\\alpha$ ; '180°-α'→$180^\\circ-\\alpha$ ; 'x_0'/'M'→$...$ ; có sẵn $ → giữ."""
+    s = str(s)
+    if '$' in s:
+        return s
+    if _HC._has_greek(s):
+        out = ''
+        for ch in s:
+            if ch in _HC._GREEK:
+                out += _HC._GREEK[ch]
+            elif ch == '°':
+                out += r'^\circ '
+            else:
+                out += ch
+        return '$%s$' % out
+    return '$%s$' % s
+
+def nua_duong_tron_don_vi(diem=None, R=3.0, scale=1.0, nhan_ABC=False,
+                          out='nua_dt_don_vi', tra_bytes=False):
+    """NỬA ĐƯỜNG TRÒN ĐƠN VỊ (định nghĩa GTLG góc 0°–180°, SGK H3.2–3.6).
+    Hệ trục Oxy (mũi tên) + nửa đường tròn tâm O bán kính R=1 nằm TRÊN trục hoành
+    (B(-1,0)→C(0,1)→A(1,0), đỏ) + nhãn -1,1. Mỗi 'điểm' M trên nửa đường tròn tại góc xOM=α;
+    máy tính toạ độ (cosα,sinα)·R — nhận NGHĨA (góc), KHÔNG toạ độ (Đ5.9).
+    diem: list dict, mỗi điểm:
+      ten:'M'(bắt buộc) · goc:α độ 0–180(bắt buộc) · ban_kinh=True(vẽ OM) ·
+      ox_ten/oy_ten: tên chân chiếu lên Ox/Oy (chấm+nhãn) · ox_nhan/oy_nhan: nhãn toạ độ chân
+        (vd 'x_0','-x_0','y_0') · ve_chieu_ox/oy: ép vẽ gióng nét đứt (mặc định True nếu có ten/nhan) ·
+      cung:'α'|số|None (vẽ cung xOM + nhãn) · cung_r: bán kính cung (mặc định 0.6, nest nhiều cung) ·
+      cung_phu:(g1,g2,nhãn[,r]) cung phụ (vd góc MON 45° H3.3) · mau_diem:'blue'(mặc định).
+    nhan_ABC=True → nhãn A(1,0),B(-1,0),C(0,1). PHANH nội sinh: góc ∈[0,180]; toạ độ cos/sin (dựng)."""
+    diem = diem or []
+    R = float(R)
+    rac = R + 0.62        # mũi trục ngoài đường tròn
+    L = [r'\documentclass[border=6pt]{standalone}',
+         r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g,>={Stealth[length=2.4mm]},font=\normalsize]' % scale]
+    # trục Oxy (x hai đầu? SGK: x mũi phải + nhánh trái tới -rac; y mũi trên)
+    L.append(r'\draw[<->,thick] (-%g,0) -- (%g,0) node[right] {$x$};' % (rac, rac))
+    L.append(r'\draw[->,thick] (0,-0.45) -- (0,%g) node[above] {$y$};' % (R + 0.55))
+    # nửa đường tròn đỏ R + nhãn mốc
+    L.append(r'\draw[red,line width=0.9pt] (%g,0) arc (0:180:%g);' % (R, R))
+    L.append(r'\node[below] at (%g,-0.05) {$-1$};' % (-R))
+    L.append(r'\node[below] at (%g,-0.05) {$1$};' % (R))
+    L.append(r'\node[left] at (0,%g) {$1$};' % R)
+    L.append(r'\fill (0,0) circle (1.5pt); \node[below left,font=\small] at (0,0) {$O$};')
+    if nhan_ABC:
+        L.append(r'\fill[blue] (%g,0) circle (1.6pt); \node[below right,font=\small,blue] at (%g,0) {$A$};' % (R, R))
+        L.append(r'\fill[blue] (%g,0) circle (1.6pt); \node[below left,font=\small,blue] at (%g,0) {$B$};' % (-R, -R))
+        L.append(r'\fill[blue] (0,%g) circle (1.6pt); \node[above left,font=\small,blue] at (0,%g) {$C$};' % (R, R))
+    for d in diem:
+        ten = d['ten']; a = float(d['goc'])
+        if not (0.0 <= a <= 180.0):
+            raise ValueError("[nua_duong_tron_don_vi] góc %s='%s' ngoài [0,180] — điểm không trên nửa trên." % (ten, a))
+        mau = d.get('mau_diem', 'blue')
+        mx = R * math.cos(math.radians(a)); my = R * math.sin(math.radians(a))
+        fx = (mx, 0.0); fy = (0.0, my)
+        # gióng nét đứt
+        ox_ten = d.get('ox_ten'); ox_nhan = d.get('ox_nhan')
+        oy_ten = d.get('oy_ten'); oy_nhan = d.get('oy_nhan')
+        ve_ox = d.get('ve_chieu_ox', (ox_ten is not None or ox_nhan is not None))
+        ve_oy = d.get('ve_chieu_oy', (oy_ten is not None or oy_nhan is not None))
+        if ve_ox:
+            L.append(r'\draw[dashed,gray] (%g,%g) -- (%g,%g);' % (mx, my, fx[0], fx[1]))
+        if ve_oy:
+            L.append(r'\draw[dashed,gray] (%g,%g) -- (%g,%g);' % (mx, my, fy[0], fy[1]))
+        # bán kính OM
+        if d.get('ban_kinh', True):
+            L.append(r'\draw[thick] (0,0) -- (%g,%g);' % (mx, my))
+        # cung xOM + nhãn
+        cg = d.get('cung')
+        if cg is not None:
+            cr = float(d.get('cung_r', 0.6))
+            L.append(r'\draw[orange,thick] (%g:%g) arc (0:%g:%g);' % (0.0, cr, a, cr))
+            mid = a / 2.0; lr = cr + 0.34
+            lbl = ('$%g^\\circ$' % cg) if isinstance(cg, (int, float)) else _ndtdv_lab(cg)
+            L.append(r'\node[orange,font=\small] at (%g:%g) {%s};' % (mid, lr, lbl))
+        cp = d.get('cung_phu')
+        if cp is not None:
+            g1, g2, lbp = cp[0], cp[1], cp[2]; cpr = float(cp[3]) if len(cp) > 3 else 0.95
+            L.append(r'\draw[orange,thick] (%g:%g) arc (%g:%g:%g);' % (g1, cpr, g1, g2, cpr))
+            lbl = ('$%g^\\circ$' % lbp) if isinstance(lbp, (int, float)) else _ndtdv_lab(lbp)
+            L.append(r'\node[orange,font=\small] at (%g:%g) {%s};' % ((g1 + g2) / 2.0, cpr + 0.3, lbl))
+        # chấm chân chiếu + nhãn
+        if ox_ten or ox_nhan:
+            L.append(r'\fill (%g,0) circle (1.3pt);' % mx)
+        if ox_ten:
+            L.append(r'\node[below,font=\small] at (%g,-0.04) {%s};' % (mx, _ndtdv_lab(ox_ten)))
+        if ox_nhan:
+            dy2 = -0.04 if not ox_ten else -0.42
+            L.append(r'\node[below,font=\small] at (%g,%g) {%s};' % (mx, dy2, _ndtdv_lab(ox_nhan)))
+        if oy_ten:
+            L.append(r'\fill (0,%g) circle (1.3pt); \node[left,font=\small] at (-0.06,%g) {%s};' % (my, my, _ndtdv_lab(oy_ten)))
+        if oy_nhan:
+            L.append(r'\node[%s,font=\small] at (0.08,%g) {%s};' % ('right' if mx < 0 else 'left', my, _ndtdv_lab(oy_nhan)))
+        # điểm M + nhãn
+        anc = 'above right' if mx >= -0.05 else 'above left'
+        L.append(r'\fill[%s] (%g,%g) circle (1.7pt); \node[%s,font=\small,%s] at (%g,%g) {%s};'
+                 % (mau, mx, my, anc, mau, mx, my, _ndtdv_lab(ten)))
+    L.append(r'\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(L), out, tra_bytes)
+
+HinhTron.nua_duong_tron_don_vi = staticmethod(nua_duong_tron_don_vi)

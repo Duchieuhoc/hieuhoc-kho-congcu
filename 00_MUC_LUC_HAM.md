@@ -93,7 +93,7 @@
 | `truc_doan_doc_diem(trai, phai, chia=10, diem=None, hien_nhan_diem=False, moc_nhan=None)` | TRỤC SỐ ĐOẠN PHÓNG TO để ĐỌC ĐIỂM — biên THẬP PHÂN, chia nhỏ, kéo rộng | `hinh_toado.py` | method | L6→9→THPT |
 | `truc_so_huu_ti(tu=-1, den=4, chia=1, diem=None, hien_nhan_diem=True, moc_nhan=None, mui_ten_am=False, goc_ten='0', khoang_to=None, vach_dut=None, mui_ten_dc=None)` | TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương | `hinh_toado.py` | method | L6→9→THPT |
 
-## Đường tròn (dựng)  · 18 hàm
+## Đường tròn (dựng)  · 19 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -110,6 +110,7 @@
 | `hinh_quat(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH QUẠT TRÒN giới hạn bởi cung nhỏ AB và hai bán kính (tam)A, (tam)B (A,B đã đặt trên đường tròn) | `hinh_tron_ve.py` | generator | — |
 | `kim(R, vi_tri, loai='gio', tam='O')` | Vẽ MỘT kim đồng hồ từ tâm 'tam' ra hướng 'vi_tri' (thang 12 giờ, cho phép LẺ: vd 3.5 = giữa số 3 và 4) | `hinh_tron_ve.py` | method | — |
 | `mat_dong_ho(gio=None, phut=0, giay=None, R=2.4, tam='O')` | ĐỒNG HỒ chuẩn HH6 — MỘT hàm ra đồng hồ hoàn chỉnh: vành tròn tâm 'tam' + 12 số (đặt bằng diem_tren_tron, nhãn toả ra ngoài) + tuỳ chọn các kim | `hinh_tron_ve.py` | method | — |
+| `nua_duong_tron_don_vi(diem=None, R=3.0, scale=1.0, nhan_ABC=False, out='nua_dt_don_vi', tra_bytes=False)` | NỬA ĐƯỜNG TRÒN ĐƠN VỊ (định nghĩa GTLG góc 0°–180°, SGK H3.2–3.6) | `hinh_tron_ve.py` | method | — |
 | `so_quanh_tam(tam, ban_kinh, danh_sach, goc_dau=90, chieu=-1)` | Rải các nhãn 'danh_sach' ĐỀU quanh tâm 'tam' trên vòng bán kính 'ban_kinh', bắt đầu ở hướng 'goc_dau'° (mặc định 90 = trên đỉnh), bước 'chieu'*360/n ( | `hinh_tron_ve.py` | method | — |
 | `tiep_tuyen(tam, tiep_diem, dai=1.7, mau=None, net='lien', o_vuong=False)` | TIẾP TUYẾN của đường tròn 'tam' tại 'tiep_diem' (đã đặt TRÊN đường tròn) — đoạn thẳng qua tiếp điểm, VUÔNG GÓC bán kính, nửa dài 'dai' mỗi phía | `hinh_tron_ve.py` | method | — |
 | `tiep_tuyen_chung(tam1, tam2, loai='ngoai', phia=1, mau=None, net='lien', tiep1='T', tiep2='T2', dai=0.7)` | TIẾP TUYẾN CHUNG NGOÀI của hai đường tròn 'tam1','tam2' (đã khai): tạo hai tiếp điểm tiep1∈(tam1), tiep2∈(tam2) + vẽ đường tiếp tuyến qua chúng (kéo d | `hinh_tron_ve.py` | method | — |
@@ -196,4 +197,4 @@
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 70 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 144.
+**Thống kê:** 71 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 145.
