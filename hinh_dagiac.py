@@ -368,3 +368,108 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
             self._diem(t, ox+px, oy+py, nhan if cham else None, moc=cham)
         self._da_giac(*ten)
         return self
+
+    # ═══════ [31k] LỚP 10 CH3 — ĐƯỜNG GẤP KHÚC / ĐA GIÁC theo CẠNH + GÓC (Ông Bụt Hình THPT, 2026-10-01) ═══════
+    #   Hệ thức lượng đo đạc: SGK 3.11 (đường hầm tứ giác D-C-B-A), Hình 11 (ngũ giác công viên).
+    #   Máy đặt đỉnh theo cạnh+góc (Đ5.9, KHÔNG toạ độ); PHANH kiểm góc trong. Chữ ký MỞ (kế thừa).
+    def da_giac_canh_goc(self, ten, canh, goc, goc_o=(0.0, 0.0), huong_dau=0.0,
+                         chieu=-1, khep=False, nhan_canh=None, danh_dau_goc=True):
+        """ĐƯỜNG GẤP KHÚC / ĐA GIÁC dựng theo chuỗi CẠNH + GÓC TRONG (đi quanh chu vi).
+        ten  : list n đỉnh theo thứ tự đi.
+        canh : list độ dài cạnh liên tiếp — n-1 cạnh (đường mở) hoặc n (khep=True).
+        goc  : list số đo GÓC TRONG (độ) tại đỉnh GIỮA (n-2 đỉnh cho đường mở; n cho khép).
+        huong_dau : hướng cạnh đầu (độ, 0 = sang phải). chieu : -1 rẽ phải / +1 rẽ trái.
+        khep=True : nối đỉnh cuối về đỉnh đầu (đa giác kín).
+        nhan_canh : list nhãn độ dài hiển thị giữa mỗi cạnh (vd ['12 km',...]); None = không nhãn.
+        Máy đặt đỉnh theo cạnh+góc (giữ TỈ LỆ), KHÔNG nhận toạ độ (Đ5.9). Vẽ cạnh + cung góc
+        trong. Nối chéo/đường phụ (đường hầm AD…) gọi SAU bằng duong_qua/doan.
+        PHANH: góc trong tại mỗi đỉnh giữa khớp input."""
+        import math as _m
+        n = len(ten)
+        ncanh = n if khep else n - 1
+        if len(canh) != ncanh:
+            raise ValueError(f"da_giac_canh_goc: cần {ncanh} cạnh cho {n} đỉnh (khep={khep}), nhận {len(canh)}.")
+        ngoc = n if khep else n - 2
+        if len(goc) != ngoc:
+            raise ValueError(f"da_giac_canh_goc: cần {ngoc} góc, nhận {len(goc)}.")
+        ox, oy = goc_o
+        x, y = 0.0, 0.0
+        toa = [(x, y)]
+        huong = float(huong_dau)
+        gi = 0
+        for i in range(len(canh)):
+            x += canh[i] * _m.cos(_m.radians(huong))
+            y += canh[i] * _m.sin(_m.radians(huong))
+            if not (khep and i == len(canh) - 1):
+                toa.append((x, y))
+            if gi < len(goc):
+                huong = huong + chieu * (180.0 - float(goc[gi]))
+                gi += 1
+        for idx, (t, (px, py)) in enumerate(zip(ten, toa)):
+            nh = 'below left' if idx == 0 else ('below right' if idx == len(ten) - 1 else 'above')
+            self._diem(t, ox + px, oy + py, nh, moc=True)
+        seq = list(ten) + ([ten[0]] if khep else [])
+        for i in range(len(seq) - 1):
+            lbl = nhan_canh[i] if (nhan_canh and i < len(nhan_canh)) else None
+            self.doan(seq[i], seq[i + 1], dodai=lbl)
+        if khep:
+            goc_dinh = [(ten[i - 1], ten[i], ten[(i + 1) % n]) for i in range(n)]
+        else:
+            goc_dinh = [(ten[i - 1], ten[i], ten[i + 1]) for i in range(1, n - 1)]
+        for (a, v, b), g in zip(goc_dinh, goc):
+            if danh_dau_goc:
+                self.so_do_goc([a, v, b], do=float(g))   # đã tự ghi PHANH 'goc'
+            else:
+                self.rb.append({'loai': 'goc', 'ten': [a, v, b], 'do': round(float(g), 6)})  # không vẽ cung → vẫn PHANH
+        return self
+
+
+# ═══════ [31k] LA BÀN ĐỊNH HƯỚNG HÀNG HẢI (generator standalone) — Ông Bụt Hình THPT 2026-10-01 ═══════
+#   Bài định hướng hệ thức lượng: SGK 3.8 (S70°E), SBT 3.10 (N24°E→N36°W), SBT 3.11 (N80°E→E20°S).
+#   Trục N-S-E-W + tia hướng theo quy ước Sα°E/Nα°W… + cung góc α. KHÔNG toạ độ (Đ5.9) — chỉ nghĩa hướng.
+import hinh_core as _HC_dg
+def la_ban(goc_O='O', huong=None, dai=3.0, scale=1.0, out='la_ban', tra_bytes=False, chuThich=None):
+    """LA BÀN định hướng hàng hải — trục N–S (dọc) & W–E (ngang) giao tại O, nhãn 4 phương;
+       mỗi 'tia hướng' theo quy ước Sα°E / Nα°W… + cung góc α với trục mốc.
+       huong : list (ten, mocNS, so_do, phia_EW) —
+                 mocNS ∈ {'N','S'} trục mốc; so_do = α (độ); phia_EW ∈ {'E','W'} lệch Đông/Tây.
+                 Góc polar: N,E→90-α · N,W→90+α · S,E→-90+α · S,W→-90-α.
+       dai : độ dài tia. Nhận NGHĨA hướng, KHÔNG toạ độ (Đ5.9)."""
+    import math as _m
+    huong = huong or []
+    R = float(dai); ax = R * 1.28
+    L = [r'\documentclass[tikz,border=6pt]{standalone}',
+         r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g,>={Stealth[length=2.6mm]},font=\normalsize]' % scale]
+    # 2 trục mũi tên 2 đầu + nhãn 4 phương
+    L.append(r'\draw[<->,thick] (0,-%g) -- (0,%g);' % (ax, ax))
+    L.append(r'\draw[<->,thick] (-%g,0) -- (%g,0);' % (ax, ax))
+    L.append(r'\node[above] at (0,%g) {$N$};' % ax)
+    L.append(r'\node[below] at (0,-%g) {$S$};' % ax)
+    L.append(r'\node[right] at (%g,0) {$E$};' % ax)
+    L.append(r'\node[left] at (-%g,0) {$W$};' % ax)
+    L.append(r'\fill (0,0) circle (1.4pt);')
+    L.append(r'\node[below left,font=\small] at (0,0) {$%s$};' % goc_O)
+    def _polar(mocNS, a, phia):
+        a = float(a)
+        if mocNS == 'N':
+            return 90.0 - a if phia == 'E' else 90.0 + a
+        return -90.0 + a if phia == 'E' else -90.0 - a
+    for tu in huong:
+        ten, mocNS, so_do, phia = tu
+        ten_tex = ten if '$' in str(ten) else '$%s$' % ten   # bọc math-mode (subscript d_1…); giữ nếu đã có $
+        ang = _polar(mocNS, so_do, phia)
+        ex = R * _m.cos(_m.radians(ang)); ey = R * _m.sin(_m.radians(ang))
+        L.append(r'\draw[->,very thick,blue!70] (0,0) -- (%g,%g) node[above right,blue!70,font=\small] {%s};'
+                 % (ex, ey, ten_tex))
+        moc_ang = 90.0 if mocNS == 'N' else -90.0
+        L.append(r'\draw[orange,thick] (%g:0.95) arc (%g:%g:0.95);' % (moc_ang, moc_ang, ang))
+        mid = (moc_ang + ang) / 2.0
+        L.append(r'\node[orange,font=\footnotesize] at (%g:1.3) {$%g^\circ$};' % (mid, float(so_do)))
+    if chuThich:
+        L.append(r'\node[below,font=\itshape] at (0,-%g) {%s};' % (ax + 0.4, chuThich))
+    L.append(r'\end{tikzpicture}\end{document}')
+    return _HC_dg.render_tikz_doc('\n'.join(L), out, tra_bytes)
+
+HinhDaGiac.la_ban = staticmethod(la_ban)

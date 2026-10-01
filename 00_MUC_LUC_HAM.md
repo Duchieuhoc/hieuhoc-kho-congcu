@@ -6,11 +6,12 @@
 
 *Ẩn: hàm hạ tầng (`_…`) + cửa render (`ve`) theo Đ5.9. Base compose per-bài không vào kho → không liệt kê.*
 
-## Đa giác  · 18 hàm
+## Đa giác  · 20 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
 | `chu_so_7doan(so, x0=0.0, y0=0.0, rong=1.0, cao=2.0, mau=None, rong_net='dam')` | CHỮ SỐ kiểu 7-ĐOẠN (0..9) — cho bài TÂM đối xứng (lật nửa vòng 6↔9, giữ 0/1/2/5/8) | `hinh_dagiac.py` | method | — |
+| `da_giac_canh_goc(ten, canh, goc, goc_o=(0.0, 0.0), huong_dau=0.0, chieu=-1, khep=False, nhan_canh=None, danh_dau_goc=True)` | ĐƯỜNG GẤP KHÚC / ĐA GIÁC dựng theo chuỗi CẠNH + GÓC TRONG (đi quanh chu vi) | `hinh_dagiac.py` | method | — |
 | `da_giac_deu(*ten, canh=2.0, xoay=0, to=None)` | Đa giác đều n cạnh (n = số tên truyền vào ≥ 3), đỉnh theo chiều kim đồng hồ, một cạnh nằm ngang phía trên khi xoay=0 | `hinh_dagiac.py` | method | — |
 | `da_giac_vuong(ten, buoc, nhan='below right', cham=True, goc_o=(0.0, 0.0))` | Đa giác mọi cạnh song song trục (góc vuông) — hình chữ L, bậc thang, mặt bằng | `hinh_dagiac.py` | method | — |
 | `diem_doi_xung_qua_trung_truc(new, P, A, B, nhan='above', mau=None)` | Đặt 'new' = ẢNH của P qua ĐƯỜNG TRUNG TRỰC của đoạn AB (phản chiếu biến A↔B) | `hinh_dagiac.py` | method | — |
@@ -20,6 +21,7 @@
 | `hinh_thang_can(A, B, Cc, D, day_nho=3.0, day_lon=5.0, cao=2.5, cheo=False)` | Hình thang cân đối xứng qua trục dọc: A,B = đáy nhỏ (trên); D,C = đáy lớn (dưới) | `hinh_dagiac.py` | generator | — |
 | `hinh_thoi(A, B, Cc, D, a=4, b=3, cheo=True, tam='O')` | Hình thoi "kim cương" dựng theo 2 nửa chéo NGUYÊN ô → tâm + 4 đỉnh rơi NÚT lưới | `hinh_dagiac.py` | generator | — |
 | `hinh_vuong(M, N, P_, Q, canh=4, goc_o=(0.0, 0.0), cham=True)` | Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải | `hinh_dagiac.py` | generator | — |
+| `la_ban(goc_O='O', huong=None, dai=3.0, scale=1.0, out='la_ban', tra_bytes=False, chuThich=None)` | LA BÀN định hướng hàng hải — trục N–S (dọc) & W–E (ngang) giao tại O, nhãn 4 phương; mỗi 'tia hướng' theo quy ước Sα°E / Nα°W… + cung góc α với trục m | `hinh_dagiac.py` | method | — |
 | `luc_giac_deu(A, B, Cc, D, E, F, canh=2.0, xoay=0, cheo=None, tam=None)` | Lục giác đều 6 đỉnh, thứ tự A→B→C→D→E→F theo chiều kim đồng hồ | `hinh_dagiac.py` | method | — |
 | `ngoi_sao(tam, so_canh=5, ban_kinh=2.0, xoay=90, ti_le_trong=None, to=None, nhan=None, cham_tam=False)` | NGÔI SAO so_canh cánh (mặc định 5 — cờ VN/Quốc kỳ; dùng cả 4/6/8 cánh cho Chương V) | `hinh_dagiac.py` | method | — |
 | `tam_giac(A, B, Cc, noi=True, goc_o=(0.0, 0.0))` | Tam giác 3 đỉnh (không thẳng hàng) | `hinh_dagiac.py` | method | — |
@@ -194,4 +196,4 @@
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 68 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 142.
+**Thống kê:** 70 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 144.
