@@ -1,14 +1,14 @@
-CAPNHAT_KHO__31j — 2026-10-01 (OB Hình THPT)
-Đích: Thầy UPLOAD ĐÈ lên GitHub (hieuhoc-kho-congcu), Commit changes.
-Nối tiếp HEAD [31i]. Một-máy-sửa: chỉ OB Hình thao tác kho lúc này.
+========================================================
+CAPNHAT_KHO__31m  ·  2026-10-01  ·  OB Đại số THPT
+ĐÍCH: Thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu),
+      Commit changes. Chỉ đè 2 file dưới (GitHub giữ bản đủ).
+========================================================
+  hieuhoc_template.js   [THAY] v10.30 → v10.31 [31m]
+                        _RE_TOAN +Hy Lạp α-ω/Α-Ω +° +′ (ký hiệu lượng giác
+                        loose-text → Cambria Math, font-proof). Additive.
+  00_KHO_VERSION.txt    [THAY] +mục [31m], bump Mốc kho → 2026-10-01
 
-FILE — trạng thái — ghi chú:
-- hinh_tron_ve.py          — THAY — +2 method đường tròn ngoại/nội tiếp tam giác [31j].
-- hinh_hh10_ch03.py        — THÊM MỚI — entry chương Hình 10 Ch3 (compose DaGiac+Tron).
-- BAN_TRICH_HAM_HH10_CH03.md — THÊM MỚI — bản trích hàm chương HH10_CH03 (cho AI Soạn).
-- 00_MUC_LUC_HAM.md        — THAY — regen (thêm 2 hàm mới).
-- 00_KHO_VERSION.txt       — THAY — +khối [31j] đầu file (nối [31i]).
-
-KHÔNG kèm: template/API (chữ ký hàm JS không đổi).
-Sau push: fetch lại + chạy thật (render ngoại/nội tiếp) để xác nhận GitHub đúng.
-Mốc kho mới: 2026-10-01.
+KHÔNG regen BAN_TRICH/API (chữ ký hàm không đổi).
+Sau push: HEAD kho ra mốc 2026-10-01 [31m]. AI Soạn re-bụng kho là có bản vá.
+→ Nhớ giao tiếp GIAO_AISOAN L2 (đã kèm) SAU KHI push xong.
+========================================================
