@@ -1,5 +1,15 @@
-# BẢN TRÍCH HÀM — HÌNH LƯỢNG GIÁC THPT (hinh_ds11_luonggiac.py) · kho [31p]
+# BẢN TRÍCH HÀM — HÌNH LƯỢNG GIÁC THPT (hinh_ds11_luonggiac.py) · kho [31s]
 > import: `import hinh_ds11_luonggiac as LG` (tự gắn vào HinhTron). Render qua render script (Python) → PNG, build.js nhúng bằng `H.hinhVe`.
+
+## hinh_khuc_xa(goc_toi=50.0, goc_kx_ve=37.0, nhan_i='i', nhan_r='r', nhan_mt1='Không khí', nhan_mt2=r'$n_2 = 1{,}33$', out='khucxa', scale=1.0)   ← [31s] MỚI
+Hiện tượng KHÚC XẠ ÁNH SÁNG qua mặt phân cách 2 môi trường (bài toán thực tiễn SGK 1.36): mặt phân cách ngang, pháp tuyến NN' (nét đứt dọc), tia tới SI (đỏ) hợp pháp tuyến góc i, tia phản xạ IS' (nét đứt), tia khúc xạ IR (xanh) hợp pháp tuyến góc r; môi trường (2) tô nền xanh nhạt.
+- `goc_toi`/`goc_kx_ve`: góc tới i và góc khúc xạ r (độ) — CHỈ để VẼ minh họa, không phải đáp số. `nhan_i`/`nhan_r`: nhãn 2 góc (math-mode).
+- `nhan_mt1`/`nhan_mt2`: nhãn 2 môi trường — nhập chuỗi **ASCII-safe** hoặc math-mode `$...$` (pdflatex không dựng được ư/ơ; đã đặt mặc định an toàn). KHÔNG lộ đáp số.
+
+## hinh_chu_nhat_noi_tiep(goc_theta=35.0, nhan_theta=r'\theta', duong_kinh='30 cm', R=2.5, out='cnnt', scale=1.0)   ← [31s] MỚI
+Hình CHỮ NHẬT NỘI TIẾP đường tròn (bài toán tối ưu SBT 1.64 — xà gỗ): đường tròn tâm O, chữ nhật ABCD nội tiếp, đường chéo AC = ĐƯỜNG KÍNH (đỏ, qua O), góc θ tại A giữa cạnh AB và đường chéo AC. Máy TỰ tính 4 đỉnh từ θ và R (Đ5.9), KHÔNG nhập toạ độ tay.
+- `goc_theta`: góc θ (độ) — CHỈ để vẽ minh họa. `nhan_theta`: nhãn góc (math-mode, vd `r'\theta'`).
+- `duong_kinh`: nhãn đặt trên đường chéo (vd `'30 cm'`). A=(−a,−b), B=(a,−b), C=(a,b), D=(−a,b) với a=R·cosθ, b=R·sinθ.
 
 ## duong_tron_nghiem(loai='sin', m=0.5, m_tex=None, ten1='M_1', ten2='M_2', R=2.6, out='dtng', scale=1.0)   ← [31p] MỚI
 Đường tròn nghiệm phương trình LG cơ bản (SGK Bài 4): đường tròn đơn vị + đường thẳng cắt tại 2 ĐIỂM NGHIỆM. Máy TỰ tính giao điểm từ m (Đ5.9), KHÔNG nhúng ảnh SGK (Đ42).

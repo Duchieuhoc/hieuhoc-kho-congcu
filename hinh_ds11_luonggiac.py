@@ -255,8 +255,78 @@ def duong_tron_nghiem(loai='sin', m=0.5, m_tex=None, ten1='M_1', ten2='M_2',
     return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes)
 
 
+def hinh_khuc_xa(goc_toi=50.0, goc_kx_ve=37.0, nhan_i='i', nhan_r='r',
+                 nhan_mt1='Không khí', nhan_mt2=r'$n_2 = 1{,}33$',
+                 out='khucxa', tra_bytes=False, scale=1.0):
+    """KHÚC XẠ ÁNH SÁNG (SGK Bài tập cuối chương, H1.26 — ứng dụng LG):
+    mặt phân cách ngang + pháp tuyến NN' thẳng đứng tại I; tia tới SI (góc tới i với pháp tuyến),
+    tia phản xạ IS' (góc i), tia khúc xạ IR xuống môi trường 2 (góc khúc xạ r). Môi trường (1) trên, (2) dưới.
+      goc_toi: số đo góc tới để VẼ tia tới/phản xạ (độ). goc_kx_ve: số đo góc khúc xạ để VẼ tia khúc xạ (độ).
+      nhan_i / nhan_r: NHÃN góc hiển thị (mặc định 'i'/'r' — ĐỀ KHÔNG lộ đáp án; GV có thể truyền 'i=50^\\circ')."""
+    import math as _m
+    i = float(goc_toi); r = float(goc_kx_ve); L = 3.3
+    cs = [r'\documentclass[border=6pt]{standalone}',
+          r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
+          r'\begin{document}',
+          r'\begin{tikzpicture}[scale=%g,>={Stealth[length=2.6mm]},font=\normalsize]' % scale]
+    cs.append(r'\fill[blue!6] (-%g,-%g) rectangle (%g,0);' % (L, L*0.8, L))
+    cs.append(r'\draw[thick] (-%g,0) -- (%g,0);' % (L, L))
+    cs.append(r'\draw[dashed] (0,-%g) -- (0,%g) node[above] {$N$};' % (L*0.8, L*0.85))
+    cs.append(r"\node[below] at (0,-%g) {$N'$};" % (L*0.8))
+    cs.append(r'\fill (0,0) circle (1.6pt); \node[below right,font=\small] at (0.04,-0.02) {$I$};')
+    aS = 90.0 + i; Sx = L*0.9*_m.cos(_m.radians(aS)); Sy = L*0.9*_m.sin(_m.radians(aS))
+    cs.append(r'\draw[->,thick,red] (%g,%g) -- (0,0) node[pos=0.12,above left,red,font=\small] {$S$};' % (Sx, Sy))
+    aR = 90.0 - i; Rx = L*0.9*_m.cos(_m.radians(aR)); Ry = L*0.9*_m.sin(_m.radians(aR))
+    cs.append(r"\draw[->,thick,red!60!black,dashed] (0,0) -- (%g,%g) node[above right,font=\small] {$S'$};" % (Rx, Ry))
+    aK = -(90.0 - r); Kx = L*0.95*_m.cos(_m.radians(aK)); Ky = L*0.95*_m.sin(_m.radians(aK))
+    cs.append(r'\draw[->,thick,blue] (0,0) -- (%g,%g) node[below right,font=\small] {$R$};' % (Kx, Ky))
+    cs.append(r'\draw[orange] (90:0.9) arc (90:%g:0.9);' % aS)
+    cs.append(r'\node[orange,font=\small] at (%g:1.18) {$%s$};' % ((90.0+aS)/2.0, nhan_i))
+    cs.append(r'\draw[orange] (-90:0.9) arc (-90:%g:0.9);' % aK)
+    cs.append(r'\node[orange,font=\small] at (%g:1.22) {$%s$};' % ((-90.0+aK)/2.0, nhan_r))
+    if nhan_mt1:
+        cs.append(r'\node[font=\small,anchor=west] at (0.55,%g) {(1)\ %s};' % (L*0.72, nhan_mt1))
+    if nhan_mt2:
+        cs.append(r'\node[font=\small,anchor=east] at (-0.55,-%g) {(2)\ %s};' % (L*0.6, nhan_mt2))
+    cs.append(r'\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes)
+
+
+def hinh_chu_nhat_noi_tiep(goc_theta=35.0, nhan_theta=r'\theta', duong_kinh='30 cm',
+                           R=2.5, out='cnnt', tra_bytes=False, scale=1.0):
+    """CHỮ NHẬT NỘI TIẾP ĐƯỜNG TRÒN (SBT xà gỗ — mặt cắt, ứng dụng LG):
+    đường tròn tâm O; chữ nhật ABCD nội tiếp, đường chéo AC = đường kính (qua O);
+    góc θ giữa đường chéo AC và cạnh AB. Máy TỰ dựng đỉnh từ θ: AB=d·cosθ, BC=d·sinθ (Đ5.9).
+      goc_theta: θ (độ) để VẼ hình dạng chữ nhật. nhan_theta: nhãn góc (mặc định θ — ĐỀ KHÔNG lộ đáp án).
+      duong_kinh: nhãn đường kính (vd '30 cm')."""
+    import math as _m
+    th = float(goc_theta); R = float(R)
+    a = R * _m.cos(_m.radians(th)); b = R * _m.sin(_m.radians(th))
+    cs = [r'\documentclass[border=6pt]{standalone}',
+          r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta,calc}',
+          r'\begin{document}',
+          r'\begin{tikzpicture}[scale=%g,font=\normalsize]' % scale]
+    cs.append(r'\draw[blue,line width=0.9pt] (0,0) circle (%g);' % R)
+    cs.append(r'\coordinate (A) at (%g,%g);' % (-a, -b))
+    cs.append(r'\coordinate (B) at (%g,%g);' % (a, -b))
+    cs.append(r'\coordinate (C) at (%g,%g);' % (a, b))
+    cs.append(r'\coordinate (D) at (%g,%g);' % (-a, b))
+    cs.append(r'\draw[thick] (A)--(B)--(C)--(D)--cycle;')
+    cs.append(r'\draw[red,thick] (A)--(C);')
+    cs.append(r'\fill (0,0) circle (1.5pt); \node[above left,font=\small] at (0.02,0.04) {$O$};')
+    for nd, pos in (('A', 'below left'), ('B', 'below right'), ('C', 'above right'), ('D', 'above left')):
+        cs.append(r'\fill (%s) circle (1.6pt); \node[%s,font=\small] at (%s) {$%s$};' % (nd, pos, nd, nd))
+    cs.append(r'\draw[orange] ($(A)+(0:0.6)$) arc (0:%g:0.6);' % th)
+    cs.append(r'\node[orange,font=\small] at ($(A)+(%g:0.9)$) {$%s$};' % (th/2.0, nhan_theta))
+    cs.append(r'\node[red,font=\small,fill=white,inner sep=1pt] at (0.25,-0.3) {$%s$};' % str(duong_kinh).replace(' ', r'\,'))
+    cs.append(r'\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes)
+
+
 # Gắn vào class entry chung để AI Soạn gọi qua instance H.HinhTron hoặc trực tiếp
 _HT.HinhTron.goc_luong_giac = staticmethod(goc_luong_giac)
 _HT.HinhTron.duong_tron_luong_giac = staticmethod(duong_tron_luong_giac)
 _HT.HinhTron.do_thi_luong_giac = staticmethod(do_thi_luong_giac)
 _HT.HinhTron.duong_tron_nghiem = staticmethod(duong_tron_nghiem)
+_HT.HinhTron.hinh_khuc_xa = staticmethod(hinh_khuc_xa)
+_HT.HinhTron.hinh_chu_nhat_noi_tiep = staticmethod(hinh_chu_nhat_noi_tiep)

@@ -1,3 +1,13 @@
+[31s] hinh_ds11_luonggiac.py (+2 hàm) — HÌNH THỰC TIỄN ĐỀ ⑥: khúc xạ ánh sáng + chữ nhật nội tiếp (Ông Bụt Đại số THPT, 2026-10-02; chủ động dựng trước cho ⑥ ĐỀ KIỂM TRA CHƯƠNG DS11_CH01 — 2 bài VDC thực tiễn SGK 1.36 + SBT 1.64 cần hình đặc thù, HP Đ22.5).
+      • +`hinh_khuc_xa(goc_toi, goc_kx_ve, nhan_i, nhan_r, nhan_mt1, nhan_mt2, out, scale)`: mặt phân cách 2 môi trường + pháp tuyến NN' + tia tới SI (đỏ, góc i) + tia phản xạ IS' (nét đứt) + tia khúc xạ IR (xanh, góc r), môi trường (2) nền xanh nhạt. Dùng cho SGK 1.36 (khúc xạ).
+      • +`hinh_chu_nhat_noi_tiep(goc_theta, nhan_theta, duong_kinh, R, out, scale)`: đường tròn + chữ nhật ABCD nội tiếp, đường chéo AC = đường kính (đỏ, qua O), góc θ tại A. Máy TỰ tính 4 đỉnh từ θ,R (Đ5.9). Dùng cho SBT 1.64 (xà gỗ chữ nhật — tối ưu).
+      • LƯU Ý pdflatex: render_tikz_doc dùng pdflatex → KHÔNG dựng được ư/ơ (U+01B0/U+01A1). Nhãn môi trường đặt mặc định ASCII-safe ("Không khí" ô/í render OK) + math-mode ($n_2=1,33$); nhãn tự do phải tránh ư/ơ hoặc bọc $...$. KHÔNG lộ đáp số (chú thích hình đề — Đ41.4).
+      • Render-test + SOI MẮT 2 hình ĐẠT. Additive — chỉ THÊM 2 hàm vào file [31p], 4 hàm cũ (đường tròn/góc/đồ thị/đường tròn nghiệm) KHÔNG đổi → 0 regression (đã chạy lại cả 6 hàm: OK). Regen BAN_TRICH_HAM_DS11_CH01__luonggiac.md.
+      • Chữ ký hàm thuộc FILE RIÊNG hình ds11 → KHÔNG đụng API_REFERENCE.md/00_MUC_LUC_HAM.md (template giữ bản [31r]).
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_ds11_luonggiac.py (đè — đã gồm [31n]+[31o]+[31p]+[31s]) · BAN_TRICH_HAM_DS11_CH01__luonggiac.md · 00_KHO_VERSION.txt.
+      • GỘP PUSH: bản này chứa trọn [31n]→[31s] của file hình. Push [31s] là đủ cho cả file hình.
+      Mốc kho: 2026-10-02 (nối tiếp [31r]).
+
 [31r] hieuhoc_template.js (nâng 2 hàm) — NGOẶC NGHIỆM NHẬN PHÂN SỐ/OMML (Ông Bụt Đại số THPT thẩm định + áp, 2026-10-02; nối tiếp [31q], AI Soạn báo [SỬA] khi dựng tiếp DS11_CH01_B04).
       • `hePhuongTrinh` + `tuyenNghiem`: mỗi nhánh `[new MathRunSized(String(pt))]` → `_mathChild(pt)`. Lý do: nghiệm LG LUÔN là phân số radian (π/3, 2π/3, 3π/4…); [31q] dựng được ngoặc "[" nhưng ép String→phân số ra `[object Object]`, không đặt được phân số 2 tầng trong ngoặc.
       • `_mathChild` (helper có sẵn [28t]): chuỗi/số → `[MathRunSized(String)]` (Y HỆT cũ) → nhánh chuỗi BYTE-IDENTICAL (bài cũ 0 đổi); OMML/mảng → gỡ vỏ đúng (0 `<m:oMath>` lồng). hePhuongTrinh được lợi kèm (hệ nay cũng nhúng phân số).
