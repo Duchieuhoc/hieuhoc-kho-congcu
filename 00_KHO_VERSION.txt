@@ -1,3 +1,11 @@
+[31q] hieuhoc_template.js (+2 hàm) — NGOẶC VUÔNG "[" TUYỂN NGHIỆM (Ông Bụt Đại số THPT thẩm định + áp, 2026-10-02; AI Soạn phát hiện khi dựng pilot DS11_CH01_B04 — phương trình LG cơ bản, báo [SỬA] đúng A↔C Đ5.9).
+      • +`tuyenNghiem(danhSachPT)` + `paraTuyenNghiem(danhSachPT, opts)`: khối OMML ngoặc vuông "[" bao các nhánh nghiệm TUYỂN (x=α HOẶC x=π−α). MIRROR y hệt hePhuongTrinh/paraHePhuongTrinh, đổi ĐÚNG 1 ký tự begChr "{" → "[" (endChr rỗng). KHÁC hệ "{" (đồng thời) về bản chất toán.
+      • Lý do: bài phương trình LG (lý thuyết sin/cos x=m + SBT 1.25a/1.26/1.28/1.30c) bắt buộc ngoặc vuông tuyển; template v10.31 chỉ có ( | { → thiếu. Mượn { = sai bản chất (hoặc→và); văn xuôi = phạm luật. Đúng ca Bước 0, DỪNG báo [SỬA].
+      • OB THẨM ĐỊNH: clone HEAD [31p]=d3a577a, đối chiếu mirror hePhuongTrinh (khớp, chỉ khác begChr), TỰ ÁP trên HEAD + CHẠY THẬT: node --check sạch; build docx → document.xml ra begChr="[" (tuyển) + "{" (hệ regression) cùng tồn tại; qua cửa kiemMay; export thêm 2 tên. Additive — 0 đụng hàm cũ, 0 regression. Thiết kế: GIỮ 2 hàm RIÊNG (không gộp kieu= vào hePhuongTrinh — nghĩa khác hẳn, tránh gọi nhầm ngoặc).
+      • Template v10.31 → v10.32. Chữ ký 2 hàm MỚI → regen API_REFERENCE.md + 00_MUC_LUC_HAM.md.
+      • FILE THAY ĐỔI (upload đè GitHub): hieuhoc_template.js · API_REFERENCE.md · 00_MUC_LUC_HAM.md · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-02 (nối tiếp [31p]).
+
 [31p] hinh_ds11_luonggiac.py (+hàm) — ĐƯỜNG TRÒN NGHIỆM phương trình LG cơ bản (Ông Bụt Đại số THPT, 2026-10-02; chủ động dựng trước cho lý thuyết DS11_CH01_B04 — Phương trình lượng giác cơ bản, HP Đ22.5).
       • +`duong_tron_nghiem(loai='sin'/'cos', m, m_tex=None, ten1, ten2, R, out, scale)`: đường tròn đơn vị + đường thẳng cắt tại 2 ĐIỂM NGHIỆM minh họa nghiệm phương trình cơ bản. loai='sin': đường NGANG y=m, 2 nghiệm đối xứng Oy (α, π−α). loai='cos': đường DỌC x=m, 2 nghiệm đối xứng Ox (α, −α). Máy TỰ tính giao điểm từ m (Đ5.9, asin/acos), KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42).
       • Render-test + SOI MẮT 2 hình ĐẠT: sin x=1/2 → M1(30°)/M2(150°) đối xứng Oy; cos x=1/2 → M1(60°)/M2(−60°) đối xứng Ox. Additive — chỉ THÊM 1 hàm vào file [31o], 3 hàm cũ (đường tròn/góc/đồ thị LG) KHÔNG đổi → 0 regression. Regen BAN_TRICH_HAM_DS11_CH01__luonggiac.md.

@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.26)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.26 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.32)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.32 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `tieuDeKhoiTracNghiem()`
@@ -63,7 +63,7 @@ Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến kh
 [28r] 14b. BẢNG SỐ LIỆU TỔNG QUÁT — dữ liệu thực tiễn nhiều cột (dân số, tuổi thọ, hồ, hành tinh, khí hiếm, pizza…) — DS7 dày bảng. GỐC: kho chỉ có bảng CHUYÊN DỤNG (đáp án/đúng-sai/nhật ký); bảng số liệu thực tiễn chưa có hàm → AI Soạn buộc viết new Table() thô (phạm nguyên tắc). Ô nhận string|number|OMML|mảng trộn qua toInline → nhúng thẳng luỹ thừa/phân số OMML trong ô (số khoa học a·10ⁿ, ma phương 2ᵏ). QC ô bảng PHẢI bằng lxml (python-docx cũ nuốt paragraph chứa OMML). Viền mảnh xám #999999, nền TRẮNG (HP Đ17.2). Hàng tiêu đề đậm. duLieu: { tieuDe?: [ô…], hang: [[ô…],…] } HOẶC [[ô…],…] (không tiêu đề). opts.rongCot: mảng tỉ lệ cột (vd [0.4,0.3,0.3]); thiếu → chia đều. opts.canLe: mảng 'trai'|'giua'|'phai' theo cột; thiếu → cột 0 trái, còn lại giữa. Ví dụ: bangSoLieu({ tieuDe:["Hành tinh","Khoảng cách (km)"], hang:[ ["Trái Đất", ["1,50 · ", luyThua(10,8)] ], ["Sao Mộc", ["7,78 · ", luyThua(10,8)] ] ] })
 ### `danDungSai(soCau, moTa)`
 [28m] DÒNG DẪN Đúng/Sai — nhãn "Câu N." TỰ ĐẬM (khớp nhãn câu template tự sinh ở cauTracNghiem/traLoiNgan/tự luận). GỐC: dòng dẫn Đ/S trước đây dựng TAY bằng para thường → quên đậm (mục ⑥ HH7-CH04). Nay bắt buộc qua hàm này: không thể quên đậm. moTa = phần mô tả (thường), nhận cả chuỗi lẫn OMML. Đặt NGAY TRƯỚC bangDungSai (chèn hinhVe căn giữa vào giữa nếu câu có hình).
-### `traLoiNgan({ soCau, cauHoi, dapAn, thamChieu })`
+### `traLoiNgan({ soCau, cauHoi, dapAn, thamChieu, anDapAn })`
 ### `headerDeKiemTra({ tenDe, phut })`
 16. HEADER ĐỀ KIỂM TRA (tên đề + thời gian + bảng Họ tên/Điểm/NX)
 
@@ -80,7 +80,7 @@ header/footer trang Word cho ĐỀ KIỂM TRA — ĐÚNG MẪU headerFooterBaiHo
   phanMon  = "",                                  // "" = không in (Toán); "VẬT LÝ"/"HÓA HỌC" → in dòng "PHÂN MÔN: …" dưới tên môn
   loaiBan  = "BẢN GIÁO VIÊN",                    // "BẢN GIÁO VIÊN" | "BẢN HỌC SINH"
   boSach   = "KẾT NỐI TRI THỨC VỚI CUỘC SỐNG",   // bộ sách
-  phienBan = "CS2627",                            // THCS: CS2627 · THPT: PT2627
+  phienBan = "HH2627",                            // THCS: CS2627 · THPT: PT2627
   nam      = new Date().getFullYear(),            // năm bản quyền (mặc định năm hiện tại)
 })`
 ### `footerTPC()`
@@ -122,6 +122,10 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 ### `paraCoHinhPhai(anhFloating, noiDungInline, opts = {})`
 ### `hePhuongTrinh(danhSachPT)`
 ### `paraHePhuongTrinh(danhSachPT, opts = {})`
+### `tuyenNghiem(danhSachPT)`
+[31q] TUYỂN NGHIỆM — ngoặc vuông "[" (HOẶC) cho nghiệm phương trình LG Mirror hePhuongTrinh nhưng begChr="[" (tuyển: x=... HOẶC x=...). KHÁC hệ "{" (đồng thời).
+### `paraTuyenNghiem(danhSachPT, opts = {})`
+Bản tiện dụng — trả 1 Paragraph căn giữa chứa khối tuyển nghiệm (chèn thẳng vào cacBuoc loiGiai).
 ### `tieuDePhanI_DeKT(soCau, tongDiem)`
 23. TIÊU ĐỀ CÁC PHẦN ĐỀ KIỂM TRA (I/II/III/IV — khác BTVN dùng A/B/C/D)
 ### `tieuDePhanII_DeKT(soCau, soMenhDe, tongDiem)`
@@ -136,4 +140,4 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 75 hàm + 18 hằng/tham chiếu · template v10.26 (2026-09-08) · sinh_apiref.js.*
+*Tự sinh: 77 hàm + 18 hằng/tham chiếu · template v10.32 (2026-09-08) · sinh_apiref.js.*

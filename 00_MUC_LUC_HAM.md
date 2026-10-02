@@ -1,7 +1,7 @@
 # 00_MUC_LUC_HAM — MỤC LỤC HÀM TỔNG (tra "đã-có-chưa" TRƯỚC khi viết)
 
 > **Tự sinh** bởi `sinh_mucluc.py` — TÁI DÙNG `sinh_bantrich.py` (Python) + `API_REFERENCE.md` (output `sinh_apiref.js`, JS). KHÔNG sửa tay.
-> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 01/10/2026.
+> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 02/10/2026.
 > **LUẬT VÀNG:** trước khi viết hàm mới → tra file này (Ctrl+F theo NGHĨA). Có hàm khớp → GỌI LẠI. Gần giống → MỞ RỘNG. Viết mới là bậc CUỐI.
 
 *Ẩn: hàm hạ tầng (`_…`) + cửa render (`ve`) theo Đ5.9. Base compose per-bài không vào kho → không liệt kê.*
@@ -117,7 +117,7 @@
 | `vanhKhan(R='R', r='r', toVanh=True, chuThich=None, nua=False, out='vanh_khan', tra_bytes=False)` | VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R), mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh) | `hinh_tron_ve.py` | method | — |
 | `vien_phan(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH VIÊN PHÂN giới hạn bởi dây AB và cung nhỏ AB (A,B trên đường tròn 'tam') | `hinh_tron_ve.py` | method | — |
 
-## Dựng Word (template JS v10.26)  · 74 hàm
+## Dựng Word (template JS v10.32)  · 76 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -136,7 +136,7 @@
 | `ghiChuGiangDay({ dsLopBai } = {})` | — | `hieuhoc_template.js` | JS | — |
 | `ghiNhoNhanh(dongArr, opts = {})` | — | `hieuhoc_template.js` | JS | — |
 | `hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {})` | 22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3  | `hieuhoc_template.js` | JS | — |
-| `hePhuongTrinh(danhSachPT)` | 23. TIÊU ĐỀ CÁC PHẦN ĐỀ KIỂM TRA (I/II/III/IV — khác BTVN dùng A/B/C/D) | `hieuhoc_template.js` | JS | — |
+| `hePhuongTrinh(danhSachPT)` | [31q] TUYỂN NGHIỆM — ngoặc vuông "[" (HOẶC) cho nghiệm phương trình LG Mirror hePhuongTrinh nhưng begChr="[" (tuyển: x=... HOẶC x=...). KHÁC hệ "{" (đ | `hieuhoc_template.js` | JS | — |
 | `headerDeKiemTra({ tenDe, phut })` | 16. HEADER ĐỀ KIỂM TRA (tên đề + thời gian + bảng Họ tên/Điểm/NX) | `hieuhoc_template.js` | JS | — |
 | `headerFooterBaiHoc({ soBai, tenBai, lop })` | header/footer trang Word cho ĐỀ KIỂM TRA — ĐÚNG MẪU headerFooterBaiHoc, KHÔNG làm khác. Chỉ thay định danh: "Bài n. Tên | Lớp" → tên đề (dạng thường,  | `hieuhoc_template.js` | JS | — |
 | `headerFooterDeKT({ tenDe })` | header/footer trang Word cho ĐỀ KIỂM TRA — ĐÚNG MẪU headerFooterBaiHoc, KHÔNG làm khác. Chỉ thay định danh: "Bài n. Tên | Lớp" → tên đề (dạng thường,  | `hieuhoc_template.js` | JS | — |
@@ -159,8 +159,9 @@
 | `nhatKyCaiTien({ dsPhienBan } = {})` | — | `hieuhoc_template.js` | JS | — |
 | `para(children, opts = {})` | A5 v9.0: hỗ trợ keepLines / keepNext — chống nhảy trang 2 tầng keepLines: giữ toàn bộ đoạn trên cùng 1 trang (không bị bẻ đôi giữa chừng) keepNext: gi | `hieuhoc_template.js` | JS | — |
 | `paraCoHinhPhai(anhFloating, noiDungInline, opts = {})` | — | `hieuhoc_template.js` | JS | — |
-| `paraHePhuongTrinh(danhSachPT, opts = {})` | 23. TIÊU ĐỀ CÁC PHẦN ĐỀ KIỂM TRA (I/II/III/IV — khác BTVN dùng A/B/C/D) | `hieuhoc_template.js` | JS | — |
+| `paraHePhuongTrinh(danhSachPT, opts = {})` | [31q] TUYỂN NGHIỆM — ngoặc vuông "[" (HOẶC) cho nghiệm phương trình LG Mirror hePhuongTrinh nhưng begChr="[" (tuyển: x=... HOẶC x=...). KHÁC hệ "{" (đ | `hieuhoc_template.js` | JS | — |
 | `paraInline(input, opts = {})` | Dựng nhanh 1 Paragraph từ nội dung string|mảng trộn — dùng nội bộ | `hieuhoc_template.js` | JS | — |
+| `paraTuyenNghiem(danhSachPT, opts = {})` | Bản tiện dụng — trả 1 Paragraph căn giữa chứa khối tuyển nghiệm (chèn thẳng vào cacBuoc loiGiai). | `hieuhoc_template.js` | JS | — |
 | `patchDocPrIds(docBuffer)` | [v9.4] CỬA VÀO DUY NHẤT — dựng sẵn TOÀN BỘ KHUNG (khổ giấy, lề, header, footer). AI Soạn CHỈ đưa nội dung + thông tin bài; hàm lo hết định dạng trang. | `hieuhoc_template.js` | JS | — |
 | `phanSo(tuSo, mauSo)` | — | `hieuhoc_template.js` | JS | — |
 | `phanTich(noiDung)` | [A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài tập mẫu" và "Lời giải"; gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). | `hieuhoc_template.js` | JS | — |
@@ -189,12 +190,13 @@
 | `tieuDePhanI_TN(soCau, tongDiem)` | — | `hieuhoc_template.js` | JS | — |
 | `tieuDeTuLuan(soBai, tongDiem)` | Tiêu đề khối "D. TỰ LUẬN (n bài = Xđ)" | `hieuhoc_template.js` | JS | — |
 | `toInline(input, opts = {})` | Dựng nhanh 1 Paragraph từ nội dung string|mảng trộn — dùng nội bộ | `hieuhoc_template.js` | JS | — |
-| `traLoiNgan({ soCau, cauHoi, dapAn, thamChieu })` | 16. HEADER ĐỀ KIỂM TRA (tên đề + thời gian + bảng Họ tên/Điểm/NX) | `hieuhoc_template.js` | JS | — |
+| `traLoiNgan({ soCau, cauHoi, dapAn, thamChieu, anDapAn })` | 16. HEADER ĐỀ KIỂM TRA (tên đề + thời gian + bảng Họ tên/Điểm/NX) | `hieuhoc_template.js` | JS | — |
 | `trangCuoiChuong({ dsLopBai, dsPhienBan })` | — | `hieuhoc_template.js` | JS | — |
 | `triTuyetDoi(bieuThuc)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 | `tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })` | Tiêu đề khối "D. TỰ LUẬN (n bài = Xđ)" | `hieuhoc_template.js` | JS | — |
+| `tuyenNghiem(danhSachPT)` | [31q] TUYỂN NGHIỆM — ngoặc vuông "[" (HOẶC) cho nghiệm phương trình LG Mirror hePhuongTrinh nhưng begChr="[" (tuyển: x=... HOẶC x=...). KHÁC hệ "{" (đ | `hieuhoc_template.js` | JS | — |
 | `viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai, dai = false })` | — | `hieuhoc_template.js` | JS | — |
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 71 hàm Python (vẽ hình) + 74 hàm JS (dựng Word) = 145.
+**Thống kê:** 71 hàm Python (vẽ hình) + 76 hàm JS (dựng Word) = 147.
