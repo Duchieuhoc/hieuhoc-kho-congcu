@@ -1,3 +1,11 @@
+[31r] hieuhoc_template.js (nâng 2 hàm) — NGOẶC NGHIỆM NHẬN PHÂN SỐ/OMML (Ông Bụt Đại số THPT thẩm định + áp, 2026-10-02; nối tiếp [31q], AI Soạn báo [SỬA] khi dựng tiếp DS11_CH01_B04).
+      • `hePhuongTrinh` + `tuyenNghiem`: mỗi nhánh `[new MathRunSized(String(pt))]` → `_mathChild(pt)`. Lý do: nghiệm LG LUÔN là phân số radian (π/3, 2π/3, 3π/4…); [31q] dựng được ngoặc "[" nhưng ép String→phân số ra `[object Object]`, không đặt được phân số 2 tầng trong ngoặc.
+      • `_mathChild` (helper có sẵn [28t]): chuỗi/số → `[MathRunSized(String)]` (Y HỆT cũ) → nhánh chuỗi BYTE-IDENTICAL (bài cũ 0 đổi); OMML/mảng → gỡ vỏ đúng (0 `<m:oMath>` lồng). hePhuongTrinh được lợi kèm (hệ nay cũng nhúng phân số).
+      • OB THẨM ĐỊNH: clone HEAD [31q]=15dacba → áp 2 dòng → CHẠY THẬT: (1) REGRESSION diff m:d fragment nhánh chuỗi [31q] vs [31r] = byte-identical; (2) phân số π/3, 2π/3 trong ngoặc tuyển → 2 `<m:f>` trong khối begChr="[", 0 `<m:oMath>` lồng, 0 `<m:e>` lồng kề, qua kiemMay; node --check sạch. Additive (đổi 2 dòng).
+      • Chữ ký hàm KHÔNG đổi → KHÔNG regen API_REFERENCE/00_MUC_LUC_HAM (giữ bản [31q] đã push).
+      • FILE THAY ĐỔI (upload đè GitHub): hieuhoc_template.js (v10.32→v10.33) · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-02 (nối tiếp [31q]).
+
 [31q] hieuhoc_template.js (+2 hàm) — NGOẶC VUÔNG "[" TUYỂN NGHIỆM (Ông Bụt Đại số THPT thẩm định + áp, 2026-10-02; AI Soạn phát hiện khi dựng pilot DS11_CH01_B04 — phương trình LG cơ bản, báo [SỬA] đúng A↔C Đ5.9).
       • +`tuyenNghiem(danhSachPT)` + `paraTuyenNghiem(danhSachPT, opts)`: khối OMML ngoặc vuông "[" bao các nhánh nghiệm TUYỂN (x=α HOẶC x=π−α). MIRROR y hệt hePhuongTrinh/paraHePhuongTrinh, đổi ĐÚNG 1 ký tự begChr "{" → "[" (endChr rỗng). KHÁC hệ "{" (đồng thời) về bản chất toán.
       • Lý do: bài phương trình LG (lý thuyết sin/cos x=m + SBT 1.25a/1.26/1.28/1.30c) bắt buộc ngoặc vuông tuyển; template v10.31 chỉ có ( | { → thiếu. Mượn { = sai bản chất (hoặc→và); văn xuôi = phạm luật. Đúng ca Bước 0, DỪNG báo [SỬA].
