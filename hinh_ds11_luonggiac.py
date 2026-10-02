@@ -197,7 +197,66 @@ def do_thi_luong_giac(ham='sin', out='dothi_lg', tra_bytes=False, scale=1.0):
     return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes, dpi=200)
 
 
+def duong_tron_nghiem(loai='sin', m=0.5, m_tex=None, ten1='M_1', ten2='M_2',
+                      R=2.6, out='dtng', tra_bytes=False, scale=1.0):
+    """ĐƯỜNG TRÒN NGHIỆM phương trình LG cơ bản (SGK Bài 4 — minh họa nghiệm sin x=m / cos x=m):
+    đường tròn đơn vị + đường thẳng cắt tại 2 ĐIỂM NGHIỆM → chỉ nghiệm trên [0;2π).
+      loai='sin': đường thẳng NGANG y=m, 2 điểm nghiệm ĐỐI XỨNG qua Oy (x=α và x=π−α).
+      loai='cos': đường thẳng DỌC  x=m, 2 điểm nghiệm ĐỐI XỨNG qua Ox (x=α và x=−α).
+      m: giá trị vế phải ∈ [−1;1]. m_tex: nhãn hiển thị cho m (vd '\\tfrac{1}{2}'); None→số.
+    Máy TỰ tính toạ độ giao điểm từ m (Đ5.9) — KHÔNG nhập điểm tay. KHÔNG nhúng ảnh SGK (Đ42)."""
+    loai = str(loai).lower().strip(); m = float(m); R = float(R); rac = R + 0.6
+    if loai not in ('sin', 'cos'):
+        raise ValueError("[duong_tron_nghiem] loai phải 'sin'/'cos', nhận '%s'" % loai)
+    if not -1.0 <= m <= 1.0:
+        raise ValueError("[duong_tron_nghiem] m phải trong [-1;1], nhận %g" % m)
+    mlab = m_tex if m_tex is not None else ('%g' % m)
+    cs = [r'\documentclass[border=6pt]{standalone}',
+          r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
+          r'\begin{document}',
+          r'\begin{tikzpicture}[scale=%g,>={Stealth[length=2.4mm]},font=\normalsize]' % scale]
+    # trục + đường tròn + mốc ±1
+    cs.append(r'\draw[<->,thick] (-%g,0) -- (%g,0) node[right] {$x\,(\cos)$};' % (rac, rac))
+    cs.append(r'\draw[<->,thick] (0,-%g) -- (0,%g) node[above] {$y\,(\sin)$};' % (rac, rac))
+    cs.append(r'\draw[blue,line width=0.9pt] (0,0) circle (%g);' % R)
+    cs.append(r'\node[below right,font=\small] at (%g,0) {$1$};' % R)
+    cs.append(r'\node[below left,font=\small] at (-%g,0) {$-1$};' % R)
+    cs.append(r'\node[above left,font=\small] at (0,%g) {$1$};' % R)
+    cs.append(r'\node[below left,font=\small] at (0,-%g) {$-1$};' % R)
+    cs.append(r'\fill (0,0) circle (1.5pt); \node[below left,font=\small] at (-0.04,0) {$O$};')
+    # chiều dương (QII, không đè điểm)
+    cs.append(r'\draw[->,orange,thick] (102:%g) arc (102:168:%g);' % (R + 0.28, R + 0.28))
+    cs.append(r'\node[orange,font=\small] at (135:%g) {$+$};' % (R + 0.58))
+    if loai == 'sin':
+        a = math.asin(max(-1.0, min(1.0, m)))          # [-π/2;π/2]
+        t1, t2 = a, math.pi - a                          # 2 nghiệm sin x=m
+        yl = R * m
+        # đường thẳng ngang y=m (nét đứt) + nhãn
+        cs.append(r'\draw[dashed,red!70!black,line width=0.8pt] (-%g,%g) -- (%g,%g);' % (R + 0.2, yl, R + 0.2, yl))
+        cs.append(r'\node[right,red!70!black,font=\small] at (%g,%g) {$y=%s$};' % (R + 0.22, yl + 0.18, mlab))
+        cs.append(r'\fill (0,%g) circle (1.3pt); \node[left,font=\small] at (-0.06,%g) {$%s$};' % (yl, yl, mlab))
+    else:  # cos
+        a = math.acos(max(-1.0, min(1.0, m)))            # [0;π]
+        t1, t2 = a, -a                                   # 2 nghiệm cos x=m
+        xl = R * m
+        cs.append(r'\draw[dashed,red!70!black,line width=0.8pt] (%g,-%g) -- (%g,%g);' % (xl, R + 0.2, xl, R + 0.2))
+        cs.append(r'\node[above,red!70!black,font=\small] at (%g,%g) {$x=%s$};' % (xl, R + 0.22, mlab))
+        cs.append(r'\fill (%g,0) circle (1.3pt); \node[below,font=\small] at (%g,-0.06) {$%s$};' % (xl, xl, mlab))
+    # 2 điểm nghiệm + bán kính + nhãn
+    for t, ten in ((t1, ten1), (t2, ten2)):
+        px = R * math.cos(t); py = R * math.sin(t)
+        anc = 'above right' if px >= -0.05 else 'above left'
+        if py < 0:
+            anc = 'below right' if px >= -0.05 else 'below left'
+        cs.append(r'\draw[thick,red] (0,0) -- (%g,%g);' % (px, py))
+        cs.append(r'\fill[red] (%g,%g) circle (1.9pt); \node[%s,red] at (%g,%g) {$%s$};'
+                  % (px, py, anc, px, py, ten))
+    cs.append(r'\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes)
+
+
 # Gắn vào class entry chung để AI Soạn gọi qua instance H.HinhTron hoặc trực tiếp
 _HT.HinhTron.goc_luong_giac = staticmethod(goc_luong_giac)
 _HT.HinhTron.duong_tron_luong_giac = staticmethod(duong_tron_luong_giac)
 _HT.HinhTron.do_thi_luong_giac = staticmethod(do_thi_luong_giac)
+_HT.HinhTron.duong_tron_nghiem = staticmethod(duong_tron_nghiem)

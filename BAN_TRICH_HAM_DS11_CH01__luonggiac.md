@@ -1,5 +1,11 @@
-# BẢN TRÍCH HÀM — HÌNH LƯỢNG GIÁC THPT (hinh_ds11_luonggiac.py) · kho [31o]
+# BẢN TRÍCH HÀM — HÌNH LƯỢNG GIÁC THPT (hinh_ds11_luonggiac.py) · kho [31p]
 > import: `import hinh_ds11_luonggiac as LG` (tự gắn vào HinhTron). Render qua render script (Python) → PNG, build.js nhúng bằng `H.hinhVe`.
+
+## duong_tron_nghiem(loai='sin', m=0.5, m_tex=None, ten1='M_1', ten2='M_2', R=2.6, out='dtng', scale=1.0)   ← [31p] MỚI
+Đường tròn nghiệm phương trình LG cơ bản (SGK Bài 4): đường tròn đơn vị + đường thẳng cắt tại 2 ĐIỂM NGHIỆM. Máy TỰ tính giao điểm từ m (Đ5.9), KHÔNG nhúng ảnh SGK (Đ42).
+- `loai='sin'`: đường NGANG y=m, 2 nghiệm đối xứng Oy (α và π−α). `loai='cos'`: đường DỌC x=m, 2 nghiệm đối xứng Ox (α và −α).
+- `m` ∈ [−1;1] (vế phải). `m_tex`: nhãn LaTeX cho m (vd `r'\tfrac{1}{2}'`); None→in số.
+- `ten1`/`ten2`: nhãn 2 điểm nghiệm (math-mode). Trọng tài: SGK Bài 4 (phương trình sin x=m / cos x=m).
 
 ## do_thi_luong_giac(ham='sin', out='dothi_lg', scale=1.0)   ← [31o] MỚI
 Đồ thị hàm số lượng giác trên [-2π; 2π]: máy TỰ dựng đường cong từ công thức (pgfplots), KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42).

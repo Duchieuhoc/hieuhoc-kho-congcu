@@ -1,3 +1,10 @@
+[31p] hinh_ds11_luonggiac.py (+hàm) — ĐƯỜNG TRÒN NGHIỆM phương trình LG cơ bản (Ông Bụt Đại số THPT, 2026-10-02; chủ động dựng trước cho lý thuyết DS11_CH01_B04 — Phương trình lượng giác cơ bản, HP Đ22.5).
+      • +`duong_tron_nghiem(loai='sin'/'cos', m, m_tex=None, ten1, ten2, R, out, scale)`: đường tròn đơn vị + đường thẳng cắt tại 2 ĐIỂM NGHIỆM minh họa nghiệm phương trình cơ bản. loai='sin': đường NGANG y=m, 2 nghiệm đối xứng Oy (α, π−α). loai='cos': đường DỌC x=m, 2 nghiệm đối xứng Ox (α, −α). Máy TỰ tính giao điểm từ m (Đ5.9, asin/acos), KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42).
+      • Render-test + SOI MẮT 2 hình ĐẠT: sin x=1/2 → M1(30°)/M2(150°) đối xứng Oy; cos x=1/2 → M1(60°)/M2(−60°) đối xứng Ox. Additive — chỉ THÊM 1 hàm vào file [31o], 3 hàm cũ (đường tròn/góc/đồ thị LG) KHÔNG đổi → 0 regression. Regen BAN_TRICH_HAM_DS11_CH01__luonggiac.md.
+      • FILE THAY ĐỔI (upload GitHub): hinh_ds11_luonggiac.py (đè — đã gồm [31n]+[31o]+[31p]) · BAN_TRICH_HAM_DS11_CH01__luonggiac.md · 00_KHO_VERSION.txt.
+      • GỘP PUSH: bản này chứa trọn [31n]+[31o]. Push [31p] là đủ cho cả ba của file hinh_ds11_luonggiac.py.
+      Mốc kho: 2026-10-02 (nối tiếp [31o]).
+
 [31o] hinh_ds11_luonggiac.py (+hàm) — ĐỒ THỊ HÀM SỐ LƯỢNG GIÁC (Ông Bụt Đại số THPT, 2026-10-02; chủ động dựng trước cho lý thuyết DS11_CH01_B03 — Hàm số lượng giác, HP Đ22.5 + bài học pilot B01: lý thuyết có đối tượng hình học BẮT BUỘC có hình).
       • +`do_thi_luong_giac(ham='sin'/'cos'/'tan'/'cot', out, scale)`: đồ thị 4 hàm lượng giác cơ bản trên [-2π; 2π]. Máy TỰ dựng đường cong THẲNG từ công thức (pgfplots `\addplot{sin(deg(x))}`…) — KHÔNG nhập điểm tay (Đ5.9), KHÔNG nhúng ảnh SGK (Đ42).
       • sin/cos: đường liền mượt (samples=300), y∈[-1;1]. tan: vẽ TỪNG NHÁNH quanh tâm kπ + tiệm cận đứng nét đứt tại x=π/2+kπ. cot: nhánh (kπ,(k+1)π) + tiệm cận tại x=kπ. Mốc trục Ox theo bội π (−2π…2π); nhãn tick nền trắng (fill=white) nên tiệm cận KHÔNG cắt vỡ nhãn.
