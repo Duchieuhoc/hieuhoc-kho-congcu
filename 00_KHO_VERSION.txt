@@ -1,3 +1,12 @@
+[31o] hinh_ds11_luonggiac.py (+hàm) — ĐỒ THỊ HÀM SỐ LƯỢNG GIÁC (Ông Bụt Đại số THPT, 2026-10-02; chủ động dựng trước cho lý thuyết DS11_CH01_B03 — Hàm số lượng giác, HP Đ22.5 + bài học pilot B01: lý thuyết có đối tượng hình học BẮT BUỘC có hình).
+      • +`do_thi_luong_giac(ham='sin'/'cos'/'tan'/'cot', out, scale)`: đồ thị 4 hàm lượng giác cơ bản trên [-2π; 2π]. Máy TỰ dựng đường cong THẲNG từ công thức (pgfplots `\addplot{sin(deg(x))}`…) — KHÔNG nhập điểm tay (Đ5.9), KHÔNG nhúng ảnh SGK (Đ42).
+      • sin/cos: đường liền mượt (samples=300), y∈[-1;1]. tan: vẽ TỪNG NHÁNH quanh tâm kπ + tiệm cận đứng nét đứt tại x=π/2+kπ. cot: nhánh (kπ,(k+1)π) + tiệm cận tại x=kπ. Mốc trục Ox theo bội π (−2π…2π); nhãn tick nền trắng (fill=white) nên tiệm cận KHÔNG cắt vỡ nhãn.
+      • Dùng pgfplots (ĐÃ có trên máy: pgfplots.sty). Render qua _HC.render_tikz_doc (dpi=200). Trọng tài: SGK H1.14 (sin)/H1.15 (cos)/H1.16 (tan)/H1.17 (cot).
+      • Render-test + SOI MẮT 4 đồ thị ĐẠT: sin/cos biên độ 1 đúng pha, zero đúng vị trí; tan tăng từng nhánh, cot giảm từng nhánh, tiệm cận đúng nghiệm mẫu. Additive — chỉ THÊM 1 hàm vào file [31n], 2 hàm cũ (đường tròn/góc LG) KHÔNG đổi → 0 regression. Regen BAN_TRICH_HAM_DS11_CH01__luonggiac.md.
+      • FILE THAY ĐỔI (upload GitHub): hinh_ds11_luonggiac.py (đè — đã gồm cả [31n]+[31o]) · BAN_TRICH_HAM_DS11_CH01__luonggiac.md · 00_KHO_VERSION.txt.
+      • GỘP PUSH: bản này ĐÃ chứa trọn [31n] (đường tròn/góc LG). Push [31o] là đủ cho CẢ [31n] lẫn [31o] của file hinh_ds11_luonggiac.py — Giám đốc chỉ cần push MỘT lần bộ [31o].
+      Mốc kho: 2026-10-02 (nối tiếp [31n]).
+
 [31n] hinh_ds11_luonggiac.py (MỚI) — HÌNH LƯỢNG GIÁC THPT: đường tròn lượng giác + góc lượng giác (Ông Bụt Đại số THPT, 2026-10-02; lộ khi QC pilot DS11_CH01_B01 — Giám đốc yêu cầu lý thuyết phải có hình minh họa, HP Đ22.5).
       • File RIÊNG (KHÔNG đụng hinh_tron_ve.py của máy Hình — chống lệch pha); import hinh_tron_ve chỉ để gắn staticmethod vào class entry HinhTron. Generator độc lập như nua_duong_tron_don_vi, render qua _HC.render_tikz_doc (pdflatex-safe, nhãn math-mode).
       • +`duong_tron_luong_giac(goc=None, ten_M='M', hien_sin_cos, goc_phan_tu, hien_A, R, ...)`: đường tròn đơn vị tâm O, điểm gốc A(1;0), chiều dương (+), trục x=cos/y=sin; điểm M tại góc α → máy TỰ tính (cosα,sinα) (Đ5.9, KHÔNG nhập toạ độ tay); gióng nét đứt + nhãn sin α/cos α + cung α + nhãn 4 góc phần tư I–IV. Trọng tài: SGK H1.7/H1.9b/H1.10.

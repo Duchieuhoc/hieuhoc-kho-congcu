@@ -109,6 +109,95 @@ def _lab(s):
     return s if '$' in s else s  # tên điểm đơn (M, N) in thẳng trong $...$ ở caller
 
 
+_PI = math.pi
+_PI_TICKS = {  # mốc trục Ox theo bội π (dùng cho cả 4 đồ thị)
+    -2.0: r'-2\pi', -1.5: r'-\tfrac{3\pi}{2}', -1.0: r'-\pi', -0.5: r'-\tfrac{\pi}{2}',
+     0.5: r'\tfrac{\pi}{2}', 1.0: r'\pi', 1.5: r'\tfrac{3\pi}{2}', 2.0: r'2\pi',
+}
+
+
+def do_thi_luong_giac(ham='sin', out='dothi_lg', tra_bytes=False, scale=1.0):
+    """ĐỒ THỊ HÀM SỐ LƯỢNG GIÁC (SGK H1.14–1.17): y=sin x, y=cos x, y=tan x, y=cot x
+    trên [-2π; 2π]. Máy TỰ dựng đường cong từ công thức (pgfplots) — KHÔNG nhập điểm tay,
+    KHÔNG nhúng ảnh SGK (Đ42). Trục Ox mốc theo bội π; tan/cot vẽ từng nhánh + tiệm cận đứng.
+      ham ∈ {'sin','cos','tan','cot'}.
+    PHANH nội sinh: đường cong sinh thẳng từ hàm pgfplots nên luôn khớp định nghĩa;
+    tiệm cận đặt đúng tại nghiệm mẫu (cos x=0 cho tan; sin x=0 cho cot)."""
+    ham = str(ham).lower().strip()
+    if ham not in ('sin', 'cos', 'tan', 'cot'):
+        raise ValueError("[do_thi_luong_giac] ham phải là 'sin'/'cos'/'tan'/'cot', nhận '%s'" % ham)
+
+    lien_tuc = ham in ('sin', 'cos')
+    # khung trục: liên tục y∈[-1.5;1.5]; tan/cot y∈[-4;4]
+    ymin, ymax = (-1.6, 1.6) if lien_tuc else (-4.2, 4.2)
+    yticks = r'-1,1' if lien_tuc else r'-3,-1,1,3'
+
+    # mốc trục Ox (bội π) — bỏ các mốc gây đè gốc O cho tan/cot nếu cần
+    tick_vals, tick_lbls = [], []
+    for k in sorted(_PI_TICKS):
+        tick_vals.append('%g' % (k * _PI))
+        tick_lbls.append('$%s$' % _PI_TICKS[k])
+
+    cs = [r'\documentclass[border=6pt]{standalone}',
+          r'\usepackage{pgfplots}\pgfplotsset{compat=1.16}',
+          r'\usepackage{amsmath}',
+          r'\begin{document}',
+          r'\begin{tikzpicture}[scale=%g]' % scale,
+          r'\begin{axis}[',
+          r'  axis lines=middle, axis line style={-{Stealth[length=2mm]}},',
+          r'  xlabel={$x$}, ylabel={$y$},',
+          r'  xlabel style={at={(axis description cs:1,0.5)},anchor=west},',
+          r'  ylabel style={at={(axis description cs:0.5,1)},anchor=south},',
+          r'  xtick={%s},' % ','.join(tick_vals),
+          r'  xticklabels={%s},' % ','.join(tick_lbls),
+          r'  ytick={%s},' % yticks,
+          r'  xmin=-7.3, xmax=7.3, ymin=%g, ymax=%g,' % (ymin, ymax),
+          r'  width=15cm, height=%s,' % ('6.2cm' if lien_tuc else '8cm'),
+          r'  tick label style={font=\small, fill=white, inner sep=1.3pt},',
+          r'  clip=true,',
+          r']']
+
+    if ham == 'sin':
+        cs.append(r'\addplot[blue,line width=1pt,samples=300,domain=-6.9:6.9]{sin(deg(x))};')
+    elif ham == 'cos':
+        cs.append(r'\addplot[blue,line width=1pt,samples=300,domain=-6.9:6.9]{cos(deg(x))};')
+    elif ham == 'tan':
+        # tiệm cận đứng tại x = π/2 + kπ ; vẽ từng nhánh (±π/2 quanh mỗi tâm kπ)
+        eps = 0.06
+        for k in range(-3, 4):  # tâm nhánh tại kπ
+            c = k * _PI
+            lo = c - _PI / 2 + eps
+            hi = c + _PI / 2 - eps
+            if hi < -7.0 or lo > 7.0:
+                continue
+            lo = max(lo, -7.1); hi = min(hi, 7.1)
+            cs.append(r'\addplot[blue,line width=1pt,samples=120,domain=%g:%g]{tan(deg(x))};' % (lo, hi))
+        for k in range(-3, 4):  # tiệm cận tại π/2 + kπ
+            a = _PI / 2 + k * _PI
+            if -7.2 < a < 7.2:
+                cs.append(r'\addplot[gray,dashed,line width=0.6pt,domain=%g:%g,samples=2]'
+                          r'coordinates {(%g,%g) (%g,%g)};' % (ymin, ymax, a, ymin, a, ymax))
+    else:  # cot
+        # tiệm cận đứng tại x = kπ ; nhánh trên (kπ, (k+1)π)
+        eps = 0.06
+        for k in range(-3, 3):
+            lo = k * _PI + eps
+            hi = (k + 1) * _PI - eps
+            if hi < -7.0 or lo > 7.0:
+                continue
+            lo = max(lo, -7.1); hi = min(hi, 7.1)
+            cs.append(r'\addplot[blue,line width=1pt,samples=120,domain=%g:%g]{cot(deg(x))};' % (lo, hi))
+        for k in range(-3, 4):  # tiệm cận tại kπ
+            a = k * _PI
+            if -7.2 < a < 7.2:
+                cs.append(r'\addplot[gray,dashed,line width=0.6pt,domain=%g:%g,samples=2]'
+                          r'coordinates {(%g,%g) (%g,%g)};' % (ymin, ymax, a, ymin, a, ymax))
+
+    cs.append(r'\end{axis}\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes, dpi=200)
+
+
 # Gắn vào class entry chung để AI Soạn gọi qua instance H.HinhTron hoặc trực tiếp
 _HT.HinhTron.goc_luong_giac = staticmethod(goc_luong_giac)
 _HT.HinhTron.duong_tron_luong_giac = staticmethod(duong_tron_luong_giac)
+_HT.HinhTron.do_thi_luong_giac = staticmethod(do_thi_luong_giac)
