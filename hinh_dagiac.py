@@ -235,6 +235,34 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         for P_, Q in ds:
             self.tikz.append(('noi', [P_, Q], False, None))
         return self
+
+    def lat_kin_luc_giac(self, tam='O', canh=1.6, so_hinh=3, xoay=0):
+        """LÁT KÍN tổ ong: so_hinh lục giác đều cạnh 'canh' ghép khít quanh MỘT điểm
+        chung 'tam' (mỗi góc trong 120° tại tâm; so_hinh × 120° phủ quanh tâm — với
+        so_hinh=3 là 360°, kín). Minh hoạ bài lát kín gạch lục giác đều (HH6 CH04).
+        Nhãn đỉnh ẩn (hình minh hoạ, không đo); chỉ 'tam' hiển thị. KHÔNG ràng buộc
+        PHANH (hình minh hoạ trực quan, không có số đo cần kiểm).
+        Các hình cùng hướng (đỉnh 0,60,…,300°) nên cạnh chung khít — tổ ong thật."""
+        R = float(canh)
+        cx, cy = 1.8 * R, 1.8 * R          # dời để toạ độ dương, gọn trong khung
+        self._diem(tam, cx, cy, 'below')
+        goc_tam = [60 + (360.0 / so_hinh) * k for k in range(so_hinh)]
+        for k, gt in enumerate(goc_tam):
+            a = math.radians(gt + xoay)
+            Ckx, Cky = cx + R * math.cos(a), cy + R * math.sin(a)   # tâm hình con k
+            dinh = []
+            for m in range(6):
+                th = math.radians(60 * m + xoay)
+                vx, vy = Ckx + R * math.cos(th), Cky + R * math.sin(th)
+                if abs(vx - cx) < 1e-6 and abs(vy - cy) < 1e-6:
+                    dinh.append(tam)                                 # đỉnh trùng tâm chung
+                else:
+                    nm = '_lk%d_%d' % (k, m)
+                    self._diem(nm, vx, vy, nhan=None, moc=False)
+                    dinh.append(nm)
+            self._da_giac(*dinh)
+        return self
+
     def da_giac_deu(self, *ten, canh=2.0, xoay=0, to=None):
         """Đa giác đều n cạnh (n = số tên truyền vào ≥ 3), đỉnh theo chiều kim đồng hồ,
         một cạnh nằm ngang phía trên khi xoay=0. Dùng cho hình NHẬN DẠNG / gây nhiễu
