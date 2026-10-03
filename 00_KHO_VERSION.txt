@@ -1,3 +1,12 @@
+[31t] hinh_toado.py (nâng 1 hàm) — TRỤC SỐ GIÃN ĐỀU cho dãy/giá trị HỘI TỤ (Ông Bụt Đại số THPT thẩm định + áp, 2026-10-03; nối tiếp [31s]. AI Soạn báo [SỬA] khi pilot DS11_CH02_B05 — Hình 1 biểu diễn dãy uₙ=(-1)ⁿ/2ⁿ bị chồng nhãn quanh 0 ở tỉ lệ thật).
+      • `truc_so_huu_ti`: +tham số `ti_le=True` (mặc định). `ti_le=False` → các ĐIỂM trong `diem` xếp cách đều DANH NGHĨA theo thứ tự giá trị, giữ gốc 0 + mốc tu/den định hướng; nhãn uₖ (trên) + phân số (dưới) không còn chồng. Chỉ nhận `diem` (raise nếu kèm khoang_to/vach_dut/mui_ten_dc). Caption ghi "(không theo tỉ lệ)".
+      • ADDITIVE — `ti_le=True` giữ NGUYÊN 100% nhánh tỉ-lệ-thật cũ (code cũ không đụng, chỉ thêm 1 nhánh gated + 1 tham số đuôi default True). Render-test: Hình 1 B05 (ti_le=False) soi mắt ĐẠT nhãn tách rõ đúng thứ tự u₁<u₃<u₅<0<u₄<u₂; 4 ca regression ti_le=True render OK; import-test 10/10 module OK → 0 regression.
+      • Mirror nhánh `ti_le=False` sẵn có của `tia_so` (cùng file). Lợi cả nhánh DS: tái dùng cho B06/B07 (CSN hội tụ) + chương giới hạn sau.
+      • Regen `00_MUC_LUC_HAM.md` (chữ ký +ti_le) + sinh `BAN_TRICH_HAM_DS11_CH02__toado.md`. (BAN_TRICH THCS DS6/7/8/9 có truc_so_huu_ti giữ bản cũ — additive back-compat, regen khi chạm chương đó.)
+      • Chữ ký hàm thuộc hinh_toado.py (FILE HÌNH, không phải template JS) → KHÔNG đụng API_REFERENCE.md (template giữ [31r] v10.33).
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_toado.py · 00_MUC_LUC_HAM.md · BAN_TRICH_HAM_DS11_CH02__toado.md (mới) · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-03 (nối tiếp [31s]).
+
 [31s] hinh_ds11_luonggiac.py (+2 hàm) — HÌNH THỰC TIỄN ĐỀ ⑥: khúc xạ ánh sáng + chữ nhật nội tiếp (Ông Bụt Đại số THPT, 2026-10-02; chủ động dựng trước cho ⑥ ĐỀ KIỂM TRA CHƯƠNG DS11_CH01 — 2 bài VDC thực tiễn SGK 1.36 + SBT 1.64 cần hình đặc thù, HP Đ22.5).
       • +`hinh_khuc_xa(goc_toi, goc_kx_ve, nhan_i, nhan_r, nhan_mt1, nhan_mt2, out, scale)`: mặt phân cách 2 môi trường + pháp tuyến NN' + tia tới SI (đỏ, góc i) + tia phản xạ IS' (nét đứt) + tia khúc xạ IR (xanh, góc r), môi trường (2) nền xanh nhạt. Dùng cho SGK 1.36 (khúc xạ).
       • +`hinh_chu_nhat_noi_tiep(goc_theta, nhan_theta, duong_kinh, R, out, scale)`: đường tròn + chữ nhật ABCD nội tiếp, đường chéo AC = đường kính (đỏ, qua O), góc θ tại A. Máy TỰ tính 4 đỉnh từ θ,R (Đ5.9). Dùng cho SBT 1.64 (xà gỗ chữ nhật — tối ưu).

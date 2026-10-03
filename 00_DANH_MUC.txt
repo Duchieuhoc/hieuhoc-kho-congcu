@@ -1,7 +1,20 @@
-CAPNHAT_KHO__31n · 2026-10-02 · OB Đại số THPT
-ĐÍCH: Thầy UPLOAD ĐÈ lên GitHub (hieuhoc-kho-congcu), Commit changes.
-  hinh_ds11_luonggiac.py                       [MỚI] hàm vẽ đường tròn LG + góc LG
-  BAN_TRICH_HAM_DS11_CH01__luonggiac.md        [MỚI] bản trích 2 hàm
-  00_KHO_VERSION.txt                           [THAY] +[31n], Mốc kho → 2026-10-02
-File RIÊNG, KHÔNG đụng hinh_tron_ve.py (máy Hình). Additive, 0 regression.
-→ Sau push: kho ra mốc 2026-10-02 [31n]. Pin SHA mới vào 00_HOSO_BAI của LƯU_BÀI.
+===== 00_DANH_MUC — CAPNHAT_KHO__31t =====
+Chiều: OB → Thầy → PUSH GitHub (hieuhoc-kho-congcu, Commit changes — nối tiếp [31s] f810fe0→[31t])
+Ngày: 03/10/2026 · OB Đại số THPT
+Mốc kho mới: 2026-10-03 [31t]
+
+FILE — TRẠNG THÁI — GHI CHÚ
+---------------------------------------------------------------
+hinh_toado.py ........................ SỬA (đè) — truc_so_huu_ti +ti_le=True (nhánh giãn đều ti_le=False). ADDITIVE, 0 regression.
+00_MUC_LUC_HAM.md .................... REGEN (đè) — chữ ký truc_so_huu_ti thêm ti_le.
+BAN_TRICH_HAM_DS11_CH02__toado.md .... MỚI — bản trích trục số cho chương DS11_CH02.
+00_KHO_VERSION.txt ................... BUMP (đè) — thêm mốc [31t] 2026-10-03.
+
+KIỂM TRƯỚC PUSH (đã chạy):
+  ✓ render Hình 1 B05 (ti_le=False) — soi mắt ĐẠT (nhãn tách rõ, thứ tự u₁<u₃<u₅<0<u₄<u₂)
+  ✓ 4 ca regression ti_le=True — render OK (hành vi cũ nguyên vẹn)
+  ✓ import-test 10/10 module OK
+  ✓ regen mục lục + bản trích khớp chữ ký mới
+
+SAU PUSH: mốc kho [31t] = 2026-10-03. AI Soạn bụng kho mới → dựng tiếp B05 trọn gói (có Hình 1).
+===== HẾT =====

@@ -81,8 +81,14 @@ class Hinh(HinhCoBan):
     def truc_so_huu_ti(self, tu=-1, den=4, chia=1, diem=None,
                        hien_nhan_diem=True, moc_nhan=None,
                        mui_ten_am=False, goc_ten='0',
-                       khoang_to=None, vach_dut=None, mui_ten_dc=None):
+                       khoang_to=None, vach_dut=None, mui_ten_dc=None, ti_le=True):
         """TRỤC SỐ biểu diễn số hữu tỉ — gốc O ở giá trị 0, có phần âm & dương.
+
+        ti_le          : True (mặc định) khoảng cách ĐÚNG tỉ lệ (hành vi cũ, 0 regression).
+                         False → các ĐIỂM trong `diem` xếp cách đều DANH NGHĨA theo thứ tự
+                         giá trị (giữ gốc 0 + mốc tu/den định hướng) — dùng cho dãy/giá trị
+                         HỘI TỤ (vd uₙ=(-1)ⁿ/2ⁿ) để nhãn không chồng. Chỉ nhận `diem`
+                         (bỏ khoang_to/vach_dut/mui_ten_dc). Caption ghi "(không theo tỉ lệ)".
 
         tu, den        : biên NGUYÊN trái/phải của trục (tu có thể < 0). Cần tu < den.
         chia           : chia MỖI đoạn đơn vị thành `chia` phần bằng nhau (1,2,3,4,6,12…);
@@ -127,6 +133,49 @@ class Hinh(HinhCoBan):
                 return self._so(float(q))            # "-1","0","2"
             dau = '-' if q < 0 else ''
             return r'$%s\frac{%d}{%d}$' % (dau, abs(q.numerator), q.denominator)
+
+        # ══ CHẾ ĐỘ GIÃN ĐỀU (ti_le=False) — minh họa dãy/giá trị HỘI TỤ, nhãn không chồng ══
+        if not ti_le:
+            if not diem:
+                raise ValueError("[truc_so_huu_ti] ti_le=False cần danh sách 'diem'")
+            if khoang_to or vach_dut or mui_ten_dc:
+                raise ValueError("[truc_so_huu_ti] ti_le=False chỉ hỗ trợ 'diem' "
+                                 "(bỏ khoang_to/vach_dut/mui_ten_dc)")
+            KHOANG = 1.7
+            anchors = []                               # (q, loai, idx, ten, nhan)
+            for idx, spec in enumerate(diem):
+                gt, ten = spec[0], spec[1]
+                nhan = spec[2] if len(spec) > 2 else 'auto'
+                q = _toFrac(gt)
+                if q < tu or q > den:
+                    raise ValueError(f"[truc_so_huu_ti] điểm {gt} ngoài đoạn [{tu}, {den}]")
+                anchors.append((q, 'diem', idx, ten, nhan))
+            co = {a[0] for a in anchors}
+            for mv in (tu, 0, den):                    # mốc nguyên định hướng (gốc 0 + ±biên)
+                qv = _toFrac(mv)
+                if qv not in co:
+                    anchors.append((qv, 'moc', None, None, None))
+                    co.add(qv)
+            anchors.sort(key=lambda t: t[0])
+            xs = [i * KHOANG for i in range(len(anchors))]
+            xL, xR = xs[0] - 0.7, xs[-1] + 0.7
+            self._diem('_haL', xL, 0.0, nhan=None, moc=False)
+            self._diem('_haR', xR, 0.0, nhan=None, moc=False)
+            self.tikz.append(('tia', '_haL', '_haR', True, None, 'lien'))   # mũi phải
+            if mui_ten_am:
+                self.tikz.append(('tia', '_haR', '_haL', True, None, 'lien'))
+            for (q, loai, idx, ten, nhan), x in zip(anchors, xs):
+                if loai == 'moc':
+                    self._vach_ht(x, f'm{int(q) - tu}', chinh=True)
+                    self.ghi_chu(x, -0.44, goc_ten if q == 0 else self._so(int(q)))
+                else:
+                    self._diem(f'hp{idx}', x, 0.0, nhan=None, moc=True)      # chấm đậm
+                    if ten:
+                        self.ghi_chu(x, 0.34, str(ten))                      # nhãn tên (trên)
+                    if hien_nhan_diem and nhan is not None:
+                        self.ghi_chu(x, -0.44, _nhan_frac(q) if nhan == 'auto' else str(nhan))
+            self.ghi_chu(xs[0] - 0.30, 0.30, '')
+            return self
 
         # ── TRỤC: gốc 0 ở giữa, tia dương (mũi) + tia âm (kéo dài) ──
         x_R = den * SCALE + 0.6
