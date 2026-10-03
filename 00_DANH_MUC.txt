@@ -1,17 +1,15 @@
-===== 00_DANH_MUC — CAPNHAT_KHO__31v =====
-Chiều: OB → Thầy → PUSH GitHub (hieuhoc-kho-congcu, Commit changes — nối tiếp [31u] 26306e62 → [31v])
-Ngày: 03/10/2026 · OB Đại số THPT · Mốc kho mới: 2026-10-03 [31v]
+===== 00_DANH_MUC — CAPNHAT_KHO__31w =====
+Chiều: OB → Giám đốc → PUSH GitHub (hieuhoc-kho-congcu) · Ngày 04/10/2026 · OB Đại số THPT
+Nối tiếp HEAD [31v] (d02efa71). UPLOAD ĐÈ, KHÔNG merge.
 
-FILE — TRẠNG THÁI
+FILE — GHI CHÚ
 ---------------------------------------------------------------
-hieuhoc_template.js ...... SỬA (đè) — para() auto-bọc chuỗi/số thô → run() (chống rớt trắng). ADDITIVE.
-00_KHO_VERSION.txt ....... BUMP (đè) — thêm mốc [31v].
+hieuhoc_template.js ...... v10.33 + [31w]: para() thêm .flat(Infinity) SAU .map([31v])
+                           → làm phẳng mảng run() (tách-font Cambria) → hết node rác <0/> (Word Repair).
+                           Additive, chữ ký không đổi. Dựng lại B05/B06/B07 → BYTE-IDENTICAL [31v] (0 regression).
+00_KHO_VERSION.txt ....... Thêm mốc [31w] ở đầu (nối tiếp [31v]).
 
-KIỂM TRƯỚC PUSH (đã chạy):
-  ✓ test chuỗi thô / chuỗi+OMML: trước rỗng → sau render đủ
-  ✓ B06 rebuild: 0 đoạn rỗng thân bài, 3 công thức lý thuyết hiện lại
-  ✓ REGRESSION B05: document.xml [31v] BYTE-IDENTICAL [31u] → 0 regression
-  ✓ chữ ký para() không đổi → KHÔNG regen API/bản trích
-
-SAU PUSH: mốc [31v] = 2026-10-03.
+KHÔNG regen API_REFERENCE / 00_MUC_LUC_HAM / bản trích (chữ ký para() không đổi).
+SAU PUSH: fetch + chạy thật xác nhận (import OK + repro chuỗi-thô-Cambria → 0 rác).
+HEAD trước push = d02efa71 [31v].
 ===== HẾT =====

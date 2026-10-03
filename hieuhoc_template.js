@@ -757,7 +757,8 @@ function para(children, opts = {}) {
   //     children.push(H.para(H.loiGiai({...})))     ← SAI
   //     children.push(...H.loiGiai({...}))          ← ĐÚNG
   const ds = (Array.isArray(children) ? children : [children]).flat(Infinity) // [28p] làm phẳng mảng run()
-    .map(c => (typeof c === 'string' || typeof c === 'number') ? run(String(c)) : c); // [31v] auto-bọc CHUỖI/SỐ thô → run() (docx bỏ child là string → rớt trắng; chống mất nội dung thầm lặng). Additive: run-object/OMML giữ nguyên.
+    .map(c => (typeof c === 'string' || typeof c === 'number') ? run(String(c)) : c) // [31v] auto-bọc CHUỖI/SỐ thô → run() (docx bỏ child là string → rớt trắng; chống mất nội dung thầm lặng). Additive: run-object/OMML giữ nguyên.
+    .flat(Infinity); // [31w] FLAT LẠI sau map: run() có thể trả MẢNG (tách-font ký hiệu Cambria ≥ ≠ ×…) → nếu không làm phẳng, mảng lọt làm con Paragraph → node rác <0/> → Word đòi Repair. TextRun/OMML/Paragraph là object (không phải mảng) nên flat bỏ qua → 0 ảnh hưởng bài dùng run()/R() đúng chuẩn.
   const viTri = [];
   ds.forEach((c, i) => { if (c instanceof Paragraph) viTri.push(i); });
   if (viTri.length) {

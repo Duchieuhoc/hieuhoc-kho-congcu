@@ -1,3 +1,12 @@
+[31w] hieuhoc_template.js (sửa 1 hàm) — para() FLAT LẠI sau auto-bọc [31v] (Ông Bụt Đại số THPT, 2026-10-04; lỗi lộ khi QC DS11_CH02_B07 — AI Soạn báo [VÁ para]: chuỗi thô trộn ký hiệu Cambria sinh node rác <0/> → Word đòi Repair).
+      • NGUYÊN NHÂN: [31v] chèn `.map(string→run())` SAU `.flat(Infinity)`. Nhưng run() với chuỗi chứa ký hiệu Cambria (≥ ≤ ≠ × ⇒…) TÁCH-FONT trả về MẢNG nhiều run (thiết kế [28p]). Mảng mới sinh này KHÔNG được làm phẳng lại → lọt làm con Paragraph → docx sinh node rác <0/> → Word từ chối mở (đòi Repair). kiemMay BẮT được (<0/>) nên không rớt âm thầm.
+      • SỬA: thêm `.flat(Infinity)` NGAY SAU .map([31v]). run() trả mảng nay được làm phẳng; TextRun/OMML/Paragraph là object (không phải mảng) nên flat bỏ qua.
+      • ADDITIVE/robustness — chữ ký para() KHÔNG đổi → KHÔNG regen API/bản trích. REPRO trước vá: para(["…n ≥ 2… ≠ 0… × q"]) → con Paragraph = Array → <0/>. Sau vá: 3 TextRun phẳng, 0 rác, text đủ.
+      • REGRESSION: dựng lại B05 + B06 + B07 trên [31w] → document.xml BYTE-IDENTICAL với bản [31v] (334040 / 381495 / 407253 byte; 0 node rác cả cũ lẫn mới) → 0 ảnh hưởng bài dùng run()/R()/toInline đúng chuẩn.
+      • WORKAROUND cũ (B07): AI Soạn đã tránh bằng toInline()/paraInline cho dòng trộn Cambria → B07 vốn đã sạch; [31w] gỡ bẫy để từ nay para() trực tiếp cũng an toàn.
+      • FILE THAY ĐỔI (upload đè GitHub): hieuhoc_template.js · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-04 (nối tiếp [31v]).
+
 [31v] hieuhoc_template.js (sửa 1 hàm) — para() AUTO-BỌC CHUỖI/SỐ THÔ → run() (Ông Bụt Đại số THPT, 2026-10-03; lỗi lộ khi QC DS11_CH02_B06 — Giám đốc báo "phần lý thuyết bị dòng trắng").
       • NGUYÊN NHÂN: docx bỏ qua child là string thuần (không bọc run) → para([ "chuỗi thô" ]) hoặc para([ "chuỗi", OMML ]) RỚT TRẮNG (mất nội dung thầm lặng, không throw). B06 mất 4 câu dẫn lý thuyết + (kèm lỗi build quên C.push công thức CT) → 5 dòng trắng ở ② + thiếu 3 công thức uₙ/Sₙ.
       • SỬA: trong para(), sau flat(Infinity) thêm `.map(c => (typeof c==='string'||typeof c==='number') ? run(String(c)) : c)`. Chuỗi/số thô → run(); run-object/OMML giữ NGUYÊN.
