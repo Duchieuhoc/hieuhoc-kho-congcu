@@ -152,11 +152,12 @@ class HinhCoBan:
             do = round(math.degrees(dd if dd <= math.pi else 2 * math.pi - dd), 4)
         self.rb.append({'loai':'goc','ten':list(ten),'do':do})
         self.tikz.append(('goc', list(ten), do, hien_so, mau, ban_kinh)); return self
-    def goc_vuong(self, ten):
+    def goc_vuong(self, ten, mau=None):
         """Đánh dấu GÓC VUÔNG (90°) trên góc 'ten' = (cạnh1, đỉnh, cạnh2) đã khai — vẽ Ô VUÔNG nhỏ
-        thay cung số. PHANH kiểm góc = 90°. Chỉ đánh dấu; 2 cạnh phải khai trước qua tia/chum_tia."""
+        thay cung số. PHANH kiểm góc = 90°. Chỉ đánh dấu; 2 cạnh phải khai trước qua tia/chum_tia.
+        mau: màu ô vuông (None → 'orange' mặc định); mau='red' cho góc vuông KẾT QUẢ ở hình lời giải."""
         self.rb.append({'loai':'goc','ten':list(ten),'do':90})
-        self.tikz.append(('goc_vuong', list(ten))); return self
+        self.tikz.append(('goc_vuong', list(ten), mau)); return self
     def tia(self, goc_O, ten_dau, xoay=0, mui_ten=False, nhan='auto', mau=None, net='lien', dai=None):
         """TIA gốc 'goc_O' hướng tới 'ten_dau', nghiêng 'xoay'° so ngang (0 = sang phải). Gốc chưa đặt
         → đặt tại (0,0). mui_ten=True → mũi tên đầu tia (ký hiệu tia). nhan: vị trí nhãn mút ('auto' tự chọn).
@@ -892,7 +893,7 @@ class HinhCoBan:
                 px,py = -dy/Ln*0.12, dx/Ln*0.12
                 L.append(f'  \\draw[thick] ({mx-px:.3f},{my-py:.3f})--({mx+px:.3f},{my+py:.3f});')
             elif k=='goc_vuong':
-                L.append(P._o_vuong(self.V, el[1]))
+                L.append(P._o_vuong(self.V, el[1], (el[2] if len(el)>2 and el[2] else "orange")))
             elif k=='thuoc':
                 O_, R = el[1], el[2]; base, chieu, thang = el[3], el[4], el[5]
                 cx, cy = self.V[O_]
