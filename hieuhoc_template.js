@@ -756,7 +756,8 @@ function para(children, opts = {}) {
   // Nguyên nhân luôn là quên spread khi hàm trả về MẢNG Paragraph:
   //     children.push(H.para(H.loiGiai({...})))     ← SAI
   //     children.push(...H.loiGiai({...}))          ← ĐÚNG
-  const ds = (Array.isArray(children) ? children : [children]).flat(Infinity); // [28p] làm phẳng mảng run()
+  const ds = (Array.isArray(children) ? children : [children]).flat(Infinity) // [28p] làm phẳng mảng run()
+    .map(c => (typeof c === 'string' || typeof c === 'number') ? run(String(c)) : c); // [31v] auto-bọc CHUỖI/SỐ thô → run() (docx bỏ child là string → rớt trắng; chống mất nội dung thầm lặng). Additive: run-object/OMML giữ nguyên.
   const viTri = [];
   ds.forEach((c, i) => { if (c instanceof Paragraph) viTri.push(i); });
   if (viTri.length) {

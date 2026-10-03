@@ -1,20 +1,17 @@
-===== 00_DANH_MUC — CAPNHAT_KHO__31t =====
-Chiều: OB → Thầy → PUSH GitHub (hieuhoc-kho-congcu, Commit changes — nối tiếp [31s] f810fe0→[31t])
-Ngày: 03/10/2026 · OB Đại số THPT
-Mốc kho mới: 2026-10-03 [31t]
+===== 00_DANH_MUC — CAPNHAT_KHO__31v =====
+Chiều: OB → Thầy → PUSH GitHub (hieuhoc-kho-congcu, Commit changes — nối tiếp [31u] 26306e62 → [31v])
+Ngày: 03/10/2026 · OB Đại số THPT · Mốc kho mới: 2026-10-03 [31v]
 
-FILE — TRẠNG THÁI — GHI CHÚ
+FILE — TRẠNG THÁI
 ---------------------------------------------------------------
-hinh_toado.py ........................ SỬA (đè) — truc_so_huu_ti +ti_le=True (nhánh giãn đều ti_le=False). ADDITIVE, 0 regression.
-00_MUC_LUC_HAM.md .................... REGEN (đè) — chữ ký truc_so_huu_ti thêm ti_le.
-BAN_TRICH_HAM_DS11_CH02__toado.md .... MỚI — bản trích trục số cho chương DS11_CH02.
-00_KHO_VERSION.txt ................... BUMP (đè) — thêm mốc [31t] 2026-10-03.
+hieuhoc_template.js ...... SỬA (đè) — para() auto-bọc chuỗi/số thô → run() (chống rớt trắng). ADDITIVE.
+00_KHO_VERSION.txt ....... BUMP (đè) — thêm mốc [31v].
 
 KIỂM TRƯỚC PUSH (đã chạy):
-  ✓ render Hình 1 B05 (ti_le=False) — soi mắt ĐẠT (nhãn tách rõ, thứ tự u₁<u₃<u₅<0<u₄<u₂)
-  ✓ 4 ca regression ti_le=True — render OK (hành vi cũ nguyên vẹn)
-  ✓ import-test 10/10 module OK
-  ✓ regen mục lục + bản trích khớp chữ ký mới
+  ✓ test chuỗi thô / chuỗi+OMML: trước rỗng → sau render đủ
+  ✓ B06 rebuild: 0 đoạn rỗng thân bài, 3 công thức lý thuyết hiện lại
+  ✓ REGRESSION B05: document.xml [31v] BYTE-IDENTICAL [31u] → 0 regression
+  ✓ chữ ký para() không đổi → KHÔNG regen API/bản trích
 
-SAU PUSH: mốc kho [31t] = 2026-10-03. AI Soạn bụng kho mới → dựng tiếp B05 trọn gói (có Hình 1).
+SAU PUSH: mốc [31v] = 2026-10-03.
 ===== HẾT =====

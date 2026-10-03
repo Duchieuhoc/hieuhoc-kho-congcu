@@ -1,3 +1,12 @@
+[31v] hieuhoc_template.js (sửa 1 hàm) — para() AUTO-BỌC CHUỖI/SỐ THÔ → run() (Ông Bụt Đại số THPT, 2026-10-03; lỗi lộ khi QC DS11_CH02_B06 — Giám đốc báo "phần lý thuyết bị dòng trắng").
+      • NGUYÊN NHÂN: docx bỏ qua child là string thuần (không bọc run) → para([ "chuỗi thô" ]) hoặc para([ "chuỗi", OMML ]) RỚT TRẮNG (mất nội dung thầm lặng, không throw). B06 mất 4 câu dẫn lý thuyết + (kèm lỗi build quên C.push công thức CT) → 5 dòng trắng ở ② + thiếu 3 công thức uₙ/Sₙ.
+      • SỬA: trong para(), sau flat(Infinity) thêm `.map(c => (typeof c==='string'||typeof c==='number') ? run(String(c)) : c)`. Chuỗi/số thô → run(); run-object/OMML giữ NGUYÊN.
+      • ADDITIVE — chữ ký para() KHÔNG đổi → KHÔNG regen API/bản trích. Bài dùng run()/R() đúng chuẩn: output BYTE-IDENTICAL (đã diff B05 document.xml [31u] vs [31v]: GIỐNG HỆT, 0 regression). Chỉ bài lỡ truyền chuỗi thô nay render đủ (hết rớt trắng).
+      • Kiểm thật: test A(chuỗi thô)/C(chuỗi+OMML) trước = rỗng → sau = render đủ. B06 rebuild: 0 đoạn rỗng thân bài, 3 công thức lý thuyết hiện lại. 12 para rỗng còn lại đều TRONG Ô BẢNG Đúng/Sai (chuẩn OOXML, benign).
+      • FILE THAY ĐỔI (upload đè GitHub): hieuhoc_template.js · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-03 (nối tiếp [31u]).
+      • GHI CHÚ build: lỗi B06 còn do build quên `C.push(CT(...))` (gọi CT nhưng không đẩy vào children) → công thức mất. Đây là KỶ LUẬT BUILD (AI Soạn), không phải template. PHANHOI nhắc AI Soạn: (1) luôn bọc text bằng R()/H.run; (2) mọi helper trả Paragraph phải C.push.
+
 [31u] hieuhoc_template.js (sửa 1 hàm) — toPhanChuong (TỜ PHÂN CHƯƠNG) THÊM lineRule:"auto" cho MỌI spacing.line (Ông Bụt, 2026-10-03; GĐ báo "tờ phân chương chưa đạt — có mẫu chuẩn mà sao vậy", danh sách bài bị bóp dòng chật).
       • NGUYÊN NHÂN: các Paragraph trong toPhanChuong dùng `spacing:{line:N}` KHÔNG kèm `lineRule`. Word hiểu thiếu lineRule = "auto" (giãn dòng đúng); LibreOffice hiểu = "exact" → ép đúng N twips → chữ 14pt bị bóp sát (danh sách bài chật). PDF (LibreOffice) ra chật dù Word vẫn đúng.
       • SỬA: mọi `line: N` trong toPhanChuong nay kèm `lineRule:"auto"` (13 chỗ). Riêng danh sách bài + "Tổng kết chương": `spacing:{before:60,after:60,line:300,lineRule:"auto"}, indent:{left:400}` (giãn thoáng, khớp mẫu chuẩn trên CẢ Word lẫn LibreOffice/PDF).
