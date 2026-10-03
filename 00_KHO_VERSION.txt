@@ -1,3 +1,11 @@
+[31u] hieuhoc_template.js (sửa 1 hàm) — toPhanChuong (TỜ PHÂN CHƯƠNG) THÊM lineRule:"auto" cho MỌI spacing.line (Ông Bụt, 2026-10-03; GĐ báo "tờ phân chương chưa đạt — có mẫu chuẩn mà sao vậy", danh sách bài bị bóp dòng chật).
+      • NGUYÊN NHÂN: các Paragraph trong toPhanChuong dùng `spacing:{line:N}` KHÔNG kèm `lineRule`. Word hiểu thiếu lineRule = "auto" (giãn dòng đúng); LibreOffice hiểu = "exact" → ép đúng N twips → chữ 14pt bị bóp sát (danh sách bài chật). PDF (LibreOffice) ra chật dù Word vẫn đúng.
+      • SỬA: mọi `line: N` trong toPhanChuong nay kèm `lineRule:"auto"` (13 chỗ). Riêng danh sách bài + "Tổng kết chương": `spacing:{before:60,after:60,line:300,lineRule:"auto"}, indent:{left:400}` (giãn thoáng, khớp mẫu chuẩn trên CẢ Word lẫn LibreOffice/PDF).
+      • KIỂM: regen TOPHANCHUONG + TONGHOP_CO_BIA → PDF LibreOffice → soi mắt: danh sách bài giãn thoáng, đạt. node --check + require() sạch. Additive theo tinh thần (chỉ thêm thuộc tính lineRule, KHÔNG đổi chữ ký/chức năng hàm) → 0 regression bài cũ (toPhanChuong chỉ dùng cho tờ bìa chương).
+      • Chữ ký hàm KHÔNG đổi → KHÔNG regen API_REFERENCE/00_MUC_LUC_HAM.
+      • FILE THAY ĐỔI (upload đè GitHub): hieuhoc_template.js (v10.33, giữ số — chỉ vá lineRule) · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-03 (nối tiếp [31t]).
+
 [31t] hinh_dagiac.py (+1 hàm) — LÁT KÍN tổ ong: +`lat_kin_luc_giac(tam, canh, so_hinh, xoay)` ghép so_hinh lục giác đều KHÍT quanh MỘT điểm chung (mỗi góc 120° tại tâm; so_hinh=3 → 360°, kín). Dùng cho Hình 17 B18 (bài lát kín gạch lục giác). Gỡ TREO "offset dat / primitive lát-kín" — trước phải dựng tay ngoài kho. Nhãn đỉnh ẩn, chỉ tâm hiện; KHÔNG ràng buộc PHANH (hình minh hoạ, không số đo). ADDITIVE — chỉ THÊM 1 method vào HinhDaGiac, các hàm cũ KHÔNG đổi → 0 regression (đã chạy lại luc_giac_deu/tu_giac/hinh_thoi: OK). Render-test + soi mắt: 3 lục giác khít cạnh quanh O trên ô lưới 8mm — ĐẠT. Ông Bụt Hình, 2026-10-03. FILE THAY ĐỔI (upload đè GitHub): hinh_dagiac.py · 00_KHO_VERSION.txt. (Hàm PHƠI mới — nếu AI Soạn cần gọi: regen BAN_TRICH_HAM chương tương ứng; B18 do OB tự render nên chưa cần.)
       Mốc kho: 2026-10-03 (nối tiếp [31s]).
 

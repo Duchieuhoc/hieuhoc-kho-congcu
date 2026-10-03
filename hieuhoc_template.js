@@ -2030,15 +2030,15 @@ function toPhanChuong({
     children: [ ...(khungRun ? [khungRun] : []), new ImageRun({ data: logoBuffer, transformation: { width: Math.round(logoWidth/9144), height: Math.round(logoHeight/9144) }, type: "png" })] }));
 
   // Tên hệ thống — 18pt
-  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 60, line: 320 },
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 60, line: 320, lineRule: "auto" },
     children: [run("HỆ THỐNG PHÁT TRIỂN NGUỒN LỰC HIẾU HỌC", { bold: true, color: "1F3864", size: 36 })] }));
 
   // Tên trung tâm — 14pt
-  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 20, line: 280 },
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 20, line: 280, lineRule: "auto" },
     children: [run("TRUNG TÂM BỒI DƯỠNG VĂN HÓA VÀ LUYỆN THI HIẾU HỌC", { bold: true, color: "1F3864", size: 28 })] }));
 
   // Số điện thoại liên lạc — nổi bật dưới tên trung tâm [31h · chỉ đạo GĐ 30/09]
-  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 20, line: 260 },
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 20, line: 260, lineRule: "auto" },
     children: [
       run("Số ĐTLL: ", { bold: true, color: "D84315", size: 26 }),
       run("0935.460.138 - 0935.305.545", { bold: true, color: "1565C0", size: 26 }),
@@ -2048,14 +2048,14 @@ function toPhanChuong({
   out.push(new Paragraph({ spacing: { before: 20, after: 20 }, indent: { left: 454, right: 454 },
     border: { bottom: { style: BorderStyle.DOUBLE, size: 6, color: "1565C0", space: 1 } }, children: [] }));
   // Dòng trắng
-  out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220 }, children: [] }));
+  out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220, lineRule: "auto" }, children: [] }));
 
   // Lớp/môn — 48pt
-  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: (phanMon ? 20 : 60), line: 400 },
+  out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: (phanMon ? 20 : 60), line: 400, lineRule: "auto" },
     children: [run(lop, { bold: true, color: "1565C0", size: 96 })] }));
   // Phân môn — 20pt (chỉ in khi truyền phanMon; Toán bỏ trống → không có dòng này)
   if (phanMon) {
-    out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 60, line: 300 },
+    out.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 60, line: 300, lineRule: "auto" },
       children: [run(`PHÂN MÔN: ${phanMon}`, { bold: true, color: "1565C0", size: 40 })] }));
   }
   // Bộ sách — 14pt xám
@@ -2069,7 +2069,7 @@ function toPhanChuong({
   out.push(new Paragraph({ spacing: { before: 20, after: 20 }, indent: { left: 964, right: 964 },
     border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: "1565C0", space: 1 } }, children: [] }));
   // Dòng trắng trước tên chương
-  out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220 }, children: [] }));
+  out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220, lineRule: "auto" }, children: [] }));
 
   // Tên chương — 14pt
   out.push(para([run(tenChuong, { bold: true, color: "1F3864", size: 28 })],
@@ -2077,14 +2077,14 @@ function toPhanChuong({
 
   // Danh sách bài — KHÔNG dấu ✦, tên bài 14pt đậm; KHÔNG số tiết, KHÔNG mã
   danhSachBai.forEach(b => {
-    out.push(new Paragraph({ spacing: { before: 10, after: 10, line: 220 }, indent: { left: 400 },
+    out.push(new Paragraph({ spacing: { before: 60, after: 60, line: 300, lineRule: "auto" }, indent: { left: 400 },
       children: [
         new TextRun({ text: `Bài ${b.soBai}. ${b.ten}`, font: TNR, bold: true, size: 28 }),
       ] }));
   });
   // Tổng kết chương
   if (coTongKet) {
-    out.push(new Paragraph({ spacing: { before: 10, after: 10, line: 220 }, indent: { left: 400 },
+    out.push(new Paragraph({ spacing: { before: 60, after: 60, line: 300, lineRule: "auto" }, indent: { left: 400 },
       children: [
         new TextRun({ text: "Tổng kết chương", font: TNR, bold: true, size: 28 }),
       ] }));
@@ -2092,9 +2092,9 @@ function toPhanChuong({
   // (Đề kiểm tra: ĐỂ RIÊNG — KHÔNG liệt kê ở tờ phân chương)
 
   // Dòng trắng
-  out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220 }, children: [] }));
+  out.push(new Paragraph({ spacing: { before: 0, after: 0, line: 220, lineRule: "auto" }, children: [] }));
   // Cấp cho — để trống điền tay (thụt 1 tab)
-  out.push(new Paragraph({ spacing: { before: 0, after: 30, line: 220 }, tabStops: [{ type: "left", position: 700 }],
+  out.push(new Paragraph({ spacing: { before: 0, after: 30, line: 220, lineRule: "auto" }, tabStops: [{ type: "left", position: 700 }],
     children: [
       new TextRun({ text: "	", font: TNR }),
       new TextRun({ text: "Cấp cho: ", font: TNR, bold: true, size: 28 }),
