@@ -1,4 +1,4 @@
-# BẢN TRÍCH HÀM — ĐỒ THỊ GIẢI TÍCH THPT (hinh_ds11_giaitich.py) · kho [32b]
+# BẢN TRÍCH HÀM — ĐỒ THỊ GIẢI TÍCH THPT (hinh_ds11_giaitich.py) · kho [32c]
 > import: `import hinh_ds11_giaitich as GT`. Render → PNG; build.js nhúng `H.hinhVe({ imageBuffer: buf })` (gọi hàm `tra_bytes=True`).
 > Triết lý Đ5.9: hàm nhận NGHĨA (hệ số hàm / tọa độ), máy TỰ dựng đường cong (pgfplots) + TỰ tính chân đường cao — KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42).
 > Chương: DS11_CH05 (Giới hạn. Hàm số liên tục). Nghiệm thu pilot DS11_CH05_B16.
@@ -22,3 +22,13 @@ TAM GIÁC VUÔNG $OAB$ TRÊN HỆ $Oxy$ (H5.5). $O=(0;0)$, $A=(a;0)$ trên $Ox$,
 ---
 > **Lưu ý đặt hình (HP Đ18):** đồ thị hữu tỉ khổ ~11×9cm > 8cm → căn giữa dòng riêng (Đ18 ngoại lệ 1). Tam giác tọa độ nhỏ → neo phải mặc định. Hình minh họa lý thuyết (HĐ/Vận dụng) — KHÔNG lộ đáp án (Đ35): H5.5 chỉ dựng setup (tam giác + đường cao), KHÔNG ghi giá trị $h$ hay kết quả giới hạn.
 > **Nghiệm thu [32b]:** 3 hình render + soi mắt QC V2 ĐẠT (đúng toán · trong chương · khớp khai nghĩa NGUON B16 · không lộ đáp án). pdflatex + pgfplots, dpi=200.
+
+## do_thi_bac_thang(doan, diem_dac=None, diem_ho=None, nhan_ham=None, xmax=1.3, ymax=1.4, xticks=(0.5,1.0), yticks=(0.5,1.0), xtick_lab=None, ytick_lab=None, out='bacthang', tra_bytes=False, scale=3.4)   ← [32c]
+ĐỒ THỊ HÀM BẬC THANG / PIECEWISE-LINEAR (H5.7 — minh họa **liên tục / gián đoạn**). Đường thẳng từng đoạn + điểm đặc/hở (tikz). Máy chỉ VẼ nghĩa đã khai (Đ5.9) — KHÔNG tự sinh điểm.
+- `doan`: list đoạn thẳng `[[(x1,y1),(x2,y2)], ...]` — vẽ đường LIỀN trong từng đoạn (không nối giữa 2 đoạn → thể hiện bước nhảy).
+- `diem_dac`: `[(x,y),...]` chấm ĐẶC (điểm **thuộc** đồ thị). `diem_ho`: `[(x,y),...]` vòng tròn RỖNG nền trắng (điểm **không thuộc** — điểm hở gián đoạn).
+- `xticks/yticks`: mốc chia trục (số); `xtick_lab/ytick_lab`: nhãn tường minh (None → tự format phân số đẹp, vd 0.5 → $\frac12$).
+- `nhan_ham`: nhãn hàm góc trên-phải (vd `r'y=f(x)'`). Khổ nhỏ (~4.5cm) → dùng `H.hangHinh([...])` ghép 2 đồ thị cạnh nhau (Đ18.1).
+- **H5.7:** f liền (gọi: `doan=[[(0,0),(0.5,1)],[(0.5,1),(1,1)]], diem_dac=[(0,0),(1,1)], nhan_ham='y=f(x)'`) · g gián đoạn (`doan=[[(0,0),(0.5,0.5)],[(0.5,1),(1,1)]], diem_dac=[(0,0),(0.5,0.5),(1,1)], diem_ho=[(0.5,1)], nhan_ham='y=g(x)'`).
+- Trọng tài: SGK H5.7 (HĐ2 — hàm liên tục/gián đoạn tại $x=\frac12$). **Dùng cho mọi đồ thị bậc thang / hàm nhiều công thức khác.**
+- **🔴 H5.8 (IVT — đường cong cắt Ox) KHÔNG dựng ở [32c]:** IVT không bắt buộc (SGV) → KHO⑦; khi cần dựng bài IVT thì báo OB bổ hàm.

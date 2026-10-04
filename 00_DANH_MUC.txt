@@ -1,15 +1,10 @@
-CAPNHAT_KHO__32b — push GitHub (hieuhoc-kho-congcu), Commit changes
-⚠️ BẢN NÀY THAY CHO CAPNHAT_KHO__32a/31ab (ĐỪNG dùng 2 bản cũ — [32a] đã là của máy Hình).
+CAPNHAT_KHO__32c — push GitHub (hieuhoc-kho-congcu), Commit changes
+PILOT B17: +do_thi_bac_thang (đồ thị bậc thang H5.7).
 
-ĐỔI NHÃN: giaitich [32a]→[32b] vì [32a] = PRIMITIVE VECTƠ (máy Hình THPT, đã push 11:37).
-KHÔI PHỤC LỆCH PHA: bản vá lim B15 (push 12:42) đã ĐÈ MẤT dòng log [32a]. 00_KHO_VERSION
-  bản này KHÔI PHỤC block [32a] + thêm [32b]. Thứ tự: [32b]→[32a vectơ]→[31za]→[31z]...
+FILE (upload ĐÈ 3 file, GIỮ NGUYÊN mọi file khác — nhất là file vectơ [32a] máy Hình):
+  hinh_ds11_giaitich.py                 — SỬA additive (+do_thi_bac_thang + _fmt_tick)
+  BAN_TRICH_HAM_DS11_CH05__giaitich.md  — cập nhật (thêm entry do_thi_bac_thang)
+  00_KHO_VERSION.txt                    — THAY (prepend [32c]; giữ [32b]→[32a]→[31za]...)
 
-FILE (upload ĐÈ 3 file, GIỮ NGUYÊN mọi file khác — NHẤT LÀ file vectơ của máy Hình):
-  hinh_ds11_giaitich.py                 — MỚI (đồ thị giải tích Ch5: H5.4/H5.5/H5.6)
-  BAN_TRICH_HAM_DS11_CH05__giaitich.md  — MỚI (API cho AI Soạn)
-  00_KHO_VERSION.txt                    — THAY (khôi phục [32a] + thêm [32b])
-
-TUYỆT ĐỐI KHÔNG upload đè: hinh_coban.py · hinh_toado.py · hinh_hh10_ch04.py ·
-  BAN_TRICH_HAM_HH10_CH04.md · 00_MUC_LUC_HAM.md (của máy Hình — [32a] vectơ, còn nguyên trên GitHub).
-Sau push: HEAD có cả giaitich [32b] lẫn vectơ [32a]; 00_KHO_VERSION đủ 2 mốc.
+Dựng trên HEAD thật 5c3fd58 ([32b]). Thứ tự [32c]→[32b]→[32a]→[31za]... KHÔNG đụng template/vectơ.
+Sau push: HEAD ra [32c].

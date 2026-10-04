@@ -1,3 +1,11 @@
+[32c] hinh_ds11_giaitich.py (+1 hàm) + BAN_TRICH_HAM_DS11_CH05__giaitich.md (cập nhật) — Ông Bụt Đại số THPT, 2026-10-04; PILOT DS11_CH05_B17 (Hàm số liên tục): OB dựng trước hàm hình H5.7.
+      • THÊM do_thi_bac_thang(doan, diem_dac, diem_ho, ...) — đồ thị bậc thang/piecewise-linear + điểm đặc/hở (tikz), minh họa LIÊN TỤC/GIÁN ĐOẠN (H5.7: f liền / g hở tại (1/2,1)).
+      • NGHIỆM THU: render H5.7 f+g (pdflatex+tikz dpi200) + soi mắt ĐẠT (đúng toán · trong chương · khớp khai nghĩa NGUON B17 · không lộ đáp án — HĐ2 là đồ thị cho sẵn).
+      • H5.8 (IVT đường cong cắt Ox) KHÔNG dựng — IVT không bắt buộc (SGV) → KHO⑦.
+      • ADDITIVE — chỉ THÊM 1 hàm + helper _fmt_tick vào module ĐỘC LẬP; do_thi_huu_ti/tam_giac_toa_do [32b] KHÔNG đổi (0 regression). template.js KHÔNG đổi (v10.35 [31za]). KHÔNG đụng file máy Hình.
+      • FILE upload GitHub: hinh_ds11_giaitich.py · BAN_TRICH_HAM_DS11_CH05__giaitich.md · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-04 (nối tiếp [32b]).
+
 [32b] hinh_ds11_giaitich.py (MỚI — module đồ thị giải tích Ch5) + BAN_TRICH_HAM_DS11_CH05__giaitich.md (MỚI) — Ông Bụt Đại số THPT, 2026-10-04; PILOT DS11_CH05_B16 (Giới hạn hàm số): OB dựng trước hàm hình (HP Đ5.9 — AI Soạn không tự vẽ).
       ★ SỬA LỆCH PHA: [32a] đã CÓ CHỦ = PRIMITIVE VECTƠ (máy Hình THPT, push 11:37). Bản vá lim B15 (CAPNHAT_31za) push 12:42 ĐÃ ĐÈ MẤT dòng log [32a] (code vectơ còn nguyên; chỉ log mất). Bản [32b] này KHÔI PHỤC block [32a] bên dưới + prepend [32b]. OB giaitich đổi nhãn [32a]→[32b].
       • 3 HÀM (pgfplots qua render_tikz_doc, PHANH nội sinh):

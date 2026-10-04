@@ -5,7 +5,7 @@
 #   — KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42). Nhãn math-mode (pdflatex-safe): O, x, y, số,
 #   x=c, y=a. KHÔNG chữ tiếng Việt trong hình.
 #
-# [32b] 2026-10-04 — PILOT DS11_CH05_B16 (Giới hạn hàm số). 3 hàm:
+# [32c] 2026-10-04 — +do_thi_bac_thang (PILOT DS11_CH05_B17, hàm số liên tục H5.7). Dưới: [32b] 2026-10-04 — PILOT DS11_CH05_B16 (Giới hạn hàm số). 3 hàm:
 #   • do_thi_huu_ti(dang='doi_truc')      — hyperbol dời trục y=a+b/(x-c): 2 nhánh, TCĐ x=c, TCN y=a (H5.4).
 #   • do_thi_huu_ti(dang='nghich_dao_binh') — y=k/(x-c)^2: hàm chẵn chữ U, TCĐ x=c, TCN y=0 (H5.6).
 #   • tam_giac_toa_do(a)                  — tam giác vuông OAB trên Oxy, A=(a;0) B=(0;1), đường cao OH (H5.5).
@@ -140,5 +140,56 @@ def tam_giac_toa_do(a=2.0, ten_O='O', ten_A='A', ten_B='B', ten_H='H',
             # nhãn độ dài h đặt giữa OH
             r'\node[red,font=\small] at (%g,%g) {$%s$};' % (Hx * 0.5 - 0.12, Hy * 0.5 + 0.1, nhan_h),
         ]
+    tz.append(r'\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(tz), out, tra_bytes, dpi=200)
+
+
+def _fmt_tick(v):
+    # format mốc trục: 0.5 -> \frac{1}{2}, 1 -> 1, nguyên -> %g
+    from fractions import Fraction
+    if abs(v - round(v)) < 1e-9:
+        return '%g' % round(v)
+    fr = Fraction(v).limit_denominator(12)
+    return r'\frac{%d}{%d}' % (fr.numerator, fr.denominator)
+
+
+def do_thi_bac_thang(doan, diem_dac=None, diem_ho=None, nhan_ham=None,
+                     xmax=1.3, ymax=1.4, xticks=(0.5, 1.0), yticks=(0.5, 1.0),
+                     xtick_lab=None, ytick_lab=None, out='bacthang', tra_bytes=False, scale=3.4):
+    """ĐỒ THỊ HÀM BẬC THANG / PIECEWISE-LINEAR (H5.7 — minh họa liên tục/gián đoạn).
+       doan: list đoạn thẳng [[(x1,y1),(x2,y2)], ...] — vẽ đường LIỀN từng đoạn (nối trong 1 đoạn).
+       diem_dac: [(x,y),...] chấm ĐẶC (điểm thuộc đồ thị). diem_ho: [(x,y),...] vòng RỖNG (điểm KHÔNG thuộc — điểm hở).
+       xticks/yticks: mốc chia (số); xtick_lab/ytick_lab: nhãn tường minh (None → tự format phân số đẹp).
+       nhan_ham: nhãn hàm (vd r'y=f(x)') góc trên-phải. Máy chỉ VẼ nghĩa đã khai — không tự sinh điểm."""
+    diem_dac = diem_dac or []
+    diem_ho = diem_ho or []
+    xl = xtick_lab or [_fmt_tick(t) for t in xticks]
+    yl = ytick_lab or [_fmt_tick(t) for t in yticks]
+    tz = [r'\documentclass[border=6pt]{standalone}',
+          r'\usepackage{tikz}\usepackage{amsmath}',
+          r'\usetikzlibrary{arrows.meta}',
+          r'\begin{document}',
+          r'\begin{tikzpicture}[scale=%g,>={Stealth[length=1.6mm]},line join=round]' % scale,
+          # trục
+          r'\draw[->] (-0.12,0) -- (%g,0) node[below right]{$x$};' % xmax,
+          r'\draw[->] (0,-0.12) -- (0,%g) node[left]{$y$};' % ymax,
+          r'\node[below left,font=\footnotesize] at (0,0) {$O$};']
+    # mốc trục x
+    for t, lab in zip(xticks, xl):
+        tz.append(r'\draw (%g,0.02) -- (%g,-0.02) node[below,font=\scriptsize]{$%s$};' % (t, t, lab))
+    for t, lab in zip(yticks, yl):
+        tz.append(r'\draw (0.02,%g) -- (-0.02,%g) node[left,font=\scriptsize]{$%s$};' % (t, t, lab))
+    # đường liền từng đoạn
+    for seg in doan:
+        pts = ' -- '.join('(%g,%g)' % (x, y) for (x, y) in seg)
+        tz.append(r'\draw[blue,line width=1pt] %s;' % pts)
+    # điểm đặc
+    for (x, y) in diem_dac:
+        tz.append(r'\fill[blue] (%g,%g) circle (1.4pt);' % (x, y))
+    # điểm hở (vòng tròn rỗng, nền trắng)
+    for (x, y) in diem_ho:
+        tz.append(r'\draw[blue,line width=0.8pt,fill=white] (%g,%g) circle (1.6pt);' % (x, y))
+    if nhan_ham:
+        tz.append(r'\node[blue,anchor=south west,font=\small] at (%g,%g) {$%s$};' % (xmax*0.42, ymax-0.18, nhan_ham))
     tz.append(r'\end{tikzpicture}\end{document}')
     return _HC.render_tikz_doc('\n'.join(tz), out, tra_bytes, dpi=200)
