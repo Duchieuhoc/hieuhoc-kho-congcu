@@ -1,12 +1,12 @@
 # 00_MUC_LUC_HAM — MỤC LỤC HÀM TỔNG (tra "đã-có-chưa" TRƯỚC khi viết)
 
 > **Tự sinh** bởi `sinh_mucluc.py` — TÁI DÙNG `sinh_bantrich.py` (Python) + `API_REFERENCE.md` (output `sinh_apiref.js`, JS). KHÔNG sửa tay.
-> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 03/10/2026.
+> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 04/10/2026.
 > **LUẬT VÀNG:** trước khi viết hàm mới → tra file này (Ctrl+F theo NGHĨA). Có hàm khớp → GỌI LẠI. Gần giống → MỞ RỘNG. Viết mới là bậc CUỐI.
 
 *Ẩn: hàm hạ tầng (`_…`) + cửa render (`ve`) theo Đ5.9. Base compose per-bài không vào kho → không liệt kê.*
 
-## Đa giác  · 20 hàm
+## Đa giác  · 21 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -22,6 +22,7 @@
 | `hinh_thoi(A, B, Cc, D, a=4, b=3, cheo=True, tam='O')` | Hình thoi "kim cương" dựng theo 2 nửa chéo NGUYÊN ô → tâm + 4 đỉnh rơi NÚT lưới | `hinh_dagiac.py` | generator | — |
 | `hinh_vuong(M, N, P_, Q, canh=4, goc_o=(0.0, 0.0), cham=True)` | Hình VUÔNG: M dưới-trái, N trên-trái, P trên-phải, Q dưới-phải | `hinh_dagiac.py` | generator | — |
 | `la_ban(goc_O='O', huong=None, dai=3.0, scale=1.0, out='la_ban', tra_bytes=False, chuThich=None)` | LA BÀN định hướng hàng hải — trục N–S (dọc) & W–E (ngang) giao tại O, nhãn 4 phương; mỗi 'tia hướng' theo quy ước Sα°E / Nα°W… + cung góc α với trục m | `hinh_dagiac.py` | method | — |
+| `lat_kin_luc_giac(tam='O', canh=1.6, so_hinh=3, xoay=0)` | LÁT KÍN tổ ong: so_hinh lục giác đều cạnh 'canh' ghép khít quanh MỘT điểm chung 'tam' (mỗi góc trong 120° tại tâm; so_hinh × 120° phủ quanh tâm — với  | `hinh_dagiac.py` | method | — |
 | `luc_giac_deu(A, B, Cc, D, E, F, canh=2.0, xoay=0, cheo=None, tam=None)` | Lục giác đều 6 đỉnh, thứ tự A→B→C→D→E→F theo chiều kim đồng hồ | `hinh_dagiac.py` | method | — |
 | `ngoi_sao(tam, so_canh=5, ban_kinh=2.0, xoay=90, ti_le_trong=None, to=None, nhan=None, cham_tam=False)` | NGÔI SAO so_canh cánh (mặc định 5 — cờ VN/Quốc kỳ; dùng cả 4/6/8 cánh cho Chương V) | `hinh_dagiac.py` | method | — |
 | `tam_giac(A, B, Cc, noi=True, goc_o=(0.0, 0.0))` | Tam giác 3 đỉnh (không thẳng hàng) | `hinh_dagiac.py` | method | — |
@@ -117,7 +118,7 @@
 | `vanhKhan(R='R', r='r', toVanh=True, chuThich=None, nua=False, out='vanh_khan', tra_bytes=False)` | VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R), mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh) | `hinh_tron_ve.py` | method | — |
 | `vien_phan(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH VIÊN PHÂN giới hạn bởi dây AB và cung nhỏ AB (A,B trên đường tròn 'tam') | `hinh_tron_ve.py` | method | — |
 
-## Dựng Word (template JS v10.32)  · 76 hàm
+## Dựng Word (template JS v10.34)  · 77 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -135,6 +136,7 @@
 | `footerTPC()` | Footer riêng cho tờ phân chương (khác footer file bài học — không số trang) | `hieuhoc_template.js` | JS | — |
 | `ghiChuGiangDay({ dsLopBai } = {})` | — | `hieuhoc_template.js` | JS | — |
 | `ghiNhoNhanh(dongArr, opts = {})` | — | `hieuhoc_template.js` | JS | — |
+| `gioiHan(duoi, than)` | — | `hieuhoc_template.js` | JS | — |
 | `hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {})` | 22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3  | `hieuhoc_template.js` | JS | — |
 | `hePhuongTrinh(danhSachPT)` | [31q] TUYỂN NGHIỆM — ngoặc vuông "[" (HOẶC) cho nghiệm phương trình LG Mirror hePhuongTrinh nhưng begChr="[" (tuyển: x=... HOẶC x=...). KHÁC hệ "{" (đ | `hieuhoc_template.js` | JS | — |
 | `headerDeKiemTra({ tenDe, phut })` | 16. HEADER ĐỀ KIỂM TRA (tên đề + thời gian + bảng Họ tên/Điểm/NX) | `hieuhoc_template.js` | JS | — |
@@ -199,4 +201,4 @@
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 71 hàm Python (vẽ hình) + 76 hàm JS (dựng Word) = 147.
+**Thống kê:** 72 hàm Python (vẽ hình) + 77 hàm JS (dựng Word) = 149.

@@ -1,3 +1,12 @@
+[31x] hieuhoc_template.js (THÊM 1 hàm) + _RE_TOAN (+1 ký tự) — gioiHan() TOÁN TỬ GIỚI HẠN lim (Ông Bụt Đại số THPT, 2026-10-04; PILOT chương giải tích đầu DS11_CH05_B15 — lộ hàm template thiếu đúng dự báo khai cuộc §2sexies).
+      • VÌ SAO: chương Giới hạn·Hàm số liên tục dùng dày đặc lim (dãy + hàm), nhưng template CHƯA có hàm lim nào (bộ toán cũ: luyThua/phanSo/canBac/ngoac/soGachTren/chiSoDuoi/triTuyetDoi/hePhuongTrinh/tuyenNghiem — không lim). Đây là BLOCKER cả chương.
+      • THÊM: gioiHan(duoi, than) → OMML <m:func><m:funcName><m:limLow><m:e>lim</m:e><m:lim>duoi</m:lim></m:limLow></m:funcName><m:e>than</m:e></m:func> (đúng cách Word biểu diễn lim). duoi & than nhận chuỗi|số|OMML qua _mathChild (nhận phanSo/canBac/ngoac làm thân). _dmath → _hhComp (lồng được trong biểu thức lớn).
+      • _RE_TOAN += → (U+2192): mũi tên loose-text (uₙ → 0; x → x₀) route Cambria Math (font-proof; trước rơi TNR = tofu). − (U+2212) KHÔNG thêm (kiemMay cấm loose-text, phải dùng '-' U+002D).
+      • ADDITIVE — gioiHan là hàm MỚI (không đụng hàm cũ); → chỉ thêm 1 ký tự vào bảng font-route. Bài cũ 0 ảnh hưởng.
+      • RENDER-TEST (qua cửa kiemMay — CHÍNH cửa AI QC): 5 dạng lim (dãy uₙ · phân thức n²+n+1 / 2n²-1 · căn √(2n²+1)/(n+1) · ngoặc (n²-2n) · một bên x→2⁺) → m:func=5, m:limLow=5, node rác <0/>=0, m:e lồng=0, → = Cambria Math, XML well-formed. XUẤT OK.
+      • FILE THAY ĐỔI (upload đè GitHub): hieuhoc_template.js · API_REFERENCE.md (regen) · 00_MUC_LUC_HAM.md (regen) · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-04 (nối tiếp [31w]).
+
 [31w] hieuhoc_template.js (sửa 1 hàm) — para() FLAT LẠI sau auto-bọc [31v] (Ông Bụt Đại số THPT, 2026-10-04; lỗi lộ khi QC DS11_CH02_B07 — AI Soạn báo [VÁ para]: chuỗi thô trộn ký hiệu Cambria sinh node rác <0/> → Word đòi Repair).
       • NGUYÊN NHÂN: [31v] chèn `.map(string→run())` SAU `.flat(Infinity)`. Nhưng run() với chuỗi chứa ký hiệu Cambria (≥ ≤ ≠ × ⇒…) TÁCH-FONT trả về MẢNG nhiều run (thiết kế [28p]). Mảng mới sinh này KHÔNG được làm phẳng lại → lọt làm con Paragraph → docx sinh node rác <0/> → Word từ chối mở (đòi Repair). kiemMay BẮT được (<0/>) nên không rớt âm thầm.
       • SỬA: thêm `.flat(Infinity)` NGAY SAU .map([31v]). run() trả mảng nay được làm phẳng; TextRun/OMML/Paragraph là object (không phải mảng) nên flat bỏ qua.
