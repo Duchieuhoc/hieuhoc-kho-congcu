@@ -1,3 +1,15 @@
+[31z] hinh_ds11_mu_logarit.py (VÁ 2 hàm — pilot DS11_CH06_B20 lộ) + BAN_TRICH (regen, đổi chữ ký) — Ông Bụt Đại số THPT, 2026-10-04; AI Soạn báo [SỬA] S1/S2 + đề nghị Đ1/Đ2 ở Bước 0 pilot.
+      • VÁ 4 điểm + 1 dự phòng (A↔C Đ5.9: AI Soạn báo, OB thẩm định + tự vá + chạy thật):
+        - S1 (nhãn trục đè tick): xlabel/ylabel dời ra ĐẦU MŨI TÊN (at=(axis cs:xmax,0)/(0,ymax), anchor south west/south east) → hết "8x" chồng. Áp cả do_thi_ham_mu + do_thi_ham_log.
+        - S2 (điểm (a;1) ngoài khung khi cơ số lớn): do_thi_ham_log xmax + tick THÍCH ỨNG cơ số (a>1 lớn → xmax=a*1.18, tick bước 2 khi >9). y=log x (a=10) nay có đủ chấm (10;1) + gióng trong khung.
+        - Đ1 (đường cong mũ cắt nhãn cơ số thoải): cùng gốc S1 — nhãn đường cong dời về GÓC TRỐNG (mũ a>1 trên-trái / a<1 trên-phải; log a>1 dưới-phải / a<1 trên-phải). Hết đụng.
+        - Đ2 (nhãn tự sinh cơ số vô tỉ ra phân số rác 168/97): _nhan_* chỉ format phân số khi KHỚP CHÍNH XÁC mẫu ≤ 12; vô tỉ (√3) → RAISE buộc truyền nhan (dừng-báo thay vì sai thầm lặng).
+        - +duong_ngang/nhan_ngang (DỰ PHÒNG Bài 21 — khỏi pilot lại): vẽ đường y=b cắt đồ thị + chấm giao + gióng. Render-verify Hình 6.7 (y=2^x cắt y=4 tại (2;4)) + Hình 6.8 (log₂x cắt y=2 tại (4;2)) ĐẠT.
+      • CHỮ KÝ ĐỔI (thêm duong_ngang, nhan_ngang) → REGEN BAN_TRICH_HAM_DS11_CH06__mu_logarit.md.
+      • RENDER-VERIFY (soi mắt): checklist AI Soạn 5 mục đạt — log cụ thể a=1/2,2,1/3,√3,2/3 nhãn không đè; log(10) điểm mốc trong khung; mũ(1.5) không đụng nhãn; 6 hình lý thuyết sạch; 0 regression (file mới, chỉ sửa nội bộ 2 hàm). + B21 2 ảnh duong_ngang đạt.
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_ds11_mu_logarit.py · BAN_TRICH_HAM_DS11_CH06__mu_logarit.md (regen) · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-04 (nối tiếp [31y]).
+
 [31y] hinh_ds11_mu_logarit.py (FILE MỚI — generator độc lập) + BAN_TRICH_HAM_DS11_CH06__mu_logarit.md (MỚI) — ĐỒ THỊ HÀM MŨ & HÀM LÔGARIT (Ông Bụt Đại số THPT, 2026-10-04; PILOT chương Mũ–Lôgarit DS11_CH06_B20 — lộ hàm đồ thị mũ/log kho CHƯA có đúng dự báo KE_CHUONG).
       • VÌ SAO: chương Hàm số mũ & lôgarit (Bài 20) cần đồ thị y=a^x và y=log_a x (Hình 6.1–6.4) + Bài 21 đồ thị minh hoạ nghiệm. Kho CHỈ có do_thi_luong_giac (lượng giác) — KHÔNG có hàm đồ thị mũ/log. Đây là BLOCKER cả Bài 20.
       • THÊM 2 hàm (file RIÊNG, như hinh_ds11_luonggiac.py): do_thi_ham_mu(co_so, nhan, hien_diem, tong_quat) + do_thi_ham_log(...). Máy tự dựng đường cong từ công thức (pgfplots exp(x·ln a) / ln(x)/ln(a)) — Đ5.9, KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42). 2 chế độ: cụ thể (hiện số trục — VD/BT) + tổng quát (ẩn số trục, ký hiệu 1/a — Hình 6.1/6.3).

@@ -1,16 +1,13 @@
-================ 00_DANH_MUC.txt — CAPNHAT_KHO__31y ================
-Đích: Giám đốc UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu), Commit changes.
-Nối tiếp HEAD [31x]. QUY_UOC §1 chiều A.
+================ 00_DANH_MUC.txt — CAPNHAT_KHO__31z ================
+Đích: Giám đốc UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes. Nối tiếp HEAD [31y]. QUY_UOC §1 chiều A.
+LÝ DO: pilot DS11_CH06_B20 (AI Soạn Bước 0) lộ 2 [SỬA] + 2 đề nghị → OB vá.
 
 | File | Thay/Thêm | Ghi chú |
 |------|-----------|---------|
-| hinh_ds11_mu_logarit.py                 | **THÊM MỚI** | Generator đồ thị mũ/log. do_thi_ham_mu / do_thi_ham_log. Additive, 0 đụng file cũ. |
-| BAN_TRICH_HAM_DS11_CH06__mu_logarit.md  | **THÊM MỚI** | Bản trích 2 hàm cho AI Soạn (import ML). |
-| 00_KHO_VERSION.txt                       | THAY (bump) | +entry [31y] ở đầu (nối tiếp [31x]). |
+| hinh_ds11_mu_logarit.py                | THAY (vá 2 hàm) | S1 nhãn trục · S2 khung log thích ứng · Đ1 nhãn đường cong · Đ2 raise cơ số vô tỉ · +duong_ngang (B21). |
+| BAN_TRICH_HAM_DS11_CH06__mu_logarit.md | THAY (regen)    | Chữ ký mới (+duong_ngang, nhan_ngang). |
+| 00_KHO_VERSION.txt                      | THAY (bump)     | +entry [31z] đầu file (nối [31y]). |
 
-KHÔNG đổi: hieuhoc_template.js · hinh_*.py khác · 00_MUC_LUC_HAM.md (standalone gen không vào
-  mục lục — đúng thiết kế, như hinh_ds11_luonggiac) · API_REFERENCE.md (chỉ hàm JS template).
-
-SAU PUSH: kho ra mốc [31y]. Rồi mới thả GIAO_AISOAN__DS11_CH06_B20__L1 cho AI Soạn.
-Đã render-verify: mũ a=2/3/0,5/⅓ + log a=2/3/0,5 (cụ thể) + 4 ảnh tổng quát — ĐẠT, 0 regression.
+KHÔNG đổi file khác. Additive bản chất (file riêng). Đã render-verify 15 ca + 0 regression.
+SAU PUSH: kho ra [31z] → AI Soạn bụng lại → nghiệm thu lại 5 mục checklist → dựng tiếp B20.
 ==================================================================
