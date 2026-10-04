@@ -1,3 +1,11 @@
+[31y] hinh_ds11_mu_logarit.py (FILE MỚI — generator độc lập) + BAN_TRICH_HAM_DS11_CH06__mu_logarit.md (MỚI) — ĐỒ THỊ HÀM MŨ & HÀM LÔGARIT (Ông Bụt Đại số THPT, 2026-10-04; PILOT chương Mũ–Lôgarit DS11_CH06_B20 — lộ hàm đồ thị mũ/log kho CHƯA có đúng dự báo KE_CHUONG).
+      • VÌ SAO: chương Hàm số mũ & lôgarit (Bài 20) cần đồ thị y=a^x và y=log_a x (Hình 6.1–6.4) + Bài 21 đồ thị minh hoạ nghiệm. Kho CHỈ có do_thi_luong_giac (lượng giác) — KHÔNG có hàm đồ thị mũ/log. Đây là BLOCKER cả Bài 20.
+      • THÊM 2 hàm (file RIÊNG, như hinh_ds11_luonggiac.py): do_thi_ham_mu(co_so, nhan, hien_diem, tong_quat) + do_thi_ham_log(...). Máy tự dựng đường cong từ công thức (pgfplots exp(x·ln a) / ln(x)/ln(a)) — Đ5.9, KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42). 2 chế độ: cụ thể (hiện số trục — VD/BT) + tổng quát (ẩn số trục, ký hiệu 1/a — Hình 6.1/6.3).
+      • ADDITIVE TUYỆT ĐỐI — FILE MỚI, KHÔNG đụng bất kỳ file cũ nào (hieuhoc_template.js / hinh_*.py / hinh_core.py đều NGUYÊN) → 0 regression. Chỉ thêm 1 bản trích mới + 1 dòng mục lục.
+      • RENDER-TEST (pdflatex+pgfplots, soi mắt PNG): mũ a=2/3/0,5/⅓ + log a=2/3/0,5 (chế độ cụ thể) + 4 ảnh tổng quát (mũ/log, a>1 & 0<a<1). Đều ĐẠT: đúng dáng đồng/nghịch biến, qua (0;1)&(1;a) [mũ] / (1;0)&(a;1) [log], tiệm cận đúng, nhãn KHÔNG đè số trục (đã sửa bản đầu bị trùng "1 1"/"2 2").
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_ds11_mu_logarit.py [MỚI] · BAN_TRICH_HAM_DS11_CH06__mu_logarit.md [MỚI] · 00_MUC_LUC_HAM.md (regen) · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-04 (nối tiếp [31x]).
+
 [31x] hieuhoc_template.js (THÊM 1 hàm) + _RE_TOAN (+1 ký tự) — gioiHan() TOÁN TỬ GIỚI HẠN lim (Ông Bụt Đại số THPT, 2026-10-04; PILOT chương giải tích đầu DS11_CH05_B15 — lộ hàm template thiếu đúng dự báo khai cuộc §2sexies).
       • VÌ SAO: chương Giới hạn·Hàm số liên tục dùng dày đặc lim (dãy + hàm), nhưng template CHƯA có hàm lim nào (bộ toán cũ: luyThua/phanSo/canBac/ngoac/soGachTren/chiSoDuoi/triTuyetDoi/hePhuongTrinh/tuyenNghiem — không lim). Đây là BLOCKER cả chương.
       • THÊM: gioiHan(duoi, than) → OMML <m:func><m:funcName><m:limLow><m:e>lim</m:e><m:lim>duoi</m:lim></m:limLow></m:funcName><m:e>than</m:e></m:func> (đúng cách Word biểu diễn lim). duoi & than nhận chuỗi|số|OMML qua _mathChild (nhận phanSo/canBac/ngoac làm thân). _dmath → _hhComp (lồng được trong biểu thức lớn).

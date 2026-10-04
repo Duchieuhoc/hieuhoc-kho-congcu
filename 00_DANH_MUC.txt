@@ -1,10 +1,16 @@
-# CAPNHAT_KHO__31x — đẩy GitHub (Commit changes, đè file cùng tên)
-# OB Đại số THPT · 2026-10-04 · pilot DS11_CH05_B15 (chương giải tích đầu)
+================ 00_DANH_MUC.txt — CAPNHAT_KHO__31y ================
+Đích: Giám đốc UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu), Commit changes.
+Nối tiếp HEAD [31x]. QUY_UOC §1 chiều A.
 
-hieuhoc_template.js   — THAY — +gioiHan() (lim OMML) + _RE_TOAN +→ ; bump v10.34 [31x]
-API_REFERENCE.md      — THAY — regen (có gioiHan dòng ~113)
-00_MUC_LUC_HAM.md     — THAY — regen (có gioiHan)
-00_KHO_VERSION.txt    — THAY — +entry [31x], Mốc kho 2026-10-04
+| File | Thay/Thêm | Ghi chú |
+|------|-----------|---------|
+| hinh_ds11_mu_logarit.py                 | **THÊM MỚI** | Generator đồ thị mũ/log. do_thi_ham_mu / do_thi_ham_log. Additive, 0 đụng file cũ. |
+| BAN_TRICH_HAM_DS11_CH06__mu_logarit.md  | **THÊM MỚI** | Bản trích 2 hàm cho AI Soạn (import ML). |
+| 00_KHO_VERSION.txt                       | THAY (bump) | +entry [31y] ở đầu (nối tiếp [31x]). |
 
-# SAU PUSH: fetch + chạy thật xác nhận (OB đã render-test 5 dạng lim qua kiemMay).
-# KHUYẾN NGHỊ: push [31x] TRƯỚC khi thả GIAO_AISOAN__DS11_CH05_B15__L1 (AI Soạn tự bụng kho mới có gioiHan).
+KHÔNG đổi: hieuhoc_template.js · hinh_*.py khác · 00_MUC_LUC_HAM.md (standalone gen không vào
+  mục lục — đúng thiết kế, như hinh_ds11_luonggiac) · API_REFERENCE.md (chỉ hàm JS template).
+
+SAU PUSH: kho ra mốc [31y]. Rồi mới thả GIAO_AISOAN__DS11_CH06_B20__L1 cho AI Soạn.
+Đã render-verify: mũ a=2/3/0,5/⅓ + log a=2/3/0,5 (cụ thể) + 4 ảnh tổng quát — ĐẠT, 0 regression.
+==================================================================
