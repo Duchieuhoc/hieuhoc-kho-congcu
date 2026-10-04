@@ -1,13 +1,10 @@
-================ 00_DANH_MUC.txt — CAPNHAT_KHO__31z ================
-Đích: Giám đốc UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes. Nối tiếp HEAD [31y]. QUY_UOC §1 chiều A.
-LÝ DO: pilot DS11_CH06_B20 (AI Soạn Bước 0) lộ 2 [SỬA] + 2 đề nghị → OB vá.
+# CAPNHAT_KHO__31za (BẢN OB — THẨM ĐỊNH + DỰNG TRÊN HEAD THẬT) — push GitHub, đè file cùng tên
+# OB Đại số THPT · 2026-10-04 · QC Vòng 2 pilot DS11_CH05_B15
+# ⚠️ DÙNG BẢN NÀY, KHÔNG dùng CAPNHAT_KHO__31za của AI Soạn:
+#    bản AI Soạn có 00_KHO_VERSION THIẾU entry [31z] (máy mũ-log vừa push) → push sẽ mất log [31z].
+#    OB đã dựng lại 00_KHO_VERSION trên HEAD thật: thứ tự [31za]→[31z]→[31y]→[31x]...
 
-| File | Thay/Thêm | Ghi chú |
-|------|-----------|---------|
-| hinh_ds11_mu_logarit.py                | THAY (vá 2 hàm) | S1 nhãn trục · S2 khung log thích ứng · Đ1 nhãn đường cong · Đ2 raise cơ số vô tỉ · +duong_ngang (B21). |
-| BAN_TRICH_HAM_DS11_CH06__mu_logarit.md | THAY (regen)    | Chữ ký mới (+duong_ngang, nhan_ngang). |
-| 00_KHO_VERSION.txt                      | THAY (bump)     | +entry [31z] đầu file (nối [31y]). |
+hieuhoc_template.js   — THAY — gioiHan() <m:funcName>→<m:fName> (fix ECMA-376) + cửa kiemMay whitelist OMML [31za]; bump v10.35
+00_KHO_VERSION.txt    — THAY — +entry [31za] NỐI TRÊN HEAD (giữ [31z] mũ-log), Mốc kho 2026-10-04
 
-KHÔNG đổi file khác. Additive bản chất (file riêng). Đã render-verify 15 ca + 0 regression.
-SAU PUSH: kho ra [31z] → AI Soạn bụng lại → nghiệm thu lại 5 mục checklist → dựng tiếp B20.
-==================================================================
+# OB đã chạy thật: 5 dạng lim → m:fName (0 funcName) qua cửa; rebuild B15 (86 lim) qua cửa [31za] 0 regression.

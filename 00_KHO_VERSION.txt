@@ -1,3 +1,11 @@
+[31za] hieuhoc_template.js — FIX gioiHan() + CỬA kiemMay whitelist OMML (Ông Bụt Đại số THPT, 2026-10-04; lộ khi MỞ WORD THẬT bản pilot DS11_CH05_B15 — AI Soạn phát hiện, báo [SỬA]; vá theo A↔C).
+      • LỖI: gioiHan() [31x] sinh thẻ <m:funcName> — thẻ này KHÔNG có trong schema OMML (ECMA-376 §22.1); tên element đúng là <m:fName>. Word TỪ CHỐI MỞ FILE ("Word found unreadable content … recover?"), trong khi lxml/LibreOffice/kiemMay cũ ĐỀU LỌT (không validate schema math → chỉ kiểm well-formed + m:e/oMath lồng). Xuất hiện 172 lần (mọi lim) ⟹ hỏng cả bài.
+      • VÁ 1 (template): dòng gioiHan() đổi name:"m:funcName" → name:"m:fName". Cấu trúc còn lại <m:func><m:fName><m:limLow>…</m:limLow></m:fName><m:e>…</m:e></m:func> ĐÃ chuẩn Word. Render lại pilot B15: m:fName=172, m:funcName=0, mọi thẻ OMML hợp lệ.
+      • VÁ 2 (cửa, CHỐNG TÁI DIỄN): _scanOmmlLong +whitelist TOÀN BỘ phần tử OMML chuẩn (ECMA-376); thẻ m: NGOÀI tập → kiemMay CHẶN XUẤT. Bao trọn lớp lỗi Word-only "tên element OMML sai" (trước chỉ bắt m:e/oMath lồng). 0 dương tính giả (whitelist = tập chuẩn đầy đủ: rad/radPr/f/num/den/sSub/sSup/func/fName/limLow…).
+      • ADDITIVE/CHỈ-SỬA-LỖI — KHÔNG đổi API/chữ ký hàm → KHÔNG regen BAN_TRICH/API. Bài cũ 0 đổi (không dùng gioiHan; whitelist chỉ thêm cửa chặn tag sai).
+      • FILE THAY ĐỔI (upload đè GitHub): hieuhoc_template.js · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-04 (nối tiếp [31y]/[31x]; template v10.34 → v10.35).
+
 [31z] hinh_ds11_mu_logarit.py (VÁ 2 hàm — pilot DS11_CH06_B20 lộ) + BAN_TRICH (regen, đổi chữ ký) — Ông Bụt Đại số THPT, 2026-10-04; AI Soạn báo [SỬA] S1/S2 + đề nghị Đ1/Đ2 ở Bước 0 pilot.
       • VÁ 4 điểm + 1 dự phòng (A↔C Đ5.9: AI Soạn báo, OB thẩm định + tự vá + chạy thật):
         - S1 (nhãn trục đè tick): xlabel/ylabel dời ra ĐẦU MŨI TÊN (at=(axis cs:xmax,0)/(0,ymax), anchor south west/south east) → hết "8x" chồng. Áp cả do_thi_ham_mu + do_thi_ham_log.
