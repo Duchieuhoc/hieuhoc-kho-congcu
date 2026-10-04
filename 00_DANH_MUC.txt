@@ -1,10 +1,15 @@
-# CAPNHAT_KHO__31za (BẢN OB — THẨM ĐỊNH + DỰNG TRÊN HEAD THẬT) — push GitHub, đè file cùng tên
-# OB Đại số THPT · 2026-10-04 · QC Vòng 2 pilot DS11_CH05_B15
-# ⚠️ DÙNG BẢN NÀY, KHÔNG dùng CAPNHAT_KHO__31za của AI Soạn:
-#    bản AI Soạn có 00_KHO_VERSION THIẾU entry [31z] (máy mũ-log vừa push) → push sẽ mất log [31z].
-#    OB đã dựng lại 00_KHO_VERSION trên HEAD thật: thứ tự [31za]→[31z]→[31y]→[31x]...
+CAPNHAT_KHO__32b — push GitHub (hieuhoc-kho-congcu), Commit changes
+⚠️ BẢN NÀY THAY CHO CAPNHAT_KHO__32a/31ab (ĐỪNG dùng 2 bản cũ — [32a] đã là của máy Hình).
 
-hieuhoc_template.js   — THAY — gioiHan() <m:funcName>→<m:fName> (fix ECMA-376) + cửa kiemMay whitelist OMML [31za]; bump v10.35
-00_KHO_VERSION.txt    — THAY — +entry [31za] NỐI TRÊN HEAD (giữ [31z] mũ-log), Mốc kho 2026-10-04
+ĐỔI NHÃN: giaitich [32a]→[32b] vì [32a] = PRIMITIVE VECTƠ (máy Hình THPT, đã push 11:37).
+KHÔI PHỤC LỆCH PHA: bản vá lim B15 (push 12:42) đã ĐÈ MẤT dòng log [32a]. 00_KHO_VERSION
+  bản này KHÔI PHỤC block [32a] + thêm [32b]. Thứ tự: [32b]→[32a vectơ]→[31za]→[31z]...
 
-# OB đã chạy thật: 5 dạng lim → m:fName (0 funcName) qua cửa; rebuild B15 (86 lim) qua cửa [31za] 0 regression.
+FILE (upload ĐÈ 3 file, GIỮ NGUYÊN mọi file khác — NHẤT LÀ file vectơ của máy Hình):
+  hinh_ds11_giaitich.py                 — MỚI (đồ thị giải tích Ch5: H5.4/H5.5/H5.6)
+  BAN_TRICH_HAM_DS11_CH05__giaitich.md  — MỚI (API cho AI Soạn)
+  00_KHO_VERSION.txt                    — THAY (khôi phục [32a] + thêm [32b])
+
+TUYỆT ĐỐI KHÔNG upload đè: hinh_coban.py · hinh_toado.py · hinh_hh10_ch04.py ·
+  BAN_TRICH_HAM_HH10_CH04.md · 00_MUC_LUC_HAM.md (của máy Hình — [32a] vectơ, còn nguyên trên GitHub).
+Sau push: HEAD có cả giaitich [32b] lẫn vectơ [32a]; 00_KHO_VERSION đủ 2 mốc.

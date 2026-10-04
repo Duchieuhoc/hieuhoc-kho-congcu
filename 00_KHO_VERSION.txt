@@ -1,3 +1,26 @@
+[32b] hinh_ds11_giaitich.py (MỚI — module đồ thị giải tích Ch5) + BAN_TRICH_HAM_DS11_CH05__giaitich.md (MỚI) — Ông Bụt Đại số THPT, 2026-10-04; PILOT DS11_CH05_B16 (Giới hạn hàm số): OB dựng trước hàm hình (HP Đ5.9 — AI Soạn không tự vẽ).
+      ★ SỬA LỆCH PHA: [32a] đã CÓ CHỦ = PRIMITIVE VECTƠ (máy Hình THPT, push 11:37). Bản vá lim B15 (CAPNHAT_31za) push 12:42 ĐÃ ĐÈ MẤT dòng log [32a] (code vectơ còn nguyên; chỉ log mất). Bản [32b] này KHÔI PHỤC block [32a] bên dưới + prepend [32b]. OB giaitich đổi nhãn [32a]→[32b].
+      • 3 HÀM (pgfplots qua render_tikz_doc, PHANH nội sinh):
+        - do_thi_huu_ti(dang='doi_truc', a,b,c): y=a+b/(x-c) hyperbol dời trục, 2 nhánh tách qua TCĐ, TCĐ x=c + TCN y=a đứt nét (H5.4).
+        - do_thi_huu_ti(dang='nghich_dao_binh', k,c): y=k/(x-c)^2 chữ U, TCĐ x=c + TCN y=0; tự bỏ nét trùng trục (H5.6: y=1/x^2).
+        - tam_giac_toa_do(a): tam giác vuông OAB trên Oxy; máy TỰ tính H=chân vuông góc + PHANH kiểm H∈AB & OH⊥AB (H5.5).
+      • NGHIỆM THU: render (pdflatex+pgfplots dpi=200) + soi mắt QC ĐẠT (đúng toán · trong chương · khớp khai nghĩa NGUON B16 · không lộ đáp án Đ35).
+      • ADDITIVE — module ĐỘC LẬP (chỉ import hinh_core), template.js KHÔNG đổi (v10.35 [31za]). KHÔNG đụng file máy Hình (hinh_coban/hinh_toado/hinh_hh10_ch04/BAN_TRICH_HH10_CH04/00_MUC_LUC_HAM) → vectơ [32a] nguyên vẹn.
+      • FILE upload GitHub: hinh_ds11_giaitich.py [MỚI] · BAN_TRICH_HAM_DS11_CH05__giaitich.md [MỚI] · 00_KHO_VERSION.txt (KHÔI PHỤC [32a] + thêm [32b]).
+      Mốc kho: 2026-10-04 (nối tiếp [32a] vectơ).
+
+[32a] PRIMITIVE VECTƠ (HH10 Chương IV) — Ông Bụt Hình THPT, 2026-10-04; vá kho theo chỉ đạo thầy (gỡ chặn BAN_DO §12 "Vectơ ❌ CHỜ VÁ"), gom toàn chương CH04 dựng MỘT MẺ.
+      • VÌ SAO: cả 5 bài HH10_CH04 (vectơ) cần vẽ MŨI TÊN vectơ A→B — kho CHỈ có 'tia' (kéo dài quá mút, chuẩn hoá độ dài) và 'doan' (không mũi tên), KHÔNG có primitive vectơ đúng. Đây là BLOCKER toàn chương (số hóa nguồn + khai nghĩa đã xong, chờ hàm mới giao AI Soạn).
+      • VÁ 2 ĐIỂM (ADDITIVE tuyệt đối — hàm/tham số/op MỚI, bài cũ 0 ảnh hưởng):
+        - hinh_coban.py: THÊM method vecto(A,B,nhan,mau,net,vi_tri_nhan,rong) + op 'vecto' trong ve() → mũi tên ĐÚNG A→B (',->' + >=latex), nhãn giữa thân. Dùng cho vectơ trên nền ĐA GIÁC/LƯỚI (hình vuông/thoi/thang-cân/lục giác/tam giác — có sẵn ở hinh_dagiac). Hai vectơ ĐỐI HƯỚNG cùng gốc ĐƯỢC PHÉP (khác _phanh_khong_hai_mui chặn 'tia' — vectơ đối IA/IB hợp lệ).
+        - hinh_toado.py: THÊM tham số vecto=[{tu,den,nhan,mau,net,viTriNhan}] cho hinhMatPhangToaDo → mũi tên vectơ trong HỆ TRỤC Oxy (B10/B11 tọa độ). Tương thích ngược: không truyền vecto → y nguyên.
+      • FILE MỚI: hinh_hh10_ch04.py (ENTRY — compose HinhDaGiac + hinh_toado.Hinh + vecto; MRO Hinh→HinhDaGiac→HinhToaDo→HinhCoBan) + BAN_TRICH_HAM_HH10_CH04.md.
+      • KHÔNG đụng: hinh_core / hinh_dagiac / hinh_hh10_ch03 / hieuhoc_template.js — NGUYÊN VẸN.
+      • RENDER-VERIFY (soi mắt 5 PNG — test CÔNG CỤ, không test bài): (1) vectơ AB/AD/AC trên hình vuông ✓ hướng đúng; (2) lưới — 2 vectơ bằng nhau + 1 ngược hướng ✓; (3) vectơ ĐỐI cùng gốc IA/IB ✓ KHÔNG bị PHANH chặn; (4) lục giác + OA/AB ✓; (5) mặt phẳng Oxy OM/ON/MN (dut) ✓. REGRESSION: import mọi module OK, hình vuông cũ + hinhMatPhangToaDo cũ (không vecto) render OK (0 regression).
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_coban.py · hinh_toado.py · hinh_hh10_ch04.py [MỚI] · BAN_TRICH_HAM_HH10_CH04.md [MỚI] · 00_MUC_LUC_HAM.md (regen) · 00_KHO_VERSION.txt.
+      • MỐC KHO YÊU CẦU cho CH04 (ghi vào Phụ lục Hình THPT / phiếu khai nghĩa): ≥ 2026-10-04 [32a].
+      Mốc kho: 2026-10-04 (nối tiếp [31z]).
+
 [31za] hieuhoc_template.js — FIX gioiHan() + CỬA kiemMay whitelist OMML (Ông Bụt Đại số THPT, 2026-10-04; lộ khi MỞ WORD THẬT bản pilot DS11_CH05_B15 — AI Soạn phát hiện, báo [SỬA]; vá theo A↔C).
       • LỖI: gioiHan() [31x] sinh thẻ <m:funcName> — thẻ này KHÔNG có trong schema OMML (ECMA-376 §22.1); tên element đúng là <m:fName>. Word TỪ CHỐI MỞ FILE ("Word found unreadable content … recover?"), trong khi lxml/LibreOffice/kiemMay cũ ĐỀU LỌT (không validate schema math → chỉ kiểm well-formed + m:e/oMath lồng). Xuất hiện 172 lần (mọi lim) ⟹ hỏng cả bài.
       • VÁ 1 (template): dòng gioiHan() đổi name:"m:funcName" → name:"m:fName". Cấu trúc còn lại <m:func><m:fName><m:limLow>…</m:limLow></m:fName><m:e>…</m:e></m:func> ĐÃ chuẩn Word. Render lại pilot B15: m:fName=172, m:funcName=0, mọi thẻ OMML hợp lệ.
