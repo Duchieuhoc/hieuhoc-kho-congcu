@@ -85,7 +85,7 @@
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
-| `hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True, duongThang=None, diem=None, chuThich=None, scale=0.72, out='mp_toado', tra_bytes=False)` | MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng né | `hinh_toado.py` | generator | L6→9→THPT |
+| `hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True, duongThang=None, diem=None, vecto=None, chuThich=None, scale=0.72, out='mp_toado', tra_bytes=False)` | MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng né | `hinh_toado.py` | generator | L6→9→THPT |
 | `kim_tu_thap(hang, o_canh=0.95)` | KIM TỰ THÁP SỐ (2D) — tháp ô vuông, ô trên gối lệch nửa ô giữa 2 ô dưới | `hinh_toado.py` | method | L6→9→THPT |
 | `nhiet_ke_cot(cot, thang=(-20, 50), buoc=10, don_vi='°C', hien_muc_so=False)` | NHIET KE COT — nhieu thang do DUNG canh nhau, doc muc thuy ngan | `hinh_toado.py` | method | L6→9→THPT |
 | `tia_diem(*args, **kwargs)` | [Đại số] sơ đồ điểm trên đường thẳng — NỀN SẠCH (base hinh_coban mặc định có lưới). | `hinh_toado.py` | method | L6→9→THPT |

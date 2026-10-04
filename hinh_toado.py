@@ -554,7 +554,7 @@ def _mptd_pts(a, b, c, xr, yr):
     return (xmin - 1, f(xmin - 1)), (xmax + 1, f(xmax + 1)), (xa, f(xa))
 
 def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
-                      duongThang=None, diem=None, chuThich=None,
+                      duongThang=None, diem=None, vecto=None, chuThich=None,
                       scale=0.72, out='mp_toado', tra_bytes=False):
     """MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG
        THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng nét đứt.
@@ -568,9 +568,12 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
                     viTriNhan (anchor TikZ, mặc định 'above right').
        diem  : list dict toa=(x,y) + nhan (vd 'M(1;\\,2)') + viTri (anchor, mặc định
                 'above right') + giong (True → gióng nét đứt xuống 2 trục) + mau.
+       vecto : [CH04] list dict tu=(x,y) + den=(x,y) + nhan ('\\vec a' | '\\overrightarrow{OM}')
+                + mau (mặc định 'red!80') + net ('lien'|'dut') + viTriNhan (anchor, 'above left').
+                Mũi tên ĐÚNG tu→den (vectơ trong hệ trục — B10/B11 tọa độ).
        chuThich : caption 'Hình N' căn giữa dưới.
     """
-    duongThang = duongThang or []; diem = diem or []
+    duongThang = duongThang or []; diem = diem or []; vecto = vecto or []
     xmin, xmax = xRange; ymin, ymax = yRange
     L = [r'\documentclass[tikz,border=6pt]{standalone}',
          r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
@@ -615,6 +618,19 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
         if p.get('nhan'):
             L.append(r'\node[%s,font=\small] at (%g,%g) {$%s$};'
                      % (p.get('viTri', 'above right'), x, y, p['nhan']))
+    # [CH04 Vectơ, 2026-10-04] VECTƠ trên hệ trục — mũi tên tu→den (không kéo dài).
+    #   v: dict {tu:(x,y), den:(x,y), nhan?:'\\vec a', mau?:'red!80', net?:'lien'|'dut',
+    #            viTriNhan?: anchor TikZ (mặc định 'above left')}.
+    for v in vecto:
+        (vx1, vy1) = v['tu']; (vx2, vy2) = v['den']
+        mau = v.get('mau', 'red!80')
+        net = 'dashed' if v.get('net') == 'dut' else 'solid'
+        L.append(r'\draw[->,very thick,%s,%s] (%g,%g) -- (%g,%g);'
+                 % (mau, net, vx1, vy1, vx2, vy2))
+        if v.get('nhan'):
+            mx, my = (vx1 + vx2) / 2.0, (vy1 + vy2) / 2.0
+            L.append(r'\node[%s,%s,font=\small] at (%g,%g) {$%s$};'
+                     % (v.get('viTriNhan', 'above left'), mau, mx, my, v['nhan']))
     if chuThich:
         L.append(r'\node[below,font=\itshape] at (%g,%g) {%s};'
                  % ((xmin + xmax) / 2.0, ymin - 1.0, chuThich))

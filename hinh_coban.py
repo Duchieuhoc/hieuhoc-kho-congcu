@@ -706,6 +706,18 @@ class HinhCoBan:
         Miền được tô NẰM DƯỚI mọi nét (không che hình). mau: màu tô nhạt."""
         self.tikz.append(('to_mien', list(diem), mau)); return self
 
+    def vecto(self, A, B, nhan=None, mau=None, net='lien', vi_tri_nhan='above', rong='dam'):
+        """[CH04 Vectơ, 2026-10-04] VECTƠ = đoạn CÓ HƯỚNG A→B (mũi tên ở điểm cuối B).
+        A, B = 2 điểm ĐÃ ĐẶT (qua đa giác / lưới / _diem). Phân biệt:
+          • doan  : đoạn thẳng KHÔNG mũi tên.
+          • tia   : nửa đường thẳng, KÉO DÀI quá mút (chuẩn hoá độ dài) — không đúng vectơ.
+          • vecto : mũi tên ĐÚNG A→B (không kéo dài), biểu diễn $\\overrightarrow{AB}$ / $\\vec a$.
+        nhan : nhãn vectơ ('\\\\vec a' | '\\\\overrightarrow{AB}' | None) đặt giữa thân, phía vi_tri_nhan.
+        mau  : màu (vd 'red' cho vectơ dựng ở lời giải). net 'lien'|'dut'. rong = bề dày thân.
+        Hai vectơ ĐỐI HƯỚNG cùng gốc ĐƯỢC PHÉP (khác tia — vectơ đối $\\overrightarrow{IA},\\overrightarrow{IB}$)."""
+        self.tikz.append(('vecto', A, B, nhan, mau, net, vi_tri_nhan, rong))
+        return self
+
     def _phanh_khong_hai_mui(self):
         """[VAN] Lưới mỏng phụ: chặn 'đường thẳng có mũi tên'. Hai tia CÓ MŨI cùng gốc, đối
         hướng ~180° = nét 2 mũi = đường thẳng có mũi (SGK: đường thẳng KHÔNG có mũi). DỪNG."""
@@ -876,6 +888,23 @@ class HinhCoBan:
                     kieu += ',' + {'manh':'thin','vua':'thick',
                                    'dam':'very thick','rat_dam':'line width=1.6pt'}.get(rong,'')
                 L.append(f'  \\draw[{kieu}] ({C._san(A)})--({C._san(B)});')
+            elif k=='vecto':
+                # [CH04 Vectơ, 2026-10-04] mũi tên ĐÚNG A→B (không kéo dài). ',->' + >=latex (header).
+                A,B = el[1],el[2]
+                nhanv = el[3] if len(el)>3 else None
+                mau = el[4] if len(el)>4 and isinstance(el[4],str) else None
+                net = el[5] if len(el)>5 else 'lien'
+                vitri = el[6] if len(el)>6 else 'above'
+                rong = el[7] if len(el)>7 else 'dam'
+                kieu = _kieu_net(mau,net)
+                if rong:
+                    kieu += ',' + {'manh':'thin','vua':'thick',
+                                   'dam':'very thick','rat_dam':'line width=1.6pt'}.get(rong,'')
+                kieu += ',->'
+                L.append(f'  \\draw[{kieu}] ({C._san(A)})--({C._san(B)});')
+                if nhanv:
+                    L.append(f'  \\node[{vitri},font=\\small] at '
+                             f'($({C._san(A)})!0.5!({C._san(B)})$) {{{C._mathlbl(nhanv)}}};')
             elif k=='doan_nhan':
                 A,B,txt = el[1],el[2],el[3]
                 L.append(f'  \\node[above,font=\\small] at ($({C._san(A)})!0.5!({C._san(B)})$) {{{txt}}};')

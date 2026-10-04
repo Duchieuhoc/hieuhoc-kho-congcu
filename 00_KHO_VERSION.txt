@@ -1,3 +1,15 @@
+[32a] PRIMITIVE VECTƠ (HH10 Chương IV) — Ông Bụt Hình THPT, 2026-10-04; vá kho theo chỉ đạo thầy (gỡ chặn BAN_DO §12 "Vectơ ❌ CHỜ VÁ"), gom toàn chương CH04 dựng MỘT MẺ.
+      • VÌ SAO: cả 5 bài HH10_CH04 (vectơ) cần vẽ MŨI TÊN vectơ A→B — kho CHỈ có 'tia' (kéo dài quá mút, chuẩn hoá độ dài) và 'doan' (không mũi tên), KHÔNG có primitive vectơ đúng. Đây là BLOCKER toàn chương (số hóa nguồn + khai nghĩa đã xong, chờ hàm mới giao AI Soạn).
+      • VÁ 2 ĐIỂM (ADDITIVE tuyệt đối — hàm/tham số/op MỚI, bài cũ 0 ảnh hưởng):
+        - hinh_coban.py: THÊM method vecto(A,B,nhan,mau,net,vi_tri_nhan,rong) + op 'vecto' trong ve() → mũi tên ĐÚNG A→B (',->' + >=latex), nhãn giữa thân. Dùng cho vectơ trên nền ĐA GIÁC/LƯỚI (hình vuông/thoi/thang-cân/lục giác/tam giác — có sẵn ở hinh_dagiac). Hai vectơ ĐỐI HƯỚNG cùng gốc ĐƯỢC PHÉP (khác _phanh_khong_hai_mui chặn 'tia' — vectơ đối IA/IB hợp lệ).
+        - hinh_toado.py: THÊM tham số vecto=[{tu,den,nhan,mau,net,viTriNhan}] cho hinhMatPhangToaDo → mũi tên vectơ trong HỆ TRỤC Oxy (B10/B11 tọa độ). Tương thích ngược: không truyền vecto → y nguyên.
+      • FILE MỚI: hinh_hh10_ch04.py (ENTRY — compose HinhDaGiac + hinh_toado.Hinh + vecto; MRO Hinh→HinhDaGiac→HinhToaDo→HinhCoBan) + BAN_TRICH_HAM_HH10_CH04.md.
+      • KHÔNG đụng: hinh_core / hinh_dagiac / hinh_hh10_ch03 / hieuhoc_template.js — NGUYÊN VẸN.
+      • RENDER-VERIFY (soi mắt 5 PNG — test CÔNG CỤ, không test bài): (1) vectơ AB/AD/AC trên hình vuông ✓ hướng đúng; (2) lưới — 2 vectơ bằng nhau + 1 ngược hướng ✓; (3) vectơ ĐỐI cùng gốc IA/IB ✓ KHÔNG bị PHANH chặn; (4) lục giác + OA/AB ✓; (5) mặt phẳng Oxy OM/ON/MN (dut) ✓. REGRESSION: import mọi module OK, hình vuông cũ + hinhMatPhangToaDo cũ (không vecto) render OK (0 regression).
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_coban.py · hinh_toado.py · hinh_hh10_ch04.py [MỚI] · BAN_TRICH_HAM_HH10_CH04.md [MỚI] · 00_MUC_LUC_HAM.md (regen) · 00_KHO_VERSION.txt.
+      • MỐC KHO YÊU CẦU cho CH04 (ghi vào Phụ lục Hình THPT / phiếu khai nghĩa): ≥ 2026-10-04 [32a].
+      Mốc kho: 2026-10-04 (nối tiếp [31z]).
+
 [31z] hinh_ds11_mu_logarit.py (VÁ 2 hàm — pilot DS11_CH06_B20 lộ) + BAN_TRICH (regen, đổi chữ ký) — Ông Bụt Đại số THPT, 2026-10-04; AI Soạn báo [SỬA] S1/S2 + đề nghị Đ1/Đ2 ở Bước 0 pilot.
       • VÁ 4 điểm + 1 dự phòng (A↔C Đ5.9: AI Soạn báo, OB thẩm định + tự vá + chạy thật):
         - S1 (nhãn trục đè tick): xlabel/ylabel dời ra ĐẦU MŨI TÊN (at=(axis cs:xmax,0)/(0,ymax), anchor south west/south east) → hết "8x" chồng. Áp cả do_thi_ham_mu + do_thi_ham_log.
