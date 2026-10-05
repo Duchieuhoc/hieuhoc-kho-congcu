@@ -457,7 +457,7 @@ def _ndtdv_lab(s):
     return '$%s$' % s
 
 def nua_duong_tron_don_vi(diem=None, R=3.0, scale=1.0, nhan_ABC=False,
-                          out='nua_dt_don_vi', tra_bytes=False):
+                          chuThich=None, out='nua_dt_don_vi', tra_bytes=False):
     """NỬA ĐƯỜNG TRÒN ĐƠN VỊ (định nghĩa GTLG góc 0°–180°, SGK H3.2–3.6).
     Hệ trục Oxy (mũi tên) + nửa đường tròn tâm O bán kính R=1 nằm TRÊN trục hoành
     (B(-1,0)→C(0,1)→A(1,0), đỏ) + nhãn -1,1. Mỗi 'điểm' M trên nửa đường tròn tại góc xOM=α;
@@ -472,10 +472,10 @@ def nua_duong_tron_don_vi(diem=None, R=3.0, scale=1.0, nhan_ABC=False,
     diem = diem or []
     R = float(R)
     rac = R + 0.62        # mũi trục ngoài đường tròn
-    L = [r'\documentclass[border=6pt]{standalone}',
-         r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
-         r'\begin{document}',
-         r'\begin{tikzpicture}[scale=%g,>={Stealth[length=2.4mm]},font=\normalsize]' % scale]
+    # [31m] dựng THÂN tikz (không documentclass) → qua _render (xelatex + Latin Modern)
+    #   để NƯỚNG nhãn "Hình N" tiếng Việt đủ dấu (Đ18: hình neo phải nướng caption).
+    #   Mũi tên >=latex (base tikz) vì _render KHÔNG nạp arrows.meta.
+    L = [r'\begin{tikzpicture}[scale=%g,>=latex,font=\normalsize]' % scale]
     # trục Oxy (x hai đầu? SGK: x mũi phải + nhánh trái tới -rac; y mũi trên)
     L.append(r'\draw[<->,thick] (-%g,0) -- (%g,0) node[right] {$x$};' % (rac, rac))
     L.append(r'\draw[->,thick] (0,-0.45) -- (0,%g) node[above] {$y$};' % (R + 0.55))
@@ -538,7 +538,11 @@ def nua_duong_tron_don_vi(diem=None, R=3.0, scale=1.0, nhan_ABC=False,
         anc = 'above right' if mx >= -0.05 else 'above left'
         L.append(r'\fill[%s] (%g,%g) circle (1.7pt); \node[%s,font=\small,%s] at (%g,%g) {%s};'
                  % (mau, mx, my, anc, mau, mx, my, _ndtdv_lab(ten)))
-    L.append(r'\end{tikzpicture}\end{document}')
-    return _HC.render_tikz_doc('\n'.join(L), out, tra_bytes)
+    # [31m] nhãn "Hình N" nướng dưới hình (caption tiếng Việt qua xelatex); ° → $^\circ$ cho math
+    if chuThich:
+        cap = str(chuThich).replace('°', r'$^\circ$')
+        L.append(r'\node[below,font=\itshape] at (0,%g) {%s};' % (-(R + 0.95), cap))
+    L.append(r'\end{tikzpicture}')
+    return _HC._render('\n'.join(L), out, tra_bytes)
 
 HinhTron.nua_duong_tron_don_vi = staticmethod(nua_duong_tron_don_vi)

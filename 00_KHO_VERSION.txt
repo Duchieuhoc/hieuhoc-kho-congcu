@@ -1,3 +1,11 @@
+[32e] hinh_tron_ve.py — nua_duong_tron_don_vi: NƯỚNG CAPTION tiếng Việt + render qua _render (Ông Bụt Hình THPT, 2026-10-05; sửa bố cục B05 neo phải Đ18). ÁP TRÊN NỀN [32d].
+      • +tham số `chuThich` (nhãn "Hình N" nướng dưới hình) → hình NEO PHẢI đúng Đ18 (hình mặc định neo phải, chữ wrap trái; nhãn nướng vào ảnh — text box floating không hiện chuThich).
+      • Đổi engine: THÂN tikz → `hinh_core._render` (xelatex + Latin Modern) thay `render_tikz_doc` (pdflatex) → caption tiếng Việt ĐỦ DẤU. Mũi tên `>=latex` (base, _render không nạp arrows.meta).
+      • Trọng tài: HH10_CH03_B05 sửa bố cục (thầy bắt V3: hình căn giữa sai Đ18 → neo phải). Render 6 biến thể + caption Việt ĐẠT.
+      • CHỈ đụng `nua_duong_tron_don_vi` trong hinh_tron_ve.py ([31n]→[32d] KHÔNG đụng file này — chống lệch pha). Additive (chuThich mặc định None → hành vi cũ). Regen BAN_TRICH_HAM_HH10_CH03 + 00_MUC_LUC_HAM (mục lục còn bổ sung doDaiVecto/kyHieuVecto [32a] mà bản 04/10 thiếu).
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_tron_ve.py · BAN_TRICH_HAM_HH10_CH03.md · 00_MUC_LUC_HAM.md · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-05 (nối tiếp [32d]). *(Thay cho [31m] cũ — gói [31m] dựng trên nền [31l], KHÔNG push.)*
+
 [32d] KÝ HIỆU VECTƠ MŨI TÊN (template) — Ông Bụt Hình THPT, 2026-10-05; GỠ VA CHẠM MỐC [32c].
       ★ SỰ CỐ: nhãn [32c] bị TRÙNG — máy Hình gắn [32c] cho template kyHieuVecto (pilot HH10_CH04 Vectơ),
         máy Đại số cũng gắn [32c] cho hinh_ds11_giaitich (+1 hàm) và bản Đại số LÀ bản lên GitHub HEAD.

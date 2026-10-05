@@ -1,37 +1,22 @@
 ╔══════════════════════════════════════════════════════════════════╗
-║  CAPNHAT_KHO [31l] — NỬA ĐƯỜNG TRÒN ĐƠN VỊ (Hình THPT Ch3 Bài 5)    ║
-║  Ông Bụt · 2026-10-01 · upload ĐÈ lên GitHub kho công cụ            ║
+║  CAPNHAT_KHO [32e] — caption tiếng Việt cho nua_duong_tron_don_vi  ║
+║  (THAY cho gói [31m] cũ) · Ông Bụt · 2026-10-05 · nền [32d]        ║
 ╚══════════════════════════════════════════════════════════════════╝
+REPO: https://github.com/Duchieuhoc/hieuhoc-kho-congcu
 
-REPO:  https://github.com/Duchieuhoc/hieuhoc-kho-congcu
+⚠️ DÙNG GÓI NÀY, BỎ gói CAPNHAT_KHO__31m cũ.
+   Gói [31m] cũ dựng trên nền [31l] (01/10) → nếu push sẽ ĐÈ MẤT việc
+   [31n]→[32d] (vectơ, template v10.36…) ở 00_KHO_VERSION + 00_MUC_LUC_HAM.
+   Gói [32e] này dựng TRÊN NỀN [32d] hiện tại → chỉ THÊM, không mất gì.
 
 ── 4 FILE UPLOAD ĐÈ (commit changes) ──────────────────────────────
-  1. hinh_tron_ve.py             ← +generator nua_duong_tron_don_vi
-  2. BAN_TRICH_HAM_HH10_CH03.md  ← bản trích tự sinh lại
-  3. 00_MUC_LUC_HAM.md           ← mục lục hàm tự sinh lại
-  4. 00_KHO_VERSION.txt          ← dấu mốc kho [31l]
+  1. hinh_tron_ve.py             ← nua_duong_tron_don_vi +chuThich +_render (chỉ hàm này đổi)
+  2. BAN_TRICH_HAM_HH10_CH03.md  ← regen (nền [32d])
+  3. 00_MUC_LUC_HAM.md           ← regen (nền [32d]; CÒN bổ sung doDaiVecto/kyHieuVecto [32a] mà bản 04/10 thiếu)
+  4. 00_KHO_VERSION.txt          ← +khối [32e] nối trên [32d]
 
-── CÁCH UPLOAD ────────────────────────────────────────────────────
-  Vào repo → kéo-thả 4 file đè file cùng tên (thư mục gốc) → Commit changes.
-  Mốc kho mới: 2026-10-01 [31l].
-
-── [31l] CÓ GÌ MỚI ────────────────────────────────────────────────
-  nua_duong_tron_don_vi(diem=[...], R=3.0, nhan_ABC=False)
-    → hệ Oxy + nửa đường tròn R=1 trên trục hoành + điểm M tại góc xOM=α
-      (máy tính toạ độ cos/sin — Đ5.9). Mỗi điểm: ten·goc·ban_kinh·
-      ox_ten/oy_ten (chân chiếu)·ox_nhan/oy_nhan (nhãn x₀/-x₀/y₀)·cung·
-      cung_r·cung_phu·mau_diem.
-    Dùng cho Bài 5 (GTLG 0°–180°): H3.2 định nghĩa (2 TH nhọn/tù) ·
-      H3.3/3.4 (VD 135°/120°) · H3.5 (góc bù nhau) · H3.6 (góc phụ nhau).
-
-── ĐÃ KIỂM (trước khi giao) ───────────────────────────────────────
-  ✓ Render 6 biến thể SGK (H3.2a/b, H3.3, H3.4, H3.5, H3.6) — soi mắt khớp SGK.
-  ✓ self-check góc∈[0,180]; toạ độ dựng cos/sin (không nhập tay).
-  ✓ Regen bản trích + mục lục (primitive có mặt).
-  ✓ 0 regression: import hinh_hh10_ch03 · hinh_ch5 · hinh_ch8 OK; entry Ch3
-    đã có sẵn qua HinhTron (KHÔNG cần entry mới cho B05).
-  ✓ Chữ ký hàm cũ KHÔNG đổi (additive thuần).
-
-── SAU KHI THẦY PUSH ──────────────────────────────────────────────
-  Mốc kho GitHub = 2026-10-01 [31l]. B05 mở khóa khai nghĩa hình →
-  OB soạn NGUON + PHIEU_KHAI_NGHIA B05 → giao AI Soạn.
+── ĐÃ KIỂM ────────────────────────────────────────────────────────
+  ✓ Diff hinh_tron_ve.py: GitHub[32d] khác bản giao ĐÚNG 3 chỗ [31m] (chuThich/_render/>=latex) — [32d] KHÔNG đụng file này.
+  ✓ Diff mục lục: chỉ THÊM (chuThich + vectơ), KHÔNG mất hàm.
+  ✓ Render B05 H3 + caption Việt ĐẠT trên nền [32d]+[32e].
+  Mốc sau push: 2026-10-05 [32e]. B05 LƯU_BÀI pin mốc này.

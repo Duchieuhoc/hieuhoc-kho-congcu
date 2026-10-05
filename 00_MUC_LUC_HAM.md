@@ -1,7 +1,7 @@
 # 00_MUC_LUC_HAM — MỤC LỤC HÀM TỔNG (tra "đã-có-chưa" TRƯỚC khi viết)
 
 > **Tự sinh** bởi `sinh_mucluc.py` — TÁI DÙNG `sinh_bantrich.py` (Python) + `API_REFERENCE.md` (output `sinh_apiref.js`, JS). KHÔNG sửa tay.
-> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 04/10/2026.
+> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 05/10/2026.
 > **LUẬT VÀNG:** trước khi viết hàm mới → tra file này (Ctrl+F theo NGHĨA). Có hàm khớp → GỌI LẠI. Gần giống → MỞ RỘNG. Viết mới là bậc CUỐI.
 
 *Ẩn: hàm hạ tầng (`_…`) + cửa render (`ve`) theo Đ5.9. Base compose per-bài không vào kho → không liệt kê.*
@@ -111,14 +111,14 @@
 | `hinh_quat(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH QUẠT TRÒN giới hạn bởi cung nhỏ AB và hai bán kính (tam)A, (tam)B (A,B đã đặt trên đường tròn) | `hinh_tron_ve.py` | generator | — |
 | `kim(R, vi_tri, loai='gio', tam='O')` | Vẽ MỘT kim đồng hồ từ tâm 'tam' ra hướng 'vi_tri' (thang 12 giờ, cho phép LẺ: vd 3.5 = giữa số 3 và 4) | `hinh_tron_ve.py` | method | — |
 | `mat_dong_ho(gio=None, phut=0, giay=None, R=2.4, tam='O')` | ĐỒNG HỒ chuẩn HH6 — MỘT hàm ra đồng hồ hoàn chỉnh: vành tròn tâm 'tam' + 12 số (đặt bằng diem_tren_tron, nhãn toả ra ngoài) + tuỳ chọn các kim | `hinh_tron_ve.py` | method | — |
-| `nua_duong_tron_don_vi(diem=None, R=3.0, scale=1.0, nhan_ABC=False, out='nua_dt_don_vi', tra_bytes=False)` | NỬA ĐƯỜNG TRÒN ĐƠN VỊ (định nghĩa GTLG góc 0°–180°, SGK H3.2–3.6) | `hinh_tron_ve.py` | method | — |
+| `nua_duong_tron_don_vi(diem=None, R=3.0, scale=1.0, nhan_ABC=False, chuThich=None, out='nua_dt_don_vi', tra_bytes=False)` | NỬA ĐƯỜNG TRÒN ĐƠN VỊ (định nghĩa GTLG góc 0°–180°, SGK H3.2–3.6) | `hinh_tron_ve.py` | method | — |
 | `so_quanh_tam(tam, ban_kinh, danh_sach, goc_dau=90, chieu=-1)` | Rải các nhãn 'danh_sach' ĐỀU quanh tâm 'tam' trên vòng bán kính 'ban_kinh', bắt đầu ở hướng 'goc_dau'° (mặc định 90 = trên đỉnh), bước 'chieu'*360/n ( | `hinh_tron_ve.py` | method | — |
 | `tiep_tuyen(tam, tiep_diem, dai=1.7, mau=None, net='lien', o_vuong=False)` | TIẾP TUYẾN của đường tròn 'tam' tại 'tiep_diem' (đã đặt TRÊN đường tròn) — đoạn thẳng qua tiếp điểm, VUÔNG GÓC bán kính, nửa dài 'dai' mỗi phía | `hinh_tron_ve.py` | method | — |
 | `tiep_tuyen_chung(tam1, tam2, loai='ngoai', phia=1, mau=None, net='lien', tiep1='T', tiep2='T2', dai=0.7)` | TIẾP TUYẾN CHUNG NGOÀI của hai đường tròn 'tam1','tam2' (đã khai): tạo hai tiếp điểm tiep1∈(tam1), tiep2∈(tam2) + vẽ đường tiếp tuyến qua chúng (kéo d | `hinh_tron_ve.py` | method | — |
 | `vanhKhan(R='R', r='r', toVanh=True, chuThich=None, nua=False, out='vanh_khan', tra_bytes=False)` | VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R), mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh) | `hinh_tron_ve.py` | method | — |
 | `vien_phan(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH VIÊN PHÂN giới hạn bởi dây AB và cung nhỏ AB (A,B trên đường tròn 'tam') | `hinh_tron_ve.py` | method | — |
 
-## Dựng Word (template JS v10.34)  · 77 hàm
+## Dựng Word (template JS v10.36)  · 79 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -133,6 +133,7 @@
 | `chiSoDuoi(coSo, chiSo)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 | `danDungSai(soCau, moTa)` | [28m] DÒNG DẪN Đúng/Sai — nhãn "Câu N." TỰ ĐẬM (khớp nhãn câu template tự sinh ở cauTracNghiem/traLoiNgan/tự luận). GỐC: dòng dẫn Đ/S trước đây dựng T | `hieuhoc_template.js` | JS | — |
 | `dangToanDayDu({ saiLamArr, soDang, ghiNhoArr, viDuLoiGiai, loiGiaiND, tenDang, ma, viDuDeBai, viDuCacCau, viDuThamChieu, viDuCoHinh, viDuHinhBenPhai, viDuHinhBenTrai, phanTich, soBai, mucDo, deBai, cacCau, thamChieu })` | Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến khích AI Soạn dùng hàm này | `hieuhoc_template.js` | JS | — |
+| `doDaiVecto(ten)` | 22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3  | `hieuhoc_template.js` | JS | — |
 | `footerTPC()` | Footer riêng cho tờ phân chương (khác footer file bài học — không số trang) | `hieuhoc_template.js` | JS | — |
 | `ghiChuGiangDay({ dsLopBai } = {})` | — | `hieuhoc_template.js` | JS | — |
 | `ghiNhoNhanh(dongArr, opts = {})` | — | `hieuhoc_template.js` | JS | — |
@@ -149,6 +150,7 @@
 | `hinhVeTextBox({ imageBuffer, rongCm = 6, tiLeGoc, chuThich })` | — | `hieuhoc_template.js` | JS | — |
 | `kiemMay(bufOrPath, opts = {})` | [v9.7] CỬA KIỂM MÁY CHUNG — kiemMay(bufOrPath, opts) Code hóa checklist máy (HP Điều 61). AI Soạn (qua xuatFile) và AI QC (gọi trực tiếp trên file nhậ | `hieuhoc_template.js` | JS | — |
 | `kyHieuGoc(tenGoc)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
+| `kyHieuVecto(ten)` | — | `hieuhoc_template.js` | JS | — |
 | `layoutCauHoi(cauArr, opts = {})` | — | `hieuhoc_template.js` | JS | — |
 | `loiGiai(noiDung)` | — | `hieuhoc_template.js` | JS | — |
 | `luoiHinh(items, opts = {})` | — | `hieuhoc_template.js` | JS | — |
@@ -201,4 +203,4 @@
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 72 hàm Python (vẽ hình) + 77 hàm JS (dựng Word) = 149.
+**Thống kê:** 72 hàm Python (vẽ hình) + 79 hàm JS (dựng Word) = 151.
