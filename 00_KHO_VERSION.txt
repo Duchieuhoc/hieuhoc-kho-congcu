@@ -1,3 +1,11 @@
+[32f] 2 BUILDER HÌNH VẬT-LÍ VECTƠ (hinh_hh10_ch04.py) — Ông Bụt Hình THPT, 2026-10-06. MERGE TRÊN HEAD [32e] @ 5714163423789ddb726f46a1862a3fad96e4b651 (đúng quy ước BUNG_KHO §6: nhãn = HEAD+1, không đặt song song).
+      • +`ban_song(alpha,...)` — H4.17 thuyền sang sông: hai bờ song song + tổng hợp vận tốc v_r/v_n/v, giao B,C trên bờ xa, cung góc alpha. (B08)
+      • +`mat_nghieng_luc(goc,...)` — H4.18 kéo vật lên dốc: tam giác vuông O-Q-T, 3 lực đồng quy P/w/F tại C, cung góc dốc + ô vuông. (B08)
+      • LÝ DO: 2 hình này vectơ KHÔNG neo đỉnh đa giác → nếu để AI Soạn ghép thô sẽ phải TỰ TÍNH TOẠ ĐỘ (Đ5.9 CẤM). OB cấp builder thuần-nghĩa (chỉ truyền góc + nhãn), máy đặt mọi điểm. Additive, 0 regression (chỉ THÊM 2 method vào class Hinh entry CH04; không đụng hinh_coban/hinh_toado/hinh_dagiac).
+      • Test render-soi-mắt: ban_song(35) + mat_nghieng_luc(30) ĐẠT — khớp SGK H4.17/H4.18.
+      • FILE THAY ĐỔI (upload đè GitHub): hinh_hh10_ch04.py · BAN_TRICH_HAM_HH10_CH04.md · 00_MUC_LUC_HAM.md · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-06 (nối tiếp [32e]). Phủ B08 (Tổng–hiệu vectơ). kyHieuVecto/doDaiVecto [32d] + caption [32e] giữ nguyên.
+
 [32e] hinh_tron_ve.py — nua_duong_tron_don_vi: NƯỚNG CAPTION tiếng Việt + render qua _render (Ông Bụt Hình THPT, 2026-10-05; sửa bố cục B05 neo phải Đ18). ÁP TRÊN NỀN [32d].
       • +tham số `chuThich` (nhãn "Hình N" nướng dưới hình) → hình NEO PHẢI đúng Đ18 (hình mặc định neo phải, chữ wrap trái; nhãn nướng vào ảnh — text box floating không hiện chuThich).
       • Đổi engine: THÂN tikz → `hinh_core._render` (xelatex + Latin Modern) thay `render_tikz_doc` (pdflatex) → caption tiếng Việt ĐỦ DẤU. Mũi tên `>=latex` (base, _render không nạp arrows.meta).

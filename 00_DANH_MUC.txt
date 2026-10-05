@@ -1,14 +1,13 @@
-═══════════════════════════════════════════════════════════════════
- CAPNHAT_KHO__32d — ĐÍCH: thầy PUSH GitHub (hieuhoc-kho-congcu), Commit changes
- Ông Bụt Hình THPT · 2026-10-05
-───────────────────────────────────────────────────────────────────
- hieuhoc_template.js | ĐÈ | +kyHieuVecto/doDaiVecto (mũi tên vectơ, [32d]).
-                     |    | Merge trên HEAD hiện tại — KHÔNG mất thay đổi Đại số [32c].
- API_REFERENCE.md    | ĐÈ | Regen — thêm mục kyHieuVecto(ten)/doDaiVecto(ten).
- 00_KHO_VERSION.txt  | ĐÈ | +block [32d] (gỡ va chạm mốc [32c]).
-───────────────────────────────────────────────────────────────────
- ⚠️ VÌ SAO [32d] (không [32c]): nhãn [32c] đã bị bản Đại số (giải tích) chiếm
-    trên GitHub; bản Hình kyHieuVecto cùng [32c] không lên được. Dựng lại ở
-    mốc MỚI [32d] trên HEAD hiện tại để KHÔNG đè mất thay đổi Đại số.
- → Sau push: GitHub có kyHieuVecto, mốc kho = [32d]. B07/B08–B11 chạy được.
-═══════════════════════════════════════════════════════════════════
+GÓI: CAPNHAT_KHO__32f.zip  — đích: thầy PUSH lên GitHub (hieuhoc-kho-congcu, Commit changes)
+MỐC: [32f] 2026-10-06 · nền merge HEAD [32e] @ 5714163423789ddb726f46a1862a3fad96e4b651
+
+| File | Thay/Thêm | Ghi chú |
+|---|---|---|
+| hinh_hh10_ch04.py          | SỬA (THÊM) | +2 method builder: ban_song (H4.17) · mat_nghieng_luc (H4.18). Additive. |
+| BAN_TRICH_HAM_HH10_CH04.md | SỬA (regen)| tự sinh lại — khớp kho; đã có 2 builder mới. |
+| 00_MUC_LUC_HAM.md          | SỬA (regen)| mục lục tổng — đã có 2 builder mới. |
+| 00_KHO_VERSION.txt         | SỬA (bump) | chèn khối [32f] lên đầu (log cộng dồn). |
+
+CÁCH PUSH: upload đè 4 file này lên repo (web GitHub → kéo-thả → Commit changes).
+SAU PUSH: HEAD ra [32f]; B08 phụ thuộc 2 builder này — HOSO B08 pin SHA sau khi push.
+KHÔNG đụng file môn khác. Đại số/các chương khác giữ nguyên.

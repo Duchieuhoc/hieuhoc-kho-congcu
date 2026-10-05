@@ -2,7 +2,7 @@
 
 > **Cho AI Soạn.** Đây là *CÁCH vẽ* (chữ ký hàm + tham số). *VẼ CÁI GÌ* nằm ở **phiếu khai nghĩa** Ông Bụt giao kèm nguồn.
 > Tự sinh bằng introspect `hinh_hh10_ch04.py` qua `sinh_bantrich.py` — vá kho → chạy lại → khớp. KHÔNG sửa tay file này.
-> Sinh ngày 04/10/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
+> Sinh ngày 06/10/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
 
 Import trong script bài: `import hinh_hh10_ch04 as H4` rồi `h = H4.Hinh()`.
 Gọi các method KHAI NGHĨA (mục 1) theo phiếu; cuối cùng `png = h.ve(out=..., tra_bytes=True)`.
@@ -15,6 +15,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 
 | Hàm (chữ ký) | Dùng khi |
 |---|---|
+| `ban_song(alpha=35, L_rieng=2.2, L_nuoc=1.6, cao=3.0, nhan_r='\\vec{v}_r', nhan_n='\\vec{v}_n', nhan_v='\\vec{v}')` | H4.17 — thuyền sang sông: hai bờ SONG SONG (d_1 dưới, d_2 trên) + tổng hợp vận tốc. v_r = AM (vận tốc riêng, hợp góc alpha° với bờ), v_n = MN (dòng nước, // bờ), v = AN (tổng). B = AN∩d_2, C = AM∩d_2 (nét đứt kéo dài). Máy đặt A,M,N,B,C + d_1,d_2 + cung góc alpha tại A. AI Soạn chỉ truyền alpha + nhãn. |
 | `chan_phan_giac(D, A, B, C, nhan='below', mau=None, ve_doan=True)` | D = CHÂN đường phân giác TRONG góc A trên cạnh BC (giao tia phân giác góc A với BC). A,B,C đã đặt. Máy tính theo định lí đường phân giác: BD/DC = AB/AC (KHÔNG cho toạ độ). Mặc định vẽ đoạn A–D. PHANH kiểm D thẳng hàng B,C. Dùng: đường phân giác đơn (AD), và tâm nội tiếp (giao 2 đường A–D, B–E). dau_goc_bang(('B','A','D')) & (('D','A','C')) gọi SAU để đánh dấu 2 góc bằng. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `chan_vuong_goc(ten, P, A, B, nhan='below', mau=None, ve_doan=True, o_vuong=True)` | Đặt 'ten' = CHÂN ĐƯỜNG VUÔNG GÓC (hình chiếu) của P lên đường thẳng AB. P, A, B đã đặt. Máy tự tính (KHÔNG cho toạ độ). Mặc định vẽ đoạn P–ten + ô vuông tại chân. PHANH kiểm ten thẳng hàng A,B và góc P-ten-(mốc) = 90°. Chân có thể NẰM NGOÀI đoạn AB (dùng thang_hang, không ép nằm giữa). Dùng: chân vuông góc từ điểm xuống tia/cạnh (H.4.50 MA⊥Ox; H.4.54 O xuống dây; đường cao tam giác). mau='red' → chấm đỏ + đoạn/ô vuông đỏ (điểm dựng ở lời giải). ve_doan=False: chỉ đặt điểm (không kẻ P–ten). o_vuong=False: bỏ ô vuông. |
 | `chu_so_7doan(so, x0=0.0, y0=0.0, rong=1.0, cao=2.0, mau=None, rong_net='dam')` | CHỮ SỐ kiểu 7-ĐOẠN (0..9) — cho bài TÂM đối xứng (lật nửa vòng 6↔9, giữ 0/1/2/5/8). Vẽ tại góc dưới-trái (x0,y0); rộng 'rong', cao 'cao' (đơn vị vẽ, mặc định 1×2 ô). Mỗi đoạn = nét ĐẬM. Gọi NHIỀU lần (đổi x0) để đặt các thẻ số cạnh nhau. rong_net ∈ {'vua','dam','rat_dam'}. mau=None → đen. |
@@ -59,6 +60,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `lat_kin_luc_giac(tam='O', canh=1.6, so_hinh=3, xoay=0)` | LÁT KÍN tổ ong: so_hinh lục giác đều cạnh 'canh' ghép khít quanh MỘT điểm chung 'tam' (mỗi góc trong 120° tại tâm; so_hinh × 120° phủ quanh tâm — với so_hinh=3 là 360°, kín). Minh hoạ bài lát kín gạch lục giác đều (HH6 CH04). Nhãn đỉnh ẩn (hình minh hoạ, không đo); chỉ 'tam' hiển thị. KHÔNG ràng buộc PHANH (hình minh hoạ trực quan, không có số đo cần kiểm). Các hình cùng hướng (đỉnh 0,60,…,300°) nên cạnh chung khít — tổ ong thật. |
 | `luc_giac_deu(A, B, Cc, D, E, F, canh=2.0, xoay=0, cheo=None, tam=None)` | Lục giác đều 6 đỉnh, thứ tự A→B→C→D→E→F theo chiều kim đồng hồ. Khi xoay=0: cạnh AB (trên) và ED (dưới) nằm ngang; C ở phải, F ở trái. canh = độ dài cạnh (= bán kính đường tròn ngoại tiếp). xoay = góc xoay cả hình (độ). cheo = None | 'chinh' (AD,BE,CF) | 'phu' (AC,BD,CE,DF,EA,FB) | 'tatca'. tam = tên tâm O (đặt → chấm tâm; 3 đường chéo chính đồng quy tại O). |
 | `luoi(cot, hang)` | Lưới nền cot×hang ô (xám nhạt). |
+| `mat_nghieng_luc(goc=30, day=6.0, ti_le_C=0.58, L_P=1.9, L_w=1.25, L_F=1.6, nhan_P='\\vec{P}', nhan_w='\\vec{w}', nhan_F='\\vec{F}')` | H4.18 — kéo vật lên mặt dốc nghiêng góc 'goc'° so phương ngang. Tam giác vuông O(chân dốc) — Q(chân phải, góc vuông) — T(đỉnh); mặt dốc = OT. C = điểm đặt vật trên OT. Ba lực đồng quy tại C: P (thẳng đứng xuống), w (⊥ mặt dốc, hướng lên), F (dọc mặt dốc, hướng lên đỉnh). Máy đặt O,Q,T,C + cung góc tại O + ô vuông tại Q. |
 | `ngoi_sao(tam, so_canh=5, ban_kinh=2.0, xoay=90, ti_le_trong=None, to=None, nhan=None, cham_tam=False)` | NGÔI SAO so_canh cánh (mặc định 5 — cờ VN/Quốc kỳ; dùng cả 4/6/8 cánh cho Chương V). Đỉnh CÁNH trên đường tròn bán kính ban_kinh; đỉnh LÕM trên bán kính trong = ban_kinh*ti_le_trong. xoay=90 → một cánh chĩa thẳng LÊN (chuẩn cờ). ti_le_trong=None → tự chọn: 5 cánh = 0.382 (pentagram), khác = 0.5. tam = tên tâm (dùng làm gốc; cham_tam=True → CHẤM tâm cho bài TÂM đối xứng, mặc định KHÔNG chấm). to = màu tô (None = chỉ đường bao). Đỉnh sao đủ 2*so_canh. |
 | `nhan_goc(goc, chu, r=0.44)` | Ghi nhãn 'chu' (CHỮ như 'x'/'y'/'z', hoặc số thứ tự '1','2'…) tại phân giác TRONG của góc — dùng cho GÓC CHƯA BIẾT (nhãn chữ, không ghi số) và góc đánh số không theo phần tư. goc = (canh1, dinh, canh2): tên 3 điểm ĐÃ đặt. KHÔNG vẽ cung (chỉ đặt chữ); muốn có cung thì gọi kèm so_do_goc(goc, hien_so=False). [Nhấc từ hinh_gocdt → base mốc 28b: nhãn chữ góc dùng chung mạch tam giác 7→9, cạnh dau_goc_bang/so_do_goc.] |
 | `nhiet_ke_cot(cot, thang=(-20, 50), buoc=10, don_vi='°C', hien_muc_so=False)` | NHIET KE COT — nhieu thang do DUNG canh nhau, doc muc thuy ngan. cot : list (ten, muc) — moi nhiet ke: ten = nhan duoi cot (rong → khong ghi); muc = muc thuy ngan (nguyen, theo don vi thang). thang : (min, max) bien thang chia (nguyen), min < max. buoc : moi vach chinh ung bao nhieu don vi; chia het (max-min). don_vi : chuoi don vi ghi o dau moi thang ('°C'). hien_muc_so : False (mac dinh) → KHONG ghi so tai dinh cot (muc la cai HS doc, ᄄ35); True → ghi (dung cho loi giai). May tu tinh toa do tu GIA TRI — AI Soan chi khai cot/thang/buoc (ᄄ5.9). |
@@ -97,4 +99,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 69 hàm khai nghĩa (phơi) · 1 cửa render · 13 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 71 hàm khai nghĩa (phơi) · 1 cửa render · 13 hàm hạ tầng (ẩn khỏi bản phát).
