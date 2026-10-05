@@ -1,3 +1,19 @@
+[32d] KÝ HIỆU VECTƠ MŨI TÊN (template) — Ông Bụt Hình THPT, 2026-10-05; GỠ VA CHẠM MỐC [32c].
+      ★ SỰ CỐ: nhãn [32c] bị TRÙNG — máy Hình gắn [32c] cho template kyHieuVecto (pilot HH10_CH04 Vectơ),
+        máy Đại số cũng gắn [32c] cho hinh_ds11_giaitich (+1 hàm) và bản Đại số LÀ bản lên GitHub HEAD.
+        Bản Hình kyHieuVecto KHÔNG lên được → B07 phụ thuộc hàm này mà GitHub thiếu. Nay MERGE lại trên
+        HEAD hiện tại (e7ceb517, [32c]-ĐạiSố) ở mốc MỚI [32d] — KHÔNG mất thay đổi Đại số.
+      • 2 HÀM template (OMML m:acc, accent U+20D7 — cùng cơ chế kyHieuGoc, additive 0 regression):
+        - kyHieuVecto(ten): mũi tên trên — kyHieuVecto("AB")=\overrightarrow{AB}, kyHieuVecto("a")=\vec a.
+        - doDaiVecto(ten): |\overrightarrow{ten}| — độ dài vectơ (gạch đứng ôm mũi tên).
+      • THAY soGachTren cho ký hiệu vectơ (soGachTren ra \overline gạch ngang, lệch chuẩn SGK KNTT).
+      • NGHIỆM THU: node --check OK; build B07 trên template merged → 220 m:acc chr=⃗, 0 m:e lồng,
+        0 undefined, 18 ảnh; diff với GitHub chỉ +3 hàm +2 export (thuần cộng).
+      • FILE upload GitHub (đè): hieuhoc_template.js (+2 hàm, +export) · API_REFERENCE.md (regen 82 hàm).
+      ⚠️ BÀI HỌC VA CHẠM MỐC: khi nhiều máy cùng sửa kho, nhãn mốc phải LẤY THEO GitHub HEAD + 1 chữ
+        (không gắn song song) — tránh 2 máy cùng [32x]. (Lặp lại sự cố [32a] log 04/10.)
+      Mốc kho: 2026-10-05 (nối tiếp [32c]).
+
 [32c] hinh_ds11_giaitich.py (+1 hàm) + BAN_TRICH_HAM_DS11_CH05__giaitich.md (cập nhật) — Ông Bụt Đại số THPT, 2026-10-04; PILOT DS11_CH05_B17 (Hàm số liên tục): OB dựng trước hàm hình H5.7.
       • THÊM do_thi_bac_thang(doan, diem_dac, diem_ho, ...) — đồ thị bậc thang/piecewise-linear + điểm đặc/hở (tikz), minh họa LIÊN TỤC/GIÁN ĐOẠN (H5.7: f liền / g hở tại (1/2,1)).
       • NGHIỆM THU: render H5.7 f+g (pdflatex+tikz dpi200) + soi mắt ĐẠT (đúng toán · trong chương · khớp khai nghĩa NGUON B17 · không lộ đáp án — HĐ2 là đồ thị cho sẵn).

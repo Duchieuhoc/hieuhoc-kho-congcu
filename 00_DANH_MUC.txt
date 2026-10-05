@@ -1,10 +1,14 @@
-CAPNHAT_KHO__32c — push GitHub (hieuhoc-kho-congcu), Commit changes
-PILOT B17: +do_thi_bac_thang (đồ thị bậc thang H5.7).
-
-FILE (upload ĐÈ 3 file, GIỮ NGUYÊN mọi file khác — nhất là file vectơ [32a] máy Hình):
-  hinh_ds11_giaitich.py                 — SỬA additive (+do_thi_bac_thang + _fmt_tick)
-  BAN_TRICH_HAM_DS11_CH05__giaitich.md  — cập nhật (thêm entry do_thi_bac_thang)
-  00_KHO_VERSION.txt                    — THAY (prepend [32c]; giữ [32b]→[32a]→[31za]...)
-
-Dựng trên HEAD thật 5c3fd58 ([32b]). Thứ tự [32c]→[32b]→[32a]→[31za]... KHÔNG đụng template/vectơ.
-Sau push: HEAD ra [32c].
+═══════════════════════════════════════════════════════════════════
+ CAPNHAT_KHO__32d — ĐÍCH: thầy PUSH GitHub (hieuhoc-kho-congcu), Commit changes
+ Ông Bụt Hình THPT · 2026-10-05
+───────────────────────────────────────────────────────────────────
+ hieuhoc_template.js | ĐÈ | +kyHieuVecto/doDaiVecto (mũi tên vectơ, [32d]).
+                     |    | Merge trên HEAD hiện tại — KHÔNG mất thay đổi Đại số [32c].
+ API_REFERENCE.md    | ĐÈ | Regen — thêm mục kyHieuVecto(ten)/doDaiVecto(ten).
+ 00_KHO_VERSION.txt  | ĐÈ | +block [32d] (gỡ va chạm mốc [32c]).
+───────────────────────────────────────────────────────────────────
+ ⚠️ VÌ SAO [32d] (không [32c]): nhãn [32c] đã bị bản Đại số (giải tích) chiếm
+    trên GitHub; bản Hình kyHieuVecto cùng [32c] không lên được. Dựng lại ở
+    mốc MỚI [32d] trên HEAD hiện tại để KHÔNG đè mất thay đổi Đại số.
+ → Sau push: GitHub có kyHieuVecto, mốc kho = [32d]. B07/B08–B11 chạy được.
+═══════════════════════════════════════════════════════════════════
