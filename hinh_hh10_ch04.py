@@ -100,3 +100,47 @@ class Hinh(hinh_dagiac.HinhDaGiac, hinh_toado.Hinh):
         self.so_do_goc(('Q', 'O', 'T'), do=goc)
         self.goc_vuong(('O', 'Q', 'T'))
         return self
+
+
+    # ═══ [CH04 · vá 32h] LƯỚI XIÊN + PHÂN TÍCH VECTƠ THEO CƠ SỞ (OB cấp) ═══
+    #   Vectơ trong hệ CƠ SỞ XIÊN (a,b không vuông góc) → hệ số là DỮ KIỆN bài
+    #   (u = x·a + y·b), AI Soạn truyền he_so=(x,y), máy tính toạ độ vẽ (Đ5.9 OK).
+    def luoi_xien(self, goc_b=60, dai_b=1.0, m=4, n=5, luoi=True, co_so=True,
+                  nhan_a=r'\vec{a}', nhan_b=r'\vec{b}', vectos=None):
+        """H4.27/H4.28 — hệ CƠ SỞ XIÊN: a = (1;0) (ngang), b nghiêng 'goc_b'° dài 'dai_b'.
+        luoi=True vẽ lưới ô xiên n×m (n ô theo a, m ô theo b). co_so=True vẽ 2 vectơ cơ sở a,b.
+        vectos = [{he_so:(x,y), nhan, mau, chieu}] — mỗi vectơ u = x·a + y·b (hệ số = dữ kiện
+        bài; máy tính toạ độ). chieu=True → nét đứt CHIẾU theo 2 phương a,b (hình bình hành
+        phân tích x·a, y·b). AI Soạn CHỈ truyền goc_b, hệ số — KHÔNG tính toạ độ."""
+        import math as _m
+        self._nen_luoi = False          # tắt nền lưới VUÔNG mặc định (dùng lưới xiên riêng)
+        a = (1.0, 0.0)
+        br = _m.radians(goc_b)
+        b = (dai_b*_m.cos(br), dai_b*_m.sin(br))
+        P = lambda i, j: (i*a[0] + j*b[0], i*a[1] + j*b[1])   # điểm lưới (i theo a, j theo b)
+        # lưới ô xiên
+        if luoi:
+            for j in range(m+1):        # đường // a (cố định j)
+                self._diem(f'_la{j}0', *P(0, j), moc=False); self._diem(f'_la{j}1', *P(n, j), moc=False)
+                self.tikz.append(('duong', f'_la{j}0', f'_la{j}1', None))
+            for i in range(n+1):        # đường // b (cố định i)
+                self._diem(f'_lb{i}0', *P(i, 0), moc=False); self._diem(f'_lb{i}1', *P(i, m), moc=False)
+                self.tikz.append(('duong', f'_lb{i}0', f'_lb{i}1', None))
+        # gốc O
+        self._diem('O', 0.0, 0.0, 'below left')
+        # vectơ cơ sở
+        if co_so:
+            self._diem('_va', *P(1, 0), moc=False); self._diem('_vb', *P(0, 1), moc=False)
+            self.vecto('O', '_va', nhan=nhan_a, vi_tri_nhan='below', rong='rat_dam')
+            self.vecto('O', '_vb', nhan=nhan_b, vi_tri_nhan='above left', rong='rat_dam')
+        # các vectơ u = x·a + y·b
+        for k, v in enumerate(vectos or []):
+            x, y = v['he_so']
+            end = f'_u{k}'; self._diem(end, *P(x, y), v.get('viTri', 'above right'), moc=False)
+            if v.get('chieu'):          # nét đứt phân tích: O→x·a→u và O→y·b→u
+                ca = f'_ca{k}'; cb = f'_cb{k}'
+                self._diem(ca, *P(x, 0), moc=False); self._diem(cb, *P(0, y), moc=False)
+                self.doan(ca, end, net='dut', mau='gray'); self.doan(cb, end, net='dut', mau='gray')
+            self.vecto('O', end, nhan=v.get('nhan'), mau=v.get('mau', 'blue'),
+                       vi_tri_nhan=v.get('viTriNhan', 'above'))
+        return self

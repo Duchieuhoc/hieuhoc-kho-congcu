@@ -1,9 +1,12 @@
-GÓI: CAPNHAT_KHO__32g.zip — đích: thầy PUSH GitHub (hieuhoc-kho-congcu, Commit changes).
-MỐC: [32g] 2026-10-06 · nền merge HEAD [32f] @ 0a730a26112a8b8df74b8a6bcfef0dc077cccbd5
+GÓI: CAPNHAT_KHO__32h.zip — đích: thầy PUSH GitHub (hieuhoc-kho-congcu, Commit changes).
+MỐC: [32h] 2026-10-06 · nền merge HEAD [32g] @ 659fb0bc013ebcc055306c9cb95beef477ae337e
 
 | File | Thay | Ghi chú |
 |---|---|---|
-| hieuhoc_template.js | SỬA (fix) | regex `_canHinh`: `cho hình`→`cho hình (?:bên|vẽ|dưới|trên|sau)`. Hết bắt oan "Cho hình bình hành/vuông/thoi". Internal, 0 đổi API. |
-| 00_KHO_VERSION.txt  | bump     | chèn khối [32g] lên đầu. |
+| hinh_hh10_ch04.py          | SỬA (THÊM) | +builder `luoi_xien` (lưới xiên + phân tích vectơ theo cơ sở) cho B09 H8/H9. Additive. |
+| BAN_TRICH_HAM_HH10_CH04.md | regen | khớp kho — có luoi_xien. |
+| 00_MUC_LUC_HAM.md          | regen | mục lục tổng — có luoi_xien. |
+| 00_KHO_VERSION.txt         | bump | chèn khối [32h] lên đầu. |
 
-LƯU Ý: chỉ 2 file. Không đụng hàm hình / môn khác. Bài cũ dựng lại y nguyên (chỉ hết bắt oan).
+CÁCH PUSH: upload đè 4 file này lên repo. SAU PUSH: HEAD ra [32h]; B09 phụ thuộc luoi_xien.
+KHÔNG đụng môn khác / chương khác.
