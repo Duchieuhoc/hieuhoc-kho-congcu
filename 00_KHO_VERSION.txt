@@ -1,3 +1,9 @@
+[32k] HEADER GIỮ SỐ LA MÃ (hieuhoc_template.js) — Ông Bụt Hình THPT, 2026-10-06. Nối tiếp [32j], cùng HEAD gốc.
+      • chuanHoaCauChu() giữ token số La Mã (IV/V/XII…) chữ hoa ở header chạy trang — trước toLowerCase() hạ "CHƯƠNG IV"→"chương iv". Hạ-bậc từng từ, chừa /^[IVXLCDM]+$/. ADDITIVE (chỉ header normalize; tên giữa trang + nội dung 0 đổi).
+      • Lộ khi QC ⑤ Tổng kết chương IV. Phủ loạt đề KT CH04 (header "CHƯƠNG IV").
+      • FILE: hieuhoc_template.js · 00_KHO_VERSION.txt. Template v10.39.
+      Mốc kho: 2026-10-06 (nối tiếp [32j]).
+
 [32j] DẤU ⋅ TÍCH VÔ HƯỚNG → CAMBRIA MATH (hieuhoc_template.js) — Ông Bụt Hình THPT, 2026-10-06. GỘP CÙNG UPLOAD [32i] (chưa push riêng) — merge nối tiếp trên nền [32i] local, cùng HEAD gốc [32h] @ d67980c.
       • _RE_TOAN +`⋅` (⋅ DOT OPERATOR = `\cdot`) → route Cambria Math (font-proof). Lộ khi QC B11 "Tích vô hướng hai vectơ": AI Soạn dùng ⋅ (lọt cửa vì chỉ · U+00B7 bị chặn) nhưng 136/138 dấu rơi font TNR = rủi ro tofu Word thật (QUY_UOC §7).
       • Cùng cơ chế [31c/31e/31m] (ký hiệu loose-text → Cambria Math). ADDITIVE 1 ký tự — bài cũ 0 đổi (không bài nào dùng ⋅ khác). CẤM · U+00B7 (dấu nhân) VẪN bị cửa xuatFile chặn.
