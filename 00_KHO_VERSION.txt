@@ -1,3 +1,18 @@
+[32j] DẤU ⋅ TÍCH VÔ HƯỚNG → CAMBRIA MATH (hieuhoc_template.js) — Ông Bụt Hình THPT, 2026-10-06. GỘP CÙNG UPLOAD [32i] (chưa push riêng) — merge nối tiếp trên nền [32i] local, cùng HEAD gốc [32h] @ d67980c.
+      • _RE_TOAN +`⋅` (⋅ DOT OPERATOR = `\cdot`) → route Cambria Math (font-proof). Lộ khi QC B11 "Tích vô hướng hai vectơ": AI Soạn dùng ⋅ (lọt cửa vì chỉ · U+00B7 bị chặn) nhưng 136/138 dấu rơi font TNR = rủi ro tofu Word thật (QUY_UOC §7).
+      • Cùng cơ chế [31c/31e/31m] (ký hiệu loose-text → Cambria Math). ADDITIVE 1 ký tự — bài cũ 0 đổi (không bài nào dùng ⋅ khác). CẤM · U+00B7 (dấu nhân) VẪN bị cửa xuatFile chặn.
+      • Nghiệm thu B11 rebuild: 136 run ⋅ TNR→Cambria Math; kiemMay=[]; 9 hình=9 blip; 472 mũi tên vectơ; 0 ký tự cấm.
+      • FILE THAY ĐỔI: hieuhoc_template.js (chung với [32i]) · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-06 (nối tiếp [32i]). Phủ B11.
+
+[32i] TÁCH Ý a)b)c) NƯỚNG TRONG deBai → MỖI Ý 1 DÒNG (hieuhoc_template.js) — Ông Bụt Hình THPT, 2026-10-06. MERGE TRÊN HEAD [32h] @ d67980c0aa0fa19ec4b3923df5fd979a19f8dbea (quy ước BUNG_KHO §6).
+      • Chỉ đạo Giám đốc 06/10: "các câu a; b phải nằm ở dòng riêng biệt". AI Soạn đôi khi gộp "… a) … b) …" THẲNG vào `deBai` (thay vì truyền `cacCau`) → layoutCauHoi không áp → các ý bị dồn 1 dòng, wrap xấu (lộ ở B10 Ví dụ 2).
+      • +2 helper NỘI BỘ: `_tachYDeBai(deBai)` nhận diện ≥2 ý bắt đầu a) trong deBai MẢNG; `_deBaiParas(nhanRuns, deBai, {anh})` dựng dòng dẫn đề + mỗi ý 1 para (nhãn ý in đậm, căn trái). Wire vào viDu / baiTapTaiLop / tuLuanBTVN (CẢ 2 nhánh có-hình & không-hình). dangToanDayDu + viDuLyThuyet hưởng qua viDu.
+      • Additive/an toàn: string thuần hoặc không ≥2 ý từ a) → GIỮ hành vi cũ (1 dòng inline). CHỮ KÝ HÀM KHÔNG ĐỔI (helper không export) → KHÔNG regen BAN_TRICH/API.
+      • Nghiệm thu: B10 VD2/3/4 + 5 Bài tập mẫu ra a)/b)/c)/d) riêng dòng; VD1 (không ý) giữ nguyên; kiemMay=[] sạch; 5 hình=5 blip. Đối sánh A/B (OLD vs NEW) B07/B08/B09: 0 đổi (đã dùng cacCau đúng) → KHÔNG cần vá lại bài đã lưu.
+      • FILE THAY ĐỔI: hieuhoc_template.js · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-06 (nối tiếp [32h]). Phủ B10 (rebuild).
+
 [32h] LƯỚI XIÊN + PHÂN TÍCH VECTƠ THEO CƠ SỞ (hinh_hh10_ch04.py) — Ông Bụt Hình THPT, 2026-10-06. MERGE TRÊN HEAD [32g] @ 659fb0bc013ebcc055306c9cb95beef477ae337e (quy ước BUNG_KHO §6).
       • +`luoi_xien(goc_b, dai_b, m, n, luoi, co_so, vectos=[{he_so:(x,y),nhan,mau,chieu}])` — hệ CƠ SỞ XIÊN (a,b không vuông góc): lưới ô xiên + 2 vectơ cơ sở + vectơ u=x·a+y·b (hệ số = DỮ KIỆN bài, máy tính toạ độ — Đ5.9 OK) + nét đứt CHIẾU phân tích. Phủ B09 Hình 8 (H4.27 phân tích theo cơ sở) + Hình 9 (H4.28, luoi=False).
       • Nhãn mặc định ec{a}/ec{b} (KHÔNG dấu cách — _mathlbl chỉ bọc $...$ khi nhãn không có space; AI Soạn truyền ec{u} dạng không space).
