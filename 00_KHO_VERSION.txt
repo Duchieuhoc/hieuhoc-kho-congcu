@@ -1,3 +1,10 @@
+[32g] FIX regex `_canHinh` (hieuhoc_template.js) — Ông Bụt Hình THPT, 2026-10-06. MERGE TRÊN HEAD [32f] @ 0a730a26112a8b8df74b8a6bcfef0dc077cccbd5 (quy ước BUNG_KHO §6).
+      • `cho hình` → `cho hình (?:bên|vẽ|dưới|trên|sau)`: hết FALSE-POSITIVE "Cho hình bình hành / hình vuông / hình thoi…" bị hiểu nhầm là "quan sát hình vẽ" → đòi hình oan ở bài CM thuần không hình (vd Ví dụ 2 B08).
+      • `_canHinh` là hàm NỘI BỘ (prefix _, Đ5.9 ẩn) — KHÔNG đổi API/chữ ký public → KHÔNG regen BAN_TRICH/API. Additive sửa-lỗi, bài cũ 0 đổi (chỉ hết bắt oan).
+      • node --check OK. Test: "Cho hình bình hành… CM" KHÔNG bắt; "cho hình bên/vẽ sau" VẪN bắt đúng. Phát hiện: AI Soạn báo [SỬA] khi dựng B08 L1 (workaround "Xét" tạm → nay gỡ).
+      • FILE THAY ĐỔI (upload đè GitHub): hieuhoc_template.js · 00_KHO_VERSION.txt.
+      Mốc kho: 2026-10-06 (nối tiếp [32f]).
+
 [32f] 2 BUILDER HÌNH VẬT-LÍ VECTƠ (hinh_hh10_ch04.py) — Ông Bụt Hình THPT, 2026-10-06. MERGE TRÊN HEAD [32e] @ 5714163423789ddb726f46a1862a3fad96e4b651 (đúng quy ước BUNG_KHO §6: nhãn = HEAD+1, không đặt song song).
       • +`ban_song(alpha,...)` — H4.17 thuyền sang sông: hai bờ song song + tổng hợp vận tốc v_r/v_n/v, giao B,C trên bờ xa, cung góc alpha. (B08)
       • +`mat_nghieng_luc(goc,...)` — H4.18 kéo vật lên dốc: tam giác vuông O-Q-T, 3 lực đồng quy P/w/F tại C, cung góc dốc + ô vuông. (B08)

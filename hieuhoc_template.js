@@ -721,7 +721,7 @@ function _extractText(val) {
 function _canHinh(deBai, cacCau) {
   const deStr = _extractText(deBai) + " " + _extractText(cacCau);
   return (
-    /quan sát hình|hình bên|hình vẽ|hình dưới|cho hình|xem hình|hình \d+\.\d+/i.test(deStr) ||
+    /quan sát hình|hình bên|hình vẽ|hình dưới|cho hình (?:bên|vẽ|dưới|trên|sau)|xem hình|hình \d+\.\d+/i.test(deStr) ||
     /ba tia|tia nằm giữa|các tia|từ đỉnh/i.test(deStr) ||
     (/chứng minh/i.test(deStr) && /tia phân giác/i.test(deStr)) ||
     (/cắt nhau tại|hai đường thẳng cắt/i.test(deStr) &&

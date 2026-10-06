@@ -1,13 +1,9 @@
-GÓI: CAPNHAT_KHO__32f.zip  — đích: thầy PUSH lên GitHub (hieuhoc-kho-congcu, Commit changes)
-MỐC: [32f] 2026-10-06 · nền merge HEAD [32e] @ 5714163423789ddb726f46a1862a3fad96e4b651
+GÓI: CAPNHAT_KHO__32g.zip — đích: thầy PUSH GitHub (hieuhoc-kho-congcu, Commit changes).
+MỐC: [32g] 2026-10-06 · nền merge HEAD [32f] @ 0a730a26112a8b8df74b8a6bcfef0dc077cccbd5
 
-| File | Thay/Thêm | Ghi chú |
+| File | Thay | Ghi chú |
 |---|---|---|
-| hinh_hh10_ch04.py          | SỬA (THÊM) | +2 method builder: ban_song (H4.17) · mat_nghieng_luc (H4.18). Additive. |
-| BAN_TRICH_HAM_HH10_CH04.md | SỬA (regen)| tự sinh lại — khớp kho; đã có 2 builder mới. |
-| 00_MUC_LUC_HAM.md          | SỬA (regen)| mục lục tổng — đã có 2 builder mới. |
-| 00_KHO_VERSION.txt         | SỬA (bump) | chèn khối [32f] lên đầu (log cộng dồn). |
+| hieuhoc_template.js | SỬA (fix) | regex `_canHinh`: `cho hình`→`cho hình (?:bên|vẽ|dưới|trên|sau)`. Hết bắt oan "Cho hình bình hành/vuông/thoi". Internal, 0 đổi API. |
+| 00_KHO_VERSION.txt  | bump     | chèn khối [32g] lên đầu. |
 
-CÁCH PUSH: upload đè 4 file này lên repo (web GitHub → kéo-thả → Commit changes).
-SAU PUSH: HEAD ra [32f]; B08 phụ thuộc 2 builder này — HOSO B08 pin SHA sau khi push.
-KHÔNG đụng file môn khác. Đại số/các chương khác giữ nguyên.
+LƯU Ý: chỉ 2 file. Không đụng hàm hình / môn khác. Bài cũ dựng lại y nguyên (chỉ hết bắt oan).
