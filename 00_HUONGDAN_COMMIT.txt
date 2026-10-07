@@ -1,0 +1,40 @@
+═══════════════════════════════════════════════════════════════════
+CẬP NHẬT KHO — HH8_CH03 · 2 thay đổi hinh_dagiac.py · QC pilot B10
+Ông Bụt · 2026-10-07 · (OB không push được: GH_TOKEN invalid → thầy push)
+═══════════════════════════════════════════════════════════════════
+
+NỀN: HEAD kho hiện tại = f10d527 (mốc 32k). Cả 2 thay đổi nằm trong hinh_dagiac.py.
+
+── THAY ĐỔI 1 — THÊM hàm tu_giac_goc (lỗ hổng A↔C pilot B10 phơi ra)
+  • OB kê THIẾU ở Pha A: mạch "tính góc tứ giác" (H.3.6/3.7/3.8/3.9) cần dựng
+    tứ giác biết góc — kho chưa có. AI Soạn báo [SỬA] + đề xuất hàm; OB review.
+  • Method tu_giac_goc(A,B,Cc,D, goc_A,goc_B,goc_C, ab,bc,chieu,goc_o,danh_dau_goc)
+    — song sinh tam_giac_goc; AI khai 3 góc (D=360−Σ), máy giải 2 cạnh khép kín
+    (giấu toạ độ, Đ5.9), PHANH kiểm 4 góc. danh_dau_goc=False → không lộ (Đ35).
+  • OB TEST ĐỘC LẬP: dựng khớp khai SAI SỐ 0,000° (4 ca: 110/120/80 · 90/125/90
+    · 90/90/90 · 130/120/60). ĐẠT.
+
+── THAY ĐỔI 2 — VÁ off-by-one da_giac_canh_goc (AI báo ⚪; OB xác nhận + vá)
+  • Bug: với khep=True + góc phân biệt, walk gán goc[0] cho đỉnh ten[1] nhưng
+    assertion gán goc[0] cho ten[0] → lệch 1 (xoay vòng), góc vẽ sai đỉnh;
+    PHANH raise trừ khi mọi góc bằng nhau.
+  • Vá: walk dùng goc_walk = goc[1:]+goc[:1] khi khep (đường mở giữ nguyên).
+  • OB ĐỐI CHỨNG: hình bình hành 120/60/120/60 — bản gốc lệch 60° (vẽ 60°@A),
+    bản vá khớp 0,000°. Không caller nào trong kho lệ thuộc bug → vá an toàn.
+
+── CÁCH ÁP (chọn 1)
+  A) Chép đè:   cp hinh_dagiac.py  <kho>/hinh_dagiac.py
+  B) Áp patch:  cd <kho> && git apply PATCH__hinh_dagiac__tu_giac_goc+off_by_one.diff
+  Rồi regen bản trích chính thức:
+     python3 sinh_bantrich.py hinh_tamgiac HH8_CH03 > BAN_TRICH_HAM_HH8_CH03.md
+  (bản trích kèm đây đã regen sẵn — dùng luôn cũng được)
+
+── COMMIT MESSAGE gợi ý
+  [32l] hinh_dagiac: +tu_giac_goc (mạch tính góc tứ giác, song sinh tam_giac_goc)
+        + vá off-by-one da_giac_canh_goc (khep=True góc phân biệt). QC pilot HH8_CH03_B10.
+        Test: tu_giac_goc sai số 0°; da_giac_canh_goc HBH 120/60 khớp 0° (gốc lệch 60°).
+
+── SAU KHI PUSH
+  • Cập nhật mốc kho (00_KHO_VERSION.txt) + bản trích trong gói GIAO_AISOAN các bài sau.
+  • Gói pilot B10 đã giao chạy bằng patch local — khớp bản chính thức này (cùng hàm).
+═══════════════════════════════════════════════════════════════════

@@ -1,0 +1,82 @@
+diff --git a/hinh_dagiac.py b/hinh_dagiac.py
+index 0cde0d8..49f7d1d 100644
+--- a/hinh_dagiac.py
++++ b/hinh_dagiac.py
+@@ -203,6 +203,56 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
+             self._diem(A,0.5,2,'above left'); self._diem(B,3.5,2,'above right')
+             self._diem(Cc,4,0,'below right'); self._diem(D,0,0,'below left')
+         self._da_giac(A, B, Cc, D); return self
++    def tu_giac_goc(self, A, B, Cc, D, goc_A, goc_B, goc_C,
++                    ab=4.0, bc=3.0, chieu=-1, goc_o=(0.0, 0.0), danh_dau_goc=False):
++        """Tứ giác LỒI ABCD biết GÓC TRONG tại A, B, C (góc D tự = 360 − tổng). Song sinh với
++        tam_giac_goc cho mạch TÍNH GÓC tứ giác: AI Soạn chỉ khai 3 góc + 2 cạnh gợi ý (ab=|AB|,
++        bc=|BC|); máy GIẢI 2 cạnh còn lại để khép kín (KHÔNG cho toạ độ, Đ5.9) rồi PHANH kiểm CẢ
++        4 góc trong (±0,5°). A trên-trái, B trên-phải, C dưới-phải, D dưới-trái (như tu_giac);
++        chieu=-1 đi chiều kim đồng hồ. danh_dau_goc=False (mặc định) → chỉ đặt ràng buộc PHANH,
++        KHÔNG vẽ cung — AI tự gọi so_do_goc()/goc_vuong()/nhan_goc('?') tuỳ hình đề/lời giải
++        (hình đề: góc cần tìm ghi '?' qua nhan_goc, CẤM lộ giá trị — Đ35). goc_o=(dx,dy) dời cả
++        hình. Dùng: tính góc tứ giác (B10 H.3.6/3.7/3.8/3.9), hình thang/tứ giác có góc ngoài.
++        [Bổ sung mạch tứ giác-biết-góc — song song tam_giac_goc; khép vòng A↔C pilot HH8_CH03_B10.]"""
++        import math as _m
++        gD = 360.0 - (float(goc_A) + float(goc_B) + float(goc_C))
++        for nm, g in (('A', goc_A), ('B', goc_B), ('C', goc_C), ('D', gD)):
++            if not (0.0 < g < 180.0):
++                raise ValueError(f"[tu_giac_goc] góc {nm} = {g:.2f}° không hợp lệ cho tứ giác LỒI "
++                                 f"(mỗi góc phải 0°<g<180°; tổng 3 góc khai = {goc_A+goc_B+goc_C}).")
++        # đi quanh chu vi A→B→C→D→A; hướng cạnh, rẽ tại đỉnh ĐẾN theo góc trong đỉnh đó
++        hAB = 0.0
++        hBC = hAB + chieu * (180.0 - float(goc_B))
++        hCD = hBC + chieu * (180.0 - float(goc_C))
++        hDA = hCD + chieu * (180.0 - gD)
++        u = lambda d: (_m.cos(_m.radians(d)), _m.sin(_m.radians(d)))
++        uAB, uBC, uCD, uDA = u(hAB), u(hBC), u(hCD), u(hDA)
++        # chọn ab, bc; giải cd, da để Σ cạnh·hướng = 0 (khép kín)
++        det = uCD[0] * uDA[1] - uDA[0] * uCD[1]
++        if abs(det) < 1e-9:
++            raise ValueError("[tu_giac_goc] cạnh CD ∥ DA — không khép được; đổi góc.")
++        rx = -(ab * uAB[0] + bc * uBC[0]); ry = -(ab * uAB[1] + bc * uBC[1])
++        cd = (rx * uDA[1] - uDA[0] * ry) / det
++        da = (uCD[0] * ry - rx * uCD[1]) / det
++        if cd <= 0.05 or da <= 0.05:
++            raise ValueError(f"[tu_giac_goc] cạnh gợi ý ab={ab}, bc={bc} không khép thành tứ giác lồi "
++                             f"(CD={cd:.2f}, DA={da:.2f}≤0). Đổi ab/bc cho cân.")
++        ox, oy = goc_o
++        ax, ay = ox + 0.0, oy + 0.0
++        bx, by = ax + ab * uAB[0], ay + ab * uAB[1]
++        cx, cy = bx + bc * uBC[0], by + bc * uBC[1]
++        dx, dy = cx + cd * uCD[0], cy + cd * uCD[1]
++        self._diem(A, ax, ay, 'above left', moc=True); self._diem(B, bx, by, 'above right', moc=True)
++        self._diem(Cc, cx, cy, 'below right', moc=True); self._diem(D, dx, dy, 'below left', moc=True)
++        self._da_giac(A, B, Cc, D)
++        goc4 = [((D, A, B), goc_A), ((A, B, Cc), goc_B), ((B, Cc, D), goc_C), ((Cc, D, A), gD)]
++        for (c1, v, c2), g in goc4:
++            if danh_dau_goc:
++                self.so_do_goc([c1, v, c2], do=round(float(g), 4))
++            else:
++                self.rb.append({'loai': 'goc', 'ten': [c1, v, c2], 'do': round(float(g), 4)})
++        self._goc_D_tinh = round(gD, 4)   # tiện AI đọc lại góc D máy tính (không lộ lên hình)
++        return self
+     def luc_giac_deu(self, A, B, Cc, D, E, F, canh=2.0, xoay=0, cheo=None, tam=None):
+         """Lục giác đều 6 đỉnh, thứ tự A→B→C→D→E→F theo chiều kim đồng hồ.
+         Khi xoay=0: cạnh AB (trên) và ED (dưới) nằm ngang; C ở phải, F ở trái.
+@@ -424,14 +474,18 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
+         x, y = 0.0, 0.0
+         toa = [(x, y)]
+         huong = float(huong_dau)
++        # [vá off-by-one · QC B10 2026-10-07] Với đa giác KÍN, góc rẽ sau cạnh i là góc
++        # trong tại đỉnh ĐẾN ten[(i+1)%n]; assertion (goc_dinh) gán goc[k]→ten[k]. Xoay goc
++        # cho walk để hai phía khớp. Đường mở giữ nguyên (đã đúng).
++        goc_walk = (list(goc[1:]) + list(goc[:1])) if khep else list(goc)
+         gi = 0
+         for i in range(len(canh)):
+             x += canh[i] * _m.cos(_m.radians(huong))
+             y += canh[i] * _m.sin(_m.radians(huong))
+             if not (khep and i == len(canh) - 1):
+                 toa.append((x, y))
+-            if gi < len(goc):
+-                huong = huong + chieu * (180.0 - float(goc[gi]))
++            if gi < len(goc_walk):
++                huong = huong + chieu * (180.0 - float(goc_walk[gi]))
+                 gi += 1
+         for idx, (t, (px, py)) in enumerate(zip(ten, toa)):
+             nh = 'below left' if idx == 0 else ('below right' if idx == len(ten) - 1 else 'above')
