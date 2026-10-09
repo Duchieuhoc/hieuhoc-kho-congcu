@@ -2652,12 +2652,14 @@ function soGachTren(noiDung) {
  * Ví dụ: para([run("Số hạng "), chiSoDuoi("u", "n+1"), run(" = ...")])
  */
 function chiSoDuoi(coSo, chiSo) {
-  return new DMath({
-    children: [new MathSubScript({
-      children: [new MathRunSized(String(coSo))],
-      subScript: [new MathRunSized(String(chiSo))],
-    })],
-  });
+  // [32m] KHOFIX-subscript-nest: qua _dmath (gắn _hhComp) → _mathChild gỡ vỏ khi chiSoDuoi
+  //   LỒNG trong phanSo/luyThua (m_p, a_p, m_{p-1} ở tử/mẫu phân số — B09 thống kê trung vị/tứ phân vị/mốt).
+  //   Song song [28w] canBac / [28r] phanSo. Standalone BYTE-IDENTICAL (_dmath = new DMath({children:[comp]});
+  //   _hhComp là cờ riêng, Packer chỉ đọc .root nên KHÔNG lọt XML). Chữ ký hàm KHÔNG đổi → KHÔNG regen API.
+  return _dmath(new MathSubScript({
+    children: [new MathRunSized(String(coSo))],
+    subScript: [new MathRunSized(String(chiSo))],
+  }));
 }
 
 /**

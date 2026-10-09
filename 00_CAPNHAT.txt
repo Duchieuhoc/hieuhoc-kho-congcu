@@ -1,0 +1,40 @@
+===== CAPNHAT_KHO — [32m] chiSoDuoi lồng được trong phân số/lũy thừa =====
+Chiều: OB Đại số THPT → Giám đốc PUSH GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu)
+Ngày: 2026-10-09 · Nền: HEAD d445d08 (v10.39 / [32l]) · Mốc mới: [32m]
+
+────────────────────────────────────────────────────────────
+KẾT LUẬN: Pilot B09 lộ 1 lỗ hổng THẬT của template. Đã vá + test 0 regression.
+          Cần Giám đốc PUSH trước khi giao B09 (AI Soạn bung kho từ GitHub).
+────────────────────────────────────────────────────────────
+
+1 FILE SỬA: hieuhoc_template.js — đúng 1 hàm `chiSoDuoi()` (dòng ~2654).
+   TRƯỚC: return new DMath({ children:[ MathSubScript(...) ] });   ← DMath THÔ
+   SAU:   return _dmath(new MathSubScript(...));                   ← qua _dmath (gắn _hhComp)
+
+VÌ SAO: chiSoDuoi là builder nặng DUY NHẤT còn trả DMath thô (thiếu cờ _hhComp).
+   Khi LỒNG trong phanSo/luyThua → _mathChild không gỡ được vỏ → oMath LỒNG oMath
+   → kiemMay CHẶN XUẤT. Nay đồng bộ cơ chế với canBac [28w] & phanSo [28r].
+
+NGHIỆM THU (local, nền d445d08 + [32m]):
+   • node --check OK
+   • standalone chiSoDuoi('u','n+1') XML BYTE-IDENTICAL trước/sau → 0 REGRESSION
+     (bài cũ chỉ dùng chiSoDuoi ĐƠN, không lồng → 0 bài nào bị ảnh hưởng)
+   • 4 họ công thức B09 build sạch kiemMay=[]: Mₑ tổng quát · Mₑ (số) · Mₒ · x̄
+   • ADDITIVE: chữ ký hàm 0 đổi → KHÔNG regen BAN_TRICH/API_REFERENCE. v10.39 giữ số.
+
+────────────────────────────────────────────────────────────
+⚠ PHỐI HỢP 1-MÁY-SỬA (QUAN TRỌNG):
+   [32j]→[32l] gần đây do OB HÌNH THPT push. [32m] này do OB ĐẠI SỐ THPT.
+   → Clone bản GitHub MỚI NHẤT làm nền, kiểm HEAD vẫn là d445d08 (hoặc mới hơn
+     mà CHƯA đụng chiSoDuoi) rồi mới áp [32m]. Nếu Hình THPT đã push thêm:
+     diff 2 bản, giữ cả hai (fix này chỉ đụng 1 hàm, không chạm cửa √/∠/·).
+   → Một thời điểm chỉ MỘT máy sửa file chung (Hiến Pháp §BUNG_KHO).
+
+LỆNH PUSH GỢI Ý:
+   cd hieuhoc-kho-congcu
+   git pull                          # lấy bản mới nhất (phòng Hình THPT đã push)
+   # copy 2 file từ gói này đè vào: hieuhoc_template.js + 00_KHO_VERSION.txt
+   git add hieuhoc_template.js 00_KHO_VERSION.txt
+   git commit -m "[32m] chiSoDuoi lồng được trong phân số/lũy thừa (pilot B09)"
+   git push
+────────────────────────────────────────────────────────────
