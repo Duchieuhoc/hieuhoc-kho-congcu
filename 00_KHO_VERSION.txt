@@ -1,3 +1,12 @@
+[32n] hinh_ds10_ch06.py (MỚI — module đồ thị hàm số Đại số 10 Ch6) + BAN_TRICH_HAM_DS10_CH06.md (MỚI) — Ông Bụt Đại số THPT, 2026-10-10; PILOT DS10_CH06_B16 (Hàm số bậc hai): OB dựng builder parabol (HP Đ5.9). DỰNG LẠI TRÊN HEAD [32m] (bản nháp cũ nhãn [33a] dựng nền [32c] 05/10 ĐÃ HỦY — thiếu [32d]→[32m], chống lệch pha QUY_UOC §2).
+      • 1 HÀM (pgfplots qua render_tikz_doc, PHANH nội sinh):
+        - parabol(a,b,c, ...): y=ax^2+bx+c trên Oxy. Máy TỰ tính đỉnh I(-b/2a;-Δ/4a) + trục đối xứng x=-b/2a (đứt nét) + giao Ox (nếu Δ≥0) + giao Oy (0;c) + điểm đối xứng (-b/a;c). Bề lõm theo dấu a. Khung tự ôm (truyền tay cho bài số lớn). diem_them: chấm bảng giá trị (VERIFY điểm thuộc parabol). PHANH: a≠0 + đỉnh trong khung.
+      • NGHIỆM THU: render (pdflatex+pgfplots dpi=200) + soi mắt QC ĐẠT 4 ca — VD2 H6.12 (a<0 cắt Ox) · HĐ3 (a>0 không cắt Ox) · LT2 (a>0 cắt Ox nghiệm phân số) · H6.10 (parabol trên khoảng + 8 điểm bảng giá trị). Render lại trên HEAD [32m] OK. Đúng toán · trong chương · khớp khai nghĩa NGUON B16 · nhãn rõ · không lộ đáp án (Đ35).
+      • ADDITIVE — module ĐỘC LẬP (chỉ import hinh_core; render_tikz_doc [32m] không đổi chữ ký). hieuhoc_template.js KHÔNG đụng. KHÔNG đụng file máy Hình / giaitich → 0 regression.
+      • CHƯA dựng (bổ khi gặp): parabol ký hiệu tổng quát (H6.11) · hàm nhiều công thức ghép parabol (B15 chữ V, H6.19/H6.26) · hình hình-học B17/B18.
+      • FILE upload GitHub: hinh_ds10_ch06.py [MỚI] · BAN_TRICH_HAM_DS10_CH06.md [MỚI] · 00_KHO_VERSION.txt (prepend [32n] trên HEAD [32m]).
+      Mốc kho: 2026-10-10 (nối tiếp [32m]).
+
 [32m] CHISODUOI LỒNG ĐƯỢC TRONG PHÂN SỐ/LŨY THỪA (hieuhoc_template.js) — Ông Bụt Đại Số THPT, 2026-10-09. Nối tiếp [32l], cùng HEAD gốc d445d08.
       • chiSoDuoi() là builder nặng DUY NHẤT còn trả `new DMath()` THÔ (thiếu cờ _hhComp) → khi LỒNG trong phanSo/luyThua, _mathChild KHÔNG gỡ được vỏ → sinh oMath LỒNG oMath → kiemMay CHẶN XUẤT ("a4-stack: oMath có TỔ TIÊN oMath"). Nay route qua _dmath() như canBac [28w]/phanSo [28r].
       • Lộ khi PILOT B09 "Các số đặc trưng đo xu thế trung tâm" (DS11_CH03): công thức trung vị/tứ phân vị/mốt có chỉ số dưới (m_p, a_p, m_{p-1}) nằm ở tử/mẫu phân số lồng — mảng thống kê THPT đầu tiên chạm ký hiệu này. Bài cũ chỉ dùng chiSoDuoi ĐƠN (không lồng) nên 0 ảnh hưởng.

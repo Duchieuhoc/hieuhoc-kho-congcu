@@ -1,10 +1,12 @@
-DANH MỤC — CAPNHAT_KHO__32l.zip
-Đích: thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu) → Commit changes.
-
-FILE — THAY/THÊM — GHI CHÚ
-hieuhoc_template.js   — THAY (v10.39 → cùng v10.39, +1 dòng cửa) — _kySai +√ (U+221A): chặn dấu căn RỜI, buộc dùng canBac(). ADDITIVE, chữ ký hàm 0 đổi.
-00_KHO_VERSION.txt    — THAY (bump [32k] → [32l]) — ghi nhật ký cửa √.
-
-KHÔNG regen BAN_TRICH_HAM / API_REFERENCE (chữ ký hàm không đổi).
-Sau push: mốc kho = [32l]. Từ ⑥ trở đi, tem 00_LUAT.txt ghi "Mốc kho yêu cầu ≥ [32l]".
-Đã import-test: template load OK · TK docx xuất lại PASS · √ thô bị CHẶN đúng.
+00_DANH_MUC — CAPNHAT_KHO__32n — 2026-10-10
+Đích: Thầy UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu) → Commit. Pilot DS10_CH06_B16 — builder parabol.
+DỰNG TRÊN HEAD [32m] TƯƠI (fetch 10/10). Thay thế gói nháp cũ CAPNHAT_KHO__33a (ĐÃ HỦY — lỗi thời, dựng nền [32c]).
+========================================================================
+FILE                        | LOẠI | GHI CHÚ
+----------------------------+------+------------------------------------------
+hinh_ds10_ch06.py           | MỚI  | Module parabol(a,b,c,...). Additive, chỉ import hinh_core.
+BAN_TRICH_HAM_DS10_CH06.md  | MỚI  | Bản trích cho AI Soạn (4 ca nghiệm thu).
+00_KHO_VERSION.txt          | ĐÈ   | Prepend [32n] TRÊN NỀN [32m] (đủ [32a]..[32m]). KHÔNG mất mốc nào.
+========================================================================
+UPLOAD: kéo-thả 3 file vào gốc repo (đè trùng) → Commit "[32n] parabol DS10_CH06 — pilot B16".
+KHÔNG đụng hieuhoc_template.js / hinh_core.py / file máy Hình.
