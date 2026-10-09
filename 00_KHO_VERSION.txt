@@ -1,3 +1,8 @@
+[32l] CỬA √ — kiemMay chặn dấu căn √ (U+221A) RỜI trong văn bản (hieuhoc_template.js) — Ông Bụt Hình THPT, 2026-10-09. Nối tiếp [32k], cùng HEAD gốc.
+      • _kySai (cửa _kiemTrinhBay, quét <w:t>) +√ (U+221A): gõ √ thô ra glyph KHÔNG trùm căn thức (no vinculum) → CHẶN XUẤT, buộc dùng H.canBac() (OMML <m:rad> vạch ngang chuẩn SGK). Cùng cơ chế chặn ∠ (buộc kyHieuGoc) & · (nhân).
+      • canBac KHÔNG ảnh hưởng (√ của m:rad do Word render, không là ký tự trong <w:t>). ADDITIVE 1 dòng cửa — chữ ký hàm 0 đổi → KHÔNG regen BAN_TRICH/API. Bài cũ dùng canBac 0 hỏng.
+      • Lộ khi QC ⑤ HH10_CH03_TK: AI Soạn gõ 10 chỗ √ thô (√2, 3√5…) lọt mọi cửa cũ (√ chỉ font-route Cambria Math, không bị chặn) — thầy soi mắt bắt. Cửa này bịt tận gốc cho đề ⑥ + mọi bài sau.
+
 [32k] HEADER GIỮ SỐ LA MÃ (hieuhoc_template.js) — Ông Bụt Hình THPT, 2026-10-06. Nối tiếp [32j], cùng HEAD gốc.
       • chuanHoaCauChu() giữ token số La Mã (IV/V/XII…) chữ hoa ở header chạy trang — trước toLowerCase() hạ "CHƯƠNG IV"→"chương iv". Hạ-bậc từng từ, chừa /^[IVXLCDM]+$/. ADDITIVE (chỉ header normalize; tên giữa trang + nội dung 0 đổi).
       • Lộ khi QC ⑤ Tổng kết chương IV. Phủ loạt đề KT CH04 (header "CHƯƠNG IV").

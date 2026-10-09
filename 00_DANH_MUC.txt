@@ -1,12 +1,10 @@
-GÓI: CAPNHAT_KHO__32h.zip — đích: thầy PUSH GitHub (hieuhoc-kho-congcu, Commit changes).
-MỐC: [32h] 2026-10-06 · nền merge HEAD [32g] @ 659fb0bc013ebcc055306c9cb95beef477ae337e
+DANH MỤC — CAPNHAT_KHO__32l.zip
+Đích: thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu) → Commit changes.
 
-| File | Thay | Ghi chú |
-|---|---|---|
-| hinh_hh10_ch04.py          | SỬA (THÊM) | +builder `luoi_xien` (lưới xiên + phân tích vectơ theo cơ sở) cho B09 H8/H9. Additive. |
-| BAN_TRICH_HAM_HH10_CH04.md | regen | khớp kho — có luoi_xien. |
-| 00_MUC_LUC_HAM.md          | regen | mục lục tổng — có luoi_xien. |
-| 00_KHO_VERSION.txt         | bump | chèn khối [32h] lên đầu. |
+FILE — THAY/THÊM — GHI CHÚ
+hieuhoc_template.js   — THAY (v10.39 → cùng v10.39, +1 dòng cửa) — _kySai +√ (U+221A): chặn dấu căn RỜI, buộc dùng canBac(). ADDITIVE, chữ ký hàm 0 đổi.
+00_KHO_VERSION.txt    — THAY (bump [32k] → [32l]) — ghi nhật ký cửa √.
 
-CÁCH PUSH: upload đè 4 file này lên repo. SAU PUSH: HEAD ra [32h]; B09 phụ thuộc luoi_xien.
-KHÔNG đụng môn khác / chương khác.
+KHÔNG regen BAN_TRICH_HAM / API_REFERENCE (chữ ký hàm không đổi).
+Sau push: mốc kho = [32l]. Từ ⑥ trở đi, tem 00_LUAT.txt ghi "Mốc kho yêu cầu ≥ [32l]".
+Đã import-test: template load OK · TK docx xuất lại PASS · √ thô bị CHẶN đúng.

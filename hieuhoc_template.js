@@ -431,6 +431,7 @@ function _kiemTrinhBay(xml) {
     ["\u2014", 'em dash U+2014 (—) — thay bằng "-" (U+002D)'],
     ["\u00f7", 'dấu chia ÷ (Anh–Mỹ) — thay bằng " : "'],
     ["\u00b7", 'dấu nhân · (giữa dòng) — nhân số dùng "×", nhân ẩn viết liền'],
+    ["√", 'dấu căn √ (U+221A) RỜI trong văn bản — dùng H.canBac() (căn OMML vạch ngang chuẩn SGK), KHÔNG gõ √ thô. Lộ QC HH10_CH03_TK.'],
   ];
   for (const [ch, mo] of _kySai) {
     if (full.includes(ch)) loi.push("Ký hiệu sai chuẩn: " + mo + " (HP Điều 16.1/16.2).");
