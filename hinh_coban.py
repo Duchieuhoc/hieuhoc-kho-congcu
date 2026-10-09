@@ -347,6 +347,50 @@ class HinhCoBan:
             self.tikz.append(('doan', A, D, mau, 'lien', None))
         return self
 
+    def chan_phan_giac_canh(self, ten, dinh, tia1, tia2, cat, nhan='above',
+                            mau=None, ve_doan=True, danh_dau_nua_goc=False):
+        """ten = CHÂN tia phân giác của góc (tia1·dinh·tia2) trên ĐOẠN 'cat'=(P,Q).
+        Khác chan_phan_giac (chân rơi trên cạnh NẰM GIỮA hai tia): hàm này hạ chân phân
+        giác lên MỘT CẠNH BẤT KỲ đã dựng (vd HBH ABCD: phân giác góc D (hai tia DA, DC)
+        CẮT cạnh AB tại E → chan_phan_giac_canh('E','D','A','Cc', cat=('A','B'))).
+        dinh,tia1,tia2 và 2 mút 'cat' đã đặt. Máy dựng hướng phân giác =
+        unit(dinh→tia1)+unit(dinh→tia2) rồi giao với đường mang 'cat' (KHÔNG cho toạ độ).
+        TỰ KIỂM góc(tia1·dinh·ten)=góc(ten·dinh·tia2) (dựng sai → raise). PHANH kiểm ten
+        thẳng hàng P,Q. ve_doan → vẽ đoạn dinh–ten. danh_dau_nua_goc → 2 cung nửa góc bằng
+        (gọi dau_goc_bang sau cũng được). mau='red' → chấm đỏ (điểm dựng ở lời giải)."""
+        import math as _m
+        (vx, vy) = self.V[dinh]; (t1x, t1y) = self.V[tia1]; (t2x, t2y) = self.V[tia2]
+        P, Q = cat; (px, py) = self.V[P]; (qx, qy) = self.V[Q]
+        u1x, u1y = t1x - vx, t1y - vy; L1 = _m.hypot(u1x, u1y) or 1.0
+        u2x, u2y = t2x - vx, t2y - vy; L2 = _m.hypot(u2x, u2y) or 1.0
+        bx, by = u1x / L1 + u2x / L2, u1y / L1 + u2y / L2      # hướng tia phân giác
+        if _m.hypot(bx, by) < 1e-9:
+            raise ValueError(f"[PHANH DỪNG] chan_phan_giac_canh '{ten}': góc {tia1}{dinh}{tia2} "
+                             f"bẹt 180° → tia phân giác không xác định.")
+        rx, ry = qx - px, qy - py                              # hướng đoạn cắt
+        cd_b = rx * by - ry * bx                               # cross(hướng cắt, phân giác)
+        if abs(cd_b) < 1e-9:
+            raise ValueError(f"[PHANH DỪNG] chan_phan_giac_canh '{ten}': tia phân giác SONG SONG "
+                             f"cạnh {P}{Q} → không có giao.")
+        r = -((px - vx) * by - (py - vy) * bx) / cd_b
+        ix, iy = px + r * rx, py + r * ry
+        # tự kiểm hai nửa góc bằng nhau (dựng đúng)
+        def _ang(ax, ay, cx, cy):
+            d = (ax * cx + ay * cy) / ((_m.hypot(ax, ay) or 1.0) * (_m.hypot(cx, cy) or 1.0))
+            return _m.degrees(_m.acos(max(-1.0, min(1.0, d))))
+        a1 = _ang(t1x - vx, t1y - vy, ix - vx, iy - vy)
+        a2 = _ang(t2x - vx, t2y - vy, ix - vx, iy - vy)
+        if abs(a1 - a2) > 0.01:
+            raise ValueError(f"[PHANH DỪNG] chan_phan_giac_canh '{ten}': hai nửa góc lệch "
+                             f"{abs(a1 - a2):.4f}° — dựng sai.")
+        self._diem(ten, ix, iy, nhan, moc=True, mau=mau)
+        self.rb.append({'loai': 'thang_hang', 'diem': [P, ten, Q]})
+        if ve_doan:
+            self.tikz.append(('doan', dinh, ten, mau, 'lien', None))
+        if danh_dau_nua_goc:
+            self.dau_goc_bang((tia1, dinh, ten)); self.dau_goc_bang((ten, dinh, tia2))
+        return self
+
     def trung_truc_doan(self, ten, A, B, tam=None, o_vuong=True, vach=True,
                         mau='red', net='dut', nua_dai=3.0, nua_dai_lui=None):
         """ĐƯỜNG TRUNG TRỰC của đoạn AB ĐÃ ĐẶT (vuông góc AB tại trung điểm). Khác trung_truc()

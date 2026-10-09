@@ -2,7 +2,7 @@
 
 > **Cho AI Soạn.** Đây là *CÁCH vẽ* (chữ ký hàm + tham số). *VẼ CÁI GÌ* nằm ở **phiếu khai nghĩa** Ông Bụt giao kèm nguồn.
 > Tự sinh bằng introspect `hinh_tamgiac.py` qua `sinh_bantrich.py` — vá kho → chạy lại → khớp. KHÔNG sửa tay file này.
-> Sinh ngày 07/10/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
+> Sinh ngày 09/10/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
 
 Import trong script bài: `import hinh_tamgiac as H3` rồi `h = H3.Hinh()`.
 Gọi các method KHAI NGHĨA (mục 1) theo phiếu; cuối cùng `png = h.ve(out=..., tra_bytes=True)`.
@@ -16,6 +16,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | Hàm (chữ ký) | Dùng khi |
 |---|---|
 | `chan_phan_giac(D, A, B, C, nhan='below', mau=None, ve_doan=True)` | D = CHÂN đường phân giác TRONG góc A trên cạnh BC (giao tia phân giác góc A với BC). A,B,C đã đặt. Máy tính theo định lí đường phân giác: BD/DC = AB/AC (KHÔNG cho toạ độ). Mặc định vẽ đoạn A–D. PHANH kiểm D thẳng hàng B,C. Dùng: đường phân giác đơn (AD), và tâm nội tiếp (giao 2 đường A–D, B–E). dau_goc_bang(('B','A','D')) & (('D','A','C')) gọi SAU để đánh dấu 2 góc bằng. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `chan_phan_giac_canh(ten, dinh, tia1, tia2, cat, nhan='above', mau=None, ve_doan=True, danh_dau_nua_goc=False)` | ten = CHÂN tia phân giác của góc (tia1·dinh·tia2) trên ĐOẠN 'cat'=(P,Q). Khác chan_phan_giac (chân rơi trên cạnh NẰM GIỮA hai tia): hàm này hạ chân phân giác lên MỘT CẠNH BẤT KỲ đã dựng (vd HBH ABCD: phân giác góc D (hai tia DA, DC) CẮT cạnh AB tại E → chan_phan_giac_canh('E','D','A','Cc', cat=('A','B'))). dinh,tia1,tia2 và 2 mút 'cat' đã đặt. Máy dựng hướng phân giác = unit(dinh→tia1)+unit(dinh→tia2) rồi giao với đường mang 'cat' (KHÔNG cho toạ độ). TỰ KIỂM góc(tia1·dinh·ten)=góc(ten·dinh·tia2) (dựng sai → raise). PHANH kiểm ten thẳng hàng P,Q. ve_doan → vẽ đoạn dinh–ten. danh_dau_nua_goc → 2 cung nửa góc bằng (gọi dau_goc_bang sau cũng được). mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `chan_vuong_goc(ten, P, A, B, nhan='below', mau=None, ve_doan=True, o_vuong=True)` | Đặt 'ten' = CHÂN ĐƯỜNG VUÔNG GÓC (hình chiếu) của P lên đường thẳng AB. P, A, B đã đặt. Máy tự tính (KHÔNG cho toạ độ). Mặc định vẽ đoạn P–ten + ô vuông tại chân. PHANH kiểm ten thẳng hàng A,B và góc P-ten-(mốc) = 90°. Chân có thể NẰM NGOÀI đoạn AB (dùng thang_hang, không ép nằm giữa). Dùng: chân vuông góc từ điểm xuống tia/cạnh (H.4.50 MA⊥Ox; H.4.54 O xuống dây; đường cao tam giác). mau='red' → chấm đỏ + đoạn/ô vuông đỏ (điểm dựng ở lời giải). ve_doan=False: chỉ đặt điểm (không kẻ P–ten). o_vuong=False: bỏ ô vuông. |
 | `chu_so_7doan(so, x0=0.0, y0=0.0, rong=1.0, cao=2.0, mau=None, rong_net='dam')` | CHỮ SỐ kiểu 7-ĐOẠN (0..9) — cho bài TÂM đối xứng (lật nửa vòng 6↔9, giữ 0/1/2/5/8). Vẽ tại góc dưới-trái (x0,y0); rộng 'rong', cao 'cao' (đơn vị vẽ, mặc định 1×2 ô). Mỗi đoạn = nét ĐẬM. Gọi NHIỀU lần (đổi x0) để đặt các thẻ số cạnh nhau. rong_net ∈ {'vua','dam','rat_dam'}. mau=None → đen. |
 | `chum_duong(tam, danh_sach, dai=3.0)` | CHÙM ĐƯỜNG THẲNG đồng quy tại 'tam'. danh_sach=[(tên, xoay°), …] — mỗi đường qua tâm, nghiêng 'xoay'° so ngang, dài 'dai' về mỗi phía. Nhãn cạnh 1 đầu. Dùng nhiều đường cắt nhau tại 1 điểm. |
@@ -110,4 +111,4 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 82 hàm khai nghĩa (phơi) · 1 cửa render · 11 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 83 hàm khai nghĩa (phơi) · 1 cửa render · 11 hàm hạ tầng (ẩn khỏi bản phát).
