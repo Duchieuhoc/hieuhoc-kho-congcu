@@ -7,7 +7,7 @@ Font DejaVu Sans (đủ dấu tiếng Việt). Nền trắng, viền mảnh xám
 Số thập phân IN dấu phẩy (VN); dấu trừ dùng "−" (U+2212).
 
 HÀM CHÍNH:
-  Thống kê:  bieu_do_cot · bieu_do_cot_kep · bieu_do_tranh
+  Thống kê:  bieu_do_cot · bieu_do_cot_kep · bieu_do_tranh · bieu_do_hop · bieu_do_cham
   Xác suất:  vong_quay · xuc_xac · dong_xu · tui_bi · truc_kha_nang
 Mỗi hàm trả đường dẫn PNG (hoặc bytes nếu tra_bytes=True).
 """
@@ -280,4 +280,102 @@ def truc_kha_nang(out="truc_kha_nang", tra_bytes=False):
         ax.text(x, 0.16, top, ha="center", fontsize=13)
         ax.text(x, -0.28, bot, ha="center", va="top", fontsize=9, color="#444")
     ax.set_xlim(-0.15, 1.15); ax.set_ylim(-0.6, 0.4)
+    return _xuat(fig, out, tra_bytes)
+
+# ═════════════════ BIỂU ĐỒ HỘP (box plot) — DS10_CH05_B14 ═════════════════
+def bieu_do_hop(q1=None, q2=None, q3=None, rau_trai=None, rau_phai=None,
+                bat_thuong=None, moc_truc=None, nhan_truc="",
+                so_do=False, tieu_de="", out="box", tra_bytes=False):
+    """Biểu đồ hộp (box plot) nằm ngang — mạch Thống kê THPT (độ phân tán, giá trị bất thường).
+    • Dạng SỐ LIỆU (mặc định): q1≤q2≤q3; rau_trai≤q1; q3≤rau_phai;
+      bat_thuong=[...] các giá trị NẰM NGOÀI [rau_trai; rau_phai]; moc_truc=[...] mốc ghi trên trục.
+      PHANH: sai thứ tự / bất thường nằm trong râu → raise (không ra hình sai).
+    • Dạng SƠ ĐỒ (so_do=True): KHUNG CHÚ THÍCH tổng quát (H5.5) — nhãn Q₁/Q₂/Q₃, ngoặc ΔQ,
+      hai mốc (Q₁−1,5·ΔQ)/(Q₃+1,5·ΔQ), vùng giá trị bất thường. KHÔNG số liệu, KHÔNG lộ đáp án (Đ41.4).
+    Trả PNG (hoặc bytes nếu tra_bytes=True). Nhúng Word qua H.hinhVe."""
+    bat_thuong = bat_thuong or []
+    OUT = "#2E8B57"  # chấm bất thường (xanh lá)
+    if so_do:
+        q1v, q2v, q3v, rt, rp = 3.4, 4.9, 6.4, 1.3, 8.5
+        fig, ax = _fig_ax(6.8, 2.7); ax.axis("off")
+        ax.annotate("", xy=(9.7, 0), xytext=(0.2, 0),
+                    arrowprops=dict(arrowstyle="-", color="#333", lw=1.3))
+        ax.add_patch(Rectangle((q1v, -0.5), (q3v - q1v), 1.0,
+                     facecolor="#EAF1F8", edgecolor=_C1, linewidth=1.6))
+        ax.plot([q2v, q2v], [-0.5, 0.5], color=_C1, lw=1.8)
+        ax.plot([rt, q1v], [0, 0], color="#333", lw=1.2)
+        ax.plot([q3v, rp], [0, 0], color="#333", lw=1.2)
+        for x in (rt, rp):
+            ax.plot([x, x], [-0.22, 0.22], color="#333", lw=1.2)
+        for x in (0.55, 9.25):
+            ax.plot(x, 0, "o", color=OUT, ms=7)
+        for x, t in [(q1v, "Q₁"), (q2v, "Q₂"), (q3v, "Q₃")]:
+            ax.text(x, -0.72, t, ha="center", va="top", fontsize=12)
+        ax.annotate("", xy=(q3v, 0.9), xytext=(q1v, 0.9),
+                    arrowprops=dict(arrowstyle="<->", color="#555", lw=1.0))
+        ax.text((q1v + q3v) / 2, 1.05, "ΔQ", ha="center", fontsize=11)
+        ax.text(rt, -0.72, "Q₁ − 1,5·ΔQ", ha="center", va="top", fontsize=8.5)
+        ax.text(rp, -0.72, "Q₃ + 1,5·ΔQ", ha="center", va="top", fontsize=8.5)
+        ax.text(0.55, 0.5, "Giá trị\nbất thường", ha="center", va="bottom", fontsize=8, color=OUT)
+        ax.text(9.25, 0.5, "Giá trị\nbất thường", ha="center", va="bottom", fontsize=8, color=OUT)
+        ax.set_xlim(-0.3, 10.1); ax.set_ylim(-1.5, 1.6)
+        if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=6)
+        return _xuat(fig, out, tra_bytes)
+    # ── DẠNG SỐ LIỆU + PHANH ──
+    if None in (q1, q2, q3, rau_trai, rau_phai):
+        raise ValueError("bieu_do_hop: cần q1,q2,q3,rau_trai,rau_phai (hoặc so_do=True).")
+    if not (rau_trai <= q1 <= q2 <= q3 <= rau_phai):
+        raise ValueError(f"bieu_do_hop PHANH: cần rau_trai≤q1≤q2≤q3≤rau_phai, "
+                         f"nhận rau_trai={rau_trai}, q1={q1}, q2={q2}, q3={q3}, rau_phai={rau_phai}.")
+    for b in bat_thuong:
+        if rau_trai <= b <= rau_phai:
+            raise ValueError(f"bieu_do_hop PHANH: giá trị bất thường {b} phải NẰM NGOÀI "
+                             f"[{rau_trai}; {rau_phai}].")
+    allx = [rau_trai, rau_phai] + list(bat_thuong)
+    lo, hi = min(allx), max(allx); pad = (hi - lo) * 0.06 or 1
+    fig, ax = _fig_ax(6.8, 2.2)
+    ax.spines["left"].set_visible(False); ax.set_yticks([])
+    ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
+    ax.spines["bottom"].set_color("#333")
+    ax.add_patch(Rectangle((q1, -0.5), (q3 - q1), 1.0,
+                 facecolor="#EAF1F8", edgecolor=_C1, linewidth=1.6, zorder=3))
+    ax.plot([q2, q2], [-0.5, 0.5], color=_C1, lw=1.9, zorder=4)
+    ax.plot([rau_trai, q1], [0, 0], color="#333", lw=1.2, zorder=2)
+    ax.plot([q3, rau_phai], [0, 0], color="#333", lw=1.2, zorder=2)
+    for x in (rau_trai, rau_phai):
+        ax.plot([x, x], [-0.22, 0.22], color="#333", lw=1.2, zorder=2)
+    for b in bat_thuong:
+        ax.plot(b, 0, "o", color=OUT, ms=7, zorder=5)
+    ticks = moc_truc if moc_truc else sorted(set([rau_trai, q1, q2, q3, rau_phai] + list(bat_thuong)))
+    ax.set_xticks(ticks); ax.set_xticklabels([_fmt(t) for t in ticks], fontsize=9)
+    ax.set_xlim(lo - pad, hi + pad); ax.set_ylim(-1.1, 1.1)
+    if nhan_truc: ax.set_xlabel(nhan_truc, fontsize=9)
+    if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=8)
+    return _xuat(fig, out, tra_bytes)
+
+# ═════════════════ BIỂU ĐỒ CHẤM ĐIỂM (dot plot) — DS10_CH05_B14 ═════════════════
+def bieu_do_cham(tan_so, truc=None, nhan_truc="", tieu_de="", out="dot", tra_bytes=False):
+    """Biểu đồ chấm điểm (dot plot). tan_so: dict {gia_tri(int): so_cham}. Trên mỗi giá trị
+    xếp CHỒNG các chấm tròn, số chấm = tần số của giá trị đó.
+    truc=(min,max): ép chung thang để so sánh cặp A/B (2 biểu đồ cùng trục).
+    Ghép cặp: gọi 2 lần cùng truc rồi H.luoiHinh([pngA, pngB]).
+    Trả PNG (hoặc bytes nếu tra_bytes=True)."""
+    if not tan_so:
+        raise ValueError("bieu_do_cham: tan_so rỗng.")
+    keys = sorted(tan_so.keys())
+    lo, hi = (truc if truc else (min(keys), max(keys)))
+    lo, hi = int(lo), int(hi)
+    maxf = max(tan_so.values()) or 1
+    fig, ax = _fig_ax(max(3.6, 0.7 * (hi - lo + 1) + 0.8), 0.40 * maxf + 1.2)
+    ax.spines["left"].set_visible(False); ax.set_yticks([])
+    ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
+    ax.spines["bottom"].set_color("#333")
+    for x in range(lo, hi + 1):
+        for j in range(int(tan_so.get(x, 0))):
+            ax.plot(x, j + 1, "o", color=_C1, ms=9, zorder=3)
+    ax.set_xticks(range(lo, hi + 1))
+    ax.set_xticklabels([_fmt(t) for t in range(lo, hi + 1)], fontsize=10)
+    ax.set_xlim(lo - 0.6, hi + 0.6); ax.set_ylim(0.3, maxf + 0.8)
+    if nhan_truc: ax.set_xlabel(nhan_truc, fontsize=9)
+    if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=8)
     return _xuat(fig, out, tra_bytes)

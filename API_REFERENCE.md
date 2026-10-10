@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.36)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.36 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.39)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.39 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `tieuDeKhoiTracNghiem()`
@@ -117,6 +117,7 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam
 ### `kyHieuVecto(ten)`
 ### `doDaiVecto(ten)`
+### `kyHieuMu(ten)`
 ### `hinhVe({ imageBuffer, rongCm = 8, tiLeGoc, chuThich })`
 ### `hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {})`
 22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3 hình, KHÔNG viền, ô căn dọc giữa, CHUẨN HOÁ cùng chiều cao (caoCm). `luoiHinh`: tự chia hàng theo số lượng đã chốt — 1–3→1 hàng · 4→2+2 · 5→3+2 · 6→3+3. Chỉ dùng cho hình nhỏ + bộ liên quan; hình đơn/lớn/Phần II → vẫn hinhVe (dòng riêng).
@@ -143,4 +144,4 @@ Bản tiện dụng — trả 1 Paragraph căn giữa chứa khối tuyển nghi
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 80 hàm + 18 hằng/tham chiếu · template v10.36 (2026-09-08) · sinh_apiref.js.*
+*Tự sinh: 81 hàm + 18 hằng/tham chiếu · template v10.39 (2026-09-08) · sinh_apiref.js.*

@@ -1,12 +1,20 @@
-00_DANH_MUC — CAPNHAT_KHO__32n — 2026-10-10
-Đích: Thầy UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu) → Commit. Pilot DS10_CH06_B16 — builder parabol.
-DỰNG TRÊN HEAD [32m] TƯƠI (fetch 10/10). Thay thế gói nháp cũ CAPNHAT_KHO__33a (ĐÃ HỦY — lỗi thời, dựng nền [32c]).
-========================================================================
-FILE                        | LOẠI | GHI CHÚ
-----------------------------+------+------------------------------------------
-hinh_ds10_ch06.py           | MỚI  | Module parabol(a,b,c,...). Additive, chỉ import hinh_core.
-BAN_TRICH_HAM_DS10_CH06.md  | MỚI  | Bản trích cho AI Soạn (4 ca nghiệm thu).
-00_KHO_VERSION.txt          | ĐÈ   | Prepend [32n] TRÊN NỀN [32m] (đủ [32a]..[32m]). KHÔNG mất mốc nào.
-========================================================================
-UPLOAD: kéo-thả 3 file vào gốc repo (đè trùng) → Commit "[32n] parabol DS10_CH06 — pilot B16".
-KHÔNG đụng hieuhoc_template.js / hinh_core.py / file máy Hình.
+00_DANH_MUC.txt — CAPNHAT_KHO__32o  (OB → Thầy UPLOAD ĐÈ GitHub: hieuhoc-kho-congcu, Commit changes)
+Mốc mới: [32o] · template v10.40 · dựng trên HEAD [32n] SHA 10a5d2f (clone tươi, chống lệch pha §2).
+Pilot: DS10_CH05_B14 (Độ phân tán) — vá 4 điểm [SỬA] của AI Soạn.
+
+| File (ĐÈ lên bản GitHub cùng tên) | Thay đổi |
+|-----------------------------------|----------|
+| bieudo_xstk.py                    | +bieu_do_hop (box plot) +bieu_do_cham (dot plot). ADDITIVE — hàm MỚI, hàm cũ 0 đổi. |
+| hieuhoc_template.js (v10.40 [32o])| +kyHieuMu(ten) accent ^ (ŝ²) + _RE_TOAN +≈ (U+2248) route Cambria Math. ADDITIVE. |
+| API_REFERENCE.md                  | Regen (sinh_apiref.js) — thêm kyHieuMu. |
+| BAN_TRICH_HAM_DS10_CH05__xstk.md  | MỚI — bản trích bieudo_xstk (có box/dot) cho AI Soạn. |
+| 00_KHO_VERSION.txt                | Bump mốc [32o] (prepend entry). |
+
+⚠️ CHỐNG LỆCH PHA (§2): dựng trên HEAD [32n]. Nếu khi Thầy upload mà HEAD GitHub
+đã sang mốc khác (máy khác đã push) → BÁO OB clone lại + vá nối, KHÔNG đè mù.
+Chỉ có bieudo_xstk.py + hieuhoc_template.js là file CHUNG — nếu máy Hình/khác đang
+sửa template song song, hợp nhất trước khi đè (one-writer).
+
+NGHIỆM THU (OB chạy thật): 2 biểu đồ render soi mắt khớp SGK (H5.5 sơ đồ · VD4 Natri ·
+5.12 dot A/B · SBT 5.13); PHANH chặn sai thứ tự/bất thường-trong-râu; template kiemMay=[],
+≈ 4/4 Cambria Math, ŝ² m:acc không oMath lồng, whitelist OMML sạch; 0 regression (additive).
