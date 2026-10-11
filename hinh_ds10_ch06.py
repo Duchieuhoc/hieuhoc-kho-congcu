@@ -156,3 +156,85 @@ def parabol(a, b, c, xmin=None, xmax=None, ymin=None, ymax=None,
             cs.append(r'\node[blue,anchor=east,font=\small] at (axis cs:%g,%g) {$%s$};' % (xmax - 0.15, yt, nhan))
     cs.append(r'\end{axis}\end{tikzpicture}\end{document}')
     return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes, dpi=200)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# [32p] 2026-10-11 — PILOT DS10_CH06_B17 (Dấu của tam thức bậc hai).
+#   BẢNG XÉT DẤU (tikz, chuẩn SGK): dòng x (mốc ±∞ + nghiệm) + dòng f(x) (dấu giữa khoảng, 0/|| tại mốc).
+#   bang_xet_dau(moc, dau, ...) TỔNG QUÁT (tam thức / tích / thương — tái dùng giải tích sau).
+#   bang_xet_dau_tam_thuc(a,b,c) — máy TỰ tính Δ, nghiệm, dấu từng khoảng (Đ5.9: nhận nghĩa, máy dựng).
+# ═══════════════════════════════════════════════════════════════════════════
+def bang_xet_dau(moc, dau, ten_ham='f(x)', danh_dau=None,
+                 ky_am_vc=r'-\infty', ky_duong_vc=r'+\infty',
+                 out='bangxetdau', tra_bytes=False, scale=1.0):
+    """BẢNG XÉT DẤU tổng quát (tikz) — chuẩn SGK Việt Nam.
+       moc : list NHÃN các mốc (nghiệm) tăng dần, dạng math-string. VD ['-4','1'] · ['x_1','x_2'] · [r'1-\\sqrt2', r'1+\\sqrt2'] · [] (vô nghiệm).
+       dau : list dấu MỖI KHOẢNG, len = len(moc)+1, phần tử '+' hoặc '-'.
+       danh_dau : list cùng độ dài moc — ký hiệu tại mốc: '0' (nghiệm, f=0 — mặc định) | '||' (không xác định, mẫu=0, kẻ gạch đứng đôi).
+       ten_ham : nhãn dòng dưới (vd 'f(x)', 'g(x)', r\"f'(x)\")."""
+    n = len(moc)
+    assert len(dau) == n + 1, "[bang_xet_dau] dau phai co len = so moc + 1 (so khoang)"
+    danh_dau = danh_dau or (['0'] * n)
+    assert len(danh_dau) == n, "[bang_xet_dau] danh_dau phai cung do dai moc"
+    for d in dau:
+        assert d in ('+', '-'), "[bang_xet_dau] dau chi nhan '+' hoac '-'"
+
+    L = 1.5          # bề rộng cột nhãn
+    iw = 2.0         # bề rộng mỗi khoảng
+    yT, yMid, yB = 1.0, 0.0, -1.0
+    # vị trí các mốc: x[0]=-∞ ... x[n+1]=+∞
+    xs = [L + 0.6 + i * iw for i in range(n + 2)]
+    R = xs[-1] + 0.6
+
+    t = [r'\documentclass[border=4pt]{standalone}',
+         r'\usepackage{tikz}\usepackage{amsmath,amssymb}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g,line join=round]' % scale]
+    # khung ngoài + vách ngăn cột nhãn + đường ngang giữa 2 dòng
+    t.append(r'\draw[line width=0.8pt] (0,%g) rectangle (%g,%g);' % (yB, R, yT))
+    t.append(r'\draw[line width=0.8pt] (%g,%g) -- (%g,%g);' % (L, yB, L, yT))      # vách cột nhãn
+    t.append(r'\draw[line width=0.8pt] (0,%g) -- (%g,%g);' % (yMid, R, yMid))      # ngang giữa
+    # nhãn 2 dòng
+    t.append(r'\node at (%g,%g) {$x$};' % (L / 2.0, (yMid + yT) / 2.0))
+    t.append(r'\node at (%g,%g) {$%s$};' % (L / 2.0, (yB + yMid) / 2.0, ten_ham))
+    # dòng x: các mốc
+    t.append(r'\node[font=\small] at (%g,%g) {$%s$};' % (xs[0], (yMid + yT) / 2.0, ky_am_vc))
+    t.append(r'\node[font=\small] at (%g,%g) {$%s$};' % (xs[-1], (yMid + yT) / 2.0, ky_duong_vc))
+    for i, lab in enumerate(moc):
+        t.append(r'\node[font=\small] at (%g,%g) {$%s$};' % (xs[i + 1], (yMid + yT) / 2.0, lab))
+    # tại mỗi mốc nghiệm: gạch đứng xuyên dòng f(x) + ký hiệu (0 / ||)
+    yf = (yB + yMid) / 2.0
+    for i, mk in enumerate(danh_dau):
+        xr = xs[i + 1]
+        if mk == '||':
+            t.append(r'\draw[line width=0.8pt] (%g,%g) -- (%g,%g);' % (xr - 0.07, yMid, xr - 0.07, yB))
+            t.append(r'\draw[line width=0.8pt] (%g,%g) -- (%g,%g);' % (xr + 0.07, yMid, xr + 0.07, yB))
+        else:
+            t.append(r'\draw[line width=0.6pt] (%g,%g) -- (%g,%g);' % (xr, yMid, xr, yB))
+            t.append(r'\node[font=\small,fill=white,inner sep=1pt] at (%g,%g) {$%s$};' % (xr, yf, mk))
+    # dòng f(x): dấu giữa mỗi khoảng
+    for i, d in enumerate(dau):
+        xmid = (xs[i] + xs[i + 1]) / 2.0
+        t.append(r'\node[font=\small] at (%g,%g) {$%s$};' % (xmid, yf, d))
+    t.append(r'\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(t), out, tra_bytes, dpi=200)
+
+
+def bang_xet_dau_tam_thuc(a, b, c, ten_ham='f(x)', out='bxd_tamthuc', tra_bytes=False, scale=1.0):
+    """BẢNG XÉT DẤU TAM THỨC BẬC HAI f(x)=ax^2+bx+c (a!=0) — máy TỰ tính Δ, nghiệm, dấu (Đ5.9).
+       Định lí dấu: Δ<0 -> f cùng dấu a mọi x; Δ=0 -> cùng dấu a, bằng 0 tại nghiệm kép;
+                    Δ>0 -> trái dấu a trong (x1;x2), cùng dấu a ngoài."""
+    a = float(a); b = float(b); c = float(c)
+    assert abs(a) > 1e-12, "[bxd_tamthuc] a phai khac 0"
+    delta = b * b - 4 * a * c
+    sgn_a = '+' if a > 0 else '-'
+    opp_a = '-' if a > 0 else '+'
+    if delta < 0:
+        return bang_xet_dau([], [sgn_a], ten_ham=ten_ham, out=out, tra_bytes=tra_bytes, scale=scale)
+    if abs(delta) < 1e-9:
+        x0 = -b / (2 * a)
+        return bang_xet_dau([_fmt_toado(x0)], [sgn_a, sgn_a], ten_ham=ten_ham, out=out, tra_bytes=tra_bytes, scale=scale)
+    sq = math.sqrt(delta)
+    x1, x2 = sorted([(-b - sq) / (2 * a), (-b + sq) / (2 * a)])
+    return bang_xet_dau([_fmt_toado(x1), _fmt_toado(x2)], [sgn_a, opp_a, sgn_a],
+                        ten_ham=ten_ham, out=out, tra_bytes=tra_bytes, scale=scale)

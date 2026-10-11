@@ -1,20 +1,15 @@
-00_DANH_MUC.txt — CAPNHAT_KHO__32o  (OB → Thầy UPLOAD ĐÈ GitHub: hieuhoc-kho-congcu, Commit changes)
-Mốc mới: [32o] · template v10.40 · dựng trên HEAD [32n] SHA 10a5d2f (clone tươi, chống lệch pha §2).
-Pilot: DS10_CH05_B14 (Độ phân tán) — vá 4 điểm [SỬA] của AI Soạn.
-
-| File (ĐÈ lên bản GitHub cùng tên) | Thay đổi |
-|-----------------------------------|----------|
-| bieudo_xstk.py                    | +bieu_do_hop (box plot) +bieu_do_cham (dot plot). ADDITIVE — hàm MỚI, hàm cũ 0 đổi. |
-| hieuhoc_template.js (v10.40 [32o])| +kyHieuMu(ten) accent ^ (ŝ²) + _RE_TOAN +≈ (U+2248) route Cambria Math. ADDITIVE. |
-| API_REFERENCE.md                  | Regen (sinh_apiref.js) — thêm kyHieuMu. |
-| BAN_TRICH_HAM_DS10_CH05__xstk.md  | MỚI — bản trích bieudo_xstk (có box/dot) cho AI Soạn. |
-| 00_KHO_VERSION.txt                | Bump mốc [32o] (prepend entry). |
-
-⚠️ CHỐNG LỆCH PHA (§2): dựng trên HEAD [32n]. Nếu khi Thầy upload mà HEAD GitHub
-đã sang mốc khác (máy khác đã push) → BÁO OB clone lại + vá nối, KHÔNG đè mù.
-Chỉ có bieudo_xstk.py + hieuhoc_template.js là file CHUNG — nếu máy Hình/khác đang
-sửa template song song, hợp nhất trước khi đè (one-writer).
-
-NGHIỆM THU (OB chạy thật): 2 biểu đồ render soi mắt khớp SGK (H5.5 sơ đồ · VD4 Natri ·
-5.12 dot A/B · SBT 5.13); PHANH chặn sai thứ tự/bất thường-trong-râu; template kiemMay=[],
-≈ 4/4 Cambria Math, ŝ² m:acc không oMath lồng, whitelist OMML sạch; 0 regression (additive).
+DANH MỤC — CAPNHAT_KHO__32p  (Thầy PUSH GitHub: hieuhoc-kho-congcu → Commit changes)
+Ngày 2026-10-11 · Dựng trên HEAD [32o] SHA 40e158af (clone tươi, chống lệch pha §2).
+================================================================================
+CÁCH PUSH: upload ĐÈ 3 file dưới vào repo (GitHub là ĐÈ, không merge). Mốc mới = [32p].
+--------------------------------------------------------------------------------
+FILE                          | THAY/THÊM | GHI CHÚ
+--------------------------------------------------------------------------------
+hinh_ds10_ch06.py             | THAY      | +2 hàm: bang_xet_dau + bang_xet_dau_tam_thuc
+                              |           |  (BẢNG XÉT DẤU tikz). parabol [32n] NGUYÊN VẸN.
+                              |           |  ADDITIVE, module độc lập (chỉ import hinh_core).
+BAN_TRICH_HAM_DS10_CH06.md    | THAY      | +mục bang_xet_dau/bang_xet_dau_tam_thuc; header [32p].
+00_KHO_VERSION.txt            | THAY      | +khối [32p] trên đầu (bump mốc).
+--------------------------------------------------------------------------------
+KHÔNG đụng: template v10.40 [32o] · file máy Hình · module khác → 0 regression.
+Sau push: HEAD = [32p]. PIN mốc [32p] vào 00_LUAT GIAO B17 + 00_HOSO_BAI khi lưu B17.
