@@ -1,8 +1,8 @@
-# BẢN TRÍCH HÀM — ĐỒ THỊ HÀM SỐ THPT (hinh_ds10_ch06.py) · kho [32p]
+# BẢN TRÍCH HÀM — ĐỒ THỊ + HÌNH HỌC CHƯƠNG VI THPT (hinh_ds10_ch06.py) · kho [32q]
 > import: `import hinh_ds10_ch06 as HS`. Render → PNG; build.js nhúng `H.hinhVe({ imageBuffer: buf })` (gọi hàm `tra_bytes=True`).
-> Triết lý Đ5.9: hàm nhận NGHĨA (hệ số $a,b,c$ / nghiệm + dấu), máy TỰ dựng đường cong (pgfplots) + TỰ tính đỉnh / trục đối xứng / giao Ox,Oy / điểm đối xứng / dấu từng khoảng — KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42).
-> Chương: DS10_CH06 (Hàm số, Đồ thị và Ứng dụng). Nghiệm thu pilot DS10_CH06_B16 (parabol [32n]) · DS10_CH06_B17 (bảng xét dấu [32p]).
-> **HÀM:** `parabol` (đồ thị hàm bậc hai) · `bang_xet_dau` + `bang_xet_dau_tam_thuc` (bảng xét dấu).
+> Triết lý Đ5.9: hàm nhận NGHĨA (hệ số $a,b,c$ / nghiệm+dấu / cấu hình điểm), máy TỰ dựng + TỰ tính (đỉnh, trục đx, giao, dấu khoảng) + PHANH (điểm thuộc parabol, góc vuông thật) — KHÔNG nhúng ảnh SGK (Đ42).
+> Chương: DS10_CH06 (Hàm số, Đồ thị và Ứng dụng). Nghiệm thu pilot B16 (parabol [32n]) · B17 (bảng xét dấu [32p]) · B18 (sơ đồ hình học [32q]).
+> **HÀM:** `parabol` (đồ thị hàm bậc hai) · `bang_xet_dau`+`bang_xet_dau_tam_thuc` (bảng xét dấu) · `so_do_hinh` (sơ đồ hình học mô hình hóa).
 
 ## parabol(a, b, c, xmin=None, xmax=None, ymin=None, ymax=None, hien_dinh=True, ten_dinh='I', hien_truc=True, hien_giao_ox=True, hien_giao_oy=True, diem_doi_xung=True, diem_them=None, nhan=None, hien_nhan=True, out='parabol', tra_bytes=False, scale=1.0)   ← [32n]
 ĐỒ THỊ PARABOL $y = ax^2 + bx + c$ ($a\neq0$) trên hệ $Oxy$ (pgfplots — đường cong sinh thẳng từ công thức). **Máy TỰ tính** đỉnh $I\left(-\dfrac{b}{2a};-\dfrac{\Delta}{4a}\right)$, trục đối xứng $x=-\dfrac{b}{2a}$, giao $Ox$ (nếu $\Delta\ge0$), giao $Oy$ $(0;c)$, điểm đối xứng của giao $Oy$ qua trục $\left(-\dfrac{b}{a};c\right)$. **PHANH nội sinh:** $a\neq0$; đỉnh phải nằm trong khung (lệch → DỪNG).
@@ -27,6 +27,17 @@
 - Máy tự: $\Delta<0$ → cùng dấu $a$ mọi $x$ (1 khoảng); $\Delta=0$ → cùng dấu $a$, `0` tại nghiệm kép; $\Delta>0$ → trái dấu $a$ trong $(x_1;x_2)$, cùng dấu $a$ ngoài.
 - **Nghiệm HỮU TỈ** → dùng thẳng wrapper (tự format `\tfrac`). **Nghiệm VÔ TỈ** (vd $1\pm\sqrt2$) → gọi `bang_xet_dau` TRỰC TIẾP với nhãn tường minh `[r'1-\sqrt2', r'1+\sqrt2']` (wrapper sẽ ra thập phân — KHÔNG dùng).
 - **Trọng tài (nghiệm thu soi mắt [32p], 5 ca):** `bang_xet_dau_tam_thuc(2,6,-8)` (VD $\Delta>0,a>0$: $+\,0\,-\,0\,+$) · `bang_xet_dau([r'1-\sqrt2',r'1+\sqrt2'],['-','+','-'])` (VD $a<0$ vô tỉ) · `bang_xet_dau_tam_thuc(1,12,36)` ($\Delta=0$: $+\,0\,+$) · `bang_xet_dau_tam_thuc(1,1,1)` ($\Delta<0$: $+$) · `bang_xet_dau(['2','5'],['+','-','+'],danh_dau=['0','||'])` (BPT phân thức, `||` tại mẫu=0).
+
+## so_do_hinh(diem, canh=None, canh_dut=None, goc_vuong=None, nhan_canh=None, nhan_diem=None, nua_tron=None, duong_tron=None, diem_cham=None, out='sodohinh', tra_bytes=False, scale=1.0)   ← [32q]
+**SƠ ĐỒ HÌNH HỌC PHẲNG** (tikz) cho bài **MÔ HÌNH HÓA** lập phương trình/bất phương trình (tam giác vuông, tứ giác, nửa tròn+HCN, HCN+đường chéo). Khác parabol/bảng: đây là **sơ đồ bố trí**, AI Soạn **truyền TỌA ĐỘ điểm** (tự tính/chọn từ dữ kiện đề), máy vẽ + PHANH góc vuông.
+- **`diem`** — dict `{ten:(x,y)}` tọa độ điểm (math-string tên: `'A'`, `'M'`…). Nhãn điểm tự đặt hướng ra ngoài trọng tâm (hoặc khai `nhan_diem`).
+- **`canh`** — list `[(A,B),...]` đoạn LIỀN (cạnh đa giác / đoạn nối). `canh_dut` — list đoạn ĐỨT (đường phụ dựng góc vuông).
+- **`goc_vuong`** — list `[(A,V,B),...]` ký hiệu ô vuông tại $V$. **PHANH: $\vec{VA}\cdot\vec{VB}\approx0$** — khai góc vuông mà không vuông thật → DỪNG.
+- **`nhan_canh`** — `{(A,B):'nhãn'}` nhãn độ dài, đặt giữa cạnh lệch ra ngoài (vd `{('A','B'):'4', ('B','M'):'x'}`).
+- **`nhan_diem`** — `{ten:'hướng'}` hướng ∈ {`above`,`below`,`left`,`right`,`above left`,…}; None → tự theo trọng tâm.
+- **`nua_tron`** — `[(A,B,'tren'|'duoi'),...]` nửa đường tròn đường kính $AB$, bụng cung phía trên/dưới (AB dọc dùng `'phai'`/… ). **`duong_tron`** — `[(tam,r),...]` (tam = tên điểm hoặc `(x,y)`).
+- **Trọng tài (nghiệm thu soi mắt [32q], 4 ca):** H6.20 hải đăng `so_do_hinh({'A':(0,4),'B':(0,0),'M':(3,0),'C':(9.25,0)}, canh=[('A','B'),('B','C'),('A','M')], goc_vuong=[('A','B','C')], nhan_canh={('A','B'):'4',('B','M'):'x'})` · H6.21 tứ giác (H góc vuông, dashed HA/HD) · mặt cắt cột cây số (`nua_tron=[('A','B','tren')]` + đường chéo đứt) · SBT 6.61 HCN+đường chéo.
+> **AI Soạn LƯU Ý:** chọn tọa độ MINH HỌA hợp lí (giữ đúng quan hệ: góc vuông, thứ tự điểm, tỉ lệ gần thật) — hình là **minh họa mô hình**, không cần đúng tỉ lệ tuyệt đối; nhãn độ dài ghi theo đề ($x$, $4$, $9{,}25$…). KHÔNG nhúng ảnh SGK (Đ42).
 
 ---
 > **Lưu ý đặt hình (HP Đ18):** parabol khổ ~11×9cm > 8cm → căn giữa dòng riêng (Đ18 ngoại lệ 1). Bảng xét dấu rộng → cũng căn giữa dòng riêng. Ghép 2 parabol cạnh nhau (vd HĐ3 a>0 & a<0) → `H.hangHinh([...])` (Đ18.1).

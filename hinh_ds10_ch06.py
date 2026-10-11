@@ -238,3 +238,120 @@ def bang_xet_dau_tam_thuc(a, b, c, ten_ham='f(x)', out='bxd_tamthuc', tra_bytes=
     x1, x2 = sorted([(-b - sq) / (2 * a), (-b + sq) / (2 * a)])
     return bang_xet_dau([_fmt_toado(x1), _fmt_toado(x2)], [sgn_a, opp_a, sgn_a],
                         ten_ham=ten_ham, out=out, tra_bytes=tra_bytes, scale=scale)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# [32q] 2026-10-11 — PILOT DS10_CH06_B18 (PT quy về bậc hai — HÌNH HỌC MÔ HÌNH HÓA).
+#   so_do_hinh(diem, canh, ...) — sơ đồ hình học phẳng TỔNG QUÁT (tikz): điểm + đoạn thẳng
+#   + góc vuông + nhãn cạnh/điểm + nửa đường tròn / đường tròn. Cho bài mô hình hóa lập PT.
+#   AI Soạn truyền TỌA ĐỘ điểm (tính từ đề) + khai cạnh/nhãn. PHANH: góc vuông khai phải ⟂ thật.
+# ═══════════════════════════════════════════════════════════════════════════
+def so_do_hinh(diem, canh=None, canh_dut=None, goc_vuong=None,
+               nhan_canh=None, nhan_diem=None, nua_tron=None, duong_tron=None,
+               diem_cham=None, out='sodohinh', tra_bytes=False, scale=1.0):
+    """SƠ ĐỒ HÌNH HỌC PHẲNG (tikz) — bài mô hình hóa (tam giác vuông, tứ giác, nửa tròn+HCN...).
+       diem: dict {ten:(x,y)} — tọa độ các điểm (AI Soạn tính từ đề).
+       canh: list [(A,B),...] đoạn LIỀN. canh_dut: list [(A,B),...] đoạn ĐỨT (đường phụ).
+       goc_vuong: list [(A,V,B),...] — ký hiệu góc vuông tại V (giữa VA, VB). PHANH: VA·VB≈0.
+       nhan_canh: {(A,B):'label'} — nhãn độ dài, đặt giữa cạnh lệch ra ngoài (xa trọng tâm).
+       nhan_diem: {ten:'huong'} huong∈{above,below,left,right,above left,...}; None→tự theo trọng tâm.
+       nua_tron: list [(A,B,'tren'|'duoi'),...] — nửa đường tròn đường kính AB, vòng phía trên/dưới.
+       duong_tron: list [(tam,bankinh),...] hoặc [((x,y),r),...] — đường tròn.
+       diem_cham: list ten — chấm đậm các điểm này (mặc định chấm hết điểm có trong canh)."""
+    import math as _m
+    canh = canh or []; canh_dut = canh_dut or []; goc_vuong = goc_vuong or []
+    nhan_canh = nhan_canh or {}; nhan_diem = nhan_diem or {}
+    nua_tron = nua_tron or []; duong_tron = duong_tron or []
+    P = {k: (float(v[0]), float(v[1])) for k, v in diem.items()}
+    # trọng tâm (để lệch nhãn ra ngoài)
+    cx = sum(p[0] for p in P.values()) / len(P)
+    cy = sum(p[1] for p in P.values()) / len(P)
+
+    # PHANH góc vuông
+    for (A, V, B) in goc_vuong:
+        ax, ay = P[A]; vx, vy = P[V]; bx, by = P[B]
+        u = (ax - vx, ay - vy); w = (bx - vx, by - vy)
+        dot = u[0] * w[0] + u[1] * w[1]
+        nu = _m.hypot(*u); nw = _m.hypot(*w)
+        assert nu > 1e-9 and nw > 1e-9, "[so_do_hinh] góc vuông: điểm trùng " + V
+        assert abs(dot) / (nu * nw) < 1e-6, "[so_do_hinh] góc tại %s KHÔNG vuông (cos=%.4f)" % (V, dot / (nu * nw))
+
+    t = [r'\documentclass[border=6pt]{standalone}',
+         r'\usepackage{tikz}\usepackage{amsmath}',
+         r'\usetikzlibrary{calc}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g,line join=round,line cap=round]' % scale]
+    # đường tròn
+    for item in duong_tron:
+        tam, r = item
+        tx, ty = (P[tam] if isinstance(tam, str) else (float(tam[0]), float(tam[1])))
+        t.append(r'\draw[blue,line width=1pt] (%g,%g) circle (%g);' % (tx, ty, float(r)))
+    # nửa đường tròn (đường kính AB)
+    for (A, B, phia) in nua_tron:
+        ax, ay = P[A]; bx, by = P[B]
+        mx, my = (ax + bx) / 2.0, (ay + by) / 2.0
+        r = _m.hypot(bx - ax, by - ay) / 2.0
+        a0 = _m.degrees(_m.atan2(ay - my, ax - mx))
+        a1 = _m.degrees(_m.atan2(by - my, bx - mx))
+        # chọn chiều quét (±180°) sao cho bụng cung nằm ĐÚNG phía khai (trên/dưới theo y; trái/phải nếu AB dọc)
+        doc = abs(by - ay) > abs(bx - ax)
+        a1 = a0
+        for dirn in (180.0, -180.0):
+            midang = _m.radians(a0 + dirn / 2.0)
+            xmid = mx + r * _m.cos(midang); ymid = my + r * _m.sin(midang)
+            if doc:
+                ok = (xmid > mx) if phia in ('phai', 'tren') else (xmid < mx)
+            else:
+                ok = (ymid > my) if phia == 'tren' else (ymid < my)
+            if ok:
+                a1 = a0 + dirn; break
+        t.append(r'\draw[blue,line width=1pt] (%g,%g) arc (%g:%g:%g);' % (ax, ay, a0, a1, r))
+    # cạnh liền
+    for (A, B) in canh:
+        t.append(r'\draw[blue,line width=1pt] (%g,%g) -- (%g,%g);' % (P[A][0], P[A][1], P[B][0], P[B][1]))
+    # cạnh đứt
+    for (A, B) in canh_dut:
+        t.append(r'\draw[gray,dashed,line width=0.7pt] (%g,%g) -- (%g,%g);' % (P[A][0], P[A][1], P[B][0], P[B][1]))
+    # góc vuông (ô vuông nhỏ)
+    for (A, V, B) in goc_vuong:
+        ax, ay = P[A]; vx, vy = P[V]; bx, by = P[B]
+        u = (ax - vx, ay - vy); w = (bx - vx, by - vy)
+        nu = _m.hypot(*u); nw = _m.hypot(*w)
+        s = 0.28 * min(nu, nw, 1.0 / max(scale, 0.5)) if False else 0.3
+        ux, uy = u[0] / nu * s, u[1] / nu * s
+        wx, wy = w[0] / nw * s, w[1] / nw * s
+        t.append(r'\draw[black,line width=0.6pt] (%g,%g) -- (%g,%g) -- (%g,%g);'
+                 % (vx + ux, vy + uy, vx + ux + wx, vy + uy + wy, vx + wx, vy + wy))
+    # chấm điểm
+    pts_in = set()
+    for (A, B) in canh + canh_dut: pts_in.add(A); pts_in.add(B)
+    for a, v, b in goc_vuong: pts_in.update([a, v, b])
+    cham = diem_cham if diem_cham is not None else list(pts_in)
+    for k in cham:
+        t.append(r'\fill[blue] (%g,%g) circle (1.6pt);' % (P[k][0], P[k][1]))
+    # nhãn điểm (tự hướng ra ngoài trọng tâm nếu không khai)
+    for k in P:
+        px, py = P[k]
+        if k in nhan_diem:
+            huong = nhan_diem[k]
+        else:
+            dx, dy = px - cx, py - cy
+            hz = 'right' if dx > 0.3 else ('left' if dx < -0.3 else '')
+            vt = 'above' if dy >= 0 else 'below'
+            huong = (vt + ' ' + hz).strip()
+        t.append(r'\node[%s,font=\small] at (%g,%g) {$%s$};' % (huong, px, py, k))
+    # nhãn cạnh (giữa cạnh, lệch ra ngoài)
+    for (A, B), lab in nhan_canh.items():
+        ax, ay = P[A]; bx, by = P[B]
+        mx, my = (ax + bx) / 2.0, (ay + by) / 2.0
+        # pháp tuyến
+        dx, dy = bx - ax, by - ay
+        L = _m.hypot(dx, dy)
+        nx, ny = -dy / L, dx / L
+        # chọn phía xa trọng tâm
+        if (mx + nx - cx) ** 2 + (my + ny - cy) ** 2 < (mx - nx - cx) ** 2 + (my - ny - cy) ** 2:
+            nx, ny = -nx, -ny
+        off = 0.32
+        t.append(r'\node[font=\small] at (%g,%g) {$%s$};' % (mx + nx * off, my + ny * off, lab))
+    t.append(r'\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(t), out, tra_bytes, dpi=200)
