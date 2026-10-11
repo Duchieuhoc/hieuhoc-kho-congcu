@@ -1,11 +1,7 @@
-DANH MỤC — CAPNHAT_KHO__32r  (Thầy PUSH GitHub → Commit changes)
-Ngày 2026-10-11 · Dựng trên HEAD [32q] SHA 0bacc5ed (clone tươi, chống lệch pha §2).
---------------------------------------------------------------------------------
-hinh_ds10_ch06.py          | THAY | +do_thi_ghep (đồ thị hàm nhiều công thức) +2 vá
-                           |      |  (bang_xet_dau nới cột nhãn phân số; so_do_hinh +nhan_tong brace).
-                           |      |  parabol/bang_xet_dau/so_do_hinh NGUYÊN VẸN (mở rộng tương thích ngược).
-BAN_TRICH_HAM_DS10_CH06.md | THAY | +mục do_thi_ghep; header [32r]; ghi 2 vá.
-00_KHO_VERSION.txt         | THAY | +khối [32r].
---------------------------------------------------------------------------------
-KHÔNG đụng template v10.40 [32o] → 0 regression (4 builder chạy lại OK).
-Sau push HEAD=[32r]. PIN [32r] vào 00_LUAT GIAO B15 + 00_HOSO khi lưu.
+DANH MỤC — CAPNHAT_KHO__32s (Thầy PUSH GitHub)
+Ngày 2026-10-11 · Dựng trên HEAD [32r] SHA 3f3a2669 (clone tươi §2).
+hinh_ds10_ch06.py          | THAY | +do_thi_nhan_dang (nhận dạng tròn/hyperbol/√x trên Oxy, chuẩn bị ⑤/⑥).
+                           |      | 5 builder cũ NGUYÊN VẸN. ADDITIVE.
+BAN_TRICH_HAM_DS10_CH06.md | THAY | +mục do_thi_nhan_dang; header [32s].
+00_KHO_VERSION.txt         | THAY | +khối [32s].
+KHÔNG đụng template → 0 regression (6 builder chạy lại OK). Sau push HEAD=[32s].

@@ -1,8 +1,8 @@
-# BẢN TRÍCH HÀM — ĐỒ THỊ + HÌNH HỌC CHƯƠNG VI THPT (hinh_ds10_ch06.py) · kho [32r]
+# BẢN TRÍCH HÀM — ĐỒ THỊ + HÌNH HỌC CHƯƠNG VI THPT (hinh_ds10_ch06.py) · kho [32s]
 > import: `import hinh_ds10_ch06 as HS`. Render → PNG; build.js nhúng `H.hinhVe({ imageBuffer: buf })` (gọi hàm `tra_bytes=True`).
 > Triết lý Đ5.9: hàm nhận NGHĨA (hệ số $a,b,c$ / nghiệm+dấu / cấu hình điểm), máy TỰ dựng + TỰ tính (đỉnh, trục đx, giao, dấu khoảng) + PHANH (điểm thuộc parabol, góc vuông thật) — KHÔNG nhúng ảnh SGK (Đ42).
-> Chương: DS10_CH06 (Hàm số, Đồ thị và Ứng dụng). Nghiệm thu pilot B16 (parabol [32n]) · B17 (bảng xét dấu [32p]) · B18 (sơ đồ hình học [32q]) · B15 (đồ thị hàm nhiều công thức [32r]).
-> **HÀM:** `parabol` (đồ thị hàm bậc hai) · `bang_xet_dau`+`bang_xet_dau_tam_thuc` (bảng xét dấu) · `so_do_hinh` (sơ đồ hình học mô hình hóa) · `do_thi_ghep` (đồ thị hàm nhiều công thức). Hàm bậc nhất/hằng từng khoảng + bậc thang: dùng `hinh_ds11_giaitich.do_thi_bac_thang`.
+> Chương: DS10_CH06 (Hàm số, Đồ thị và Ứng dụng). Nghiệm thu pilot B16 (parabol [32n]) · B17 (bảng xét dấu [32p]) · B18 (sơ đồ hình học [32q]) · B15 (đồ thị hàm nhiều công thức [32r]) · ⑤/⑥ (nhận dạng đồ thị [32s]).
+> **HÀM:** `parabol` (đồ thị hàm bậc hai) · `bang_xet_dau`+`bang_xet_dau_tam_thuc` (bảng xét dấu) · `so_do_hinh` (sơ đồ hình học mô hình hóa) · `do_thi_ghep` (đồ thị hàm nhiều công thức) · `do_thi_nhan_dang` (nhận dạng: tròn/hyperbol/√x trên Oxy). Hàm bậc nhất/hằng từng khoảng + bậc thang: dùng `hinh_ds11_giaitich.do_thi_bac_thang`.
 
 ## parabol(a, b, c, xmin=None, xmax=None, ymin=None, ymax=None, hien_dinh=True, ten_dinh='I', hien_truc=True, hien_giao_ox=True, hien_giao_oy=True, diem_doi_xung=True, diem_them=None, nhan=None, hien_nhan=True, out='parabol', tra_bytes=False, scale=1.0)   ← [32n]
 ĐỒ THỊ PARABOL $y = ax^2 + bx + c$ ($a\neq0$) trên hệ $Oxy$ (pgfplots — đường cong sinh thẳng từ công thức). **Máy TỰ tính** đỉnh $I\left(-\dfrac{b}{2a};-\dfrac{\Delta}{4a}\right)$, trục đối xứng $x=-\dfrac{b}{2a}$, giao $Ox$ (nếu $\Delta\ge0$), giao $Oy$ $(0;c)$, điểm đối xứng của giao $Oy$ qua trục $\left(-\dfrac{b}{a};c\right)$. **PHANH nội sinh:** $a\neq0$; đỉnh phải nằm trong khung (lệch → DỪNG).
@@ -49,6 +49,13 @@
 - Khung `None` → tự ôm (gồm đỉnh parabol nếu trong khoảng); truyền tay cho bài khung lớn. `nhan`: nhãn đường (math-string).
 - **Trọng tài (nghiệm thu soi mắt [32r], 3 ca):** H6.19 SBT `do_thi_ghep([{'loai':'parabol','a':1,'b':0,'c':0,'tu':0,'den':2.2,'dong_tu':True},{'loai':'thang','m':-1,'c':-1,'tu':-3,'den':0,'dong_den':False}])` (bước nhảy: đặc $(0;0)$ + hở $(0;-1)$) · chữ V $|x|$ (2 nhánh thẳng liên tục) · H6.26 (thẳng $x+1$ ghép parabol $x^2-1$ liên tục $(-1;0)$).
 > **Phân vai builder B15:** parabol đơn → `parabol`; đường thẳng/bậc thang/hàm bậc nhất từng khoảng (điện/nước/taxi) → `hinh_ds11_giaitich.do_thi_bac_thang`; hàm **nhiều công thức có đoạn PARABOL** (ghép parabol+thẳng, bước nhảy) → `do_thi_ghep`. Nhận dạng đường tròn/hyperbol/$\sqrt{x}$ (SBT 6.4, Cuối 6.34): **CHƯA có builder riêng** → báo `[SỬA]` (OB bổ) hoặc khai bằng mô tả.
+
+## do_thi_nhan_dang(loai, cx=0, cy=0, r=3, a=1, b=1, h=0, k=0, xmin,xmax,ymin,ymax, nhan=None, ...)   ← [32s]
+**ĐỒ THỊ NHẬN DẠNG trên $Oxy$** (pgfplots) — vẽ 1 đường cong để hỏi "hình nào là đồ thị hàm số?" (SBT 6.4, Cuối chương 6.34).
+- **`loai='tron'`** — đường tròn tâm $(cx;cy)$ bán kính $r$ (`axis equal` → tròn thật). **KHÔNG là đồ thị hàm số** (mỗi $x$ trong → 2 $y$).
+- **`loai='hyperbol_ngang'`** — $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$, 2 nhánh mở TRÁI–PHẢI, đỉnh $(\pm a;0)$. **KHÔNG là đồ thị hàm số.**
+- **`loai='can'`** — $y=k+\sqrt{x-h}$ (nhánh $x\ge h$). **LÀ đồ thị hàm số** (vd $y=\sqrt{x}$: `h=0,k=0`).
+- **Trọng tài (nghiệm thu [32s], 3 ca):** `do_thi_nhan_dang('tron',cx=4,cy=0,r=3)` (SBT 6.4 cắt Ox 1;7) · `do_thi_nhan_dang('hyperbol_ngang',a=1,b=1.43)` (đỉnh ±1) · `do_thi_nhan_dang('can',nhan=r'y=\sqrt{x}')` (Cuối 6.34).
 
 ---
 > **Lưu ý đặt hình (HP Đ18):** parabol khổ ~11×9cm > 8cm → căn giữa dòng riêng (Đ18 ngoại lệ 1). Bảng xét dấu rộng → cũng căn giữa dòng riêng. Ghép 2 parabol cạnh nhau (vd HĐ3 a>0 & a<0) → `H.hangHinh([...])` (Đ18.1).

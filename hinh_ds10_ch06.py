@@ -445,3 +445,50 @@ def do_thi_ghep(nhanh, xmin=None, xmax=None, ymin=None, ymax=None,
                   % (xmin + 0.2, ymax - 0.5, nhan))
     cs.append(r'\end{axis}\end{tikzpicture}\end{document}')
     return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes, dpi=200)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# [32s] 2026-10-11 — DS10_CH06 ⑤/⑥. do_thi_nhan_dang — ĐỒ THỊ NHẬN DẠNG trên Oxy
+#   (đường tròn / hyperbol ngang / y=√x) cho bài "hình nào là đồ thị hàm số?".
+# ═══════════════════════════════════════════════════════════════════════════
+def do_thi_nhan_dang(loai, cx=0.0, cy=0.0, r=3.0, a=1.0, b=1.0, h=0.0, k=0.0,
+                     xmin=None, xmax=None, ymin=None, ymax=None, nhan=None,
+                     out='nhandang', tra_bytes=False):
+    """ĐỒ THỊ NHẬN DẠNG (pgfplots) — vẽ 1 đường cong trên Oxy để hỏi "có là đồ thị hàm số?".
+       loai='tron'          : đường tròn tâm (cx;cy) bán kính r (mỗi x→2 y: KHÔNG là hàm số).
+       loai='hyperbol_ngang': x²/a² − y²/b² = 1, 2 nhánh mở TRÁI-PHẢI, đỉnh (±a;0) (KHÔNG là hàm số).
+       loai='can'           : y = k + √(x − h) (nhánh x≥h, LÀ hàm số; vd y=√x: h=k=0).
+       Máy vẽ + khung tự ôm. Dùng ở bài nhận-dạng (SBT 6.4, Cuối chương 6.34)."""
+    import math as _m
+    if loai == 'tron':
+        if xmin is None: xmin = _m.floor(cx - r - 1); xmax = _m.ceil(cx + r + 1)
+        if ymin is None: ymin = _m.floor(cy - r - 1); ymax = _m.ceil(cy + r + 1)
+    elif loai == 'hyperbol_ngang':
+        if xmin is None: xmin = -_m.ceil(3 * a + 1); xmax = _m.ceil(3 * a + 1)
+        if ymin is None: ymin = -8; ymax = 8
+    else:  # can
+        if xmin is None: xmin = _m.floor(h - 1); xmax = _m.ceil(h + 9)
+        if ymin is None: ymin = -1; ymax = _m.ceil(k + _m.sqrt(max(xmax - h, 0)) + 1)
+    cs = [r'\documentclass[border=4pt]{standalone}',
+          r'\usepackage{pgfplots}\pgfplotsset{compat=1.17}',
+          r'\usepackage{amsmath}', r'\begin{document}', r'\begin{tikzpicture}',
+          r'\begin{axis}[',
+          r'  axis lines=middle, axis line style={-{Stealth[length=2mm]}},',
+          r'  xlabel={$x$}, ylabel={$y$},',
+          r'  xlabel style={at={(axis cs:%g,0)}, anchor=south west, inner sep=2pt},' % xmax,
+          r'  ylabel style={at={(axis cs:0,%g)}, anchor=south east, inner sep=2pt},' % ymax,
+          r'  xmin=%g, xmax=%g, ymin=%g, ymax=%g,' % (xmin, xmax, ymin, ymax),
+          (r'  axis equal image, ' if loai == 'tron' else r'  width=10cm, height=9cm, ') +
+          r'tick label style={font=\small, fill=white, inner sep=1.3pt}, clip=true,', r']']
+    if loai == 'tron':
+        cs.append(r'\draw[blue,line width=1.1pt] (axis cs:%g,%g) circle [radius=%g];' % (cx, cy, r))
+    elif loai == 'hyperbol_ngang':
+        # nhánh phải x=a*cosh t, y=b*sinh t ; nhánh trái x=-a*cosh t
+        cs.append(r'\addplot[blue,line width=1.1pt,domain=-2.1:2.1,samples=80,variable=\t]({%g*cosh(\t)},{%g*sinh(\t)});' % (a, b))
+        cs.append(r'\addplot[blue,line width=1.1pt,domain=-2.1:2.1,samples=80,variable=\t]({-%g*cosh(\t)},{%g*sinh(\t)});' % (a, b))
+    else:  # can: y=k+sqrt(x-h)
+        cs.append(r'\addplot[blue,line width=1.1pt,domain=%g:%g,samples=100]{%g+sqrt(x-(%g))};' % (h, xmax, k, h))
+    if nhan:
+        cs.append(r'\node[blue,anchor=north east,font=\small] at (axis cs:%g,%g) {$%s$};' % (xmax - 0.2, ymax - 0.3, nhan))
+    cs.append(r'\end{axis}\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes, dpi=200)
