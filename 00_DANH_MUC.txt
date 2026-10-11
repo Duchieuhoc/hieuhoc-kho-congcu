@@ -1,12 +1,11 @@
-DANH MỤC — CAPNHAT_KHO__32q  (Thầy PUSH GitHub → Commit changes)
-Ngày 2026-10-11 · Dựng trên HEAD [32p] SHA 79e5957d (clone tươi, chống lệch pha §2).
-================================================================================
-FILE                          | THAY/THÊM | GHI CHÚ
+DANH MỤC — CAPNHAT_KHO__32r  (Thầy PUSH GitHub → Commit changes)
+Ngày 2026-10-11 · Dựng trên HEAD [32q] SHA 0bacc5ed (clone tươi, chống lệch pha §2).
 --------------------------------------------------------------------------------
-hinh_ds10_ch06.py             | THAY      | +1 hàm: so_do_hinh (SƠ ĐỒ HÌNH HỌC mô hình hóa,
-                              |           |  PHANH góc vuông). parabol [32n] + bang_xet_dau [32p] NGUYÊN VẸN.
-BAN_TRICH_HAM_DS10_CH06.md    | THAY      | +mục so_do_hinh; header [32q]; đổi tên "ĐỒ THỊ + HÌNH HỌC".
-00_KHO_VERSION.txt            | THAY      | +khối [32q] trên đầu (bump mốc).
+hinh_ds10_ch06.py          | THAY | +do_thi_ghep (đồ thị hàm nhiều công thức) +2 vá
+                           |      |  (bang_xet_dau nới cột nhãn phân số; so_do_hinh +nhan_tong brace).
+                           |      |  parabol/bang_xet_dau/so_do_hinh NGUYÊN VẸN (mở rộng tương thích ngược).
+BAN_TRICH_HAM_DS10_CH06.md | THAY | +mục do_thi_ghep; header [32r]; ghi 2 vá.
+00_KHO_VERSION.txt         | THAY | +khối [32r].
 --------------------------------------------------------------------------------
-KHÔNG đụng: template v10.40 [32o] · module khác → 0 regression (3 builder chạy lại OK).
-Sau push: HEAD = [32q]. PIN [32q] vào 00_LUAT GIAO B18 + 00_HOSO khi lưu B18.
+KHÔNG đụng template v10.40 [32o] → 0 regression (4 builder chạy lại OK).
+Sau push HEAD=[32r]. PIN [32r] vào 00_LUAT GIAO B15 + 00_HOSO khi lưu.

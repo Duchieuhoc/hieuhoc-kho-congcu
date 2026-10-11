@@ -1,8 +1,8 @@
-# BẢN TRÍCH HÀM — ĐỒ THỊ + HÌNH HỌC CHƯƠNG VI THPT (hinh_ds10_ch06.py) · kho [32q]
+# BẢN TRÍCH HÀM — ĐỒ THỊ + HÌNH HỌC CHƯƠNG VI THPT (hinh_ds10_ch06.py) · kho [32r]
 > import: `import hinh_ds10_ch06 as HS`. Render → PNG; build.js nhúng `H.hinhVe({ imageBuffer: buf })` (gọi hàm `tra_bytes=True`).
 > Triết lý Đ5.9: hàm nhận NGHĨA (hệ số $a,b,c$ / nghiệm+dấu / cấu hình điểm), máy TỰ dựng + TỰ tính (đỉnh, trục đx, giao, dấu khoảng) + PHANH (điểm thuộc parabol, góc vuông thật) — KHÔNG nhúng ảnh SGK (Đ42).
-> Chương: DS10_CH06 (Hàm số, Đồ thị và Ứng dụng). Nghiệm thu pilot B16 (parabol [32n]) · B17 (bảng xét dấu [32p]) · B18 (sơ đồ hình học [32q]).
-> **HÀM:** `parabol` (đồ thị hàm bậc hai) · `bang_xet_dau`+`bang_xet_dau_tam_thuc` (bảng xét dấu) · `so_do_hinh` (sơ đồ hình học mô hình hóa).
+> Chương: DS10_CH06 (Hàm số, Đồ thị và Ứng dụng). Nghiệm thu pilot B16 (parabol [32n]) · B17 (bảng xét dấu [32p]) · B18 (sơ đồ hình học [32q]) · B15 (đồ thị hàm nhiều công thức [32r]).
+> **HÀM:** `parabol` (đồ thị hàm bậc hai) · `bang_xet_dau`+`bang_xet_dau_tam_thuc` (bảng xét dấu) · `so_do_hinh` (sơ đồ hình học mô hình hóa) · `do_thi_ghep` (đồ thị hàm nhiều công thức). Hàm bậc nhất/hằng từng khoảng + bậc thang: dùng `hinh_ds11_giaitich.do_thi_bac_thang`.
 
 ## parabol(a, b, c, xmin=None, xmax=None, ymin=None, ymax=None, hien_dinh=True, ten_dinh='I', hien_truc=True, hien_giao_ox=True, hien_giao_oy=True, diem_doi_xung=True, diem_them=None, nhan=None, hien_nhan=True, out='parabol', tra_bytes=False, scale=1.0)   ← [32n]
 ĐỒ THỊ PARABOL $y = ax^2 + bx + c$ ($a\neq0$) trên hệ $Oxy$ (pgfplots — đường cong sinh thẳng từ công thức). **Máy TỰ tính** đỉnh $I\left(-\dfrac{b}{2a};-\dfrac{\Delta}{4a}\right)$, trục đối xứng $x=-\dfrac{b}{2a}$, giao $Ox$ (nếu $\Delta\ge0$), giao $Oy$ $(0;c)$, điểm đối xứng của giao $Oy$ qua trục $\left(-\dfrac{b}{a};c\right)$. **PHANH nội sinh:** $a\neq0$; đỉnh phải nằm trong khung (lệch → DỪNG).
@@ -38,6 +38,17 @@
 - **`nua_tron`** — `[(A,B,'tren'|'duoi'),...]` nửa đường tròn đường kính $AB$, bụng cung phía trên/dưới (AB dọc dùng `'phai'`/… ). **`duong_tron`** — `[(tam,r),...]` (tam = tên điểm hoặc `(x,y)`).
 - **Trọng tài (nghiệm thu soi mắt [32q], 4 ca):** H6.20 hải đăng `so_do_hinh({'A':(0,4),'B':(0,0),'M':(3,0),'C':(9.25,0)}, canh=[('A','B'),('B','C'),('A','M')], goc_vuong=[('A','B','C')], nhan_canh={('A','B'):'4',('B','M'):'x'})` · H6.21 tứ giác (H góc vuông, dashed HA/HD) · mặt cắt cột cây số (`nua_tron=[('A','B','tren')]` + đường chéo đứt) · SBT 6.61 HCN+đường chéo.
 > **AI Soạn LƯU Ý:** chọn tọa độ MINH HỌA hợp lí (giữ đúng quan hệ: góc vuông, thứ tự điểm, tỉ lệ gần thật) — hình là **minh họa mô hình**, không cần đúng tỉ lệ tuyệt đối; nhãn độ dài ghi theo đề ($x$, $4$, $9{,}25$…). KHÔNG nhúng ảnh SGK (Đ42).
+> **`nhan_tong` ([32r]):** đoạn qua ≥3 điểm (vd $B$–$M$–$C$) ghi độ dài TỔNG bằng dấu ngoặc ôm (brace) để không lẫn đoạn con: `nhan_tong=[('B','C','9{,}25')]`.
+
+## do_thi_ghep(nhanh, xmin=None, xmax=None, ymin=None, ymax=None, nhan=None, hien_nhan=True, out='dothighep', tra_bytes=False)   ← [32r]
+**ĐỒ THỊ HÀM NHIỀU CÔNG THỨC** (pgfplots) — ghép nhánh **tuyến tính** và/hoặc **parabol** trên từng khoảng, có điểm đặc/hở tại mút. Cho hàm cho bởi $\begin{cases}\dots\end{cases}$ (B15 H6.19, chữ V $|x|$, Cuối chương H6.25/H6.26).
+- **`nhanh`** — list dict, mỗi nhánh một khoảng:
+  - tuyến tính: `{'loai':'thang','m':..,'c':..,'tu':x1,'den':x2,'dong_tu':?,'dong_den':?}` (y=mx+c).
+  - parabol: `{'loai':'parabol','a':..,'b':..,'c':..,'tu':x1,'den':x2,'dong_tu':?,'dong_den':?}` (y=ax²+bx+c, a≠0).
+- **`dong_tu` / `dong_den`** (mút trái/phải của khoảng): `True`→chấm **ĐẶC** (điểm thuộc đồ thị) · `False`→vòng **HỞ** (điểm không thuộc — bước nhảy) · `None`→không chấm (mút chạy ra biên khung / nối liên tục với nhánh kề).
+- Khung `None` → tự ôm (gồm đỉnh parabol nếu trong khoảng); truyền tay cho bài khung lớn. `nhan`: nhãn đường (math-string).
+- **Trọng tài (nghiệm thu soi mắt [32r], 3 ca):** H6.19 SBT `do_thi_ghep([{'loai':'parabol','a':1,'b':0,'c':0,'tu':0,'den':2.2,'dong_tu':True},{'loai':'thang','m':-1,'c':-1,'tu':-3,'den':0,'dong_den':False}])` (bước nhảy: đặc $(0;0)$ + hở $(0;-1)$) · chữ V $|x|$ (2 nhánh thẳng liên tục) · H6.26 (thẳng $x+1$ ghép parabol $x^2-1$ liên tục $(-1;0)$).
+> **Phân vai builder B15:** parabol đơn → `parabol`; đường thẳng/bậc thang/hàm bậc nhất từng khoảng (điện/nước/taxi) → `hinh_ds11_giaitich.do_thi_bac_thang`; hàm **nhiều công thức có đoạn PARABOL** (ghép parabol+thẳng, bước nhảy) → `do_thi_ghep`. Nhận dạng đường tròn/hyperbol/$\sqrt{x}$ (SBT 6.4, Cuối 6.34): **CHƯA có builder riêng** → báo `[SỬA]` (OB bổ) hoặc khai bằng mô tả.
 
 ---
 > **Lưu ý đặt hình (HP Đ18):** parabol khổ ~11×9cm > 8cm → căn giữa dòng riêng (Đ18 ngoại lệ 1). Bảng xét dấu rộng → cũng căn giữa dòng riêng. Ghép 2 parabol cạnh nhau (vd HĐ3 a>0 & a<0) → `H.hangHinh([...])` (Đ18.1).

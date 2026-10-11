@@ -179,7 +179,7 @@ def bang_xet_dau(moc, dau, ten_ham='f(x)', danh_dau=None,
     for d in dau:
         assert d in ('+', '-'), "[bang_xet_dau] dau chi nhan '+' hoac '-'"
 
-    L = 1.5          # bề rộng cột nhãn
+    L = 2.1 if ('frac' in ten_ham or '/' in ten_ham) else 1.5   # [32r] nới cột nhãn khi ten_ham là phân số
     iw = 2.0         # bề rộng mỗi khoảng
     yT, yMid, yB = 1.0, 0.0, -1.0
     # vị trí các mốc: x[0]=-∞ ... x[n+1]=+∞
@@ -248,7 +248,7 @@ def bang_xet_dau_tam_thuc(a, b, c, ten_ham='f(x)', out='bxd_tamthuc', tra_bytes=
 # ═══════════════════════════════════════════════════════════════════════════
 def so_do_hinh(diem, canh=None, canh_dut=None, goc_vuong=None,
                nhan_canh=None, nhan_diem=None, nua_tron=None, duong_tron=None,
-               diem_cham=None, out='sodohinh', tra_bytes=False, scale=1.0):
+               nhan_tong=None, diem_cham=None, out='sodohinh', tra_bytes=False, scale=1.0):
     """SƠ ĐỒ HÌNH HỌC PHẲNG (tikz) — bài mô hình hóa (tam giác vuông, tứ giác, nửa tròn+HCN...).
        diem: dict {ten:(x,y)} — tọa độ các điểm (AI Soạn tính từ đề).
        canh: list [(A,B),...] đoạn LIỀN. canh_dut: list [(A,B),...] đoạn ĐỨT (đường phụ).
@@ -257,11 +257,13 @@ def so_do_hinh(diem, canh=None, canh_dut=None, goc_vuong=None,
        nhan_diem: {ten:'huong'} huong∈{above,below,left,right,above left,...}; None→tự theo trọng tâm.
        nua_tron: list [(A,B,'tren'|'duoi'),...] — nửa đường tròn đường kính AB, vòng phía trên/dưới.
        duong_tron: list [(tam,bankinh),...] hoặc [((x,y),r),...] — đường tròn.
+       nhan_tong: list [(A,B,'label'),...] — [32r] DẤU NGOẶC ÔM (brace) + nhãn cho ĐOẠN TỔNG qua nhiều điểm
+                  (vd B–C chứa M: ghi độ dài tổng BC mà không lẫn đoạn con). Brace đặt phía xa trọng tâm.
        diem_cham: list ten — chấm đậm các điểm này (mặc định chấm hết điểm có trong canh)."""
     import math as _m
     canh = canh or []; canh_dut = canh_dut or []; goc_vuong = goc_vuong or []
     nhan_canh = nhan_canh or {}; nhan_diem = nhan_diem or {}
-    nua_tron = nua_tron or []; duong_tron = duong_tron or []
+    nua_tron = nua_tron or []; duong_tron = duong_tron or []; nhan_tong = nhan_tong or []
     P = {k: (float(v[0]), float(v[1])) for k, v in diem.items()}
     # trọng tâm (để lệch nhãn ra ngoài)
     cx = sum(p[0] for p in P.values()) / len(P)
@@ -278,7 +280,7 @@ def so_do_hinh(diem, canh=None, canh_dut=None, goc_vuong=None,
 
     t = [r'\documentclass[border=6pt]{standalone}',
          r'\usepackage{tikz}\usepackage{amsmath}',
-         r'\usetikzlibrary{calc}',
+         r'\usetikzlibrary{calc,decorations.pathreplacing}',
          r'\begin{document}',
          r'\begin{tikzpicture}[scale=%g,line join=round,line cap=round]' % scale]
     # đường tròn
@@ -353,5 +355,93 @@ def so_do_hinh(diem, canh=None, canh_dut=None, goc_vuong=None,
             nx, ny = -nx, -ny
         off = 0.32
         t.append(r'\node[font=\small] at (%g,%g) {$%s$};' % (mx + nx * off, my + ny * off, lab))
+    # nhãn-tổng: dấu ngoặc ôm (brace) + nhãn cho đoạn qua nhiều điểm ([32r])
+    for (A, B, lab) in nhan_tong:
+        ax, ay = P[A]; bx, by = P[B]
+        mx, my = (ax + bx) / 2.0, (ay + by) / 2.0
+        dx, dy = bx - ax, by - ay
+        Ln = _m.hypot(dx, dy); nx, ny = -dy / Ln, dx / Ln
+        if (mx + nx - cx) ** 2 + (my + ny - cy) ** 2 < (mx - nx - cx) ** 2 + (my - ny - cy) ** 2:
+            nx, ny = -nx, -ny
+        braceoff = 0.55
+        t.append(r'\draw[decorate,decoration={brace,amplitude=5pt,raise=%gpt},line width=0.6pt] (%g,%g) -- (%g,%g);'
+                 % (18 * braceoff, ax, ay, bx, by))
+        t.append(r'\node[font=\small] at (%g,%g) {$%s$};' % (mx + nx * (braceoff + 0.45), my + ny * (braceoff + 0.45), lab))
     t.append(r'\end{tikzpicture}\end{document}')
     return _HC.render_tikz_doc('\n'.join(t), out, tra_bytes, dpi=200)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# [32r] 2026-10-11 — PILOT DS10_CH06_B15 (Hàm số). do_thi_ghep — ĐỒ THỊ HÀM NHIỀU CÔNG THỨC
+#   (nhánh TUYẾN TÍNH và/hoặc PARABOL trên từng khoảng) + điểm đặc/hở tại mút. pgfplots.
+# ═══════════════════════════════════════════════════════════════════════════
+def do_thi_ghep(nhanh, xmin=None, xmax=None, ymin=None, ymax=None,
+                nhan=None, hien_nhan=True, out='dothighep', tra_bytes=False):
+    """ĐỒ THỊ HÀM NHIỀU CÔNG THỨC — ghép nhánh tuyến tính / parabol trên từng khoảng.
+       nhanh: list dict:
+         {'loai':'thang','m':..,'c':..,'tu':x1,'den':x2,'dong_tu':True|False|None,'dong_den':...}
+         {'loai':'parabol','a':..,'b':..,'c':..,'tu':x1,'den':x2,'dong_tu':..,'dong_den':..}
+       dong_tu/dong_den: True→chấm ĐẶC (điểm thuộc đồ thị); False→vòng RỖNG (điểm hở); None→không chấm (mút ra biên/mũi tên).
+       Máy vẽ từng nhánh (pgfplots domain) + chấm điểm tại mút HỮU HẠN. PHANH: parabol a≠0; tu<den."""
+    import math as _m
+    def val(br, x):
+        if br['loai'] == 'thang': return br['m'] * x + br['c']
+        return br['a'] * x * x + br['b'] * x + br['c']
+    for br in nhanh:
+        assert br['loai'] in ('thang', 'parabol'), "[do_thi_ghep] loai phải 'thang'|'parabol'"
+        assert br['tu'] < br['den'], "[do_thi_ghep] tu < den"
+        if br['loai'] == 'parabol':
+            assert abs(br['a']) > 1e-12, "[do_thi_ghep] parabol a≠0"
+    # khung tự ôm
+    xs_int = []; ys_int = []
+    for br in nhanh:
+        for x in [br['tu'], br['den']]:
+            xs_int.append(x); ys_int.append(val(br, x))
+        if br['loai'] == 'parabol':  # thêm đỉnh nếu trong khoảng
+            xv = -br['b'] / (2 * br['a'])
+            if br['tu'] <= xv <= br['den']:
+                xs_int.append(xv); ys_int.append(val(br, xv))
+    if xmin is None: xmin = _m.floor(min(xs_int) - 1)
+    if xmax is None: xmax = _m.ceil(max(xs_int) + 1)
+    if ymin is None: ymin = _m.floor(min(ys_int) - 1)
+    if ymax is None: ymax = _m.ceil(max(ys_int) + 1)
+
+    cs = [r'\documentclass[border=4pt]{standalone}',
+          r'\usepackage{pgfplots}\pgfplotsset{compat=1.17}',
+          r'\usepackage{amsmath}',
+          r'\begin{document}', r'\begin{tikzpicture}',
+          r'\begin{axis}[',
+          r'  axis lines=middle, axis line style={-{Stealth[length=2mm]}},',
+          r'  xlabel={$x$}, ylabel={$y$},',
+          r'  xlabel style={at={(axis cs:%g,0)}, anchor=south west, inner sep=2pt},' % xmax,
+          r'  ylabel style={at={(axis cs:0,%g)}, anchor=south east, inner sep=2pt},' % ymax,
+          r'  xmin=%g, xmax=%g, ymin=%g, ymax=%g,' % (xmin, xmax, ymin, ymax),
+          r'  width=11cm, height=9cm,',
+          r'  tick label style={font=\small, fill=white, inner sep=1.3pt},',
+          r'  clip=true,', r']']
+    # vẽ từng nhánh
+    for br in nhanh:
+        if br['loai'] == 'thang':
+            expr = r'%g*x+%g' % (br['m'], br['c'])
+            smp = 2
+        else:
+            expr = r'%g*x^2+%g*x+%g' % (br['a'], br['b'], br['c'])
+            smp = 100
+        cs.append(r'\addplot[blue,line width=1.1pt,domain=%g:%g,samples=%d]{%s};'
+                  % (br['tu'], br['den'], smp, expr))
+    # chấm điểm đặc/hở tại mút hữu hạn
+    for br in nhanh:
+        for (x, key) in [(br['tu'], 'dong_tu'), (br['den'], 'dong_den')]:
+            flag = br.get(key, None)
+            if flag is None: continue
+            y = val(br, x)
+            if flag:
+                cs.append(r'\addplot[blue,mark=*,only marks,mark size=1.6pt]coordinates{(%g,%g)};' % (x, y))
+            else:
+                cs.append(r'\addplot[blue,mark=o,only marks,mark size=1.8pt,mark options={fill=white,line width=0.8pt}]coordinates{(%g,%g)};' % (x, y))
+    # nhãn đường
+    if hien_nhan and nhan:
+        cs.append(r'\node[blue,anchor=south west,font=\small] at (axis cs:%g,%g) {$%s$};'
+                  % (xmin + 0.2, ymax - 0.5, nhan))
+    cs.append(r'\end{axis}\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(cs), out, tra_bytes, dpi=200)
