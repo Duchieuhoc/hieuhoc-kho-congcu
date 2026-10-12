@@ -1,0 +1,8 @@
+[32w] hinh_hh12_ch02.py +tu_dien +chop +trong_tam (KHỐI NỀN không gian tổng hợp lớp 12: tứ diện · chóp · trọng tâm) — Ông Bụt Hình THPT, 2026-10-12; PILOT HH12_CH02_B06 (Vectơ trong không gian). DỰNG TRÊN HEAD [32v] SHA 74b548f (clone tươi, chống lệch pha §2).
+      Mốc kho: 2026-10-12 (nối tiếp [32v]).
+      • tu_dien(nhan='ABCD', dinh_tren=None, canh=3.0): tứ diện phối cảnh chuẩn (dạng "kim cương" KNTT) — 6 cạnh, cạnh đáy sau BD nét ĐỨT (khuất); apex nối 3 đỉnh đáy (liền). Đỉnh đặt tên + nhãn tự xếp.
+      • chop(day, dinh='S', cao=2.6, ten_day=None): chóp đáy đa giác (tái dùng _day_polygon) + apex trên tâm đáy; NÉT KHUẤT tự tính theo bao lồi (đỉnh đáy sau → cạnh đáy/cạnh bên nét đứt). day nhận chu_nhat/tam_giac/binh_hanh/da_giac.
+      • trong_tam(ten, *dinh): trọng tâm = trung bình toạ độ (chiếu affine ⇒ trùng trọng tâm hình học) — trọng tâm mặt/tứ diện. Đ5.9: AI nêu đỉnh, máy tính.
+      • KẾ THỪA (không vá thêm): hộp/lập phương = lang_tru_dung({'loai':'chu_nhat',...}, huong='dung', ten_dinh=[...]); lăng trụ = lang_tru_dung; VECTƠ-3D = vecto() trên đỉnh đã đặt (chiếu affine hợp lệ); trung điểm = trung_diem; điểm-trên-đoạn = diem_giua(ti_le=); giao-đoạn = giao().
+      • NGHIỆM THU render-verify soi mắt: tứ diện ABCD+vectơ AB/AC/AD · chóp S.ABCD đáy vuông (SD+2 cạnh sau khuất đúng) · tứ diện+G(trọng tâm BCD)+I(AI=3IG) · lăng trụ tam giác+trung điểm M+vectơ AA'/MM' · hộp ABCD.A'B'C'D'+chéo KG AC'. Nét khuất ĐÚNG.
+      • ADDITIVE — module độc lập (chỉ import hinh_khoihop), KHÔNG đụng file cũ → regression [32s..32v] render nguyên.
