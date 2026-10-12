@@ -1,27 +1,21 @@
 ================================================================
-00_DANH_MUC.txt — CAPNHAT_KHO__[32t]
+00_DANH_MUC.txt — CAPNHAT_KHO__[32u]
 Chiều A: OB → thầy → PUSH GitHub (hieuhoc-kho-congcu), Commit changes (ĐÈ file cùng tên)
 Đóng gói: Ông Bụt Hình THPT · 2026-10-12
-DỰNG TRÊN HEAD [32s] SHA 38dae18 (clone tươi — chống lệch pha)
+DỰNG TRÊN HEAD [32t] SHA 9f52cd28 (clone tươi — chống lệch pha)
 ================================================================
 
-MỤC ĐÍCH: vá kho phục vụ hình lý thuyết B20 (góc giữa 2 đt · góc 2 vectơ · khoảng
-cách điểm–đt) + vectơ có chỉ số dưới. ĐÃ render-verify + regression + PHANH.
+MỤC ĐÍCH: vá V1 ĐƯỜNG TRÒN trên Oxy phục vụ B21 (định nghĩa, tiếp tuyến, tiếp xúc).
+ĐÃ render-verify + regression + PHANH.
 
 | File | Đổi gì |
 |------|--------|
-| hinh_toado.py            | +cungGoc (G1: cung góc 2 đt/2 vectơ trên Oxy) +chanVuongGoc (G2: hình chiếu H + ô vuông + đoạn MH). Additive — bài cũ 0 đổi. |
-| hieuhoc_template.js      | O1: kyHieuVecto/doDaiVecto +chỉ số dưới (vec{n}_1). Tên nhiều chữ (AB) giữ nguyên. Additive. |
-| 00_KHO_VERSION.txt       | +dòng [32t] (mốc 2026-10-12, nối tiếp [32s]). |
-| BAN_TRICH_HAM_HH10_CH04.md | REGEN khớp kho (hinhMatPhangToaDo +2 param; đồng bộ chan_phan_giac_canh/tu_giac_goc mà bản 06/10 còn thiếu). Tự sinh — không sửa tay. |
+| hinh_toado.py       | +duongTron (đường tròn Oxy) +tiepTuyen (tiếp tuyến tại điểm, máy tự tính ⊥ bán kính) +doan (đoạn phụ). Additive — bài cũ 0 đổi. KHÔNG đụng template. |
+| 00_KHO_VERSION.txt  | +dòng [32u] (mốc 2026-10-12, nối tiếp [32t]). |
+| BAN_TRICH_HAM_HH10_CH04.md | REGEN khớp kho (hinhMatPhangToaDo +duongTron/tiepTuyen/doan). Tự sinh — không sửa tay. |
 
-CÁCH PUSH: giải nén vào thư mục trống → upload đè 4 file cùng tên lên repo
-  hieuhoc-kho-congcu (Commit changes). Sau push kho ra mốc [32t].
+CÁCH PUSH: giải nén → upload đè 3 file cùng tên lên repo (Commit changes). Sau push kho ra [32u].
 
-NGHIỆM THU (đã làm trước khi giao):
-  • Render-verify soi mắt: H7.9 (chân vuông góc H, ô vuông, đoạn, d=2 đúng) ·
-    H7.7 (φ góc nhọn 79°, chọn đúng tia) · góc 2 vectơ · H7.6 (4 cung tách).
-  • O1: docx → 3 vectơ chỉ số = m:sSub⊃m:acc, AB = m:acc rời, XML well-formed.
-  • PHANH: 2 đt song song → raise; điểm trên đt → raise.
-  • Regression: gọi cũ (duongThang/diem/vecto) render nguyên; import/require sạch.
+NGHIỆM THU: H7.13/H7.16/H7.15b/H7.14 render soi mắt đúng; đường tròn TRÒN; tiếp tuyến ⊥ bán kính;
+  PHANH R>0 + |IM|=R; regression [32s]+[32t] render nguyên; import sạch.
 ================================================================

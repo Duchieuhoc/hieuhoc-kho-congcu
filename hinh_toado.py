@@ -672,9 +672,82 @@ def _mptd_chan_vuong(cv, diem, duongThang):
                    % (hx, hy, cv['nhanChan']))
     return out
 
+
+# ── [32u] V1 ĐƯỜNG TRÒN trên Oxy (HH10 CH7 B21) — duongTron + tiepTuyen + doan ──
+def _mptd_duong_tron(dt):
+    """Đường tròn tâm (a,b) bán kính R trên Oxy (+ tâm, nhãn). List lệnh TikZ.
+       dt: {tam:(a,b), R, nhan?:'(C)', mau?, net?, veTam?, nhanTam?:'I', viTriNhan?}
+    """
+    (a, b) = dt['tam']; R = dt['R']
+    if R <= 0:
+        raise ValueError("[duongTron] bán kính R phải > 0.")
+    mau = dt.get('mau', 'blue!70')
+    net = 'dashed' if dt.get('net') == 'dut' else 'solid'
+    out = [r'\draw[very thick,%s,%s] (%g,%g) circle (%g);' % (mau, net, a, b, R)]
+    if dt.get('veTam', True):
+        out.append(r'\fill[%s] (%g,%g) circle (2.2pt);' % (mau, a, b))
+        if dt.get('nhanTam'):
+            out.append(r'\node[below left,font=\small] at (%g,%g) {$%s$};'
+                       % (a, b, dt['nhanTam']))
+    if dt.get('nhan'):
+        # nhãn (C) đặt trên rìa trên-phải đường tròn
+        lx = a + R * 0.707; ly = b + R * 0.707
+        out.append(r'\node[%s,%s,font=\small] at (%g,%g) {$%s$};'
+                   % (dt.get('viTriNhan', 'above right'), mau, lx, ly, dt['nhan']))
+    return out
+
+def _mptd_tiep_tuyen(tt, duongTron):
+    """Tiếp tuyến tại điểm M THUỘC đường tròn (idx trong duongTron): máy tự tính
+       đường ⊥ bán kính IM tại M + (tuỳ) vẽ bán kính + ô vuông. Đ5.9. List lệnh TikZ.
+       tt: {tron:idx, diem:(x0,y0), nhanDiem?:'M', veBanKinh?:True, oVuong?:True,
+            nhan?:'\\Delta', mau?, daiNua?:2.6}
+    """
+    dt = duongTron[tt['tron']]; (a, b) = dt['tam']; R = dt['R']
+    (mx, my) = tt['diem']
+    d = _math.hypot(mx - a, my - b)
+    if abs(d - R) > 1e-6 * max(1.0, R):
+        raise ValueError("[tiepTuyen] điểm không thuộc đường tròn (|IM| ≠ R).")
+    mau = tt.get('mau', 'red!75')
+    # phương bán kính IM (đơn vị) + phương tiếp tuyến (vuông góc)
+    rx, ry = (mx - a) / d, (my - b) / d
+    tx, ty = -ry, rx
+    L = tt.get('daiNua', 2.6)
+    out = []
+    # tiếp tuyến: đoạn qua M theo phương (tx,ty)
+    out.append(r'\draw[very thick,%s] (%g,%g) -- (%g,%g);'
+               % (mau, mx - L * tx, my - L * ty, mx + L * tx, my + L * ty))
+    if tt.get('veBanKinh', True):
+        out.append(r'\draw[thick,gray!80] (%g,%g) -- (%g,%g);' % (a, b, mx, my))
+    if tt.get('oVuong', True):
+        s = 0.3
+        p1 = (mx + s * tx, my + s * ty)            # dọc tiếp tuyến
+        p2 = (mx - s * rx, my - s * ry)            # dọc bán kính (M→I)
+        pc = (mx + s * tx - s * rx, my + s * ty - s * ry)
+        out.append(r'\draw[%s] (%g,%g) -- (%g,%g) -- (%g,%g);'
+                   % (mau, p1[0], p1[1], pc[0], pc[1], p2[0], p2[1]))
+    out.append(r'\fill[black] (%g,%g) circle (2.2pt);' % (mx, my))
+    if tt.get('nhanDiem'):
+        out.append(r'\node[above right,font=\small] at (%g,%g) {$%s$};' % (mx, my, tt['nhanDiem']))
+    if tt.get('nhan'):
+        out.append(r'\node[%s,font=\small] at (%g,%g) {$%s$};'
+                   % (mau, mx + L * tx * 0.8, my + L * ty * 0.8, tt['nhan']))
+    return out
+
+def _mptd_doan(dn):
+    """Đoạn thẳng tu→den + nhãn (không mũi tên). dn: {tu,den,nhan?,net?,mau?,viTriNhan?}"""
+    (x1, y1) = dn['tu']; (x2, y2) = dn['den']
+    mau = dn.get('mau', 'black'); net = 'dashed' if dn.get('net') == 'dut' else 'solid'
+    out = [r'\draw[thick,%s,%s] (%g,%g) -- (%g,%g);' % (mau, net, x1, y1, x2, y2)]
+    if dn.get('nhan'):
+        out.append(r'\node[%s,%s,font=\small] at (%g,%g) {$%s$};'
+                   % (dn.get('viTriNhan', 'above'), mau, (x1 + x2) / 2.0, (y1 + y2) / 2.0, dn['nhan']))
+    return out
+
+
 def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
                       duongThang=None, diem=None, vecto=None, chuThich=None,
                       cungGoc=None, chanVuongGoc=None,
+                      duongTron=None, tiepTuyen=None, doan=None,
                       scale=0.72, out='mp_toado', tra_bytes=False):
     """MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG
        THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng nét đứt.
@@ -702,10 +775,21 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
                   denDuong:j (index trong duongThang), nhanChan?:'H', oVuong?:True,
                   veDoan?:True, net?:'dut'|'lien', mau?:'gray!75'}. Máy TỰ tính H = hình
                   chiếu (Đ5.9 — người/AI KHÔNG cấp toạ độ H). Phục vụ d(M,Δ) H7.9, H7.10.
+       duongTron : [32u] list dict — đường tròn trên Oxy. Mỗi dict: {tam:(a,b), R,
+                  nhan?:'(C)', mau?:'blue!70', net?:'dut'|'lien', veTam?:True,
+                  nhanTam?:'I', viTriNhan?}. Phục vụ H7.13 (định nghĩa), H7.15b, H7.16.
+       tiepTuyen : [32u] list dict — tiếp tuyến tại điểm M THUỘC đường tròn (idx trong
+                  duongTron). Mỗi dict: {tron:idx, diem:(x0,y0), nhanDiem?:'M',
+                  veBanKinh?:True, oVuong?:True, nhan?:'\\Delta', mau?, daiNua?:2.6}.
+                  Máy TỰ tính đường ⊥ bán kính IM tại M (Đ5.9) + vẽ bán kính + ô vuông.
+                  PHANH kiểm |IM| = R. Phục vụ H7.16 (tiếp tuyến tại điểm).
+       doan : [32u] list dict — đoạn thẳng phụ (không mũi tên): {tu, den, nhan?, net?,
+                  mau?, viTriNhan?}. Dùng vẽ bán kính R, dây cung… (H7.13).
        chuThich : caption 'Hình N' căn giữa dưới.
     """
     duongThang = duongThang or []; diem = diem or []; vecto = vecto or []
     cungGoc = cungGoc or []; chanVuongGoc = chanVuongGoc or []
+    duongTron = duongTron or []; tiepTuyen = tiepTuyen or []; doan = doan or []
     xmin, xmax = xRange; ymin, ymax = yRange
     L = [r'\documentclass[tikz,border=6pt]{standalone}',
          r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
@@ -730,6 +814,9 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
             L.append(r'\draw (-0.08,%g) -- (0.08,%g);' % (n, n))
             L.append(r'\node[left,font=\footnotesize] at (-0.08,%g) {$%s$};' % (n, _mptd_fmt(n)))
         n += buoc
+    # [32u] V1 — đường tròn vẽ TRƯỚC (nền) để đường thẳng/điểm/tiếp tuyến nằm trên
+    for dt in duongTron:
+        L += _mptd_duong_tron(dt)
     for d in duongThang:
         a, b, c = _mptd_abc(d)
         (px1, py1), (px2, py2), (lx, ly) = _mptd_pts(a, b, c, xRange, yRange)
@@ -769,6 +856,11 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
     # [32t] G2 — chân vuông góc (hình chiếu) + ô vuông + đoạn khoảng cách (H7.9, H7.10)
     for cv in chanVuongGoc:
         L += _mptd_chan_vuong(cv, diem, duongThang)
+    # [32u] V1 — đoạn phụ (bán kính…) + tiếp tuyến tại điểm trên đường tròn
+    for dn in doan:
+        L += _mptd_doan(dn)
+    for tt in tiepTuyen:
+        L += _mptd_tiep_tuyen(tt, duongTron)
     if chuThich:
         L.append(r'\node[below,font=\itshape] at (%g,%g) {%s};'
                  % ((xmin + xmax) / 2.0, ymin - 1.0, chuThich))
