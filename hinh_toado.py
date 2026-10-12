@@ -744,10 +744,103 @@ def _mptd_doan(dn):
     return out
 
 
+# ── [32v] V2–V4 BA CONIC trên Oxy (HH10 CH7 B22) — elip + hypebol + parabol ──
+def _mptd_tieu_diem(out, c, nhanTD, mau):
+    """Chấm 2 tiêu điểm (±c;0) + nhãn (nhanTD = (nhãn trái, nhãn phải))."""
+    for sx, nh in ((-c, nhanTD[0] if nhanTD else None), (c, nhanTD[1] if nhanTD else None)):
+        out.append(r'\fill[%s] (%g,0) circle (2.2pt);' % (mau, sx))
+        if nh:
+            out.append(r'\node[below,font=\small] at (%g,-0.08) {$%s$};' % (sx, nh))
+
+def _mptd_elip(el, xRange, yRange):
+    """Elip x²/a² + y²/b² = 1 (tâm mặc định O). PT chính tắc a>b>0 (tiêu điểm trên Ox).
+       el: {a, b, tam?:(0,0), veTieuDiem?, nhanTieuDiem?:('F_1','F_2'), nua?:'tren'|'duoi',
+            nhan?:'(E)', mau?, net?, veTruc?}
+    """
+    a = el['a']; b = el['b']
+    if a <= 0 or b <= 0:
+        raise ValueError("[elip] a, b phải > 0.")
+    cx, cy = el.get('tam', (0, 0))
+    mau = el.get('mau', 'blue!70'); net = 'dashed' if el.get('net') == 'dut' else 'solid'
+    out = []
+    nua = el.get('nua')
+    if nua == 'tren':
+        out.append(r'\draw[very thick,%s,%s] (%g,%g) arc[start angle=0, end angle=180, x radius=%g, y radius=%g];'
+                   % (mau, net, cx + a, cy, a, b))
+    elif nua == 'duoi':
+        out.append(r'\draw[very thick,%s,%s] (%g,%g) arc[start angle=0, end angle=-180, x radius=%g, y radius=%g];'
+                   % (mau, net, cx + a, cy, a, b))
+    else:
+        out.append(r'\draw[very thick,%s,%s] (%g,%g) ellipse (%g and %g);' % (mau, net, cx, cy, a, b))
+    if el.get('veTieuDiem') and cx == 0 and cy == 0 and a > b:
+        import math as _m
+        c = _m.sqrt(a * a - b * b)
+        _mptd_tieu_diem(out, c, el.get('nhanTieuDiem'), mau)
+    if el.get('nhan'):
+        out.append(r'\node[%s,%s,font=\small] at (%g,%g) {$%s$};'
+                   % (el.get('viTriNhan', 'above right'), mau, cx + a * 0.72, cy + b * 0.72, el['nhan']))
+    return out
+
+def _mptd_hypebol(hy, xRange, yRange):
+    """Hypebol x²/a² − y²/b² = 1 (2 nhánh trái/phải, tiêu điểm trên Ox).
+       hy: {a, b, veTieuDiem?, nhanTieuDiem?, nhan?:'(H)', mau?, net?, samples?}
+    """
+    a = hy['a']; b = hy['b']
+    if a <= 0 or b <= 0:
+        raise ValueError("[hypebol] a, b phải > 0.")
+    xmin, xmax = xRange; ymin, ymax = yRange
+    mau = hy.get('mau', 'blue!70'); net = 'dashed' if hy.get('net') == 'dut' else 'solid'
+    xr = max(abs(xmin), abs(xmax))
+    out = [r'\begin{scope}\clip (%g,%g) rectangle (%g,%g);' % (xmin, ymin, xmax, ymax)]
+    # mỗi nhánh: y = ± b·√(x²/a² − 1); nhánh phải x∈[a, xr], nhánh trái x∈[−xr, −a]
+    for dom in ('%g:%g' % (a, xr + 0.5), '%g:%g' % (-(xr + 0.5), -a)):
+        out.append(r'\draw[very thick,%s,%s,samples=60,domain=%s] plot ({\x},{%g*sqrt((\x*\x)/(%g)-1)});'
+                   % (mau, net, dom, b, a * a))
+        out.append(r'\draw[very thick,%s,%s,samples=60,domain=%s] plot ({\x},{-%g*sqrt((\x*\x)/(%g)-1)});'
+                   % (mau, net, dom, b, a * a))
+    out.append(r'\end{scope}')
+    if hy.get('veTieuDiem'):
+        import math as _m
+        c = _m.sqrt(a * a + b * b)
+        _mptd_tieu_diem(out, c, hy.get('nhanTieuDiem'), mau)
+    if hy.get('nhan'):
+        out.append(r'\node[%s,font=\small] at (%g,%g) {$%s$};'
+                   % (mau, a + 0.5, b * 0.9 + 0.3, hy['nhan']))
+    return out
+
+def _mptd_parabol(pr, xRange, yRange):
+    """Parabol y² = 2px (p>0, mở sang phải), tiêu điểm F(p/2;0), đường chuẩn x=−p/2.
+       pr: {p, veTieuDiem?, nhanTieuDiem?:'F', veDuongChuan?, nhanChuan?:'\\Delta',
+            nhan?:'(P)', mau?, net?}
+    """
+    p = pr['p']
+    if p <= 0:
+        raise ValueError("[parabol] p phải > 0.")
+    xmin, xmax = xRange; ymin, ymax = yRange
+    mau = pr.get('mau', 'blue!70'); net = 'dashed' if pr.get('net') == 'dut' else 'solid'
+    ym = max(abs(ymin), abs(ymax))
+    out = [r'\begin{scope}\clip (%g,%g) rectangle (%g,%g);' % (xmin, ymin, xmax, ymax)]
+    out.append(r'\draw[very thick,%s,%s,samples=80,domain=%g:%g] plot ({(\x*\x)/(%g)},{\x});'
+               % (mau, net, -(ym + 0.5), ym + 0.5, 2.0 * p))
+    out.append(r'\end{scope}')
+    if pr.get('veTieuDiem'):
+        out.append(r'\fill[%s] (%g,0) circle (2.2pt);' % (mau, p / 2.0))
+        out.append(r'\node[below right,font=\small] at (%g,0) {$%s$};' % (p / 2.0, pr.get('nhanTieuDiem', 'F')))
+    if pr.get('veDuongChuan'):
+        out.append(r'\draw[very thick,red!70,%s] (%g,%g) -- (%g,%g);' % (net, -p / 2.0, ymin, -p / 2.0, ymax))
+        out.append(r'\node[red!70,above,font=\small] at (%g,%g) {$%s$};'
+                   % (-p / 2.0, ymax - 0.5, pr.get('nhanChuan', '\\Delta')))
+    if pr.get('nhan'):
+        out.append(r'\node[%s,font=\small] at (%g,%g) {$%s$};'
+                   % (mau, (ym * ym) / (2.0 * p) * 0.6, ym * 0.75, pr['nhan']))
+    return out
+
+
 def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
                       duongThang=None, diem=None, vecto=None, chuThich=None,
                       cungGoc=None, chanVuongGoc=None,
                       duongTron=None, tiepTuyen=None, doan=None,
+                      elip=None, hypebol=None, parabol=None,
                       scale=0.72, out='mp_toado', tra_bytes=False):
     """MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG
        THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng nét đứt.
@@ -785,11 +878,20 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
                   PHANH kiểm |IM| = R. Phục vụ H7.16 (tiếp tuyến tại điểm).
        doan : [32u] list dict — đoạn thẳng phụ (không mũi tên): {tu, den, nhan?, net?,
                   mau?, viTriNhan?}. Dùng vẽ bán kính R, dây cung… (H7.13).
+       elip : [32v] list dict — elip x²/a²+y²/b²=1 (tâm O): {a, b, tam?:(0,0),
+                  veTieuDiem?, nhanTieuDiem?:('F_1','F_2'), nua?:'tren'|'duoi' (nửa elip),
+                  nhan?:'(E)', mau?, net?}. Tiêu điểm (±√(a²−b²);0) khi a>b, tâm O. H7.21/H7.22.
+       hypebol : [32v] list dict — hypebol x²/a²−y²/b²=1 (2 nhánh): {a, b, veTieuDiem?,
+                  nhanTieuDiem?, nhan?:'(H)', mau?, net?}. Tiêu điểm (±√(a²+b²);0). H7.23/H7.26.
+       parabol : [32v] list dict — parabol y²=2px (p>0, mở phải): {p, veTieuDiem?,
+                  nhanTieuDiem?:'F', veDuongChuan?, nhanChuan?:'\\Delta', nhan?:'(P)', mau?,
+                  net?}. Tiêu điểm F(p/2;0), đường chuẩn x=−p/2. H7.27/H7.34.
        chuThich : caption 'Hình N' căn giữa dưới.
     """
     duongThang = duongThang or []; diem = diem or []; vecto = vecto or []
     cungGoc = cungGoc or []; chanVuongGoc = chanVuongGoc or []
     duongTron = duongTron or []; tiepTuyen = tiepTuyen or []; doan = doan or []
+    elip = elip or []; hypebol = hypebol or []; parabol = parabol or []
     xmin, xmax = xRange; ymin, ymax = yRange
     L = [r'\documentclass[tikz,border=6pt]{standalone}',
          r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
@@ -817,6 +919,13 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
     # [32u] V1 — đường tròn vẽ TRƯỚC (nền) để đường thẳng/điểm/tiếp tuyến nằm trên
     for dt in duongTron:
         L += _mptd_duong_tron(dt)
+    # [32v] V2–V4 — ba conic vẽ nền (cùng lớp với đường tròn)
+    for el in elip:
+        L += _mptd_elip(el, xRange, yRange)
+    for hy in hypebol:
+        L += _mptd_hypebol(hy, xRange, yRange)
+    for pr in parabol:
+        L += _mptd_parabol(pr, xRange, yRange)
     for d in duongThang:
         a, b, c = _mptd_abc(d)
         (px1, py1), (px2, py2), (lx, ly) = _mptd_pts(a, b, c, xRange, yRange)

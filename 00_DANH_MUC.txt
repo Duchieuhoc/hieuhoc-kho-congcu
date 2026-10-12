@@ -1,21 +1,20 @@
 ================================================================
-00_DANH_MUC.txt — CAPNHAT_KHO__[32u]
+00_DANH_MUC.txt — CAPNHAT_KHO__[32v]
 Chiều A: OB → thầy → PUSH GitHub (hieuhoc-kho-congcu), Commit changes (ĐÈ file cùng tên)
-Đóng gói: Ông Bụt Hình THPT · 2026-10-12
-DỰNG TRÊN HEAD [32t] SHA 9f52cd28 (clone tươi — chống lệch pha)
+Đóng gói: Ông Bụt Hình THPT · 2026-10-12 · DỰNG TRÊN HEAD [32u] SHA ae9ae83f
 ================================================================
 
-MỤC ĐÍCH: vá V1 ĐƯỜNG TRÒN trên Oxy phục vụ B21 (định nghĩa, tiếp tuyến, tiếp xúc).
-ĐÃ render-verify + regression + PHANH.
+MỤC ĐÍCH: vá V2-V4 BA CONIC (elip/hypebol/parabol) trên Oxy phục vụ B22 — mẻ vá CUỐI của CH07.
+ĐÃ render-verify 4 hình + regression + PHANH.
 
 | File | Đổi gì |
 |------|--------|
-| hinh_toado.py       | +duongTron (đường tròn Oxy) +tiepTuyen (tiếp tuyến tại điểm, máy tự tính ⊥ bán kính) +doan (đoạn phụ). Additive — bài cũ 0 đổi. KHÔNG đụng template. |
-| 00_KHO_VERSION.txt  | +dòng [32u] (mốc 2026-10-12, nối tiếp [32t]). |
-| BAN_TRICH_HAM_HH10_CH04.md | REGEN khớp kho (hinhMatPhangToaDo +duongTron/tiepTuyen/doan). Tự sinh — không sửa tay. |
+| hinh_toado.py       | +elip +hypebol +parabol (PT chính tắc + tiêu điểm + nửa elip + đường chuẩn parabol). Additive. KHÔNG đụng template. |
+| 00_KHO_VERSION.txt  | +dòng [32v] (mốc 2026-10-12, nối tiếp [32u]). |
+| BAN_TRICH_HAM_HH10_CH04.md | REGEN khớp kho (hinhMatPhangToaDo +elip/hypebol/parabol). Tự sinh. |
 
-CÁCH PUSH: giải nén → upload đè 3 file cùng tên lên repo (Commit changes). Sau push kho ra [32u].
+CÁCH PUSH: giải nén → upload đè 3 file cùng tên lên repo (Commit changes). Sau push kho ra [32v].
 
-NGHIỆM THU: H7.13/H7.16/H7.15b/H7.14 render soi mắt đúng; đường tròn TRÒN; tiếp tuyến ⊥ bán kính;
-  PHANH R>0 + |IM|=R; regression [32s]+[32t] render nguyên; import sạch.
+NGHIỆM THU: elip (a=5,b=4,F±3) · nửa elip vòm · hypebol 2 nhánh (đỉnh±3,F±5) · parabol
+  (F,đường chuẩn) render đúng dạng; PHANH a,b,p>0; regression [32s..32u] nguyên; import sạch.
 ================================================================

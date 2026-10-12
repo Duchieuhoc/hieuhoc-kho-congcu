@@ -1,3 +1,10 @@
+[32v] hinh_toado.py +elip +hypebol +parabol (V2-V4 BA CONIC trên Oxy) — Ông Bụt Hình THPT, 2026-10-12; PILOT HH10_CH07_B22 (Ba đường conic). DỰNG TRÊN HEAD [32u] SHA ae9ae83f (clone tươi, chống lệch pha §2).
+      Mốc kho: 2026-10-12 (nối tiếp [32u]).
+      • [V2] hinhMatPhangToaDo(elip=[{a, b, tam?, veTieuDiem?, nhanTieuDiem?, nua?:'tren'|'duoi', nhan?, mau?, net?}]): elip x²/a²+y²/b²=1; tiêu điểm (±√(a²−b²);0) khi a>b, tâm O; `nua` vẽ nửa elip (vòm H7.22/hầm H7.35). Ellipse TikZ chính xác.
+      • [V3] hinhMatPhangToaDo(hypebol=[{a, b, veTieuDiem?, nhanTieuDiem?, nhan?, mau?, net?}]): hypebol x²/a²−y²/b²=1, 2 nhánh trái/phải (plot y=±b√(x²/a²−1), clip view); tiêu điểm (±√(a²+b²);0). H7.23/H7.26.
+      • [V4] hinhMatPhangToaDo(parabol=[{p, veTieuDiem?, nhanTieuDiem?, veDuongChuan?, nhanChuan?, nhan?, mau?, net?}]): parabol y²=2px (p>0, mở phải); tiêu điểm F(p/2;0), đường chuẩn x=−p/2 (đỏ). H7.27/H7.34.
+      • NGHIỆM THU: render-verify soi mắt — elip x²/25+y²/16=1 (a=5,b=4,F±3) · nửa elip x²/16+y²/4=1 (vòm a=4,b=2) · hypebol x²/9−y²/16=1 (2 nhánh đỉnh ±3, F±5) · parabol y²=2x (F(0,5;0), chuẩn x=−0,5). Hình đúng dạng. PHANH: a,b≤0 → raise; p≤0 → raise.
+      • ADDITIVE — tham số mới mặc định None → bài cũ 0 đổi (regression [32s..32u] render nguyên). Module độc lập, không đụng template.
 [32u] hinh_toado.py +duongTron +tiepTuyen +doan (V1 ĐƯỜNG TRÒN trên Oxy) — Ông Bụt Hình THPT, 2026-10-12; PILOT HH10_CH07_B21 (Đường tròn trong mặt phẳng toạ độ). DỰNG TRÊN HEAD [32t] SHA 9f52cd28 (clone tươi, chống lệch pha §2).
       Mốc kho: 2026-10-12 (nối tiếp [32t]).
       • [V1-a] hinhMatPhangToaDo(duongTron=[{tam:(a,b), R, nhan?, mau?, net?, veTam?, nhanTam?}]): đường tròn trên Oxy (vẽ nền, trước đường thẳng/điểm) + chấm tâm + nhãn. PHANH R>0. Phục vụ H7.13 (định nghĩa), H7.15b, H7.16.
