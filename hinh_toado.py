@@ -553,8 +553,128 @@ def _mptd_pts(a, b, c, xr, yr):
     xa = xmax * 0.58
     return (xmin - 1, f(xmin - 1)), (xmax + 1, f(xmax + 1)), (xa, f(xa))
 
+
+# ── [32t] G1 cungGoc + G2 chanVuongGoc — primitive góc & khoảng cách trên Oxy (HH10 CH7 B20) ──
+import math as _math
+
+def _mptd_giao2dt(d1, d2):
+    """Giao điểm 2 đường thẳng (a*x+b*y=c). None nếu song song/trùng."""
+    a1, b1, c1 = _mptd_abc(d1); a2, b2, c2 = _mptd_abc(d2)
+    det = a1 * b2 - a2 * b1
+    if abs(det) < 1e-9:
+        return None
+    return ((c1 * b2 - c2 * b1) / det, (a1 * c2 - a2 * c1) / det)
+
+def _mptd_huong_dt(d):
+    """Vectơ chỉ phương (đã chuẩn hoá) của đường thẳng a*x+b*y=c → (b,-a)."""
+    a, b, c = _mptd_abc(d)
+    ux, uy = b, -a
+    n = _math.hypot(ux, uy) or 1.0
+    return ux / n, uy / n
+
+def _mptd_goc_deg(ux, uy):
+    return _math.degrees(_math.atan2(uy, ux))
+
+def _mptd_cung_tikz(vx, vy, ang1, ang2, r, mau, nhan=None, ang_nhan=None, r_nhan=None):
+    """Sinh lệnh TikZ: cung từ ang1→ang2 (độ) bán kính r quanh (vx,vy) + nhãn (tuỳ)."""
+    out = []
+    sx = vx + r * _math.cos(_math.radians(ang1)); sy = vy + r * _math.sin(_math.radians(ang1))
+    out.append(r'\draw[%s,thick] (%g,%g) arc[start angle=%g, end angle=%g, radius=%g];'
+               % (mau, sx, sy, ang1, ang2, r))
+    if nhan:
+        am = ang_nhan if ang_nhan is not None else (ang1 + ang2) / 2.0
+        rn = r_nhan if r_nhan is not None else r + 0.33
+        lx = vx + rn * _math.cos(_math.radians(am)); ly = vy + rn * _math.sin(_math.radians(am))
+        out.append(r'\node[%s,font=\small] at (%g,%g) {$%s$};' % (mau, lx, ly, nhan))
+    return out
+
+def _mptd_cung_goc(cg, duongThang, vecto):
+    """Cung góc giữa 2 phương (dt↔dt hoặc vt↔vt). Trả list lệnh TikZ.
+       cg: {giua:[('dt',i),('dt',j)] | [('vt',i),('vt',j)], nhan?, boSung4Goc?, mau?, banKinh?}
+    """
+    giua = cg['giua']
+    if len(giua) != 2:
+        raise ValueError("[cungGoc] 'giua' cần đúng 2 phương (dt hoặc vt).")
+    (k1, i1), (k2, i2) = giua
+    mau = cg.get('mau', 'black'); r = cg.get('banKinh', 0.7); nhan = cg.get('nhan')
+    if k1 == 'dt' and k2 == 'dt':
+        v = _mptd_giao2dt(duongThang[i1], duongThang[i2])
+        if v is None:
+            raise ValueError("[cungGoc] hai đường thẳng song song/trùng — không có góc để vẽ.")
+        vx, vy = v
+        a1 = _mptd_goc_deg(*_mptd_huong_dt(duongThang[i1]))
+        a2 = _mptd_goc_deg(*_mptd_huong_dt(duongThang[i2]))
+        if cg.get('boSung4Goc'):
+            # 4 tia biên: a1, a2, a1+180, a2+180 → 4 cung TÁCH RỜI (chừa khe) để đọc ra 4 góc
+            rays = sorted((x % 360) for x in (a1, a2, a1 + 180, a2 + 180))
+            out = []
+            rr = cg.get('banKinh', 0.42); khe = cg.get('khe', 15)
+            for t in range(4):
+                s = rays[t]; e = rays[(t + 1) % 4]
+                if e <= s:
+                    e += 360
+                out += _mptd_cung_tikz(vx, vy, s + khe, e - khe, rr, mau)
+            return out
+        # 1 cung góc KHÔNG tù: trong 4 tia (2 của mỗi đt), chọn cặp có góc nhỏ nhất,
+        # vẽ theo hướng ngắn (signed) → đúng góc nhọn giữa 2 đường thẳng (SGK: góc không tù).
+        cands = []
+        for r1 in (a1 % 360, (a1 + 180) % 360):
+            for r2 in (a2 % 360, (a2 + 180) % 360):
+                dsw = (r2 - r1) % 360
+                if dsw > 180:
+                    dsw -= 360
+                cands.append((abs(dsw), r1, dsw))
+        cands.sort()
+        _, r1, dsw = cands[0]
+        mid = r1 + dsw / 2.0
+        return _mptd_cung_tikz(vx, vy, r1, r1 + dsw, r, mau, nhan, ang_nhan=mid)
+    elif k1 == 'vt' and k2 == 'vt':
+        v1 = vecto[i1]; v2 = vecto[i2]
+        vx, vy = v1['tu']
+        d1 = (v1['den'][0] - v1['tu'][0], v1['den'][1] - v1['tu'][1])
+        d2 = (v2['den'][0] - v2['tu'][0], v2['den'][1] - v2['tu'][1])
+        a1 = _mptd_goc_deg(*d1); a2 = _mptd_goc_deg(*d2)
+        sweep = (a2 - a1) % 360
+        if sweep > 180:
+            sweep -= 360          # vẽ cung ≤180 (góc giữa 2 vectơ)
+        return _mptd_cung_tikz(vx, vy, a1, a1 + sweep, r, mau, nhan)
+    else:
+        raise ValueError("[cungGoc] chỉ hỗ trợ dt↔dt hoặc vt↔vt (không trộn).")
+
+def _mptd_chan_vuong(cv, diem, duongThang):
+    """Chân vuông góc H = hình chiếu điểm lên đường thẳng + ô vuông + đoạn. List lệnh TikZ.
+       cv: {tuDiem:i, denDuong:j, nhanChan?, oVuong?, veDoan?, net?, mau?}
+    """
+    M = diem[cv['tuDiem']]['toa']; a, b, c = _mptd_abc(duongThang[cv['denDuong']])
+    mx, my = M
+    t = (a * mx + b * my - c) / (a * a + b * b)
+    hx, hy = mx - a * t, my - b * t
+    dist = abs(t) * _math.hypot(a, b)
+    if dist < 1e-9:
+        raise ValueError("[chanVuongGoc] điểm nằm TRÊN đường thẳng — không có đoạn khoảng cách.")
+    mau = cv.get('mau', 'gray!75')
+    net = 'dashed' if cv.get('net', 'dut') == 'dut' else 'solid'
+    out = []
+    if cv.get('veDoan', True):
+        out.append(r'\draw[%s,%s,thick] (%g,%g) -- (%g,%g);' % (mau, net, mx, my, hx, hy))
+    if cv.get('oVuong', True):
+        s = 0.3
+        e1x, e1y = b / _math.hypot(a, b), -a / _math.hypot(a, b)     # phương đt
+        e2x, e2y = (mx - hx) / dist, (my - hy) / dist                 # phương H→M
+        p1 = (hx + s * e1x, hy + s * e1y)
+        p2 = (hx + s * e2x, hy + s * e2y)
+        pc = (hx + s * e1x + s * e2x, hy + s * e1y + s * e2y)
+        out.append(r'\draw[%s] (%g,%g) -- (%g,%g) -- (%g,%g);'
+                   % (mau, p1[0], p1[1], pc[0], pc[1], p2[0], p2[1]))
+    out.append(r'\fill[black] (%g,%g) circle (2.2pt);' % (hx, hy))
+    if cv.get('nhanChan'):
+        out.append(r'\node[below right,font=\small] at (%g,%g) {$%s$};'
+                   % (hx, hy, cv['nhanChan']))
+    return out
+
 def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
                       duongThang=None, diem=None, vecto=None, chuThich=None,
+                      cungGoc=None, chanVuongGoc=None,
                       scale=0.72, out='mp_toado', tra_bytes=False):
     """MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG
        THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng nét đứt.
@@ -571,9 +691,21 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
        vecto : [CH04] list dict tu=(x,y) + den=(x,y) + nhan ('\\vec a' | '\\overrightarrow{OM}')
                 + mau (mặc định 'red!80') + net ('lien'|'dut') + viTriNhan (anchor, 'above left').
                 Mũi tên ĐÚNG tu→den (vectơ trong hệ trục — B10/B11 tọa độ).
+       cungGoc : [32t] list dict — cung góc giữa 2 PHƯƠNG trên Oxy. Mỗi dict:
+                 {giua:[('dt',i),('dt',j)]  (góc giữa 2 đường thẳng, index trong duongThang)
+                   | [('vt',i),('vt',j)]    (góc giữa 2 vectơ, index trong vecto),
+                  nhan?:'\\varphi' (nhãn góc), boSung4Goc?:False (True → đánh dấu cả 4 góc,
+                  cho H7.6), mau?:'black', banKinh?:0.7}. Máy TỰ tính giao điểm (dt↔dt)
+                  hoặc gốc chung (vt↔vt) + vẽ cung không-tù (dt) / góc thực (vt). Đ5.9.
+       chanVuongGoc : [32t] list dict — chân vuông góc (hình chiếu điểm lên đt) + ô vuông +
+                  đoạn khoảng cách. Mỗi dict: {tuDiem:i (index trong diem),
+                  denDuong:j (index trong duongThang), nhanChan?:'H', oVuong?:True,
+                  veDoan?:True, net?:'dut'|'lien', mau?:'gray!75'}. Máy TỰ tính H = hình
+                  chiếu (Đ5.9 — người/AI KHÔNG cấp toạ độ H). Phục vụ d(M,Δ) H7.9, H7.10.
        chuThich : caption 'Hình N' căn giữa dưới.
     """
     duongThang = duongThang or []; diem = diem or []; vecto = vecto or []
+    cungGoc = cungGoc or []; chanVuongGoc = chanVuongGoc or []
     xmin, xmax = xRange; ymin, ymax = yRange
     L = [r'\documentclass[tikz,border=6pt]{standalone}',
          r'\usepackage{tikz}\usepackage{amsmath}\usetikzlibrary{arrows.meta}',
@@ -631,6 +763,12 @@ def hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True,
             mx, my = (vx1 + vx2) / 2.0, (vy1 + vy2) / 2.0
             L.append(r'\node[%s,%s,font=\small] at (%g,%g) {$%s$};'
                      % (v.get('viTriNhan', 'above left'), mau, mx, my, v['nhan']))
+    # [32t] G1 — cung góc giữa 2 phương (dt↔dt: H7.6, H7.7 | vt↔vt: H7.7 VTPT)
+    for cg in cungGoc:
+        L += _mptd_cung_goc(cg, duongThang, vecto)
+    # [32t] G2 — chân vuông góc (hình chiếu) + ô vuông + đoạn khoảng cách (H7.9, H7.10)
+    for cv in chanVuongGoc:
+        L += _mptd_chan_vuong(cv, diem, duongThang)
     if chuThich:
         L.append(r'\node[below,font=\itshape] at (%g,%g) {%s};'
                  % ((xmin + xmax) / 2.0, ymin - 1.0, chuThich))

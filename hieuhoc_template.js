@@ -2819,8 +2819,24 @@ function _accVecto(noiDung) {
     ],
   });
 }
+// [32t] Chỉ số dưới cho vectơ — cùng cơ chế subscript như kyHieuGoc (đã nghiệm thu).
+//   kyHieuVecto("n1") hoặc kyHieuVecto("n_1") → $\vec{n}_1$ (mũi tên trên gốc n, chỉ số 1 dưới).
+//   Tên nhiều chữ (AB, HM) KHÔNG khớp regex → giữ mũi tên trùm cả chuỗi (hành vi cũ).
+//   Additive: tên không có chỉ số đi nhánh cũ → 0 regression.
+const _mSubVecto = (ten) =>
+  String(ten).match(/^([A-Za-zΑ-Ωα-ω]′?)_?(\d+)$/);
+function _accVectoCoChiSo(ten) {
+  const m = _mSubVecto(ten);
+  if (m) {
+    return new MathSubScript({
+      children: [_accVecto(m[1])],
+      subScript: [new MathRunSized(m[2])],
+    });
+  }
+  return _accVecto(ten);
+}
 function kyHieuVecto(ten) {
-  return new DMath({ children: [_accVecto(ten)] });
+  return new DMath({ children: [_accVectoCoChiSo(ten)] });
 }
 function doDaiVecto(ten) {
   const dPr = new BuilderElement({
@@ -2830,7 +2846,7 @@ function doDaiVecto(ten) {
       new BuilderElement({ name: "m:endChr", attributes: { val: { key: "m:val", value: "|" } } }),
     ],
   });
-  const base = createMathBase({ children: [_accVecto(ten)] });
+  const base = createMathBase({ children: [_accVectoCoChiSo(ten)] });
   const d = new BuilderElement({ name: "m:d", children: [dPr, base] });
   return new DMath({ children: [d] });
 }
