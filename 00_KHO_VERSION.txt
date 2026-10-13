@@ -1,3 +1,9 @@
+[32x] hinh_hh12_oxyz.py (MẠCH HỆ TRỤC Oxyz lớp 12: hệ trục + điểm/vectơ theo toạ độ + hộp chiếu + lưới + khối đặt trong Oxyz) + BAN_TRICH_HAM_HH12_OXYZ.md — Ông Bụt Hình THPT, 2026-10-13; PILOT HH12_CH02_B07–B08 (Hệ trục Oxyz). Code ở SHA 664bb81 (đã push [32x]); bản trích + dòng này push bổ ở [32y].
+      Mốc kho: 2026-10-13 (nối tiếp [32w]). DỰNG TRÊN HEAD [32w] SHA 56bbe6a.
+      • class HinhOxyz(HinhCoBan): he_truc (3 trục + i,j,k + mặt phẳng toạ độ) · diem(hop_chieu) (điểm theo toạ độ đề + hộp chiếu) · luoi_mp (lưới sàn Oxy) · khoi_hop_oxyz (hộp/lập phương chuẩn trục, nét khuất tự tính) · khoi_tu_dinh (chóp/lăng trụ/khối thả — nét khuất CHE THEO MẶT) · nhan_toado.
+      • Phép chiếu xiên affine: Oz↑/Oy→/Ox chiều-sâu (_K_SAU=0.62, _GOC_OX=218°). Đ5.9 Oxyz: toạ độ (x;y;z)=dữ liệu ĐỀ, máy chiếu.
+      • NGHIỆM THU render-verify: H2.35/37/38/39/40/42/45/47b/48; PILOT B07 giao + QC Vòng 2 ĐẠT (giải-lại-mù khớp 100%, 9 hình đạt).
+      • ADDITIVE — module độc lập (import hinh_coban + hinh_khoihop), KHÔNG đụng file cũ → regression [32w..] render nguyên.
 [32w] hinh_hh12_ch02.py +tu_dien +chop +trong_tam (KHỐI NỀN không gian tổng hợp lớp 12: tứ diện · chóp · trọng tâm) — Ông Bụt Hình THPT, 2026-10-12; PILOT HH12_CH02_B06 (Vectơ trong không gian). DỰNG TRÊN HEAD [32v] SHA 74b548f (clone tươi, chống lệch pha §2).
       Mốc kho: 2026-10-12 (nối tiếp [32v]).
       • tu_dien(nhan='ABCD', dinh_tren=None, canh=3.0): tứ diện phối cảnh chuẩn (dạng "kim cương" KNTT) — 6 cạnh, cạnh đáy sau BD nét ĐỨT (khuất); apex nối 3 đỉnh đáy (liền). Đỉnh đặt tên + nhãn tự xếp.

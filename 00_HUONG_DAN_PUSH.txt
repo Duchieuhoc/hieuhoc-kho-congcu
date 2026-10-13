@@ -1,18 +1,15 @@
-CẬP NHẬT KHO [31s] — bản Ông Bụt (đã thẩm định + chạy thật)
-════════════════════════════════════════════════════════════
-Nối tiếp HEAD [31r] = f810fe0. Chỉ THÊM 2 hàm hình thực tiễn cho ⑥ ĐỀ.
+═══════════════════════════════════════════════════════════════
+GÓI VÁ KHO [32y] — bổ A↔C cho module Oxyz (vá 2 lỗ hổng AI Soạn báo)
+Chỉ THÊM/CẬP NHẬT 2 file DOC — KHÔNG đụng code (hinh_hh12_oxyz.py giữ nguyên 664bb81).
+OB Hình THPT · 2026-10-13
+═══════════════════════════════════════════════════════════════
+VÌ SAO: mốc [32x] (SHA 664bb81) đã có code hinh_hh12_oxyz.py chạy tốt,
+  NHƯNG repo thiếu (a) bản trích hàm A↔C, (b) dòng version-log [32x].
+  → AI Soạn phải đọc chữ ký thẳng từ .py. Vá cho đủ hợp đồng A↔C.
 
-3 FILE UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu):
-  1. hinh_ds11_luonggiac.py              (đè — đã gồm [31n]+[31o]+[31p]+[31s])
-  2. BAN_TRICH_HAM_DS11_CH01__luonggiac.md (đè — bản trích thêm 2 hàm)
-  3. 00_KHO_VERSION.txt                  (đè — nhật ký thêm mục [31s] trên cùng)
-
-KHÔNG đụng: hieuhoc_template.js, API_REFERENCE.md, 00_MUC_LUC_HAM.md
-  (2 hàm MỚI thuộc FILE RIÊNG hình ds11, không vào index template → giữ bản [31r]).
-
-ĐÃ KIỂM (OB chạy thật trên clone HEAD f810fe0):
-  • Render-test cả 6 hàm hình ds11 → OK (khúc xạ, chữ nhật nội tiếp + 4 hàm cũ 0 regression).
-  • Soi mắt 2 hình mới → đạt (khúc xạ: tia tới/phản xạ/khúc xạ + góc i,r; chữ nhật: đường chéo=đường kính qua O, góc θ).
-  • Lưu ý: nhãn môi trường ASCII-safe (pdflatex không dựng ư/ơ) — đã đặt mặc định an toàn.
-
-→ Push xong, báo OB để giao PHIẾU ⑥ (bụng kho mới ghi [31s]).
+CÁCH PUSH:
+  1. Thêm  BAN_TRICH_HAM_HH12_OXYZ.md  vào repo (cùng chỗ BAN_TRICH_HAM_HH12_CH02.md).
+  2. Thay  00_KHO_VERSION.txt  bằng bản trong gói (đã prepend entry [32x] lên đầu).
+  3. Commit → push. Mốc mới = [32y] (chỉ thêm doc; code bất biến).
+  4. Báo OB SHA mới (B07/B08 vẫn chạy được với mốc ≥ [32x]; [32y] khép A↔C).
+═══════════════════════════════════════════════════════════════
