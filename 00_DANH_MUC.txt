@@ -1,10 +1,11 @@
-# CAPNHAT_KHO__33a — 2026-10-16 — Ông Bụt Đại số–Giải tích THPT
+# CAPNHAT_KHO__33b — 2026-10-16 — Ông Bụt Đại số–Giải tích THPT
 # ĐÍCH: Thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu) → Commit changes.
-# Dựng trên HEAD [32z] SHA 27d466e (clone tươi, chống lệch pha).
+# Dựng trên HEAD [33a] SHA 0e98856 (clone tươi, chống lệch pha).
 #
-# file — thay/thêm — ghi chú
-hinh_ds12_giaitich.py                    — ĐÈ        — THÊM hàm do_thi_khao_sat (đồ thị khảo sát hàm số, pgfplots). bang_bien_thien giữ nguyên.
-BAN_TRICH_HAM_DS12_CH01__giaitich.md     — ĐÈ        — bản trích tự sinh lại: nay 2 hàm (bang_bien_thien + do_thi_khao_sat).
-00_KHO_VERSION.txt                       — ĐÈ        — bump mốc [33a] 2026-10-16 (prepend block mới, giữ nguyên lịch sử cũ).
+# file — thay — ghi chú
+hieuhoc_template.js    — ĐÈ — v10.40→v10.41: THÊM minMax(ten,duoi,than) toán tử GTLN-NN (min/max chỉ số dưới). ADDITIVE.
+API_REFERENCE.md       — ĐÈ — regen cùng snapshot v10.41 (thêm chữ ký minMax).
+00_KHO_VERSION.txt     — ĐÈ — bump [33b] (prepend block, giữ lịch sử).
 #
-# ADDITIVE — chỉ THÊM 1 hàm vào module độc lập [32z], KHÔNG đụng file cũ nào khác → 0 regression.
+# File CHUNG (template+API dùng chung 4 Project) — one-writer: xác nhận máy Hình không sửa song song.
+# ADDITIVE 1 hàm → 0 regression (B01 rebuild byte-identical, gioiHan nguyên).
