@@ -1,3 +1,9 @@
+[33d] hinh_hh12_ch05.py — VÁ LỖI NHÃN None + cờ ve_vtcp (đường thẳng trơn) — Ông Bụt Hình THPT, 2026-10-17; nối tiếp [33c]. DỰNG TRÊN HEAD [33c] SHA 923847c (clone tươi). Chờ push [33d].
+      Mốc kho: 2026-10-17 (nối tiếp [33c]).
+      • VÁ _m(s): None/'' → '' (trước đây in literal "None"). Lỗi lộ khi khai nghĩa H5.35 (góc đt–mp) truyền nhãn None → hiện chữ "None" trên hình. Nay nhãn rỗng/None bị bỏ sạch.
+      • THÊM cờ duong_thang(..., ve_vtcp=True): ve_vtcp=False → đường thẳng TRƠN (không mũi tên VTCP) — phục vụ H5.35 (Δ cắt (α), không cần VTCP) và mọi bố cục cần đt trơn. Mặc định True → GIỮ NGUYÊN hành vi [33c].
+      • NGHIỆM THU render-verify: H5.35 (mp + đt trơn, SẠCH không "None") · H5.23 (đt + VTCP — mũi tên u đỏ CÒN NGUYÊN, regression) · H5.41 (mặt cầu + M — regression). 3/3 render sạch qua xelatex+pdftoppm.
+      • ADDITIVE/BACKWARD-COMPAT — chỉ sửa _m (an toàn None) + thêm 1 kwarg mặc định True; KHÔNG đổi chữ ký cũ, KHÔNG đụng file khác → regression [33c..] NGUYÊN.
 [33c] hinh_hh12_ch05.py (ĐỐI TƯỢNG GIẢI TÍCH Oxyz lớp 12 — Chương V: mặt phẳng · hai mặt phẳng · mặt cầu · đường thẳng · hai đường thẳng · mp đoạn chắn) + BAN_TRICH_HAM_HH12_CH05.md — Ông Bụt Hình THPT, 2026-10-17; PILOT HH12_CH05 (PP toạ độ không gian). DỰNG LẠI TRÊN HEAD [33b] SHA 45147b0 (clone tươi, chống lệch pha §2). Chờ push [33c].
       Mốc kho: 2026-10-17 (nối tiếp [33b]).
       • ĐỔI NHÃN [32z]→[33c]: bản đóng 14/10 nhãn [32z] (dựng nền [32y] 3e92eaf) ĐÃ HỦY — [32z] bị luồng Đại số–Giải tích chiếm (bảng biến thiên, push 16/10 SHA 27d466e) do cùng bump trên HEAD [32y]. Gán lại = chữ kế tiếp HEAD hiện tại [33b] → [33c] (QUY_UOC BUNG_KHO §6). Code KHÔNG đổi, chỉ đổi nhãn + nền.

@@ -218,9 +218,10 @@ class HinhCh05(HinhOxyz):
 
     # ═══════════════════ (c) ĐƯỜNG THẲNG ═══════════════════
     def duong_thang(self, qua=None, vtcp=None, ten=r'\Delta', nhan_u=r'\vec u',
-                    diem_qua=None, pos=(0.0, 0.0), huong=(2.6, 1.3)):
+                    diem_qua=None, pos=(0.0, 0.0), huong=(2.6, 1.3), ve_vtcp=True):
         """ĐƯỜNG THẲNG + VTCP. Coordinate-tied nếu truyền qua=(x,y,z)+vtcp=(a,b,c)
-        (cần he_truc); schematic nếu để None (đặt phối cảnh canonical theo huong)."""
+        (cần he_truc); schematic nếu để None (đặt phối cảnh canonical theo huong).
+        ve_vtcp=False → đường thẳng TRƠN (không mũi tên VTCP) — dùng cho H5.35 góc đt–mp."""
         if qua is not None and vtcp is not None:
             qx, qy, qz = qua; vx, vy, vz = vtcp
             L = 2.0
@@ -236,11 +237,12 @@ class HinhCh05(HinhOxyz):
         self._diem(na, *A, nhan=None, moc=False); self._diem(nb, *B, nhan=None, moc=False)
         self.doan(na, nb)
         self.ghi_chu(B[0] + 0.1, B[1] + 0.02, _m(ten))
-        # VTCP từ giữa
-        nm, nq = f'_dM{len(self.V)}', f'_dQ{len(self.V)}'
-        self._diem(nm, *Qp, nhan=None, moc=False); self._diem(nq, *mid, nhan=None, moc=False)
-        self.vecto(nm, nq, nhan=None, mau='red', rong='dam')
-        self.ghi_chu(mid[0] + 0.06, mid[1] - 0.22, _m(nhan_u), mau='red')
+        # VTCP từ giữa (bỏ nếu ve_vtcp=False)
+        if ve_vtcp:
+            nm, nq = f'_dM{len(self.V)}', f'_dQ{len(self.V)}'
+            self._diem(nm, *Qp, nhan=None, moc=False); self._diem(nq, *mid, nhan=None, moc=False)
+            self.vecto(nm, nq, nhan=None, mau='red', rong='dam')
+            self.ghi_chu(mid[0] + 0.06, mid[1] - 0.22, _m(nhan_u), mau='red')
         return self
 
     # ═══════════════════ (c′) HAI ĐƯỜNG THẲNG ═══════════════════
@@ -289,6 +291,10 @@ class HinhCh05(HinhOxyz):
 
 
 def _m(s):
-    """Nhãn toán: bọc $...$ nếu chưa có."""
+    """Nhãn toán: bọc $...$ nếu chưa có. None/'' → '' (không in nhãn)."""
+    if s is None:
+        return ''
     s = str(s)
+    if s == '':
+        return ''
     return s if '$' in s else ('$' + s + '$')

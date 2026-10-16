@@ -1,0 +1,7 @@
+GÓI KHO [33d] — VÁ hinh_hh12_ch05.py (lỗi nhãn None + cờ ve_vtcp)
+Nền: HEAD [33c] SHA 923847c. Push ĐÈ 2 file lên repo Duchieuhoc/hieuhoc-kho-congcu:
+  • hinh_hh12_ch05.py   (file chính — đã vá)
+  • 00_KHO_VERSION.txt  (nhật ký — đã prepend block [33d])
+Commit gợi ý: "[33d] va loi nhan None + co ve_vtcp (hinh_hh12_ch05)"
+An toàn: backward-compatible, 0 regression (chỉ sửa _m None-safe + thêm 1 kwarg mặc định True).
+Sau push: báo OB SHA mới để ghim mốc [33d] LIVE.
