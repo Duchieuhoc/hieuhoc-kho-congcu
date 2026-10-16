@@ -1,11 +1,10 @@
-# CAPNHAT_KHO__33b — 2026-10-16 — Ông Bụt Đại số–Giải tích THPT
-# ĐÍCH: Thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu) → Commit changes.
-# Dựng trên HEAD [33a] SHA 0e98856 (clone tươi, chống lệch pha).
-#
-# file — thay — ghi chú
-hieuhoc_template.js    — ĐÈ — v10.40→v10.41: THÊM minMax(ten,duoi,than) toán tử GTLN-NN (min/max chỉ số dưới). ADDITIVE.
-API_REFERENCE.md       — ĐÈ — regen cùng snapshot v10.41 (thêm chữ ký minMax).
-00_KHO_VERSION.txt     — ĐÈ — bump [33b] (prepend block, giữ lịch sử).
-#
-# File CHUNG (template+API dùng chung 4 Project) — one-writer: xác nhận máy Hình không sửa song song.
-# ADDITIVE 1 hàm → 0 regression (B01 rebuild byte-identical, gioiHan nguyên).
+# GÓI KHO [33c] — ĐỐI TƯỢNG GIẢI TÍCH Oxyz lớp 12 (CH05). OB 2026-10-17.
+# ⚠️ THAY cho gói [32z] cũ (đã HỦY nhãn — [32z] bị luồng Đại số chiếm, va chạm bump).
+# Thầy UPLOAD ĐÈ 3 file này lên GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit.
+# DỰNG TRÊN HEAD [33b] SHA 45147b0 — ADDITIVE, 0 regression.
+
+hinh_hh12_ch05.py          — THÊM MỚI (module độc lập, class HinhCh05(HinhOxyz); 6 hàm)
+BAN_TRICH_HAM_HH12_CH05.md — THÊM MỚI (bản trích A↔C cho AI Soạn, mốc [33c])
+00_KHO_VERSION.txt         — THAY (chèn khối [33c] lên đầu, giữ nguyên log cũ gồm [32z]/[33a]/[33b])
+
+# Sau khi thầy push: OB ghim SHA mới vào hồ sơ bài → khai nghĩa B14–B17.
