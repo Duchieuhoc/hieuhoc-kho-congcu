@@ -1,10 +1,10 @@
-# CAPNHAT_KHO__32z — 2026-10-16 — Ông Bụt Đại số–Giải tích THPT
+# CAPNHAT_KHO__33a — 2026-10-16 — Ông Bụt Đại số–Giải tích THPT
 # ĐÍCH: Thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu) → Commit changes.
-# Dựng trên HEAD [32y] SHA 3e92eaf (clone tươi, chống lệch pha).
+# Dựng trên HEAD [32z] SHA 27d466e (clone tươi, chống lệch pha).
 #
 # file — thay/thêm — ghi chú
-hinh_ds12_giaitich.py                    — THÊM MỚI  — module GIẢI TÍCH lớp 12, builder bang_bien_thien (BBT). Độc lập, chỉ import hinh_core.
-BAN_TRICH_HAM_DS12_CH01__giaitich.md     — THÊM MỚI  — bản trích hàm (tự sinh) cho AI Soạn.
-00_KHO_VERSION.txt                       — ĐÈ        — bump mốc [32z] 2026-10-16 (prepend block mới, giữ nguyên lịch sử cũ).
+hinh_ds12_giaitich.py                    — ĐÈ        — THÊM hàm do_thi_khao_sat (đồ thị khảo sát hàm số, pgfplots). bang_bien_thien giữ nguyên.
+BAN_TRICH_HAM_DS12_CH01__giaitich.md     — ĐÈ        — bản trích tự sinh lại: nay 2 hàm (bang_bien_thien + do_thi_khao_sat).
+00_KHO_VERSION.txt                       — ĐÈ        — bump mốc [33a] 2026-10-16 (prepend block mới, giữ nguyên lịch sử cũ).
 #
-# KHÔNG đụng file cũ nào khác → additive, 0 regression (đã test: import all OK + parabol render nguyên).
+# ADDITIVE — chỉ THÊM 1 hàm vào module độc lập [32z], KHÔNG đụng file cũ nào khác → 0 regression.

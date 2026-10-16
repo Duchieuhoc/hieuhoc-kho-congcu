@@ -148,3 +148,121 @@ def bang_bien_thien(moc, dau, gia_tri, danh_dau=None,
 
     t.append(r'\end{tikzpicture}\end{document}')
     return _HC.render_tikz_doc('\n'.join(t), out, tra_bytes, dpi=200)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# [33a] do_thi_khao_sat — ĐỒ THỊ KHẢO SÁT HÀM SỐ, chuẩn SGK Giải tích 12 (pgfplots).
+#   Máy nhận BIỂU THỨC f(x) + các NHÁNH domain + tiệm cận (đứng/ngang/xiên) + điểm đặc biệt
+#   → TỰ plot đường cong mượt (restrict y to domain cắt sạch tại TCĐ, KHÔNG đường dọc giả),
+#   TỰ vẽ tiệm cận nét đứt, chấm + nhãn điểm đặc biệt (cực trị · tâm đối xứng · giao trục).
+#   Phủ 3 dạng Bài 4: bậc ba · phân thức b1/b1 (2 nhánh hyperbol + TCN) · phân thức b2/b1 (TCĐ + TCX).
+# ═══════════════════════════════════════════════════════════════════════════
+def do_thi_khao_sat(ham, nhanh=None, tcd=None, tcn=None, tcx=None,
+                    diem=None, xmin=-5, xmax=5, ymin=-5, ymax=5,
+                    xtick=None, ytick=None, xticklabels=None, yticklabels=None,
+                    mau='blue', samples=300, width=8.0, height=8.0,
+                    out='dothikhaosat', tra_bytes=False, scale=1.0):
+    r"""ĐỒ THỊ KHẢO SÁT HÀM SỐ — chuẩn SGK Giải tích 12 (pgfplots). Máy TỰ plot + vẽ tiệm cận + đặt điểm (Đ5.9).
+       ham       : BIỂU THỨC f(x) cú pháp pgfplots theo biến x (KHÔNG \x). VD '-x^3+3*x^2-4' · '(x+1)/(x-2)'
+                   · 'x+1+1/(x-2)' (viết dạng tách để qua TCX cho đẹp). Phép: + - * / ^ , hàm sqrt(), abs()…
+       nhanh     : list KHOẢNG domain (a,b) để plot. None → một nhánh [(xmin,xmax)] (hàm bậc ba liền mạch).
+                   Hàm có TCĐ tại x=c → tách 2 nhánh né c, VD [(-5, 1.6),(2.4, 5)] cho TCĐ x=2 (lùi ~0.4).
+       tcd       : list x (số) → TIỆM CẬN ĐỨNG, đường dọc nét đứt xám + nhãn 'x=<x>' trên đỉnh. None→không.
+       tcn       : list y (số) → TIỆM CẬN NGANG, đường ngang nét đứt + nhãn 'y=<y>' bên phải. None→không.
+       tcx       : list (a,b) → TIỆM CẬN XIÊN y=a·x+b, đường xiên nét đứt phủ cả view + nhãn. None→không.
+       diem      : list dict điểm đặc biệt {xy:(x,y), nhan:'', noi?:'above right', mo?:False}.
+                   mo=True → điểm rỗng (vòng tròn không tô, dùng cho điểm giới hạn/không thuộc). noi: vị trí nhãn.
+       xtick/ytick       : list số hiện vạch+số trên trục. None → pgfplots tự chọn (nên khai theo nguồn).
+       xticklabels/...   : list NHÃN math thay số (khớp thứ tự xtick), cho mốc phân số/vô tỉ. VD [r'\tfrac{2}{3}'].
+       width/height      : cỡ khung (cm). PHANH: len(xticklabels)==len(xtick) nếu khai; mỗi nhánh (a,b) có a<b."""
+    nhanh = nhanh or [(xmin, xmax)]
+    for (a, b) in nhanh:
+        assert a < b, "[DOTHI] moi nhanh (a,b) phai co a<b"
+    if xticklabels is not None:
+        assert xtick is not None and len(xticklabels) == len(xtick), "[DOTHI] xticklabels phai khop xtick"
+    if yticklabels is not None:
+        assert ytick is not None and len(yticklabels) == len(ytick), "[DOTHI] yticklabels phai khop ytick"
+
+    def _ticks(vals, labs):
+        if vals is None:
+            return ''
+        tk = 'xtick={%s}' if False else None
+        s = '{%s}' % ','.join('%g' % v for v in vals)
+        if labs is None:
+            return s, None
+        ls = '{%s}' % ','.join('$%s$' % l for l in labs)
+        return s, ls
+
+    opt = [r'axis lines=middle', r'axis line style={-{Stealth[length=6pt]}}',
+           r'xlabel={$x$}', r'ylabel={$y$}',
+           r'x label style={at={(ticklabel* cs:1.0)},anchor=west}',
+           r'y label style={at={(ticklabel* cs:1.0)},anchor=south}',
+           r'xmin=%g' % xmin, r'xmax=%g' % xmax, r'ymin=%g' % ymin, r'ymax=%g' % ymax,
+           r'restrict y to domain=%g:%g' % (ymin - 0.5, ymax + 0.5),
+           r'samples=%d' % samples, r'width=%gcm' % width, r'height=%gcm' % height,
+           r'tick label style={font=\footnotesize}', r'clip=true',
+           r'enlargelimits=false']
+    if xtick is not None:
+        opt.append(r'xtick={%s}' % ','.join('%g' % v for v in xtick))
+        if xticklabels is not None:
+            opt.append(r'xticklabels={%s}' % ','.join('$%s$' % l for l in xticklabels))
+    else:
+        opt.append(r'xtick=\empty')
+    if ytick is not None:
+        opt.append(r'ytick={%s}' % ','.join('%g' % v for v in ytick))
+        if yticklabels is not None:
+            opt.append(r'yticklabels={%s}' % ','.join('$%s$' % l for l in yticklabels))
+    else:
+        opt.append(r'ytick=\empty')
+
+    t = [r'\documentclass[border=5pt]{standalone}',
+         r'\usepackage{pgfplots}\pgfplotsset{compat=1.18}',
+         r'\usepackage{amsmath,amssymb}',
+         r'\usetikzlibrary{arrows.meta}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g]' % scale,
+         r'\begin{axis}[%s]' % (',\n  '.join(opt))]
+
+    # TIỆM CẬN (vẽ trước, nằm dưới đường cong) — nét đứt xám
+    if tcd:
+        for c in tcd:
+            t.append(r'\draw[gray,dashed,thick] (axis cs:%g,%g) -- (axis cs:%g,%g);' % (c, ymin, c, ymax))
+            t.append(r'\node[gray,font=\footnotesize,anchor=south] at (axis cs:%g,%g) {$x=%g$};' % (c, ymax, c))
+    if tcn:
+        for c in tcn:
+            t.append(r'\draw[gray,dashed,thick] (axis cs:%g,%g) -- (axis cs:%g,%g);' % (xmin, c, xmax, c))
+            t.append(r'\node[gray,font=\footnotesize,anchor=east] at (axis cs:%g,%g) {$y=%g$};' % (xmax, c, c))
+    if tcx:
+        for (a, b) in tcx:
+            t.append(r'\addplot[gray,dashed,thick,domain=%g:%g,samples=2]{%g*x+%g};' % (xmin, xmax, a, b))
+
+    # ĐƯỜNG CONG — mỗi nhánh một addplot
+    for (a, b) in nhanh:
+        t.append(r'\addplot[%s,very thick,domain=%g:%g]{%s};' % (mau, a, b, ham))
+
+    # ĐIỂM ĐẶC BIỆT — chấm + nhãn (trên cùng)
+    if diem:
+        for d in diem:
+            x0, y0 = d['xy']
+            noi = d.get('noi', 'above right')
+            nhan = d.get('nhan', '')
+            if d.get('mo'):
+                t.append(r'\draw[%s,thick,fill=white] (axis cs:%g,%g) circle (2pt);' % (mau, x0, y0))
+            else:
+                t.append(r'\fill[%s] (axis cs:%g,%g) circle (2pt);' % (mau, x0, y0))
+            if nhan:
+                t.append(r'\node[font=\footnotesize,anchor=%s] at (axis cs:%g,%g) {$%s$};'
+                         % (_anchor(noi), x0, y0, nhan))
+
+    # gốc O
+    t.append(r'\node[font=\footnotesize,anchor=north east] at (axis cs:0,0) {$O$};')
+    t.append(r'\end{axis}\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(t), out, tra_bytes, dpi=200)
+
+
+def _anchor(noi):
+    """đổi 'above right' → anchor 'south west' (nhãn nằm trên-phải điểm ⇒ neo góc dưới-trái)."""
+    m = {'above': 'south', 'below': 'north', 'left': 'east', 'right': 'west',
+         'above right': 'south west', 'above left': 'south east',
+         'below right': 'north west', 'below left': 'north east'}
+    return m.get(noi, 'south west')
