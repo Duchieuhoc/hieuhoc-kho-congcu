@@ -1,20 +1,10 @@
-================================================================
-00_DANH_MUC.txt — CAPNHAT_KHO__[32v]
-Chiều A: OB → thầy → PUSH GitHub (hieuhoc-kho-congcu), Commit changes (ĐÈ file cùng tên)
-Đóng gói: Ông Bụt Hình THPT · 2026-10-12 · DỰNG TRÊN HEAD [32u] SHA ae9ae83f
-================================================================
-
-MỤC ĐÍCH: vá V2-V4 BA CONIC (elip/hypebol/parabol) trên Oxy phục vụ B22 — mẻ vá CUỐI của CH07.
-ĐÃ render-verify 4 hình + regression + PHANH.
-
-| File | Đổi gì |
-|------|--------|
-| hinh_toado.py       | +elip +hypebol +parabol (PT chính tắc + tiêu điểm + nửa elip + đường chuẩn parabol). Additive. KHÔNG đụng template. |
-| 00_KHO_VERSION.txt  | +dòng [32v] (mốc 2026-10-12, nối tiếp [32u]). |
-| BAN_TRICH_HAM_HH10_CH04.md | REGEN khớp kho (hinhMatPhangToaDo +elip/hypebol/parabol). Tự sinh. |
-
-CÁCH PUSH: giải nén → upload đè 3 file cùng tên lên repo (Commit changes). Sau push kho ra [32v].
-
-NGHIỆM THU: elip (a=5,b=4,F±3) · nửa elip vòm · hypebol 2 nhánh (đỉnh±3,F±5) · parabol
-  (F,đường chuẩn) render đúng dạng; PHANH a,b,p>0; regression [32s..32u] nguyên; import sạch.
-================================================================
+# CAPNHAT_KHO__32z — 2026-10-16 — Ông Bụt Đại số–Giải tích THPT
+# ĐÍCH: Thầy UPLOAD ĐÈ lên GitHub (github.com/Duchieuhoc/hieuhoc-kho-congcu) → Commit changes.
+# Dựng trên HEAD [32y] SHA 3e92eaf (clone tươi, chống lệch pha).
+#
+# file — thay/thêm — ghi chú
+hinh_ds12_giaitich.py                    — THÊM MỚI  — module GIẢI TÍCH lớp 12, builder bang_bien_thien (BBT). Độc lập, chỉ import hinh_core.
+BAN_TRICH_HAM_DS12_CH01__giaitich.md     — THÊM MỚI  — bản trích hàm (tự sinh) cho AI Soạn.
+00_KHO_VERSION.txt                       — ĐÈ        — bump mốc [32z] 2026-10-16 (prepend block mới, giữ nguyên lịch sử cũ).
+#
+# KHÔNG đụng file cũ nào khác → additive, 0 regression (đã test: import all OK + parabol render nguyên).
