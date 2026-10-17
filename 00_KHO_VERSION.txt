@@ -1,3 +1,9 @@
+[33f] hieuhoc_template.js v10.43 — KHOFIX triTuyetDoi() (bỏ lớp m:e tự bọc → hết <m:e><m:e> lồng trong <m:d>; Word TỪ CHỐI MỞ, lxml/LibreOffice/kiemMay-regex cũ lọt) — Ông Bụt Đại số THPT, 2026-10-17; nối tiếp [33e]. DỰNG TRÊN HEAD [33e] SHA 671f356 (clone tươi, máy Hình nghỉ — one-writer).
+      Mốc kho: 2026-10-17 (nối tiếp [33e]).
+      • triTuyetDoi(bieuThuc): trước tạo m:e tay rồi đưa vào createMathBase (ĐÃ tự bọc m:e) → m:e>m:e. Nay: createMathBase({children:_mathChild(bieuThuc)}) + trả _dmath (mirror KHOFIX-ngoac [28s]). +nhận OMML lồng (phân số/căn trong |·|) + nestable.
+      • NGHIỆM THU: render-test |x-3| + |2x+1/2| → m:e lồng=0, oMath depth=1, kiemMay PASS; REGRESSION ⑤ DS12_CH01_ONTAP_TK rebuild [33f] BYTE-IDENTICAL [33e] (⑤ không dùng triTuyetDoi).
+      • ADDITIVE/BACKWARD-COMPAT — triTuyetDoi("x-3") nội dung Y NGUYÊN (chỉ bỏ vỏ kép); CHỮ KÝ KHÔNG ĐỔI → KHÔNG regen API_REFERENCE. hinh_* KHÔNG đụng → regression [33e..] NGUYÊN.
+
 [33e] hinh_ds12_giaitich.py (VÁ glyph "Đ" MATH-MODE trong bang_bien_thien) + hieuhoc_template.js v10.42 (tuLuanBTVN nhãn điểm format VN) — Ông Bụt Đại số THPT, 2026-10-17; nối tiếp [33d]. DỰNG TRÊN HEAD [33d] SHA e7855f7 (clone tươi, máy Hình xác nhận nghỉ).
       Mốc kho: 2026-10-17 (nối tiếp [33d]).
       • bang_bien_thien: preamble +fontenc T1 +newunicodechar{Đ}{\text{\DJ}}/{đ}{\text{\dj}} → nhãn CĐ/CT (y_{CĐ}, y_{CT}) hiện đúng chữ Đ trong math-mode (trước: Đ rơi glyph, phải né bằng nhãn ASCII/giá trị số). CHỈ vá bang_bien_thien — do_thi_khao_sat KHÔNG đụng (fontenc T1 đổi output pgfplots → giữ nguyên).

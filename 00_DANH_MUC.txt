@@ -1,10 +1,10 @@
-# GÓI KHO [33c] — ĐỐI TƯỢNG GIẢI TÍCH Oxyz lớp 12 (CH05). OB 2026-10-17.
-# ⚠️ THAY cho gói [32z] cũ (đã HỦY nhãn — [32z] bị luồng Đại số chiếm, va chạm bump).
-# Thầy UPLOAD ĐÈ 3 file này lên GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit.
-# DỰNG TRÊN HEAD [33b] SHA 45147b0 — ADDITIVE, 0 regression.
+00_DANH_MUC — CAPNHAT_KHO__33f (push đè GitHub hieuhoc-kho-congcu)
 
-hinh_hh12_ch05.py          — THÊM MỚI (module độc lập, class HinhCh05(HinhOxyz); 6 hàm)
-BAN_TRICH_HAM_HH12_CH05.md — THÊM MỚI (bản trích A↔C cho AI Soạn, mốc [33c])
-00_KHO_VERSION.txt         — THAY (chèn khối [33c] lên đầu, giữ nguyên log cũ gồm [32z]/[33a]/[33b])
+File — thay/thêm — ghi chú
+──────────────────────────────────────────
+hieuhoc_template.js — THAY (v10.42→v10.43) — KHOFIX triTuyetDoi() bỏ m:e tự bọc (hết m:e>m:e lồng; Word chối mở). ADDITIVE, chữ ký không đổi → KHÔNG regen API_REFERENCE.
+00_KHO_VERSION.txt  — THAY — bump [33f].
 
-# Sau khi thầy push: OB ghim SHA mới vào hồ sơ bài → khai nghĩa B14–B17.
+KHÔNG đụng hinh_*.py · KHÔNG đụng API_REFERENCE (chữ ký không đổi). 
+Push: upload đè 2 file này → Commit. HEAD mới = [33f].
+Nghiệm thu: render-test triTuyetDoi (m:e lồng=0, depth=1) + REGRESSION ⑤ byte-identical [33e].
