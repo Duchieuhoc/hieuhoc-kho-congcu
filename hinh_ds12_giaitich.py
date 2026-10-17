@@ -79,6 +79,7 @@ def bang_bien_thien(moc, dau, gia_tri, danh_dau=None,
 
     t = [r'\documentclass[border=4pt]{standalone}',
          r'\usepackage{tikz}\usepackage{amsmath,amssymb}',
+         r'\usepackage[T1]{fontenc}\usepackage{newunicodechar}\newunicodechar{Đ}{\text{\DJ}}\newunicodechar{đ}{\text{\dj}}',
          r'\usetikzlibrary{arrows.meta}',
          r'\begin{document}',
          r'\begin{tikzpicture}[scale=%g,line join=round,>={Stealth[length=5pt]}]' % scale]

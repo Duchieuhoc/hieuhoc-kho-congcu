@@ -1,3 +1,10 @@
+[33e] hinh_ds12_giaitich.py (VÁ glyph "Đ" MATH-MODE trong bang_bien_thien) + hieuhoc_template.js v10.42 (tuLuanBTVN nhãn điểm format VN) — Ông Bụt Đại số THPT, 2026-10-17; nối tiếp [33d]. DỰNG TRÊN HEAD [33d] SHA e7855f7 (clone tươi, máy Hình xác nhận nghỉ).
+      Mốc kho: 2026-10-17 (nối tiếp [33d]).
+      • bang_bien_thien: preamble +fontenc T1 +newunicodechar{Đ}{\text{\DJ}}/{đ}{\text{\dj}} → nhãn CĐ/CT (y_{CĐ}, y_{CT}) hiện đúng chữ Đ trong math-mode (trước: Đ rơi glyph, phải né bằng nhãn ASCII/giá trị số). CHỈ vá bang_bien_thien — do_thi_khao_sat KHÔNG đụng (fontenc T1 đổi output pgfplots → giữ nguyên).
+      • tuLuanBTVN: nhanDiem → _fmtDiem (integer→"x,0đ", thập phân giữ, dấu phẩy). Vá tồn "(1đ)"→"(1,0đ)".
+      • NGHIỆM THU: BBT test y_{CĐ}/y_{CT} render Đ đúng; REGRESSION 6/6 hình B05 BYTE-IDENTICAL (do_thi + BBT không-Đ); B05 docx rebuild "1,0đ"×2, cửa máy sạch (kiemMay=[], 0 ký tự cấm, 0 undefined).
+      • ADDITIVE/BACKWARD-COMPAT — 2 preamble/format, KHÔNG đổi chữ ký hàm, KHÔNG regen API. hinh_ds10_ch06/hinh_hh12_* KHÔNG đụng → regression [33d..] NGUYÊN.
+
 [33d] hinh_hh12_ch05.py — VÁ LỖI NHÃN None + cờ ve_vtcp (đường thẳng trơn) — Ông Bụt Hình THPT, 2026-10-17; nối tiếp [33c]. DỰNG TRÊN HEAD [33c] SHA 923847c (clone tươi). Chờ push [33d].
       Mốc kho: 2026-10-17 (nối tiếp [33c]).
       • VÁ _m(s): None/'' → '' (trước đây in literal "None"). Lỗi lộ khi khai nghĩa H5.35 (góc đt–mp) truyền nhãn None → hiện chữ "None" trên hình. Nay nhãn rỗng/None bị bỏ sạch.
