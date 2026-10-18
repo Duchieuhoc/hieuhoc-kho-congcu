@@ -1,12 +1,12 @@
-00_DANH_MUC.txt — CAPNHAT_KHO__33i (Thầy PUSH GitHub: hieuhoc-kho-congcu, Commit changes)
+00_DANH_MUC.txt — CAPNHAT_KHO__33j (Thầy PUSH GitHub: hieuhoc-kho-congcu, Commit changes)
 Xuất 18/10/2026 · OB Đại số–Giải tích THPT
 
 | File | Thay/Thêm | Ghi chú |
 |---|---|---|
-| hinh_ds12_giaitich.py | SỬA (+to_mien) | +builder tô miền diện tích (pgfplots fill) — bang_bien_thien/do_thi_khao_sat giữ nguyên |
-| 00_KHO_VERSION.txt | SỬA (+[33i]) | bump mốc [33h]→[33i] |
-| BAN_TRICH_HAM_DS12_CH04__giaitich.md | THÊM | bản trích regen (3 hàm: bang_bien_thien, do_thi_khao_sat, to_mien) |
+| hinh_ds12_giaitich.py | SỬA (+khoi_tron_xoay) | +builder khối tròn xoay 3D (nón/trụ/cầu/chỏm/nón cụt/khối quay); to_mien [33i] giữ |
+| 00_KHO_VERSION.txt | SỬA (+[33j]) | bump mốc [33i]→[33j] |
+| BAN_TRICH_HAM_DS12_CH04__giaitich.md | THAY | regen (bang_bien_thien, do_thi_khao_sat, to_mien, khoi_tron_xoay) |
 | 00_DANH_MUC.txt | — | (file này) |
 
-KHÔNG đổi: hieuhoc_template.js (v10.44 [33h] giữ) · API_REFERENCE.md (template không đổi) · hinh_core.py (CHUNG — không đụng).
-Sau push: HEAD → [33i]. AI Soạn bụng kho [33i] để dùng to_mien ở B12.
+KHÔNG đổi: hieuhoc_template.js (v10.44 giữ) · API_REFERENCE.md · hinh_core.py (CHUNG — không đụng).
+Sau push: HEAD → [33j]. AI Soạn bụng [33j] để dùng khoi_tron_xoay + to_mien ở B13.

@@ -355,3 +355,98 @@ def to_mien(ham, a, b, ham2=None, nhan_ham=None, nhan_ham2=None,
     t.append(r'\node[font=\footnotesize,anchor=north east] at (axis cs:0,0) {$O$};')
     t.append(r'\end{axis}\end{tikzpicture}\end{document}')
     return _HC.render_tikz_doc('\n'.join(t), out, tra_bytes, dpi=200)
+
+
+def khoi_tron_xoay(ham, a, b, ra=0.0, rb=0.0, cat_trong=None, nhan_ham=None, nhan_can=('a', 'b'),
+                   hien_sinh=False, nhan_khoi=None, nhan_khoi_xy=None,
+                   mau='blue', mau_to='blue!12',
+                   xmin=None, xmax=None, ymin=None, ymax=None,
+                   sau=None, samples=160, width=9.0, height=6.0,
+                   out='khoitronxoay', tra_bytes=False, scale=1.0):
+    r"""KHỐI TRÒN XOAY 3D (silhouette phối cảnh chuẩn SGK Giải tích 12 Bài 13) — pgfplots.
+       Vẽ khối sinh ra khi QUAY hình phẳng [y=f(x), Ox, x=a, x=b] quanh TRỤC Ox.
+       Một hàm phủ: NÓN (f=kx, ra=0) · TRỤ (f=R hằng) · CẦU (f=√(R²−x²), [−R;R]) ·
+                    CHỎM CẦU (f=√(R²−x²), [R−h;R]) · NÓN CỤT (f tuyến tính) · khối quay tổng quát.
+       ham   : f(x) cú pháp pgfplots (biến x), f≥0 trên [a;b]. VD '0.5*x' · 'sqrt(1-x^2)' · '1' · 'sqrt(x)'.
+       a,b   : cận (số, a<b).
+       ra,rb : BÁN KÍNH mặt cắt tại x=a, x=b = f(a), f(b) (caller tự tính — dễ: nón ra=0/rb=R; trụ ra=rb=R; cầu ra=rb=0).
+               ra/rb>0 → vẽ ELLIPSE mặt đáy (rim) tại cận đó; =0 → đỉnh nhọn (nón/cầu), bỏ ellipse.
+       nhan_ham : nhãn math đặt dọc đường sinh f (vd 'y=f(x)'); None → không.
+       nhan_can : (nhãn_a, nhãn_b) math-string dưới trục Ox tại a,b.
+       hien_sinh: True → tô NHẠT nửa trên (hình phẳng sinh f↔Ox) để minh họa miền quay.
+       nhan_khoi + nhan_khoi_xy=(x,y): nhãn tên khối (vd '(\\mathcal{B})') đặt trong khối.
+       sau   : độ 'sâu' ellipse (bán trục x, đơn vị trục x) — None → 0,10·(b−a).
+       PHANH: a<b; ra,rb≥0."""
+    assert a < b, "[KTX] can a<b"
+    assert ra >= 0 and rb >= 0, "[KTX] ra,rb >= 0"
+    if sau is None:
+        sau = 0.10 * (b - a)
+    rmax = max(ra, rb, 0.5)
+    if xmin is None: xmin = a - 0.5 * (b - a) - sau
+    if xmax is None: xmax = b + 0.35 * (b - a) + sau
+    if ymin is None: ymin = -rmax * 1.5
+    if ymax is None: ymax = rmax * 1.5
+
+    opt = [r'axis lines=middle', r'axis line style={-{Stealth[length=6pt]}}',
+           r'xlabel={$x$}', r'ylabel={$y$}',
+           r'x label style={at={(ticklabel* cs:1.0)},anchor=west}',
+           r'y label style={at={(ticklabel* cs:1.0)},anchor=south}',
+           r'xmin=%g' % xmin, r'xmax=%g' % xmax, r'ymin=%g' % ymin, r'ymax=%g' % ymax,
+           r'restrict y to domain=%g:%g' % (ymin - 1, ymax + 1),
+           r'samples=%d' % samples, r'width=%gcm' % width, r'height=%gcm' % height,
+           r'xtick=\empty', r'ytick=\empty', r'clip=true', r'enlargelimits=false']
+
+    t = [r'\documentclass[border=5pt]{standalone}',
+         r'\usepackage{pgfplots}\pgfplotsset{compat=1.18}',
+         r'\usepgfplotslibrary{fillbetween}',
+         r'\usepackage{amsmath,amssymb}',
+         r'\usetikzlibrary{arrows.meta}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g]' % scale,
+         r'\begin{axis}[%s]' % (',\n  '.join(opt))]
+
+    # (1) KHỐI: tô giữa đường sinh trên f và đường dưới -f trên [a;b] → thân khối tròn xoay (lát dọc)
+    t.append(r'\addplot[name path=KTXt,draw=none,domain=%g:%g,samples=%d] {%s};' % (a, b, samples, ham))
+    t.append(r'\addplot[name path=KTXb,draw=none,domain=%g:%g,samples=%d] {-(%s)};' % (a, b, samples, ham))
+    t.append(r'\addplot[%s] fill between[of=KTXt and KTXb];' % mau_to)
+
+    # (2) tùy chọn: tô NHẠT hơn nửa trên (hình phẳng sinh) + đường sinh đậm
+    if hien_sinh:
+        t.append(r'\addplot[draw=none,fill=%s,domain=%g:%g,samples=%d] {%s} \closedcycle;'
+                 % ('black!6', a, b, samples, ham))
+
+    # đường sinh trên (đậm) + đường dưới (mảnh hơn)
+    lab = (r' node[pos=0.5,anchor=south,font=\footnotesize,fill=white,inner sep=1pt]{$%s$}' % nhan_ham) if nhan_ham else ''
+    t.append(r'\addplot[%s,very thick,domain=%g:%g,samples=%d] {%s}%s;' % (mau, a, b, samples, ham, lab))
+    t.append(r'\addplot[%s,thick,domain=%g:%g,samples=%d] {-(%s)};' % (mau, a, b, samples, ham))
+
+    # (3) ELLIPSE mặt đáy tại cận (rim 3D): nửa trước liền, nửa sau (xa) đứt
+    def ellipse(x0, r):
+        if r <= 1e-9:
+            return
+        # nửa trước (bên phải, gần người xem) liền; nửa sau (bên trái) đứt
+        t.append(r'\draw[%s,thick] (axis cs:%g,%g) arc[start angle=90,end angle=-90,x radius=%g,y radius=%g];'
+                 % (mau, x0, r, sau, r))
+        t.append(r'\draw[%s,thick,dashed] (axis cs:%g,%g) arc[start angle=90,end angle=270,x radius=%g,y radius=%g];'
+                 % (mau, x0, r, sau, r))
+    ellipse(a, ra)
+    ellipse(b, rb)
+    # mặt cắt GIỮA (xích đạo cầu, vành trong) — list (x, r); front liền + back đứt
+    if cat_trong:
+        for (xc, rc) in cat_trong:
+            ellipse(xc, rc)
+
+    # (4) trục quay Ox đoạn trong khối (nét chấm nhẹ) + nhãn cận
+    for x0, labc, r in ((a, nhan_can[0], ra), (b, nhan_can[1], rb)):
+        t.append(r'\node[font=\footnotesize,anchor=north] at (axis cs:%g,%g) {$%s$};' % (x0, min(-0.03, ymin*0.04), labc))
+        # vạch mảnh nối trục tới mép trên tại cận (gợi mặt phẳng cắt)
+        if r > 1e-9:
+            t.append(r'\draw[gray,dotted] (axis cs:%g,0) -- (axis cs:%g,%g);' % (x0, x0, r))
+
+    if nhan_khoi is not None and nhan_khoi_xy is not None:
+        kx, ky = nhan_khoi_xy
+        t.append(r'\node[font=\small] at (axis cs:%g,%g) {$%s$};' % (kx, ky, nhan_khoi))
+
+    t.append(r'\node[font=\footnotesize,anchor=north east] at (axis cs:0,0) {$O$};')
+    t.append(r'\end{axis}\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(t), out, tra_bytes, dpi=200)
