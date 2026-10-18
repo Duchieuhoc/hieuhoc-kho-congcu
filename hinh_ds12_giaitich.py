@@ -267,3 +267,91 @@ def _anchor(noi):
          'above right': 'south west', 'above left': 'south east',
          'below right': 'north west', 'below left': 'north east'}
     return m.get(noi, 'south west')
+
+
+def to_mien(ham, a, b, ham2=None, nhan_ham=None, nhan_ham2=None,
+            xmin=-1.0, xmax=5.0, ymin=-1.0, ymax=6.0,
+            mau='blue', mau2='red!70!black', mau_to='blue!12',
+            nhan_can=('a', 'b'), hien_can=True,
+            nhan_mien=None, nhan_mien_xy=None, nhan_pos=0.55,
+            xtick=None, xticklabels=None, ytick=None, yticklabels=None,
+            samples=200, width=8.0, height=7.0,
+            out='tomien', tra_bytes=False, scale=1.0):
+    r"""TÔ MIỀN DIỆN TÍCH tích phân (pgfplots) — chuẩn SGK Giải tích 12 (Bài 12 hình thang cong · Bài 13 diện tích).
+       ham   : f(x) cú pháp pgfplots theo biến x (KHÔNG \x). VD 'x^2' · '-x^2+4*x' · 'sqrt(x)'. Phép + - * / ^, sqrt(), abs()…
+       a,b   : cận tích phân (số, a<b). Miền tô + CẠNH DỌC tại x=a, x=b tự vẽ (viền miền).
+       ham2  : g(x) → tô miền KẸP giữa hai đường cong f,g (fill between). None → tô hình thang cong xuống trục Ox.
+       nhan_ham/nhan_ham2 : nhãn math đặt dọc đường cong (vd 'y=f(x)'); None → không nhãn.
+       nhan_can : (nhãn_a, nhãn_b) math-string hiện dưới trục Ox tại x=a,x=b (vd ('0','2') hoặc ('a','b')). hien_can=False → ẩn.
+       nhan_mien : nhãn trong miền tô (vd 'S', 'S_1'); CẦN nhan_mien_xy=(x,y) để đặt, None → không nhãn miền.
+       xtick/ytick + labels : như do_thi_khao_sat (None → ẩn vạch, chỉ hiện nhãn cận).
+       PHANH: a<b; nếu khai nhan_mien phải kèm nhan_mien_xy."""
+    assert a < b, "[TOMIEN] can a<b"
+    if nhan_mien is not None:
+        assert nhan_mien_xy is not None, "[TOMIEN] nhan_mien can kem nhan_mien_xy=(x,y)"
+
+    opt = [r'axis lines=middle', r'axis line style={-{Stealth[length=6pt]}}',
+           r'xlabel={$x$}', r'ylabel={$y$}',
+           r'x label style={at={(ticklabel* cs:1.0)},anchor=west}',
+           r'y label style={at={(ticklabel* cs:1.0)},anchor=south}',
+           r'xmin=%g' % xmin, r'xmax=%g' % xmax, r'ymin=%g' % ymin, r'ymax=%g' % ymax,
+           r'restrict y to domain=%g:%g' % (ymin - 0.5, ymax + 0.5),
+           r'samples=%d' % samples, r'width=%gcm' % width, r'height=%gcm' % height,
+           r'tick label style={font=\footnotesize}', r'clip=true', r'enlargelimits=false']
+    if xtick is not None:
+        opt.append(r'xtick={%s}' % ','.join('%g' % v for v in xtick))
+        if xticklabels is not None:
+            opt.append(r'xticklabels={%s}' % ','.join('$%s$' % l for l in xticklabels))
+    else:
+        opt.append(r'xtick=\empty')
+    if ytick is not None:
+        opt.append(r'ytick={%s}' % ','.join('%g' % v for v in ytick))
+        if yticklabels is not None:
+            opt.append(r'yticklabels={%s}' % ','.join('$%s$' % l for l in yticklabels))
+    else:
+        opt.append(r'ytick=\empty')
+
+    t = [r'\documentclass[border=5pt]{standalone}',
+         r'\usepackage{pgfplots}\pgfplotsset{compat=1.18}',
+         r'\usepgfplotslibrary{fillbetween}',
+         r'\usepackage{amsmath,amssymb}',
+         r'\usetikzlibrary{arrows.meta}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g]' % scale,
+         r'\begin{axis}[%s]' % (',\n  '.join(opt))]
+
+    if ham2 is None:
+        # Hình thang cong: tô giữa f và trục Ox trên [a;b] (viền miền có cạnh dọc tại a,b).
+        t.append(r'\addplot[draw=%s!60!black,fill=%s,domain=%g:%g,samples=%d] {%s} \closedcycle;'
+                 % (mau, mau_to, a, b, samples, ham))
+    else:
+        # Miền kẹp giữa f (trên) và g (dưới) trên [a;b] — fill between.
+        t.append(r'\addplot[name path=TM_f,draw=none,domain=%g:%g,samples=%d] {%s};' % (a, b, samples, ham))
+        t.append(r'\addplot[name path=TM_g,draw=none,domain=%g:%g,samples=%d] {%s};' % (a, b, samples, ham2))
+        t.append(r'\addplot[%s] fill between[of=TM_f and TM_g];' % mau_to)
+
+    # Đường cong f (vẽ trọn view cho ngữ cảnh) + nhãn dọc đường (pos vừa phải, kẹp trong khung)
+    lab_f = (r' node[pos=%g,anchor=south east,font=\footnotesize,fill=white,inner sep=1pt]{$%s$}'
+             % (nhan_pos, nhan_ham)) if nhan_ham else ''
+    t.append(r'\addplot[%s,very thick,domain=%g:%g] {%s}%s;' % (mau, xmin, xmax, ham, lab_f))
+    if ham2 is not None:
+        lab_g = (r' node[pos=%g,anchor=north west,font=\footnotesize,fill=white,inner sep=1pt]{$%s$}'
+                 % (nhan_pos, nhan_ham2)) if nhan_ham2 else ''
+        t.append(r'\addplot[%s,very thick,domain=%g:%g] {%s}%s;' % (mau2, xmin, xmax, ham2, lab_g))
+
+    # Cạnh dọc + nhãn cận trên trục Ox (bỏ cạnh dọc khi cận trùng trục Oy x=0)
+    if hien_can:
+        for x0, lab in ((a, nhan_can[0]), (b, nhan_can[1])):
+            if abs(x0) > 1e-6:
+                t.append(r'\draw[gray,dashed,thick] (axis cs:%g,%g) -- (axis cs:%g,%g);' % (x0, ymin, x0, ymax))
+            anc = 'north east' if abs(x0) < 1e-6 else 'north'
+            t.append(r'\node[font=\footnotesize,anchor=%s] at (axis cs:%g,0) {$%s$};' % (anc, x0, lab))
+
+    # Nhãn miền
+    if nhan_mien is not None:
+        mx, my = nhan_mien_xy
+        t.append(r'\node[font=\small] at (axis cs:%g,%g) {$%s$};' % (mx, my, nhan_mien))
+
+    t.append(r'\node[font=\footnotesize,anchor=north east] at (axis cs:0,0) {$O$};')
+    t.append(r'\end{axis}\end{tikzpicture}\end{document}')
+    return _HC.render_tikz_doc('\n'.join(t), out, tra_bytes, dpi=200)

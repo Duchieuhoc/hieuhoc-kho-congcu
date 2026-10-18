@@ -1,18 +1,12 @@
-# CAPNHAT_KHO__33h — ĐẨY GITHUB (hieuhoc-kho-congcu) · Commit changes
-# Ông Bụt Đại số THPT · 2026-10-18 · DỰNG TRÊN HEAD [33g] (clone tươi, máy Hình nghỉ — one-writer)
+00_DANH_MUC.txt — CAPNHAT_KHO__33i (Thầy PUSH GitHub: hieuhoc-kho-congcu, Commit changes)
+Xuất 18/10/2026 · OB Đại số–Giải tích THPT
 
 | File | Thay/Thêm | Ghi chú |
 |---|---|---|
-| hieuhoc_template.js | THAY (v10.43→v10.44 [33h]) | +tichPhan(than,duoi,tren) ∫ n-ary + theoChan(bieuThuc,duoi,tren) vạch F(x)|_a^b. ADDITIVE, 0 regression. |
-| API_REFERENCE.md | THAY (regen v10.44, 84 hàm) | có mục tichPhan + theoChan |
-| 00_KHO_VERSION.txt | THAY (prepend [33h]) | Mốc kho 2026-10-18 |
+| hinh_ds12_giaitich.py | SỬA (+to_mien) | +builder tô miền diện tích (pgfplots fill) — bang_bien_thien/do_thi_khao_sat giữ nguyên |
+| 00_KHO_VERSION.txt | SỬA (+[33i]) | bump mốc [33h]→[33i] |
+| BAN_TRICH_HAM_DS12_CH04__giaitich.md | THÊM | bản trích regen (3 hàm: bang_bien_thien, do_thi_khao_sat, to_mien) |
+| 00_DANH_MUC.txt | — | (file này) |
 
-## NGHIỆM THU (tầng máy):
-- render-test 6 ca (∫ bất định ·2, định cận ·3, vạch F|_a^b ·2) qua cửa xuatFile → kiemMay=[].
-- document.xml: 5 m:nary chr=∫, 2 m:sSubSup; 0 m:e-lồng · 0 oMath-lồng · 0 [object Object] · 0 undefined.
-- node --check sạch. Whitelist OMML [31za] đã có nary/sSubSup → cửa không chặn.
-- ⏳ V3 (mở Word THẬT) ở pilot B11 — sandbox không có Word (như lim/minMax).
-
-## CÁCH ĐẨY:
-Lên github.com/Duchieuhoc/hieuhoc-kho-congcu → upload đè 3 file này → Commit changes.
-Sau push: HEAD = [33h], mốc kho 2026-10-18. AI Soạn bung kho sẽ có tichPhan/theoChan.
+KHÔNG đổi: hieuhoc_template.js (v10.44 [33h] giữ) · API_REFERENCE.md (template không đổi) · hinh_core.py (CHUNG — không đụng).
+Sau push: HEAD → [33i]. AI Soạn bụng kho [33i] để dùng to_mien ở B12.
