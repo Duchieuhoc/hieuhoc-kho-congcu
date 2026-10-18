@@ -7,7 +7,7 @@ Font DejaVu Sans (đủ dấu tiếng Việt). Nền trắng, viền mảnh xám
 Số thập phân IN dấu phẩy (VN); dấu trừ dùng "−" (U+2212).
 
 HÀM CHÍNH:
-  Thống kê:  bieu_do_cot · bieu_do_cot_kep · bieu_do_tranh · bieu_do_hop · bieu_do_cham
+  Thống kê:  bieu_do_cot · bieu_do_cot_kep · bieu_do_tranh · bieu_do_hop · bieu_do_cham · bieu_do_tan_so_tuong_doi
   Xác suất:  vong_quay · xuc_xac · dong_xu · tui_bi · truc_kha_nang
 Mỗi hàm trả đường dẫn PNG (hoặc bytes nếu tra_bytes=True).
 """
@@ -378,4 +378,57 @@ def bieu_do_cham(tan_so, truc=None, nhan_truc="", tieu_de="", out="dot", tra_byt
     ax.set_xlim(lo - 0.6, hi + 0.6); ax.set_ylim(0.3, maxf + 0.8)
     if nhan_truc: ax.set_xlabel(nhan_truc, fontsize=9)
     if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=8)
+    return _xuat(fig, out, tra_bytes)
+
+# ═════ HISTOGRAM TẦN SỐ TƯƠNG ĐỐI GHÉP NHÓM — DS12_CH03 (Cuối chương, SBT 3.18) [33g] ═════
+def _buoc_dep(cao):
+    """Chọn bước chia trục tung 'đẹp' sao cho ~5–9 vạch."""
+    import math
+    tho = cao / 7.0
+    bac = 10 ** math.floor(math.log10(tho)) if tho > 0 else 1
+    for m in (1, 2, 2.5, 5, 10):
+        if m * bac >= tho:
+            return m * bac
+    return 10 * bac
+
+def bieu_do_tan_so_tuong_doi(mocs, tan_so_tuong_doi, nhan_truc_dung="Tần số tương đối",
+                             nhan_truc_ngang="", tieu_de="", don_vi="%",
+                             hien_nhan=True, buoc_truc_dung=None,
+                             out="bd_tstd", tra_bytes=False):
+    """
+    HISTOGRAM tần số tương đối cho mẫu số liệu GHÉP NHÓM (cột LIỀN KỀ — chuẩn SGK/SBT 12).
+      mocs             : list MỐC nhóm (n+1 số) — vd [48.5,49,49.5,50,50.5,51] → 5 nhóm liền kề.
+      tan_so_tuong_doi : list chiều cao n cột theo don_vi (mặc định %) — vd [5,10,35,40,10].
+      don_vi           : hậu tố nhãn trục tung + nhãn cột ("%" mặc định; "" nếu tần số tương đối thập phân).
+      buoc_truc_dung   : bước chia trục tung (vd 5 → 0,5,10,…); None = tự chọn vạch đẹp.
+    Cột span [mocs[i]; mocs[i+1]] → XỬ ĐƯỢC nhóm KHÔNG đều rộng. Số thập phân IN dấu phẩy (VN).
+    """
+    import numpy as _np, math as _math
+    assert len(mocs) == len(tan_so_tuong_doi) + 1, \
+        "mocs phải nhiều hơn tần số đúng 1 (n+1 mốc cho n nhóm)."
+    n = len(tan_so_tuong_doi)
+    rong = [mocs[i + 1] - mocs[i] for i in range(n)]
+    tong_rong = mocs[-1] - mocs[0]
+    fig, ax = _fig_ax(max(5.6, 0.9 * n + 2.4), 4.2)
+    ax.bar(mocs[:-1], tan_so_tuong_doi, width=rong, align="edge",
+           color=_C1, edgecolor="#33475B", linewidth=0.7)
+    ax.set_xlim(mocs[0] - 0.04 * tong_rong, mocs[-1] + 0.04 * tong_rong)
+    ax.set_xticks(mocs); ax.set_xticklabels([_fmt(m) for m in mocs])
+    ax.set_ylabel(nhan_truc_dung); ax.set_xlabel(nhan_truc_ngang)
+    ax.yaxis.grid(True, color=_GRID, linewidth=0.7); ax.set_axisbelow(True)
+    cao = max(tan_so_tuong_doi) or 1
+    buoc = buoc_truc_dung or _buoc_dep(cao)
+    top = (_math.floor(cao / buoc) + 1) * buoc
+    vach = _np.arange(0, top + buoc * 0.5, buoc)
+    ax.set_yticks(vach)
+    ax.set_yticklabels([f"{_fmt(t)}{don_vi}" for t in vach])
+    ax.set_ylim(0, top)
+    if hien_nhan:
+        for i in range(n):
+            xc = (mocs[i] + mocs[i + 1]) / 2
+            ax.text(xc, tan_so_tuong_doi[i] + 0.018 * top,
+                    f"{_fmt(tan_so_tuong_doi[i])}{don_vi}",
+                    ha="center", va="bottom", fontsize=9)
+    if tieu_de:
+        ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
     return _xuat(fig, out, tra_bytes)

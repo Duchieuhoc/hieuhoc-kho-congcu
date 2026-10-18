@@ -1,3 +1,10 @@
+[33g] bieudo_xstk.py +bieu_do_tan_so_tuong_doi() — HISTOGRAM TẦN SỐ TƯƠNG ĐỐI GHÉP NHÓM (cột liền kề, chuẩn SGK/SBT 12) — Ông Bụt Đại số THPT, 2026-10-18; nối tiếp [33f]. DỰNG TRÊN HEAD [33f] SHA 045877e (clone tươi, fetch xác nhận HEAD mới nhất — one-writer).
+      Mốc kho: 2026-10-18 (nối tiếp [33f]).
+      • bieu_do_tan_so_tuong_doi(mocs, tan_so_tuong_doi, ...): cột LIỀN KỀ span [mocs[i];mocs[i+1]] (align='edge', width=rộng nhóm) → xử được nhóm KHÔNG đều rộng; trục hoành ghi MỐC nhóm, trục tung "Tần số tương đối" + hậu tố đơn vị (mặc định "%"); nhãn % trên đỉnh cột; số thập phân dấu phẩy VN (_fmt). +helper _buoc_dep (chọn bước vạch đẹp). Kiến trúc PNG→H.hinhVe như builder cũ.
+      • LỘ KHI: Cuối chương DS12_CH03 — SBT 3.18 (histogram khối lượng 200 bao xi măng). Kho [33f] CÓ bieu_do_cot/cot_kep/hop/cham nhưng CHƯA có histogram ghép nhóm → DỰNG MỚI (Đ5.9 PILOT hình).
+      • NGHIỆM THU: render SBT 3.18 (mốc 48,5–51; 5/10/35/40/10%) khớp ảnh đề; test nhóm không đều rộng + auto bước; REGRESSION bieu_do_cot/cot_kep/hop/cham KHÔNG đụng (hàm MỚI, additive) → bài hình cũ NGUYÊN.
+      • ADDITIVE — hàm MỚI + 1 helper nội bộ + 1 dòng docstring; KHÔNG đổi chữ ký hàm cũ → KHÔNG regen API. hieuhoc_template.js KHÔNG đụng.
+
 [33f] hieuhoc_template.js v10.43 — KHOFIX triTuyetDoi() (bỏ lớp m:e tự bọc → hết <m:e><m:e> lồng trong <m:d>; Word TỪ CHỐI MỞ, lxml/LibreOffice/kiemMay-regex cũ lọt) — Ông Bụt Đại số THPT, 2026-10-17; nối tiếp [33e]. DỰNG TRÊN HEAD [33e] SHA 671f356 (clone tươi, máy Hình nghỉ — one-writer).
       Mốc kho: 2026-10-17 (nối tiếp [33e]).
       • triTuyetDoi(bieuThuc): trước tạo m:e tay rồi đưa vào createMathBase (ĐÃ tự bọc m:e) → m:e>m:e. Nay: createMathBase({children:_mathChild(bieuThuc)}) + trả _dmath (mirror KHOFIX-ngoac [28s]). +nhận OMML lồng (phân số/căn trong |·|) + nestable.

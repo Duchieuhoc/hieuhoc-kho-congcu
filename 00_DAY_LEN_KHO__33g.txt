@@ -1,0 +1,25 @@
+# 00_DAY_LEN_KHO__33g.txt — HƯỚNG DẪN ĐẨY LÊN KHO (one-writer)
+# Ông Bụt Đại số THPT · 2026-10-18 · nối tiếp [33f] SHA 045877e
+
+MỐC MỚI : [33g] — bieudo_xstk.py +bieu_do_tan_so_tuong_doi (histogram tần số tương đối ghép nhóm)
+DỰNG TRÊN: HEAD [33f] SHA 045877e (đã fetch xác nhận = origin/main mới nhất; KHÔNG lệch pha 4 Project)
+
+── FILE THAY ĐỔI (ĐÈ, KHÔNG merge) ────────────────────────
+1. bieudo_xstk.py        ← bản mới (thêm 1 hàm + 1 helper + 1 dòng docstring; phần cũ NGUYÊN)
+2. 00_KHO_VERSION.txt    ← bản mới (prepend mốc [33g])
+3. 00_DAY_LEN_KHO__33g.txt ← file này (kèm theo cho vết)
+
+── CÁCH ĐẨY (GitHub web, ĐÈ) ───────────────────────────────
+- Vào repo Duchieuhoc/hieuhoc-kho-congcu (nhánh main).
+- Upload ĐÈ 3 file trên (kéo-thả "Add file → Upload files" rồi commit).
+- Commit message gợi ý: "[33g] bieudo_xstk +bieu_do_tan_so_tuong_doi (histogram ghép nhóm)"
+- MỘT THỜI ĐIỂM CHỈ MỘT MÁY SỬA FILE CHUNG. Máy Hình/THCS/Hình THPT nghỉ khi đẩy.
+
+── NGHIỆM THU (đã chạy sandbox) ────────────────────────────
+- render SBT 3.18 (mốc 48,5–51; 5/10/35/40/10%) → khớp ảnh đề (cột liền kề, trục % 0–45, phẩy VN).
+- nhóm KHÔNG đều rộng + auto bước vạch: OK.
+- REGRESSION: bieu_do_cot/cot_kep/hop/cham KHÔNG đụng (hàm MỚI, additive) → hình cũ nguyên.
+- hieuhoc_template.js KHÔNG đổi → KHÔNG regen API_REFERENCE.
+
+── SAU KHI ĐẨY ─────────────────────────────────────────────
+- Báo OB SHA commit mới → OB cập nhật 00_LUAT gói giao Cuối chương (mốc kho [33g]) + KHAI_CUOC.
