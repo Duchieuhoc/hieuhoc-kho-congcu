@@ -1,3 +1,11 @@
+[33h] hieuhoc_template.js v10.44 +tichPhan(than,duoi,tren) +theoChan(bieuThuc,duoi,tren) — KÝ HIỆU GIẢI TÍCH TÍCH PHÂN (chương DS12_CH04 Nguyên hàm–Tích phân, pilot B11) — Ông Bụt Đại số THPT, 2026-10-18; DỰNG TRÊN HEAD [33g] (clone tươi, fetch xác nhận HEAD mới nhất — one-writer, máy Hình nghỉ).
+      Mốc kho: 2026-10-18 (nối tiếp [33g]).
+      • tichPhan(than, duoi, tren): toán tử n-ary ∫ (OMML <m:nary> chr=∫ U+222B, limLoc=subSup, grow=1). Bất định (duoi/tren rỗng) → subHide/supHide=1; định cận → m:sub=duoi, m:sup=tren. than/duoi/tren nhận chuỗi|số|OMML (phanSo/canBac/luyThua) qua _mathChild (gỡ vỏ, 0 oMath lồng). Gắn dx/dt ở cuối than.
+      • theoChan(bieuThuc, duoi, tren): vạch Newton–Leibniz F(x)|_a^b (<m:sSubSup> trên "|", sub=cận dưới, sup=cận trên). Dùng sau nguyên hàm trước khi thế cận.
+      • LỘ KHI: chương DS12_CH04 (Nguyên hàm & Tích phân) — ký hiệu ∫ + cận là MỚI, template v10.43 chưa có (mục 11 Phụ lục ⏳ tích phân). OB dựng TRƯỚC (HP Đ5.9) cho pilot B11.
+      • NGHIỆM THU (tầng máy): render-test 6 ca (∫ bất định x²/1·x, định cận số/thực tiễn/vô cực+căn, vạch F|_a^b) qua cửa xuatFile → kiemMay=[]; soi document.xml: 5 m:nary chr=∫ (2 subHide=1 bất định + 3 định cận), 2 m:sSubSup, 0 m:e-lồng, 0 oMath-lồng, 0 [object Object], 0 undefined; whitelist OMML [31za] đã có nary/naryPr/chr/limLoc/sub/sup/subHide/supHide/sSubSup. node --check sạch. ⏳ V3 (mở Word THẬT) ở pilot B11 — như lim [31za]/minMax [33b].
+      • ADDITIVE — 2 hàm MỚI + export; bài cũ 0 đổi (không hàm nào dùng m:nary/sSubSup trước đó). Chữ ký MỚI → REGEN API_REFERENCE (v10.44, 84 hàm). hinh_core / hinh_*.py KHÔNG đụng.
+
 [33g] bieudo_xstk.py +bieu_do_tan_so_tuong_doi() — HISTOGRAM TẦN SỐ TƯƠNG ĐỐI GHÉP NHÓM (cột liền kề, chuẩn SGK/SBT 12) — Ông Bụt Đại số THPT, 2026-10-18; nối tiếp [33f]. DỰNG TRÊN HEAD [33f] SHA 045877e (clone tươi, fetch xác nhận HEAD mới nhất — one-writer).
       Mốc kho: 2026-10-18 (nối tiếp [33f]).
       • bieu_do_tan_so_tuong_doi(mocs, tan_so_tuong_doi, ...): cột LIỀN KỀ span [mocs[i];mocs[i+1]] (align='edge', width=rộng nhóm) → xử được nhóm KHÔNG đều rộng; trục hoành ghi MỐC nhóm, trục tung "Tần số tương đối" + hậu tố đơn vị (mặc định "%"); nhãn % trên đỉnh cột; số thập phân dấu phẩy VN (_fmt). +helper _buoc_dep (chọn bước vạch đẹp). Kiến trúc PNG→H.hinhVe như builder cũ.

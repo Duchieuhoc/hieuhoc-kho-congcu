@@ -1,10 +1,18 @@
-00_DANH_MUC — CAPNHAT_KHO__33f (push đè GitHub hieuhoc-kho-congcu)
+# CAPNHAT_KHO__33h — ĐẨY GITHUB (hieuhoc-kho-congcu) · Commit changes
+# Ông Bụt Đại số THPT · 2026-10-18 · DỰNG TRÊN HEAD [33g] (clone tươi, máy Hình nghỉ — one-writer)
 
-File — thay/thêm — ghi chú
-──────────────────────────────────────────
-hieuhoc_template.js — THAY (v10.42→v10.43) — KHOFIX triTuyetDoi() bỏ m:e tự bọc (hết m:e>m:e lồng; Word chối mở). ADDITIVE, chữ ký không đổi → KHÔNG regen API_REFERENCE.
-00_KHO_VERSION.txt  — THAY — bump [33f].
+| File | Thay/Thêm | Ghi chú |
+|---|---|---|
+| hieuhoc_template.js | THAY (v10.43→v10.44 [33h]) | +tichPhan(than,duoi,tren) ∫ n-ary + theoChan(bieuThuc,duoi,tren) vạch F(x)|_a^b. ADDITIVE, 0 regression. |
+| API_REFERENCE.md | THAY (regen v10.44, 84 hàm) | có mục tichPhan + theoChan |
+| 00_KHO_VERSION.txt | THAY (prepend [33h]) | Mốc kho 2026-10-18 |
 
-KHÔNG đụng hinh_*.py · KHÔNG đụng API_REFERENCE (chữ ký không đổi). 
-Push: upload đè 2 file này → Commit. HEAD mới = [33f].
-Nghiệm thu: render-test triTuyetDoi (m:e lồng=0, depth=1) + REGRESSION ⑤ byte-identical [33e].
+## NGHIỆM THU (tầng máy):
+- render-test 6 ca (∫ bất định ·2, định cận ·3, vạch F|_a^b ·2) qua cửa xuatFile → kiemMay=[].
+- document.xml: 5 m:nary chr=∫, 2 m:sSubSup; 0 m:e-lồng · 0 oMath-lồng · 0 [object Object] · 0 undefined.
+- node --check sạch. Whitelist OMML [31za] đã có nary/sSubSup → cửa không chặn.
+- ⏳ V3 (mở Word THẬT) ở pilot B11 — sandbox không có Word (như lim/minMax).
+
+## CÁCH ĐẨY:
+Lên github.com/Duchieuhoc/hieuhoc-kho-congcu → upload đè 3 file này → Commit changes.
+Sau push: HEAD = [33h], mốc kho 2026-10-18. AI Soạn bung kho sẽ có tichPhan/theoChan.
