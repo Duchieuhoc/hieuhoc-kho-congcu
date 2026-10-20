@@ -1,0 +1,7 @@
+CẬP NHẬT KHO [33m] — 2026-10-21 — OB Đại số THPT
+Đẩy lên GitHub (web, Commit changes) ĐÈ các file sau vào repo hieuhoc-kho-congcu:
+  1. hinh_xacsuat.py           (FILE MỚI — builder sơ đồ cây xác suất)
+  2. BAN_TRICH_HAM_XACSUAT.md  (FILE MỚI — bản trích hàm)
+  3. 00_KHO_VERSION.txt        (ĐÃ BUMP — thêm mốc [33m] ở đầu)
+ADDITIVE 100%: file mới độc lập (chỉ import hinh_core), KHÔNG đụng template.js / hinh_core / file cũ → 0 regression.
+Dựng trên HEAD hiện có (template v10.46 [33L]). Sau khi đẩy: mốc kho = 2026-10-21 [33m].

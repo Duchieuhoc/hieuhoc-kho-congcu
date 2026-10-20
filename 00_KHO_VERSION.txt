@@ -1,3 +1,9 @@
+[33m] hinh_xacsuat.py (FILE MỚI) +so_do_cay(goc,cap1,cap2) — BUILDER SƠ ĐỒ HÌNH CÂY xác suất (TikZ, chuẩn SGK: gốc cam, nhãn xs trên nhánh, lá có nhãn kết quả). Cho chương DS12_CH06 (Xác suất có điều kiện, pilot B18 VD4) + dùng chung DS10_CH09 — OB Đại số THPT, 2026-10-21; DỰNG TRÊN HEAD template v10.46 [33L] (2026-10-20).
+      Mốc kho: 2026-10-21 (nối tiếp [33L]).
+      • so_do_cay(goc, cap1, cap2, scale, dx, dy): cây 1 tầng (cap2=None) hoặc 2 tầng, phân nhánh tùy ý. cap1=[{nhan, xs}], cap2=[[{nhan, xs, la}]]. Tự dàn ngang (lá đều hàng, cha=trung bình con), tự đặt nhãn xs giữa cạnh. Nhãn math-mode; Đ/đ qua \newunicodechar; biến cố đối \overline{A}. Render qua hinh_core.render_tikz_doc.
+      • ADDITIVE — FILE MỚI ĐỘC LẬP (chỉ import hinh_core), 0 đụng file chung / template.js / hàm cũ → 0 regression. Nghiệm thu: VD4 (bút bi, phân số) + Hình 6.2 (ông An, thập phân) render đúng + soi mắt ĐẠT (OB 21/10).
+      • BẢNG 2×2 (bảng dữ liệu thống kê): dùng hàm CÓ SẴN bangSoLieu (template.js) — KHÔNG thêm hàm. Tồn cosmetic: ô góc gạch chéo (hiện ghi text thường) — vá sau nếu cần.
+
 [33k] hieuhoc_template.js v10.45 +doDaiBieuThuc(bieuThuc) — ĐỘ DÀI BIỂU THỨC VECTƠ |a⃗±b⃗| + KHOFIX kyHieuVecto/doDaiVecto nestable (qua _dmath) — Ông Bụt HÌNH THPT, 2026-10-19; DỰNG TRÊN HEAD [33j]=916ea21 (fetch xác nhận HEAD mới nhất).
       Mốc kho: 2026-10-19 (nối tiếp [33j]).
       • doDaiBieuThuc(bieuThuc): độ dài của BIỂU THỨC vectơ bất kỳ (nhiều vectơ + toán tử), KHÁC doDaiVecto(1 tên). Delimiter m:d với | |; nhận chuỗi|số|OMML|MẢNG qua _mathChild (gỡ vỏ, 0 oMath lồng); qua _dmath (_hhComp) → lồng an toàn: luyThua(doDaiBieuThuc([...]),2)=|a+b|². Dùng: doDaiBieuThuc([kyHieuVecto('a'),' + ',kyHieuVecto('b')]) → |a⃗+b⃗|.
