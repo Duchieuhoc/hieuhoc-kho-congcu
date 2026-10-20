@@ -1,2 +1,8 @@
- hinh_coban.py | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+commit 351066bd0fe8c275d412b4993b031f34926e7452
+Author: Claude <noreply@anthropic.com>
+Date:   Tue Oct 20 05:42:04 2026 +0000
+
+    KHOFIX _accVectoCoChiSo [33L]: vectơ nối-hai-điểm có chỉ số A₁A₂
+
+ __pycache__/hinh_coban.cpython-313.pyc     | Bin 0 -> 94277 bytes
+ __pycache__/hinh_core.cpython-313.pyc      | Bin 0 -> 7594 bytes
