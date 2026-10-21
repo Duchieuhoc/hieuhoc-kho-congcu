@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.45)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.45 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.47)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.47 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `tieuDeKhoiTracNghiem()`
@@ -117,6 +117,7 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 ### `theoChan(bieuThuc, duoi, tren)`
 ### `chiSoDuoi(coSo, chiSo)`
 ### `triTuyetDoi(bieuThuc)`
+### `xacSuatDK(A, B)`
 ### `kyHieuGoc(tenGoc)`
 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam
 ### `kyHieuVecto(ten)`
@@ -150,4 +151,4 @@ Bản tiện dụng — trả 1 Paragraph căn giữa chứa khối tuyển nghi
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 85 hàm + 18 hằng/tham chiếu · template v10.45 (2026-09-08) · sinh_apiref.js.*
+*Tự sinh: 86 hàm + 18 hằng/tham chiếu · template v10.47 (2026-09-08) · sinh_apiref.js.*

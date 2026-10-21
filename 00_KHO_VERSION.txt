@@ -1,3 +1,9 @@
+[33n] hieuhoc_template.js v10.47 +xacSuatDK(A,B) — XÁC SUẤT CÓ ĐIỀU KIỆN P(A∣B) (gạch đứng ∣ U+2223) cho chương DS12_CH06 (pilot B18) — OB Đại số THPT, 2026-10-21; DỰNG TRÊN HEAD [33m] (hinh_xacsuat) / template v10.46 [33L].
+      Mốc kho: 2026-10-21 (nối tiếp [33m]).
+      • xacSuatDK(A, B): P(A∣B) chuẩn SGK. OMML m:d begChr="(" sepChr="∣" endChr=")" + 2 m:e (A,B), tiền tố "P" MathRun cùng oMath. Mirror triTuyetDoi. A/B nhận chuỗi|số|OMML qua _mathChild → lồng overline: xacSuatDK(soGachTren('A'),'B')=P(Ā∣B); xacSuatDK('A',soGachTren('B'))=P(A∣B̄).
+      • ADDITIVE — hàm MỚI + export; bài cũ 0 regression (không hàm nào dùng m:d 2-element-sepChr trước). sepChr đã whitelist kiemMay [31za] → cửa không chặn. Chữ ký MỚI → ĐÃ regen API_REFERENCE.
+      • Nghiệm thu pilot B18 (AI Soạn): xuatFile qua cửa ĐẠT; document.xml 7× sepChr ∣ + 7× begChr "(", 0 oMath lồng, 0 m:e lồng, 0 ký tự cấm, 0 token rác, kiemMay=[]. ⏳ V3 Word (soi mắt gạch đứng + spacing) khi đóng gói giao B18.
+
 [33m] hinh_xacsuat.py (FILE MỚI) +so_do_cay(goc,cap1,cap2) — BUILDER SƠ ĐỒ HÌNH CÂY xác suất (TikZ, chuẩn SGK: gốc cam, nhãn xs trên nhánh, lá có nhãn kết quả). Cho chương DS12_CH06 (Xác suất có điều kiện, pilot B18 VD4) + dùng chung DS10_CH09 — OB Đại số THPT, 2026-10-21; DỰNG TRÊN HEAD template v10.46 [33L] (2026-10-20).
       Mốc kho: 2026-10-21 (nối tiếp [33L]).
       • so_do_cay(goc, cap1, cap2, scale, dx, dy): cây 1 tầng (cap2=None) hoặc 2 tầng, phân nhánh tùy ý. cap1=[{nhan, xs}], cap2=[[{nhan, xs, la}]]. Tự dàn ngang (lá đều hàng, cha=trung bình con), tự đặt nhãn xs giữa cạnh. Nhãn math-mode; Đ/đ qua \newunicodechar; biến cố đối \overline{A}. Render qua hinh_core.render_tikz_doc.
