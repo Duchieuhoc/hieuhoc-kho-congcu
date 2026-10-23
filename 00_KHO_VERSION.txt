@@ -1,3 +1,11 @@
+[33o] hinh_hh11_ch04.py [MỚI] — KHÔNG GIAN TỔNG HỢP lớp 11 CH04 (quan hệ song song): tầng QUAN HỆ hình phối cảnh 3D — OB Hình THPT, 2026-10-23; DỰNG TRÊN HEAD [33n] (SHA 736416f).
+      Mốc kho: 2026-10-23 (nối tiếp [33n]).
+      • class HinhHH11CH04(HinhHH12CH02) — module ĐỘC LẬP (import HinhHH12CH02), ADDITIVE, 0 regression. Kế thừa trọn khối nền phối cảnh xiên 40° (tu_dien/chop/lang_tru_dung/khoi_hop_chu_nhat/trong_tam) + base.
+      • Thêm tầng R (quan hệ song song): mat_phang (mp biểu diễn hbh nghiêng + điểm∈mp + đường⊂mp + điểm ngoài) · ba_mp (song_song+Thalès / cắt) · hai_hbh_chung_canh · thiet_dien (tô+viền đa giác) · phep_chieu_ss (gốc+bóng+tia chiếu //). Phép chiếu KHỚP khối nền (GOC_SAU 40°, CO_SAU 0.5).
+      • Đ5.9 schematic: hình tổng hợp KHÔNG toạ độ đề — kho đặt phối cảnh canonical; OB khai phần tử+quan hệ (vị trí u,v chỉ là minh hoạ bố trí, KHÔNG phải toạ độ toán của bài).
+      • Nghiệm thu render-verify soi mắt (6 hình): mp(P)+a,b cắt tại M+S ngoài+SM · tứ diện S.ABC+trung điểm M,N+trọng tâm G+giao tuyến SG(đỏ) · chóp S.ABCD đáy hbh (nét khuất SD/DA/DC đúng) · 3mp song song+Thalès 2 cát tuyến · 2 hbh chung cạnh AB · phép chiếu hbh→bóng+tia chiếu //. Nền sạch (_nen_luoi off), nét khuất hợp lý. Regression: import+render hinh_hh12_ch02 OK, file cũ nguyên vẹn.
+      • Căn cứ: DE_XUAT_CHUAN_PHOI_CANH_3D (duyệt 2026-10-12, cổng a+b) + 6 phiếu khai nghĩa HH11_CH04 (2026-10-23). MỐC KHO YÊU CẦU HH11_CH04 ≥ [33o].
+
 [33n] hieuhoc_template.js v10.47 +xacSuatDK(A,B) — XÁC SUẤT CÓ ĐIỀU KIỆN P(A∣B) (gạch đứng ∣ U+2223) cho chương DS12_CH06 (pilot B18) — OB Đại số THPT, 2026-10-21; DỰNG TRÊN HEAD [33m] (hinh_xacsuat) / template v10.46 [33L].
       Mốc kho: 2026-10-21 (nối tiếp [33m]).
       • xacSuatDK(A, B): P(A∣B) chuẩn SGK. OMML m:d begChr="(" sepChr="∣" endChr=")" + 2 m:e (A,B), tiền tố "P" MathRun cùng oMath. Mirror triTuyetDoi. A/B nhận chuỗi|số|OMML qua _mathChild → lồng overline: xacSuatDK(soGachTren('A'),'B')=P(Ā∣B); xacSuatDK('A',soGachTren('B'))=P(A∣B̄).
