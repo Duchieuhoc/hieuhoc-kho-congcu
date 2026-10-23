@@ -1,3 +1,21 @@
+[33r] hieuhoc_template.js v10.48 [SỬA NGHIÊM TRỌNG] viDuLyThuyet forward loiGiaiND/viDuLoiGiai — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33q].
+      Mốc kho: 2026-10-24 (nối tiếp [33q]).
+      • LỖI GỐC (lộ QC Vòng 2 B11): viDuLyThuyet(p) gọi viDu() CHỈ forward dapAn, BỎ loiGiaiND/viDuLoiGiai → mọi VÍ DỤ ② mục ② dùng loiGiaiND MẤT TOÀN BỘ lời giải (chỉ còn đề). HỒI TỐ: B10 cũng dính — ví dụ ② B10 thiếu lời giải, LỌT cả QC V2 (OB) lẫn V3 (thầy). Lỗi uy tín.
+      • FIX: viDuLyThuyet forward thêm loiGiaiND + viDuLoiGiai xuống viDu. ADDITIVE — nhánh dapAn ("Trả lời:") 0 đổi; chữ ký KHÔNG đổi → KHÔNG regen API/bản trích.
+      • ⚠ PHẠM VI HỒI TỐ: MỌI bài (mọi môn) dùng viDuLyThuyet + loiGiaiND/viDuLoiGiai cho ví dụ ② đều mất lời giải → cần rà + dựng lại. Hình THPT: B10 (đã lưu bài → dựng lại), B11 (đang QC). Môn khác: báo Giám đốc rà.
+      • Nghiệm thu: B11 rebuild 4/4 ví dụ ② có đủ lời giải; B10 rebuild tương tự. kiemMay=[].
+
+[33q] hinh_hh11_ch04.py [SỬA] +ba_giao_tuyen — ĐỊNH LÍ BA ĐƯỜNG GIAO TUYẾN (H4.23/4.24) — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33p] (SHA 0848de0).
+      Mốc kho: 2026-10-24 (nối tiếp [33p]).
+      • LỖI GỐC (lộ khi QC Vòng 2 pilot B11): `ba_mp(quan_he='cat')` vẽ 3 mp qua MỘT trục chung (quyển sách 1 gáy) → chỉ 1 giao tuyến. KHÔNG dựng được định lí ba đường giao tuyến (cần 3 giao tuyến PHÂN BIỆT đồng quy / đôi một song song). AI Soạn B11 đã DỪNG-báo [QUYẾT] đúng; workaround L1 bỏ hình, phát biểu lời.
+      • THÊM method `ba_giao_tuyen(quan_he='dong_quy'|'song_song', nhan_mp=('(P)','(Q)','(R)'), nhan_gt=('a','b','c'), goc=(0,0))`:
+          - 'dong_quy' (H4.23): góc tam diện — 3 mp tô nhạt (P/Q/R) + 3 giao tuyến ĐẬM a,b,c đồng quy tại M.
+          - 'song_song' (H4.24): lăng trụ tam giác mở — 3 mp + 3 giao tuyến ĐẬM a,b,c đôi một song song.
+        Schematic (Đ5.9): kho đặt phối cảnh canonical; giao tuyến đậm, mặt nhạt. Dùng chung _p3 (GOC_SAU 40°).
+      • `ba_mp('cat')` GIỮ NGUYÊN (chùm 3 mp qua 1 trục — dùng cho ca khác). ADDITIVE: chỉ THÊM method, 0 đụng hàm cũ → 0 regression. Regen BAN_TRICH_HAM_HH11_CH04.md (+1 hàm).
+      • Nghiệm thu render-verify (OB soi mắt, 2026-10-24): dong_quy (3 mp + a,b,c đồng quy M, nhãn (R) tách M) · song_song (lăng trụ, 3 cạnh bên //). Regression: ba_mp('cat')+mat_phang+import hinh_hh12_ch02 OK.
+      • Căn cứ: QC Vòng 2 B11 [QUYẾT] hình định lí. Bù đúng nhu cầu H4.23/4.24 (phiếu khai nghĩa B11 Hình 10/11).
+
 [33p] sinh_bantrich.py [SỬA] + 4 BẢN TRÍCH mạch-chuyên THPT [MỚI/REGEN] — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33o] (SHA ac59f23).
       Mốc kho: 2026-10-24 (nối tiếp [33o]).
       • BUG GỐC: sinh_bantrich.py dòng 146 HARDCODE header `h = {alias}.Hinh()`. Mọi module mạch-chuyên có class ≠ tên literal 'Hinh' (HinhHH11CH04 · HinhHH12CH02 · HinhCh05 · HinhOxyz) → bản trích tự sinh ghi `.Hinh()` SAI → AI Soạn làm theo nguyên văn sẽ AttributeError. Lộ khi QC Vòng 2 pilot HH11_CH04_B10 (AI tự phát hiện + chỉnh dùng HinhHH11CH04).

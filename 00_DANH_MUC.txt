@@ -1,14 +1,12 @@
-CAPNHAT_KHO__33p — push GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit changes
-Ngày 2026-10-24 · OB Hình THPT · DỰNG TRÊN HEAD [33o] (ac59f23)
+CAPNHAT_KHO__33r — push GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit changes
+Ngày 2026-10-24 · OB Hình THPT · DỰNG TRÊN HEAD [33p] (0848de0)
+Gộp 2 mốc [33q]+[33r] (chưa push riêng).
 
-FILE                          | THAO TÁC GITHUB      | GHI CHÚ
-------------------------------|----------------------|-----------------------------------------
-sinh_bantrich.py              | upload ĐÈ            | FIX dòng 146 header dùng tên class thật.
-BAN_TRICH_HAM_HH11_CH04.md    | upload THÊM (MỚI)    | [33o] push SÓT file này — nay bổ sung.
-BAN_TRICH_HAM_HH12_CH02.md    | upload ĐÈ (regen)    | Header đúng H2.HinhHH12CH02().
-BAN_TRICH_HAM_HH12_CH05.md    | upload ĐÈ (regen)    | Header đúng H5.HinhCh05().
-BAN_TRICH_HAM_HH12_OXYZ.md    | upload ĐÈ (regen)    | Header đúng H2.HinhOxyz().
-00_KHO_VERSION.txt            | upload ĐÈ            | Bump [33p] (block mô tả fix).
+FILE                        | THAO TÁC   | GHI CHÚ
+----------------------------|------------|-------------------------------------------------
+hieuhoc_template.js         | upload ĐÈ  | v10.48 [33r] FIX viDuLyThuyet forward loiGiaiND (ví dụ ② mất lời giải).
+hinh_hh11_ch04.py           | upload ĐÈ  | [33q] +ba_giao_tuyen (định lí ba đường giao tuyến H4.23/24).
+BAN_TRICH_HAM_HH11_CH04.md  | upload ĐÈ  | regen (+ba_giao_tuyen; 61 hàm).
+00_KHO_VERSION.txt          | upload ĐÈ  | bump [33q]+[33r].
 
-→ Sau push: báo OB SHA mới để pin. Mốc kho HH11_CH04 vẫn ≥[33o] (bản trích là tài liệu,
-  không đổi hành vi render); bài B10 đã dựng KHÔNG cần soạn lại.
+→ Sau push: báo OB SHA để pin. API_REFERENCE KHÔNG đổi (chữ ký hàm không đổi).

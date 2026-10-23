@@ -147,6 +147,73 @@ class HinhHH11CH04(HinhHH12CH02):
             self.doan('_trc0', '_trc1', net='lien')   # giao tuyến chung
         return self
 
+    # ═══════════════════ R-3gt · ĐỊNH LÍ BA ĐƯỜNG GIAO TUYẾN ═══════════════════
+    def ba_giao_tuyen(self, quan_he='dong_quy', nhan_mp=('(P)', '(Q)', '(R)'),
+                      nhan_gt=('a', 'b', 'c'), goc=(0.0, 0.0)):
+        """ĐỊNH LÍ BA ĐƯỜNG GIAO TUYẾN (H4.23/H4.24): ba mặt phẳng (P),(Q),(R)
+        đôi một cắt nhau theo BA giao tuyến PHÂN BIỆT c=(P)∩(Q), a=(R)∩(P),
+        b=(R)∩(Q).
+          quan_he='dong_quy'  → ba giao tuyến ĐỒNG QUY tại M (góc tam diện, H4.23).
+          quan_he='song_song' → ba giao tuyến ĐÔI MỘT SONG SONG (H4.24).
+        nhan_mp: nhãn 3 mp; nhan_gt=(a,b,c): nhãn 3 giao tuyến. Schematic (Đ5.9):
+        kho đặt phối cảnh canonical; giao tuyến vẽ ĐẬM, mặt phẳng tô nhạt.
+        (Khác ba_mp('cat') = chùm 3 mp qua MỘT trục — chỉ 1 giao tuyến.)"""
+        self._nen_luoi = False
+        lp, lq, lr = nhan_mp
+        la, lb, lc = nhan_gt
+
+        def put(name, u, v, w):
+            self._diem(name, *self._p3(u, v, w, goc), nhan=None, moc=False)
+
+        def hbh(q, mau):
+            self.to_mien(*q, mau=mau)
+            for i in range(4):
+                self.doan(q[i], q[(i + 1) % 4], mau='black!38')
+
+        def nhan_tai(u, v, w, s, dx=0.0, dy=0.0, mau=None):
+            x, y = self._p3(u, v, w, goc)
+            self.ghi_chu(x + dx, y + dy, _m(s), mau=mau)
+
+        if quan_he == 'dong_quy':
+            # góc tam diện: đỉnh M, ba giao tuyến là ba cạnh toả từ M
+            put('_M', 0.0, 0.0, 0.0)
+            put('_Pa', -2.0, -0.15, 0.0)        # a (trên R và P)
+            put('_Pb', 2.0, -0.15, 0.0)         # b (trên R và Q)
+            put('_Pc', 0.0, 0.35, 2.15)         # c (trên P và Q)
+            put('_Xr', 0.0, -1.05, 0.0)         # mũi sàn (R) đổ ra trước
+            put('_Xp', -2.0, 0.15, 2.15)        # góc 4 của (P)
+            put('_Xq', 2.0, 0.15, 2.15)         # góc 4 của (Q)
+            hbh(('_M', '_Pa', '_Xp', '_Pc'), 'blue!7')    # (P)
+            hbh(('_M', '_Pb', '_Xq', '_Pc'), 'green!8')   # (Q)
+            hbh(('_M', '_Pa', '_Xr', '_Pb'), 'orange!7')  # (R)
+            # ba giao tuyến ĐẬM
+            self.doan('_M', '_Pa'); self.doan('_M', '_Pb'); self.doan('_M', '_Pc')
+            self._diem('M', *self.V['_M'], nhan='above', moc=True)
+            nhan_tai(-1.1, -0.08, 0.0, la, dy=0.17)       # a giữa M-Pa
+            nhan_tai(1.1, -0.08, 0.0, lb, dy=0.17)        # b giữa M-Pb
+            nhan_tai(0.0, 0.18, 1.2, lc, dx=0.14)         # c giữa M-Pc
+            nhan_tai(-1.7, 0.12, 1.1, lp, dx=-0.34)       # (P) trong hbh trái
+            nhan_tai(1.7, 0.12, 1.1, lq, dx=0.12)         # (Q) trong hbh phải
+            nhan_tai(0.0, -0.62, 0.0, lr, dy=-0.04)       # (R) trong sàn (xa M)
+        else:  # song_song — ba giao tuyến song song (phương sâu v)
+            v0, v1 = -0.75, 1.15
+            A = {'u': -1.65, 'w': 0.0}; B = {'u': 1.65, 'w': 0.0}; C = {'u': 0.0, 'w': 1.95}
+            for nm, P in [('a', A), ('b', B), ('c', C)]:
+                put(f'_{nm}0', P['u'], v0, P['w'])
+                put(f'_{nm}1', P['u'], v1, P['w'])
+            hbh(('_a0', '_a1', '_c1', '_c0'), 'blue!7')     # (P) chứa a,c
+            hbh(('_b0', '_b1', '_c1', '_c0'), 'green!8')    # (Q) chứa b,c
+            hbh(('_a0', '_a1', '_b1', '_b0'), 'orange!7')   # (R) chứa a,b
+            for nm in ('a', 'b', 'c'):                      # ba giao tuyến ĐẬM //
+                self.doan(f'_{nm}0', f'_{nm}1')
+            nhan_tai(A['u'], v1, A['w'], la, dx=-0.28, dy=0.02)
+            nhan_tai(B['u'], v1, B['w'], lb, dx=0.12, dy=0.02)
+            nhan_tai(C['u'], v1, C['w'], lc, dx=0.10, dy=0.10)
+            nhan_tai(-0.95, v0, 1.05, lp, dx=-0.26)
+            nhan_tai(0.95, v0, 1.05, lq, dx=0.08)
+            nhan_tai(0.0, v1, 0.0, lr, dy=-0.22)
+        return self
+
     # ═══════════════════ R-2hbh · HAI HBH CHUNG CẠNH ═══════════════════
     def hai_hbh_chung_canh(self, ten1=('A', 'B', 'C', 'D'),
                            ten2=('A', 'B', 'E', 'F'), goc=(0.0, 0.0)):

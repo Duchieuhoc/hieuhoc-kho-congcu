@@ -15,6 +15,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 
 | Hàm (chữ ký) | Dùng khi |
 |---|---|
+| `ba_giao_tuyen(quan_he='dong_quy', nhan_mp=('(P)', '(Q)', '(R)'), nhan_gt=('a', 'b', 'c'), goc=(0.0, 0.0))` | ĐỊNH LÍ BA ĐƯỜNG GIAO TUYẾN (H4.23/H4.24): ba mặt phẳng (P),(Q),(R) đôi một cắt nhau theo BA giao tuyến PHÂN BIỆT c=(P)∩(Q), a=(R)∩(P), b=(R)∩(Q). quan_he='dong_quy' → ba giao tuyến ĐỒNG QUY tại M (góc tam diện, H4.23). quan_he='song_song' → ba giao tuyến ĐÔI MỘT SONG SONG (H4.24). nhan_mp: nhãn 3 mp; nhan_gt=(a,b,c): nhãn 3 giao tuyến. Schematic (Đ5.9): kho đặt phối cảnh canonical; giao tuyến vẽ ĐẬM, mặt phẳng tô nhạt. (Khác ba_mp('cat') = chùm 3 mp qua MỘT trục — chỉ 1 giao tuyến.) |
 | `ba_mp(quan_he='song_song', nhan=('(P)', '(Q)', '(R)'), cat_tuyen=False)` | BA MẶT PHẲNG. quan_he='song_song' → 3 hbh chồng song song (Thalès H4.48); cat_tuyen=True thêm 2 cát tuyến xuyên 3 mp (đặt điểm A,B,C / A',B',C'). quan_he='cat' → 3 mp đôi một cắt nhau kiểu 'quyển sách' (H4.23/24). Trả về self. (Định lí 3 giao tuyến / Thalès — schematic.) |
 | `chan_phan_giac(D, A, B, C, nhan='below', mau=None, ve_doan=True)` | D = CHÂN đường phân giác TRONG góc A trên cạnh BC (giao tia phân giác góc A với BC). A,B,C đã đặt. Máy tính theo định lí đường phân giác: BD/DC = AB/AC (KHÔNG cho toạ độ). Mặc định vẽ đoạn A–D. PHANH kiểm D thẳng hàng B,C. Dùng: đường phân giác đơn (AD), và tâm nội tiếp (giao 2 đường A–D, B–E). dau_goc_bang(('B','A','D')) & (('D','A','C')) gọi SAU để đánh dấu 2 góc bằng. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `chan_phan_giac_canh(ten, dinh, tia1, tia2, cat, nhan='above', mau=None, ve_doan=True, danh_dau_nua_goc=False)` | ten = CHÂN tia phân giác của góc (tia1·dinh·tia2) trên ĐOẠN 'cat'=(P,Q). Khác chan_phan_giac (chân rơi trên cạnh NẰM GIỮA hai tia): hàm này hạ chân phân giác lên MỘT CẠNH BẤT KỲ đã dựng (vd HBH ABCD: phân giác góc D (hai tia DA, DC) CẮT cạnh AB tại E → chan_phan_giac_canh('E','D','A','Cc', cat=('A','B'))). dinh,tia1,tia2 và 2 mút 'cat' đã đặt. Máy dựng hướng phân giác = unit(dinh→tia1)+unit(dinh→tia2) rồi giao với đường mang 'cat' (KHÔNG cho toạ độ). TỰ KIỂM góc(tia1·dinh·ten)=góc(ten·dinh·tia2) (dựng sai → raise). PHANH kiểm ten thẳng hàng P,Q. ve_doan → vẽ đoạn dinh–ten. danh_dau_nua_goc → 2 cung nửa góc bằng (gọi dau_goc_bang sau cũng được). mau='red' → chấm đỏ (điểm dựng ở lời giải). |
@@ -88,6 +89,6 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 60 hàm khai nghĩa (phơi) · 1 cửa render · 12 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 61 hàm khai nghĩa (phơi) · 1 cửa render · 12 hàm hạ tầng (ẩn khỏi bản phát).
 
 > **Nợ:** kho chưa khai `LOP_MODULE` → bản trích chưa ghi lớp áp dụng.
