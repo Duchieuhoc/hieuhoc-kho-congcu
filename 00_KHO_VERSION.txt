@@ -1,3 +1,10 @@
+[33p] sinh_bantrich.py [SỬA] + 4 BẢN TRÍCH mạch-chuyên THPT [MỚI/REGEN] — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33o] (SHA ac59f23).
+      Mốc kho: 2026-10-24 (nối tiếp [33o]).
+      • BUG GỐC: sinh_bantrich.py dòng 146 HARDCODE header `h = {alias}.Hinh()`. Mọi module mạch-chuyên có class ≠ tên literal 'Hinh' (HinhHH11CH04 · HinhHH12CH02 · HinhCh05 · HinhOxyz) → bản trích tự sinh ghi `.Hinh()` SAI → AI Soạn làm theo nguyên văn sẽ AttributeError. Lộ khi QC Vòng 2 pilot HH11_CH04_B10 (AI tự phát hiện + chỉnh dùng HinhHH11CH04).
+      • FIX: dòng 146 → `h = {_alias}.{Hinh.__name__}()` (dùng tên class thật đã introspect ở dòng 90–95). ADDITIVE với công cụ, không đụng thư viện hình (0 regression render).
+      • REGEN 4 bản trích khớp code: BAN_TRICH_HAM_HH11_CH04.md (MỚI — [33o] THIẾU file này trên GitHub, nay bổ sung) · BAN_TRICH_HAM_HH12_CH02.md · BAN_TRICH_HAM_HH12_CH05.md · BAN_TRICH_HAM_HH12_OXYZ.md (REGEN header đúng tên class). Header nay: H4.HinhHH11CH04() · H2.HinhHH12CH02() · H5.HinhCh05() · H2.HinhOxyz().
+      • Căn cứ: QC Vòng 2 B10 (2026-10-24) phát hiện lỗ hổng [SỬA]. KHÔNG đổi hành vi render; chỉ sửa khâu sinh tài liệu hàm + bù file bản trích thiếu.
+
 [33o] hinh_hh11_ch04.py [MỚI] — KHÔNG GIAN TỔNG HỢP lớp 11 CH04 (quan hệ song song): tầng QUAN HỆ hình phối cảnh 3D — OB Hình THPT, 2026-10-23; DỰNG TRÊN HEAD [33n] (SHA 736416f).
       Mốc kho: 2026-10-23 (nối tiếp [33n]).
       • class HinhHH11CH04(HinhHH12CH02) — module ĐỘC LẬP (import HinhHH12CH02), ADDITIVE, 0 regression. Kế thừa trọn khối nền phối cảnh xiên 40° (tu_dien/chop/lang_tru_dung/khoi_hop_chu_nhat/trong_tam) + base.

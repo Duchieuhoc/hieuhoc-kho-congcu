@@ -1,43 +1,82 @@
-<!-- Bản trích hàm kho Oxyz (A↔C) cho AI Soạn — mốc [32x]. Code CHỈ gọi hàm có ở đây. -->
-# BẢN TRÍCH HÀM — `hinh_hh12_oxyz` (HỆ TRỤC Oxyz lớp 12)
-## Mạch Hình học 12, Chương II, Bài 7–8 · mốc kho **≥ [32x]** · OB dựng 2026-10-13
-> A↔C khép: **code CHỈ gọi hàm liệt kê ở đây**; thiếu hàm → DỪNG-báo-OB, KHÔNG chế hàm / tự tính toạ độ màn hình / gõ tay ký hiệu (Đ5.9, Đ34).
-> Import: `import hinh_hh12_oxyz as H12OX` → `h = H12OX.HinhOxyz()` → khai nghĩa → `png = h.ve(out=..., tra_bytes=True, nhan='Hình N. …')`.
-> **Đ5.9 (Oxyz):** toạ độ (x;y;z) truyền vào là **dữ liệu ĐỀ BÀI** (lấy nguyên từ nguồn); máy lo phép chiếu. KHÔNG tự chế toạ độ hình học.
+# BẢN TRÍCH HÀM VẼ — HH12_CH02 — tự sinh từ `hinh_hh12_oxyz.py`
 
-## KHỞI TẠO
-- `HinhOxyz(scale=1.0, goc=(0,0))` — lớp hình Oxyz. `goc` = vị trí gốc O trên hệ vẽ (đặt nhiều hình 1 khung).
+> **Cho AI Soạn.** Đây là *CÁCH vẽ* (chữ ký hàm + tham số). *VẼ CÁI GÌ* nằm ở **phiếu khai nghĩa** Ông Bụt giao kèm nguồn.
+> Tự sinh bằng introspect `hinh_hh12_oxyz.py` qua `sinh_bantrich.py` — vá kho → chạy lại → khớp. KHÔNG sửa tay file này.
+> Sinh ngày 23/10/2026. Mô hình (X): OB khai nghĩa → AI Soạn GỌI HÀM theo phiếu → PHANH kiểm.
 
-## HỆ TRỤC NỀN
-- `he_truc(dai_x=3.2, dai_y=4.2, dai_z=4.2, mp_toado=False, vecto_dv=True, O='O', ten_truc=('x','y','z'))`
-  — 3 trục Ox/Oy/Oz (mũi tên + nhãn) + vectơ đơn vị i,j,k. `mp_toado=True` tô 3 mặt phẳng toạ độ (H.2.35). `vecto_dv=False` ẩn i,j,k.
-  **Gọi TRƯỚC** các hàm đặt điểm/khối (để có gốc O).
-
-## ĐIỂM THEO TOẠ ĐỘ
-- `diem(ten, x, y, z, nhan='above right', mau=None, moc=True, hop_chieu=False, net_hop='dut', vecto_OM=False, O='O')`
-  — đặt điểm M(x;y;z); `hop_chieu=True` vẽ hình hộp chữ nhật chiếu O→M (đọc toạ độ, H.2.37/38); `vecto_OM=True` vẽ $\overrightarrow{OM}$.
-- `nhan_toado(ten, x, y, z, nhan='above right', mau=None, moc=True)` — đặt + chấm đỉnh theo toạ độ (khối 'thả' H.2.42).
-
-## LƯỚI
-- `luoi_mp(nx, ny, nz=0, mau='black!18')` — lưới ô vuông đơn vị trên sàn (Oxy), nx×ny ô, để đọc toạ độ (H.2.38/39).
-
-## KHỐI
-- `khoi_hop_oxyz(a, b, c, goc=(0,0,0), ten_dinh=None, nhan=None, net_khuat='dut', hien_dinh=True)`
-  — HỘP CHỮ NHẬT cạnh ∥ 3 trục; `a,b,c` kích thước theo Ox,Oy,Oz; `goc` toạ độ đỉnh gốc; `ten_dinh`=8 tên theo thứ tự [đáy: gốc,+x,+x+y,+y ; nắp: +z,+x+z,+x+y+z,+y+z]. Nét khuất tự tính (H.2.40/45/51; lập phương = a=b=c).
-- `khoi_tu_dinh(dinh, canh, mat=None, to_mat=None, net_khuat='dut', hien_dinh=True, mau_dinh=None)`
-  — KHỐI TỔNG QUÁT (chóp/lăng trụ/khối thả). `dinh`=dict{tên:(x,y,z)} toạ độ đề; `canh`=list[(u,v)]; **`mat`=list các mặt** (để tính nét khuất che theo mặt — NÊN khai đủ mặt khối đặc); `to_mat`=mặt cần tô. `hien_dinh=False` → chỉ vẽ cạnh (không chấm/nhãn tên), dùng khi tự ghi nhãn toạ độ. Nét khuất chuẩn (H.2.42/47b/48).
-
-## VECTƠ & NỐI (kế thừa base)
-- `h.vecto('A','B', nhan=r'\overrightarrow{AB}', mau=, net=)` — vectơ (mũi tên A→B).
-- `h.doan_oxyz('A','B', net='lien'|'dut', mau=)` hoặc `h.doan('A','B', net=)` — nối 2 điểm đã đặt.
-- `h.trung_diem`, `h.diem_giua`, `h.ghi_chu(x,y,chữ)`, `h._P(x,y,z)` (toạ độ màn hình để tự đặt nhãn) — base, chạy trên đỉnh đã chiếu (affine).
-
-## CỬA RENDER
-- `h.ve(out='hinh', tra_bytes=True, nhan='Hình N. …')` — render → PNG bytes (nhúng docx). Gọi CUỐI.
+Import trong script bài: `import hinh_hh12_oxyz as H2` rồi `h = H2.HinhOxyz()`.
+Gọi các method KHAI NGHĨA (mục 1) theo phiếu; cuối cùng `png = h.ve(out=..., tra_bytes=True)`.
 
 ---
-### GHI CHÚ DỰNG
-- Phép chiếu xiên: Oz đứng-lên · Oy ngang-phải · Ox chếch xuống-trái (chiều sâu, `_K_SAU=0.62`, `_GOC_OX=218°`). Affine ⇒ trung điểm/trọng tâm/giao chiếu chính xác.
-- Nét khuất: `khoi_hop_oxyz` tự đủ; `khoi_tu_dinh` cần `mat` để che chuẩn (thiếu mat → lùi heuristic bao lồi, chỉ hợp khối lồi đơn giản).
-- Hướng hình (đỉnh nào ra trước/sau) do TOẠ ĐỘ quyết; muốn 1 cạnh nổi (vd đường cao SA) hiện liền → chọn gốc/hướng toạ độ cho đỉnh đó ra TRƯỚC (x lớn). Khai nghĩa nêu rõ.
-- Nhãn toạ độ đỉnh (khối thả H2.42): dựng `khoi_tu_dinh(..., hien_dinh=False)` rồi lặp đặt chấm `_diem` + `ghi_chu(h._P(x,y,z) + lệch, f"${nm}({x};{y};{z})$")`.
+
+## 1. HÀM KHAI NGHĨA — AI Soạn GỌI theo phiếu
+
+Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy tự tính tọa độ + PHANH kiểm.
+
+| Hàm (chữ ký) | Dùng khi |
+|---|---|
+| `chan_phan_giac(D, A, B, C, nhan='below', mau=None, ve_doan=True)` | D = CHÂN đường phân giác TRONG góc A trên cạnh BC (giao tia phân giác góc A với BC). A,B,C đã đặt. Máy tính theo định lí đường phân giác: BD/DC = AB/AC (KHÔNG cho toạ độ). Mặc định vẽ đoạn A–D. PHANH kiểm D thẳng hàng B,C. Dùng: đường phân giác đơn (AD), và tâm nội tiếp (giao 2 đường A–D, B–E). dau_goc_bang(('B','A','D')) & (('D','A','C')) gọi SAU để đánh dấu 2 góc bằng. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `chan_phan_giac_canh(ten, dinh, tia1, tia2, cat, nhan='above', mau=None, ve_doan=True, danh_dau_nua_goc=False)` | ten = CHÂN tia phân giác của góc (tia1·dinh·tia2) trên ĐOẠN 'cat'=(P,Q). Khác chan_phan_giac (chân rơi trên cạnh NẰM GIỮA hai tia): hàm này hạ chân phân giác lên MỘT CẠNH BẤT KỲ đã dựng (vd HBH ABCD: phân giác góc D (hai tia DA, DC) CẮT cạnh AB tại E → chan_phan_giac_canh('E','D','A','Cc', cat=('A','B'))). dinh,tia1,tia2 và 2 mút 'cat' đã đặt. Máy dựng hướng phân giác = unit(dinh→tia1)+unit(dinh→tia2) rồi giao với đường mang 'cat' (KHÔNG cho toạ độ). TỰ KIỂM góc(tia1·dinh·ten)=góc(ten·dinh·tia2) (dựng sai → raise). PHANH kiểm ten thẳng hàng P,Q. ve_doan → vẽ đoạn dinh–ten. danh_dau_nua_goc → 2 cung nửa góc bằng (gọi dau_goc_bang sau cũng được). mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `chan_vuong_goc(ten, P, A, B, nhan='below', mau=None, ve_doan=True, o_vuong=True)` | Đặt 'ten' = CHÂN ĐƯỜNG VUÔNG GÓC (hình chiếu) của P lên đường thẳng AB. P, A, B đã đặt. Máy tự tính (KHÔNG cho toạ độ). Mặc định vẽ đoạn P–ten + ô vuông tại chân. PHANH kiểm ten thẳng hàng A,B và góc P-ten-(mốc) = 90°. Chân có thể NẰM NGOÀI đoạn AB (dùng thang_hang, không ép nằm giữa). Dùng: chân vuông góc từ điểm xuống tia/cạnh (H.4.50 MA⊥Ox; H.4.54 O xuống dây; đường cao tam giác). mau='red' → chấm đỏ + đoạn/ô vuông đỏ (điểm dựng ở lời giải). ve_doan=False: chỉ đặt điểm (không kẻ P–ten). o_vuong=False: bỏ ô vuông. |
+| `chum_duong(tam, danh_sach, dai=3.0)` | CHÙM ĐƯỜNG THẲNG đồng quy tại 'tam'. danh_sach=[(tên, xoay°), …] — mỗi đường qua tâm, nghiêng 'xoay'° so ngang, dài 'dai' về mỗi phía. Nhãn cạnh 1 đầu. Dùng nhiều đường cắt nhau tại 1 điểm. |
+| `chum_tia(dinh, danh_sach, cung=None)` | cung=[(canh1,canh2,số_đo), ...] để vẽ + kiểm góc giữa 2 tia. |
+| `dau_bang(A, B, so_vach=1, kiem_bang=None, kieu='thang')` | Đánh dấu CẠNH BẰNG NHAU trên đoạn A,B (đã đặt) bằng 'so_vach' vạch (1/2/3) — vạch khác nhau phân biệt các NHÓM cạnh bằng khác nhau. kieu='thang' (mặc định) = vạch vuông góc; kieu='cheo' = dấu × (chéo) — dùng khi 1 hình có NHIỀU nhóm cạnh bằng vượt quá 3 (SGK H.4.48/8.33 dùng | ‖ × ×× để tách 4+ nhóm). ⚠ Chỉ các đoạn THỰC SỰ bằng nhau mới được cùng ký hiệu — kiem_bang gom nhóm để PHANH kiểm độ dài. Chỉ đánh dấu, không tự nối đoạn. |
+| `dau_goc_bang(goc, so_gach=1, ban_kinh=7, mau='orange', do=None)` | Đánh dấu GÓC (cung + 'so_gach' gạch tick) → thể hiện GÓC TƯƠNG ỨNG / HAI GÓC BẰNG NHAU. Các góc bằng nhau (2 nửa do tia phân giác chia; hoặc góc tương ứng của 2 tam giác) dùng CÙNG so_gach. goc = (canh1, dinh, canh2) đã đặt. do: số đo thật (None → tự tính). PHANH kiểm. [Nhấc từ hinh_gocdt → base mốc 28a: ký hiệu bằng chung mạch tam giác 7→9, cạnh dau_bang/goc_vuong.] |
+| `dau_song_song(A, B, so_mui=1)` | Đánh dấu HƯỚNG SONG SONG trên đoạn A,B (đã đặt) bằng 'so_mui' mũi tên (1/2) — các đoạn cùng số mũi tên = cùng phương (ký hiệu >/>> như SGK). Chỉ đánh dấu. |
+| `diem(ten, x, y, z, nhan='above right', mau=None, moc=True, hop_chieu=False, net_hop='dut', vecto_OM=False, O='O')` | ĐẶT ĐIỂM M theo TỌA ĐỘ (x;y;z) — dữ liệu đề; máy chiếu ra màn hình. hop_chieu : True → vẽ HÌNH HỘP CHỮ NHẬT chiếu từ O tới M (cạnh ∥ trục) + 3 chân chiếu trên trục (H.2.37/2.38). Nét hộp = net_hop ('dut'). vecto_OM : True → vẽ vectơ O→M. Toạ độ (x;y;z) lấy nguyên từ đề — AI không tính điểm chiếu (Đ5.9). |
+| `diem_giua(ten, A, B, ti_le=0.5, mau=None, nhan='above')` | Điểm 'ten' nằm giữa A,B. ti_le∈(0,1) vị trí tương đối (KHÔNG phải tọa độ). mau='red' → chấm đỏ (điểm dựng ở lời giải). nhan='below' → tên điểm xuống dưới (tránh đè nhãn độ dài đặt phía trên, vd 8.30). |
+| `diem_luoi(ten, cot, hang, mau=None, nhan='above right', cham=True)` | Điểm 'ten' tại NÚT (cột,hàng) — chỉ số nguyên, dữ kiện đề (như số đo góc). mau='red' → chấm đỏ (điểm dựng ở lời giải). nhan=None → KHÔNG hiện nhãn tên; cham=False → KHÔNG vẽ chấm. → Hình đa giác/gấp-khúc trên lưới (đếm trục, vẽ-thêm): dùng nhan=None, cham=False cho SẠCH. |
+| `diem_ngoai(ten, duong, phia=None, mau=None, doc=0.0)` | Điểm 'ten' KHÔNG thuộc 'duong'. phia ∈ {'tren','duoi','trai','phai'}. doc: dời điểm DỌC theo đường (đơn vị vẽ) để đặt nhiều điểm ngoài phân biệt. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `diem_ngoai_goc(ten, goc, lech=0, xa=1.6, mau=None)` | Điểm 'ten' nằm NGOÀI 'goc' (bộ 3 (cạnh1,đỉnh,cạnh2) đã khai qua goc/chum_tia). Đối xứng với diem_trong: đặt theo hướng PHÂN GIÁC NGOÀI (miền phản xạ) → chắc chắn ngoài góc. lech=số độ xoay hướng ngoài (đặt nhiều điểm ngoài phân biệt; PHANH vẫn kiểm phải nằm ngoài, xoay quá tay vào trong → dừng). xa=khoảng cách từ đỉnh. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `diem_quay(new, P, tam, goc, nhan='above right', mau=None)` | Đặt điểm 'new' = ẢNH của P khi QUAY quanh 'tam' một góc 'goc' (độ, dương = ngược chiều kim). P, tam đã đặt. Máy tự tính (KHÔNG cho toạ độ). |tam→new| = |tam→P| và góc P-tam-new = |goc|. Dùng dựng tam giác ĐỀU/VUÔNG CÂN trên cạnh (đỉnh thứ 3 = ảnh quay 60°/90°), điểm quay quanh tâm. PHANH kiểm 2 bán kính bằng. dau_bang/dau_goc_bang gọi SAU để đánh dấu. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `diem_tren(ten, duong, thu_tu=None, mau=None)` | Điểm 'ten' ∈ 'duong'. thu_tu=số nguyên xếp thứ tự nhiều điểm trên 1 đường. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `diem_trong(ten, goc, lech=0, xa=1.3, mau=None)` | Điểm 'ten' nằm TRONG 'goc' (bộ 3 (cạnh1,đỉnh,cạnh2) đã khai qua goc/chum_tia). lech=số độ xoay quanh đỉnh so phân giác trong (đặt NHIỀU điểm trong phân biệt; xoay quá tay ra ngoài → PHANH dừng). xa=khoảng cách từ đỉnh. mau='red' → chấm đỏ. |
+| `doan(A, B, dodai=None, danh_dau=None, mau=None, net='lien', rong=None)` | Đoạn 2 mút A,B (đã đặt). dodai='4 cm' ghi độ dài. danh_dau='='|số → gạch bằng + kiểm. mau/net: style phân biệt (kết quả lời giải = mau='red', net='lien' → đỏ liền đậm). rong ∈ {'manh','vua','dam','rat_dam'}: bề dày nét — phân biệt vai đoạn (vd kim giờ 'dam' vs kim phút 'manh' trong đồng hồ; None = mặc định theo mau/net). |
+| `doan_le(A, B, dai=3.0, dodai=None, huong='ngang', danh_dau=None, mau=None, net='lien')` | ĐOẠN THẲNG ĐƠN LẺ — tự đặt 2 mút A,B rồi vẽ (KHÔNG cần đặt điểm trước). Mút cách nhau 'dai' (đơn vị vẽ) theo 'huong' ∈ {'ngang','doc','cheo'}; 'dodai'='4 cm' ghi độ dài; danh_dau/mau/net như doan(). Nhãn A,B ở 2 đầu. Gọi NHIỀU LẦN → mỗi đoạn tự xuống 1 DÒNG (không chồng), CĂN TRÁI cùng mốc (để mắt so độ dài). Dùng cho hình 'đoạn thẳng có ghi độ dài' (8.25/8.29/8.31). Đoạn đơn không khai quan hệ nào → PHANH không có gì để tái đo (đúng). |
+| `doan_oxyz(A, B, net='lien', mau=None)` | Nối 2 điểm Oxyz đã đặt (tên) — tiện ích; = doan base. |
+| `duong(ten, nhan2dau=None, mau=None, net='lien', an_nhan=False, dai=None)` | ĐƯỜNG THẲNG tên 'ten' (d,a,b,m…). nhan2dau=('x','y') → nhãn 2 đầu (đường xy). mau/net: style phân biệt (đường phụ lời giải = mau='red', net='dut'). an_nhan=True → KHÔNG hiện nhãn đường (đường trần, vd bài 'lấy điểm'). dai = độ dài BIỂU DIỄN của nét vẽ (đơn vị vẽ, để cân bố cục hình); KHÔNG phải số đo toán. dai=None → giữ 6.0 (tương thích ngược). |
+| `duong_diem(ten, ds_diem, nhan2dau=None, an_nhan=False, mau=None, net='lien', diem_do=())` | ĐƯỜNG THẲNG mang danh sách điểm ĐÃ SẮP THỨ TỰ (trái→phải): rải ĐỀU và CĂN GIỮA; đường TỰ CO vừa các điểm (thò 2 đầu một khoảng cố định). Thay cho duong+diem_tren khi bài là 'các điểm trên một đường' (nhận biết thẳng hàng, tia đối…). nhan2dau=('x','y') → nhãn 2 đầu; an_nhan=True → đường trần; diem_do=[…] → các điểm chấm ĐỎ (điểm dựng ở lời giải). Tự thêm ràng buộc thẳng hàng (PHANH). |
+| `duong_qua(A, B, mau='red', net='dut')` | ĐƯỜNG THẲNG (kéo dài 2 phía) qua 2 điểm A,B đã đặt — dùng vẽ ĐƯỜNG PHỤ trong lời giải. Mặc định đỏ nét đứt (quy ước yếu tố dựng thêm). A,B đã được PHANH kiểm qua con đường nghĩa của chúng nên KHÔNG thêm ràng buộc (Đ5.9 vẫn kín). |
+| `duong_song_song_qua(ten, P, A, B, mau='red', net='dut', nua_dai=3.0)` | ĐƯỜNG THẲNG tên 'ten' QUA điểm P (đã đặt) và SONG SONG với đoạn/hướng AB (A,B đã đặt). Máy tính hướng từ AB, đặt đường qua P (KHÔNG cho toạ độ). Đăng ký vào duong_data để giao()/diem_tren() dùng được. Dùng dựng ĐƯỜNG PHỤ song song ở lời giải (vd 'qua M kẻ đường ∥ AC cắt AB tại R'): gọi giao() SAU để lấy giao điểm. Mặc định đỏ nét đứt (yếu tố dựng thêm). PHANH kiểm P thẳng hàng trên đường + song_song với AB. |
+| `ghi_chu(x, y, chu, mau=None)` | Ghi CHỮ TỰ DO 'chu' tại toạ độ (x,y) trên hệ vẽ — nhãn hình con a)/b)/c)/d) của một hình GỘP nhiều phần trên cùng hàng, hoặc chú thích ngắn. Chữ đặt trực tiếp (KHÔNG tạo đỉnh/node tên) nên được phép chứa dấu ) ( . mà tên đỉnh không cho phép. |
+| `giao(ten, dt1, dt2, mau=None)` | ĐIỂM 'ten' = giao của 2 đường (tên) HOẶC 2 đoạn (tuple mút). Song song → raise. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `goc(dinh, canh1, canh2, do, xoay=0, vuong=False, hien_so=True)` | AI Soạn chỉ khai: đỉnh, tên 2 cạnh, số đo. Máy đặt 2 cạnh BẰNG NHAU (DAI_CHUAN), cạnh1 nghiêng 'xoay'° so ngang, cạnh2 = cạnh1 + do. vuong=True → vẽ ô vuông thay cung số. hien_so=False → vẽ cung góc NHƯNG ẩn số đo (hình ĐỀ đo-góc / minh hoạ so sánh: chỉ hiện cung, không lộ đáp án — Đ35). |
+| `goc_vuong(ten, mau=None)` | Đánh dấu GÓC VUÔNG (90°) trên góc 'ten' = (cạnh1, đỉnh, cạnh2) đã khai — vẽ Ô VUÔNG nhỏ thay cung số. PHANH kiểm góc = 90°. Chỉ đánh dấu; 2 cạnh phải khai trước qua tia/chum_tia. mau: màu ô vuông (None → 'orange' mặc định); mau='red' cho góc vuông KẾT QUẢ ở hình lời giải. |
+| `hai_duong(ten1, ten2, quan_he)` | quan_he ∈ {'cat','song_song','trung'}. Máy đặt thỏa quan hệ + PHANH kiểm. |
+| `he_truc(dai_x=3.2, dai_y=4.2, dai_z=4.2, mp_toado=False, vecto_dv=True, O='O', ten_truc=('x', 'y', 'z'))` | HỆ TRỤC Oxyz: 3 trục đôi một vuông góc (mũi tên + nhãn) + vectơ đơn vị i,j,k. dai_x/y/z : độ dài VẼ dương của mỗi trục (đơn vị ô). >0. mp_toado : True → tô nhạt 3 mặt phẳng toạ độ (Oxy),(Oyz),(Ozx) (H.2.35). vecto_dv : True → vẽ 3 vectơ đơn vị i,j,k (bold) trên Ox,Oy,Oz gần gốc. ten_truc : nhãn 3 trục (mặc định x,y,z). Máy tự tính phép chiếu — AI không đụng toạ độ màn hình (Đ5.9). |
+| `keo_dai(ten, A, B, dai=None, nhan='below right', ve_doan=True, mau=None)` | KÉO DÀI đoạn A→B QUA B: đặt 'ten' sao cho A, B, ten THẲNG HÀNG và B nằm GIỮA A và 'ten' (ten trên TIA ĐỐI của tia BA). Dùng vẽ GÓC NGOÀI tam giác / tia đối mà KHÔNG dời A, B (khác tia_doi vốn dời điểm). dai = độ dài B→ten (đơn vị vẽ); None → 0,6·|AB|. ve_doan=True → vẽ luôn đoạn B–ten (phần kéo dài). PHANH kiểm thẳng hàng A,B,ten. [Mốc 28b — xương sống mạch GÓC NGOÀI tam giác HH7-CH04.] |
+| `khoi_hop_oxyz(a, b, c, goc=(0.0, 0.0, 0.0), ten_dinh=None, nhan=None, net_khuat='dut', hien_dinh=True)` | KHỐI HỘP CHỮ NHẬT đặt trong Oxyz, cạnh song song 3 trục (nét khuất tự tính). a,b,c : kích thước theo Ox, Oy, Oz (độ dài VẼ = đơn vị đề). >0. goc : toạ độ (x0,y0,z0) của ĐỈNH gốc khối (mặc định ≡ O). ten_dinh: 8 tên đỉnh theo thứ tự [đáy: g, +x, +x+y, +y ; nắp: +z, +x+z, +x+y+z, +y+z]. Vd hộp ABCD.A'B'C'D' với A≡gốc: ['A','B','C','D','A','B','C','D'] + "'". Gọn hơn: truyền list 8 tên tường minh. nhan : dict {đỉnh_tên: vị_trí_nhãn} tuỳ chọn ghi đè vị trí nhãn. Máy tự tính 8 đỉnh chiếu + nét khuất (đỉnh nằm trong bao lồi = khuất). Đ5.9. |
+| `khoi_tu_dinh(dinh, canh, mat=None, to_mat=None, net_khuat='dut', hien_dinh=True, mau_dinh=None)` | KHỐI TỔNG QUÁT trong Oxyz từ TOẠ ĐỘ ĐỈNH (đề cho) + CẠNH (+ MẶT) — tự tính nét khuất. Dùng cho chóp/lăng trụ/khối 'thả' có nhãn toạ độ. dinh : dict {ten_đỉnh: (x,y,z)} — toạ độ TOÁN lấy từ đề (Đ5.9). canh : list [(u,v), …] các cạnh nối theo tên đỉnh. mat : list các MẶT [(t1,t2,t3,…), …] — dùng TÍNH NÉT KHUẤT (che theo mặt). Nên khai đủ các mặt của khối đặc; thiếu mat → lùi heuristic bao lồi. to_mat : list mặt cần TÔ nhạt (tuỳ chọn) — nằm dưới nét. Nét khuất (có mat): cạnh bị CHE nếu trung điểm chiếu của nó nằm trong hình chiếu một mặt KHÁC ở GẦN người xem hơn (trục Ox hướng về người xem ⇒ x lớn = gần). Máy tự tính — AI chỉ cấp toạ độ đề + quan hệ cạnh/mặt (Đ5.9). |
+| `khong_luoi()` | TẮT nền ô lưới mờ cho hình này (hình sơ đồ/diện tích/thể tích — SGK không kẻ lưới). Không ảnh hưởng cách đo cỡ ảnh (rong_cm vẫn tính từ bề rộng PNG). Trả self để nối chuỗi. |
+| `luoi(cot, hang)` | Lưới nền cot×hang ô (xám nhạt). |
+| `luoi_mp(nx, ny, nz=0, mau='black!18')` | LƯỚI Ô VUÔNG đơn vị trên MẶT PHẲNG (Oxy) (sàn) — nx×ny ô, để đọc toạ độ (H.2.38/2.39). nz>0 → thêm vạch dọc đơn vị tại các nút (gợi cao độ). Nét mảnh. |
+| `nhan_goc(goc, chu, r=0.44)` | Ghi nhãn 'chu' (CHỮ như 'x'/'y'/'z', hoặc số thứ tự '1','2'…) tại phân giác TRONG của góc — dùng cho GÓC CHƯA BIẾT (nhãn chữ, không ghi số) và góc đánh số không theo phần tư. goc = (canh1, dinh, canh2): tên 3 điểm ĐÃ đặt. KHÔNG vẽ cung (chỉ đặt chữ); muốn có cung thì gọi kèm so_do_goc(goc, hien_so=False). [Nhấc từ hinh_gocdt → base mốc 28b: nhãn chữ góc dùng chung mạch tam giác 7→9, cạnh dau_goc_bang/so_do_goc.] |
+| `nhan_toado(ten, x, y, z, nhan='above right', mau=None, moc=True)` | Đặt + GHI NHÃN TOẠ ĐỘ cho đỉnh (khối 'thả' trong Oxyz — H.2.42). Toạ độ lấy từ đề; máy chiếu. Nhãn hiện tên đỉnh; toạ độ ghi kèm nếu cần ngoài. |
+| `noi(*diem, kin=False, mau=None)` | Nối các điểm ĐÃ ĐẶT thành đoạn/gấp khúc. kin=True→đa giác đóng. mau=màu đường. |
+| `so_do_goc(ten, do=None, hien_so=True, mau='orange', ban_kinh=7)` | mau/ban_kinh: khi 1 hình có ≥2 cung góc lồng nhau → dùng MÀU KHÁC + bán kính khác để phân biệt (Đ: cung trong nhỏ cam, cung ngoài lớn xanh). do=None → TỰ ĐO từ toạ độ (vẽ cung đánh dấu góc mà không assert số đo cho trước). |
+| `thang_hang(*diem)` | KHAI các điểm THẲNG HÀNG → PHANH kiểm độ lệch, sai thì dừng. |
+| `thuoc_do_goc(dinh, tia0, tia_do, do, xoay=0, chieu=1, ban_kinh=2.5, thang='don')` | THƯỚC ĐO GÓC (nửa đường tròn chia độ) áp lên góc tia0-đỉnh-tia_do — minh hoạ/đọc số đo. tia0 = cạnh trùng vạch 0 (đặt nghiêng 'xoay'° so ngang); tia_do = cạnh chỉ 'do' độ. chieu=+1 quét ngược chiều kim (tia_do phía trên), -1 thuận chiều kim. thang='doi' hai thang 0–180 như SGK (dạy chọn thang), 'don' một thang. Máy đặt 2 tia + phủ thước (vạch chính 10° có số, vạch phụ 2°). PHANH kiểm góc tia0-đỉnh-tia_do = do. |
+| `tia(goc_O, ten_dau, xoay=0, mui_ten=False, nhan='auto', mau=None, net='lien', dai=None)` | TIA gốc 'goc_O' hướng tới 'ten_dau', nghiêng 'xoay'° so ngang (0 = sang phải). Gốc chưa đặt → đặt tại (0,0). mui_ten=True → mũi tên đầu tia (ký hiệu tia). nhan: vị trí nhãn mút ('auto' tự chọn). mau/net: style phân biệt (đường phụ lời giải = 'red'/'dut'). Tia đơn: 1 gốc, 1 hướng. dai=số → độ dài tia (đơn vị vẽ); None → mặc định DAI_CHUAN. Dùng dai để tia vượt/không vượt một điểm đã có đúng ý (vd tia dựng hình chỉ thò nhẹ qua đỉnh — H.4.51). [Điểm trên tia] đặt bằng diem_giua(gốc, ten_dau, ti_le) — vd diem_giua('B','A','m',0.6). |
+| `tia_diem(goc_O, ds, xoay=0, ten_tia=None, hai_dau=False, nhan_dodai=False, mau=None, net='lien')` | TIA gốc 'goc_O' mang các điểm ĐO ĐƯỢC (metric). ds=[(tên, vị_trí), …] · vị_trí = khoảng cách từ gốc theo ĐƠN VỊ BÀI; vị_trí ÂM = điểm trên TIA ĐỐI. Máy chuẩn hoá tỉ lệ, đặt gốc O, vẽ mũi tên đầu dương, ràng buộc thẳng hàng (PHANH). ten_tia: nhãn cạnh mũi tên (vd 'x' cho tia Ox). nhan_dodai=True → ghi khoảng cách từ gốc dưới mỗi điểm. (Song sinh với duong_diem, nhưng cho TIA + vị trí metric.) [VAN] hai_dau=True bị CHẶN: nét 2 mũi = đường thẳng, mà đường thẳng KHÔNG có mũi. Đường thẳng mang điểm 2 đầu → dùng duong_diem. |
+| `tia_doi(O, t1, t2, xoay=0)` | HAI TIA ĐỐI chung gốc O: t1 và t2 hai phía đối nhau qua O, nghiêng 'xoay'° so ngang. Vẽ đoạn t1–t2 + PHANH kiểm góc t1-O-t2 = 180° và t1,O,t2 thẳng hàng. Dùng bài 'hai tia đối nhau'. |
+| `to_mien(*diem, mau='cyan!18')` | TÔ MÀU một miền = đa giác qua các điểm ĐÃ ĐẶT (theo thứ tự). Dùng tô: • miền trong 1 góc: to_mien(P1, đỉnh, P2) — P1,P2 trên 2 cạnh; • giao/hợp nhiều góc (miền trong tam giác — 8.30): to_mien(A, B, C). Miền được tô NẰM DƯỚI mọi nét (không che hình). mau: màu tô nhạt. |
+| `trung_diem(M, A, B, mau=None)` | M = TRUNG ĐIỂM đoạn AB. M chưa đặt → tự đặt tại chính giữa A,B. Vẽ đoạn AB + gạch bằng 2 nửa (A–M = M–B) + ràng buộc thẳng hàng A,M,B (PHANH). mau='red' → chấm đỏ (điểm dựng ở lời giải). |
+| `trung_truc(A, B, tam='O', dai_AB=4.0, nhan_d='d', hien_nhan_d=True, M=None, cao=3.0, ve_MA_MB=False, ve_toO=False, compa=False, N=None, cao_compa=2.2)` | ĐƯỜNG TRUNG TRỰC của đoạn AB — đường thẳng VUÔNG GÓC với AB tại TRUNG ĐIỂM. Tự đặt A(0,0)–B ngang (dài dai_AB) + trung điểm 'tam' (2 vạch OA=OB). MẶC ĐỊNH (thước–êke): vẽ đường trung trực ĐỨNG qua tam (2 phía) + Ô VUÔNG tại tam + nhãn 'nhan_d'. PHANH kiểm trung điểm + vuông góc 90°. M='tên' → đặt điểm M trên trục (phía trên, cao 'cao'); ve_MA_MB=True → nối MA, MB (điểm cách đều 2 mút — H.4.65/4.66/4.67/4.45); ve_toO=True → nối M–tam. compa=True → DỰNG BẰNG COMPA (H.4.68 Thực hành): KHÔNG vẽ trục liền/ô vuông/2 vạch; đặt M(trên) & N(dưới) = giao 2 cung tâm A,B cùng bán kính; vẽ 4 cung + đường thẳng MN. Cần đặt tên cả M và N. cao_compa = nửa khoảng MN (đơn vị vẽ). [Mốc 28l — xương sống mạch ĐƯỜNG TRUNG TRỰC HH7-CH04 Bài 16; dùng chung 7→9.] |
+| `trung_truc_doan(ten, A, B, tam=None, o_vuong=True, vach=True, mau='red', net='dut', nua_dai=3.0, nua_dai_lui=None)` | ĐƯỜNG TRUNG TRỰC của đoạn AB ĐÃ ĐẶT (vuông góc AB tại trung điểm). Khác trung_truc() (hàm kia TỰ đặt A,B mới) — hàm này dùng cho cạnh của HÌNH đã dựng (trung trực tam giác). Đăng ký duong_data[ten] → giao()/diem_tren() dùng được (dựng tâm ngoại tiếp = giao 2 trung trực). tam='tên' → đặt & hiện trung điểm; o_vuong → ô vuông tại trung điểm; vach → 2 gạch MA=MB. Mặc định đỏ nét đứt (đường phụ). PHANH kiểm trung điểm + vuông góc. |
+| `vecto(A, B, nhan=None, mau=None, net='lien', vi_tri_nhan='above', rong='dam')` | [CH04 Vectơ, 2026-10-04] VECTƠ = đoạn CÓ HƯỚNG A→B (mũi tên ở điểm cuối B). A, B = 2 điểm ĐÃ ĐẶT (qua đa giác / lưới / _diem). Phân biệt: • doan : đoạn thẳng KHÔNG mũi tên. • tia : nửa đường thẳng, KÉO DÀI quá mút (chuẩn hoá độ dài) — không đúng vectơ. • vecto : mũi tên ĐÚNG A→B (không kéo dài), biểu diễn $\overrightarrow{AB}$ / $\vec a$. nhan : nhãn vectơ ('\\vec a' | '\\overrightarrow{AB}' | None) đặt giữa thân, phía vi_tri_nhan. mau : màu (vd 'red' cho vectơ dựng ở lời giải). net 'lien'|'dut'. rong = bề dày thân. Hai vectơ ĐỐI HƯỚNG cùng gốc ĐƯỢC PHÉP (khác tia — vectơ đối $\overrightarrow{IA},\overrightarrow{IB}$). |
+
+## 2. CỬA RENDER
+
+| Hàm (chữ ký) | Dùng khi |
+|---|---|
+| `ve(out='hinh', tra_bytes=False, nhan=None)` | CỬA RENDER — gọi CUỐI cùng. Chạy PHANH verify (sai hình → DỪNG tại đây) rồi xuất TikZ→PNG. out = tên file (không đuôi). tra_bytes=True → trả bytes PNG (nhúng docx qua template); False → ghi file. nhan = caption "Hình N" nướng CĂN GIỮA DƯỚI ảnh (cho hình neo phải mục ③+). Mọi hàm khai nghĩa phải gọi TRƯỚC ve(). |
+
+## 3. HÀM HẠ TẦNG — máy dùng nội bộ, **AI Soạn KHÔNG gọi**
+
+Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trước) do các hàm khai nghĩa ở mục 1 tự gọi bên trong. Theo Đ5.9, người không cho tọa độ → **AI Soạn không gọi trực tiếp nhóm này**. Danh sách đã ẩn khỏi bản trích. Gặp hình mà mục 1 chưa phủ (vd đa giác thường) → **DỪNG báo Ông Bụt bổ sung hàm thuần-nghĩa** (khép vòng A↔C), KHÔNG tự dùng hàm hạ tầng.
+
+---
+
+**Thống kê:** 49 hàm khai nghĩa (phơi) · 1 cửa render · 11 hàm hạ tầng (ẩn khỏi bản phát).
+
+> **Nợ:** kho chưa khai `LOP_MODULE` → bản trích chưa ghi lớp áp dụng.

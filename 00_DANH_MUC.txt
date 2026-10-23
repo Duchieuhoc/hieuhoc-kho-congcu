@@ -1,12 +1,14 @@
-00_DANH_MUC — CAPNHAT_KHO__20261019  (Ông Bụt HÌNH THPT)
-Đích: THẦY UPLOAD ĐÈ GitHub Duchieuhoc/hieuhoc-kho-congcu → Commit changes (ra mốc [33k]).
-Dựng trên: HEAD [33j]=916ea21.
+CAPNHAT_KHO__33p — push GitHub (Duchieuhoc/hieuhoc-kho-congcu), Commit changes
+Ngày 2026-10-24 · OB Hình THPT · DỰNG TRÊN HEAD [33o] (ac59f23)
 
-| File | Thay/Thêm | Ghi chú |
-|------|-----------|---------|
-| hieuhoc_template.js | THAY (v10.44→v10.45 [33k]) | +doDaiBieuThuc(bieuThuc) |a⃗±b⃗| + KHOFIX kyHieuVecto/doDaiVecto nestable (qua _dmath). Standalone BYTE-IDENTICAL, additive. |
-| API_REFERENCE.md    | THAY (regen v10.45)      | +doDaiBieuThuc vào §7. Tự sinh, không sửa tay. |
-| 00_KHO_VERSION.txt   | THAY (+[33k] đầu file)   | Nhật ký mốc kho. |
+FILE                          | THAO TÁC GITHUB      | GHI CHÚ
+------------------------------|----------------------|-----------------------------------------
+sinh_bantrich.py              | upload ĐÈ            | FIX dòng 146 header dùng tên class thật.
+BAN_TRICH_HAM_HH11_CH04.md    | upload THÊM (MỚI)    | [33o] push SÓT file này — nay bổ sung.
+BAN_TRICH_HAM_HH12_CH02.md    | upload ĐÈ (regen)    | Header đúng H2.HinhHH12CH02().
+BAN_TRICH_HAM_HH12_CH05.md    | upload ĐÈ (regen)    | Header đúng H5.HinhCh05().
+BAN_TRICH_HAM_HH12_OXYZ.md    | upload ĐÈ (regen)    | Header đúng H2.HinhOxyz().
+00_KHO_VERSION.txt            | upload ĐÈ            | Bump [33p] (block mô tả fix).
 
-KHÔNG đụng hình module nào (chỉ template.js). Bài cũ 0 đổi.
-SAU PUSH: ghi SHA mới vào 00_HOSO_BAI của LUU_BAI__HH12_CH02_LT_DE1 (đang "chờ SHA").
+→ Sau push: báo OB SHA mới để pin. Mốc kho HH11_CH04 vẫn ≥[33o] (bản trích là tài liệu,
+  không đổi hành vi render); bài B10 đã dựng KHÔNG cần soạn lại.

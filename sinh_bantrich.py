@@ -143,7 +143,7 @@ def sinh(ten_module, ma_chuong=None, noi_bo=False):
     import re as _re
     _mal = _re.search(r'CH0*(\d+)', ma_chuong or '')
     _alias = f"H{int(_mal.group(1))}" if _mal else 'H'
-    L.append(f"Import trong script bài: `import {ten_module} as {_alias}` rồi `h = {_alias}.Hinh()`.")
+    L.append(f"Import trong script bài: `import {ten_module} as {_alias}` rồi `h = {_alias}.{Hinh.__name__}()`.")
     L.append("Gọi các method KHAI NGHĨA (mục 1) theo phiếu; cuối cùng `png = h.ve(out=..., tra_bytes=True)`.")
     L.append("")
     L.append("---")
