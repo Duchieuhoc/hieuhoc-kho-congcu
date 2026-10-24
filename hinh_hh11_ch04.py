@@ -257,6 +257,81 @@ class HinhHH11CH04(HinhHH12CH02):
         self.doan(B, E); self.doan(E, F); self.doan(F, A)
         return self
 
+    # ═══════════════════ R-2mp · HAI MẶT PHẲNG ═══════════════════
+    def hai_mat_phang(self, quan_he='cat', nhan=('(P)', '(Q)'),
+                      nhan_duong=('b', 'a'), goc=(0.0, 0.0),
+                      rw=2.0, rd=1.15, cao=1.9, ve_duong=True):
+        """HAI MẶT PHẲNG biểu diễn (schematic, Đ5.9 chế độ 2).
+
+        quan_he='cat'  : (P) NGANG + (Q) NGHIÊNG, CẮT nhau theo GIAO TUYẾN b (b⊂(P)).
+                         Trong (Q) có đường a SONG SONG b (minh hoạ a∥b ⟹ a∥(P)).
+                         (H4.36: định lí đường thẳng song song mặt phẳng.)
+        quan_he='song_song': (P) DƯỚI + (Q) TRÊN, hai mp SONG SONG (không giao),
+                         mỗi mp một đường // (b⊂(P), a⊂(Q), a∥b). (Cho B13.)
+        nhan        : nhãn 2 mp, ghi ở góc.
+        nhan_duong  : (tên đường trong (P)/giao tuyến, tên đường trong (Q)).
+        Điểm đặt TÊN để dùng base (doan/giao/diem_giua): giao tuyến/đường-P = <b>1,<b>2;
+                      đường-Q = <a>1,<a>2.
+        """
+        self._nen_luoi = False
+        bn, an = nhan_duong
+        tag = f'hmp{len(self.V)}'
+
+        def put(name, u, v, w, show=False, pos='above'):
+            self._diem(name, *self._p3(u, v, w, goc), nhan=(pos if show else None), moc=show)
+
+        if quan_he == 'cat':
+            # (P) ngang
+            cP = [(-rw, -rd), (rw, -rd), (rw, rd), (-rw, rd)]
+            pn = [f'_{tag}P{i}' for i in range(4)]
+            for i, (u, v) in enumerate(cP):
+                put(pn[i], u, v, 0.0)
+            self.to_mien(*pn, mau='blue!7')
+            for i in range(4):
+                self.doan(pn[i], pn[(i + 1) % 4])
+            # giao tuyến b ⊂ (P) (dọc u tại v=0, w=0)
+            put(f'{bn}1', -rw * 0.82, 0.0, 0.0)
+            put(f'{bn}2', rw * 0.82, 0.0, 0.0)
+            # (Q) nghiêng: bản lề trên b, hất LÊN–RA SAU
+            qbl, qbr = f'_{tag}QL', f'_{tag}QR'
+            put(qbl, -rw * 0.82, rd * 1.25, cao)
+            put(qbr, rw * 0.82, rd * 1.25, cao)
+            self.to_mien(f'{bn}1', f'{bn}2', qbr, qbl, mau='blue!12')
+            self.doan(f'{bn}2', qbr); self.doan(qbr, qbl); self.doan(qbl, f'{bn}1')
+            # đường a ⊂ (Q), song song b (giữa bản lề và mép trên)
+            put(f'{an}1', -rw * 0.82, rd * 0.62, cao * 0.5)
+            put(f'{an}2', rw * 0.82, rd * 0.62, cao * 0.5)
+            if ve_duong:
+                self.doan(f'{bn}1', f'{bn}2', rong='vua')        # giao tuyến b
+                self.doan(f'{an}1', f'{an}2', mau='red', rong='vua')  # a
+            # nhãn
+            px, py = self.V[pn[1]]; self.ghi_chu(px + 0.14, py - 0.24, _m(nhan[0]))
+            qx, qy = self.V[qbr]; self.ghi_chu(qx + 0.16, qy + 0.04, _m(nhan[1]))
+            bx, by = self.V[f'{bn}2']; self.ghi_chu(bx + 0.14, by - 0.02, _m(bn))
+            ax, ay = self.V[f'{an}2']; self.ghi_chu(ax + 0.14, ay + 0.02, _m(an), mau='red')
+
+        elif quan_he == 'song_song':
+            # (P) dưới · (Q) trên (cùng hướng, cách nhau 'cao')
+            for lab, w, mau in ((nhan[0], 0.0, 'blue!7'), (nhan[1], cao, 'blue!12')):
+                cc = [(-rw, -rd), (rw, -rd), (rw, rd), (-rw, rd)]
+                nn = [f'_{tag}{lab}{i}' for i in range(4)]
+                for i, (u, v) in enumerate(cc):
+                    put(nn[i], u, v, w)
+                self.to_mien(*nn, mau=mau)
+                for i in range(4):
+                    self.doan(nn[i], nn[(i + 1) % 4])
+                gx, gy = self.V[nn[1]]; self.ghi_chu(gx + 0.14, gy - 0.22, _m(lab))
+            put(f'{bn}1', -rw * 0.8, 0.0, 0.0); put(f'{bn}2', rw * 0.8, 0.0, 0.0)
+            put(f'{an}1', -rw * 0.8, 0.0, cao); put(f'{an}2', rw * 0.8, 0.0, cao)
+            if ve_duong:
+                self.doan(f'{bn}1', f'{bn}2', rong='vua')
+                self.doan(f'{an}1', f'{an}2', mau='red', rong='vua')
+            bx, by = self.V[f'{bn}2']; self.ghi_chu(bx + 0.14, by - 0.02, _m(bn))
+            ax, ay = self.V[f'{an}2']; self.ghi_chu(ax + 0.14, ay + 0.02, _m(an), mau='red')
+        else:
+            raise ValueError("[hai_mat_phang] quan_he ∈ {'cat','song_song'}")
+        return self
+
     # ═══════════════════ R-td · THIẾT DIỆN (helper) ═══════════════════
     def thiet_dien(self, *dinh, mau='cyan!16', net='lien', mau_vien=None):
         """Tô + viền đa giác THIẾT DIỆN theo các đỉnh (tên) đã đặt. Các đỉnh lấy từ

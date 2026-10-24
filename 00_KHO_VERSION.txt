@@ -1,3 +1,11 @@
+[33t] +primitive hai_mat_phang (HAI MẶT PHẲNG biểu diễn) — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33s].
+      Mốc kho: 2026-10-24 (nối tiếp [33s]).
+      • Cho pilot HH11_CH04_B12 "Đường thẳng và mặt phẳng song song" — H4.36 cần HAI MẶT PHẲNG CẮT nhau theo giao tuyến (ngang (P) + nghiêng (Q), a∥b trong (Q) ⟹ a∥(P)). mat_phang cũ chỉ vẽ 1 mp ngang → thiếu.
+      • hai_mat_phang(quan_he='cat'|'song_song', nhan, nhan_duong, goc, rw, rd, cao, ve_duong): 'cat' = (P) ngang + (Q) nghiêng bản lề trên giao tuyến b, đường a⊂(Q) // b (H4.36); 'song_song' = (P) dưới + (Q) trên song song, mỗi mp 1 đường // (dự phòng B13 "hai mặt phẳng song song"). Điểm đặt tên (b1,b2,a1,a2) dùng được với doan/giao base.
+      • ADDITIVE — hàm MỚI + nằm trong HinhHH11CH04; bài cũ 0 đổi. Chữ ký MỚI → REGEN BAN_TRICH_HAM_HH11_CH04. Template KHÔNG đổi → không regen API.
+      • Nghiệm thu render-verify H4.36 (hai mp cắt + a∥b), H4.39 (thiết diện EFGH hbh, engine nét khuất cạnh sau G∈BD đứt), H4.37 (mp+3 đường //). Đạt.
+      • File đổi: hinh_hh11_ch04.py · BAN_TRICH_HAM_HH11_CH04.md (regen) · 00_KHO_VERSION.txt.
+
 [33s] ENGINE NÉT KHUẤT TỰ TÍNH (hidden-line) cho khối đa diện — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33r].
       Mốc kho: 2026-10-24 (nối tiếp [33r]).
       • LỖI GỐC (thầy báo trực tiếp, QC B10/B11): nét khuất đường phụ/cevian/thiết diện KHÔNG được máy tính — chỉ cạnh KHỐI tự tính (hull). ⇒ đường bị mặt khối che vẫn vẽ LIỀN (sai hình biểu diễn). Thêm lỗi: trung_diem() vẽ ĐÈ đoạn nét liền lên cạnh khuất (AC ở H7 liền dù tu_dien đã đứt). SAI MÔ HÌNH: nét khuất là HÌNH HỌC (máy giữ, Đ5.9), không phải nghĩa người khai net='dut' tay.
