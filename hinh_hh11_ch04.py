@@ -419,4 +419,28 @@ class HinhHH11CH04(HinhHH12CH02):
         # tia chiếu // (gốc → bóng), nét mảnh
         for i in range(n):
             self.doan(tg[i], tb[i], net='dut', mau='black!45')
+        # [B14] elip=True: thêm ĐƯỜNG TRÒN gốc (ở cao) → bóng ELIP (sàn) + tia //.
+        #   Tròn nằm ngang chiếu xiên _p3 → ra elip trên màn. Lấy mẫu N điểm.
+        if elip:
+            cu = sum(u for u, v in dinh_goc) / n if n else 0.0
+            cv = sum(v for u, v in dinh_goc) / n if n else 0.0
+            rr = (max(max(abs(u - cu), abs(v - cv)) for u, v in dinh_goc) * 1.28) if n else 1.3
+            N = 36
+
+            def _ring(w, sh, pre, mau=None):
+                pts = []
+                for t in range(N):
+                    a = 2.0 * math.pi * t / N
+                    uu = cu + rr * math.cos(a); vv = cv + rr * math.sin(a)
+                    nm = f'_{pre}{t}'
+                    self._diem(nm, *self._p3(uu + sh[0], vv + sh[1], w, goc), nhan=None, moc=False)
+                    pts.append(nm)
+                for t in range(N):
+                    self.doan(pts[t], pts[(t + 1) % N], mau=mau)
+                return pts
+
+            gr = _ring(cao, (0.0, 0.0), 'elg')               # đường tròn gốc
+            br = _ring(0.0, (du, dv), 'elb', mau='black!55')  # bóng elip
+            for t in (0, 9, 18, 27):                          # 4 tia chiếu đại diện
+                self.doan(gr[t], br[t], net='dut', mau='black!45')
         return self

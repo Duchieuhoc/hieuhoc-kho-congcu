@@ -1,3 +1,12 @@
+[33w] phep_chieu_ss: IMPLEMENT elip=True (đường tròn gốc → bóng ELIP) — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33v].
+      Mốc kho: 2026-10-24 (nối tiếp [33v]).
+      • Cho pilot HH11_CH04_B14 "Phép chiếu song song": H4.56a khung cửa TRÒN (chấn song vuông) → bóng ELIP + "hình biểu diễn hình tròn là elip" (§3). Tham số elip ĐÃ KHAI từ [33o] nhưng THÂN HÀM BỎ QUA (docstring hứa nhưng no-op) — bug tiềm ẩn/bẫy AI Soạn.
+      • FIX: nhánh elip lấy mẫu 36 điểm đường tròn ngang (tâm/bán kính tự suy từ dinh_goc), chiếu xiên _p3 → elip trên màn; vẽ vòng gốc (cao) + bóng (sàn, nhạt) + 4 tia chiếu //. Kèm được với đa giác (H4.56a: vuông ABCD + tròn).
+      • Chữ ký KHÔNG đổi (elip đã là param) → KHÔNG regen bản trích. Template KHÔNG đổi.
+      • ADDITIVE — nhánh elip=False BYTE-IDENTICAL (regression OK). Bài cũ 0 đổi.
+      • Nghiệm thu render-verify: H4.56a (tròn+vuông→elip+tứ giác+tia //), elip đơn (tròn→elip). Đạt.
+      • File đổi: hinh_hh11_ch04.py · 00_KHO_VERSION.txt.
+
 [33v] ba_mp(quan_he='hai_ss_cat') + hai_mat_phang(duong2=) — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33u].
       Mốc kho: 2026-10-24 (nối tiếp [33u]).
       • Cho pilot HH11_CH04_B13 "Hai mặt phẳng song song" — 2 gap hình:
