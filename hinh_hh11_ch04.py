@@ -120,10 +120,12 @@ class HinhHH11CH04(HinhHH12CH02):
     def ba_mp(self, quan_he='song_song', nhan=('(P)', '(Q)', '(R)'),
               cat_tuyen=False):
         """BA MẶT PHẲNG.
-        quan_he='song_song' → 3 hbh chồng song song (Thalès H4.48); cat_tuyen=True
+        quan_he='song_song'  → 3 hbh chồng song song (Thalès H4.48); cat_tuyen=True
           thêm 2 cát tuyến xuyên 3 mp (đặt điểm A,B,C / A',B',C').
-        quan_he='cat'        → 3 mp đôi một cắt nhau kiểu 'quyển sách' (H4.23/24).
-        Trả về self. (Định lí 3 giao tuyến / Thalès — schematic.)"""
+        quan_he='cat'         → 3 mp đôi một cắt nhau kiểu 'quyển sách' (H4.23/24).
+        quan_he='hai_ss_cat'  → (P) trên + (Q) dưới SONG SONG + (R) CẮT cả hai →
+          giao tuyến a=(R)∩(P), b=(R)∩(Q), a∥b (H4.46). nhan=((P),(Q),(R)).
+        Trả về self. (Định lí 3 giao tuyến / Thalès / 2mp//-1cắt — schematic.)"""
         self._nen_luoi = False
         if quan_he == 'song_song':
             dy = 1.9
@@ -144,6 +146,31 @@ class HinhHH11CH04(HinhHH12CH02):
                     self.doan(pts[0], pts[2])   # cát tuyến thẳng
                     bx, by = self.V[pts[0]]     # nhãn d/d' ở ĐẦU DƯỚI (tránh chồng C/C')
                     self.ghi_chu(bx + (0.20 if xd > 0 else -0.30), by - 0.30, _m(nhd))
+        elif quan_he == 'hai_ss_cat':
+            # HAI mp SONG SONG (P) trên / (Q) dưới + mp (R) CẮT cả hai →
+            #   a=(R)∩(P), b=(R)∩(Q), a∥b (H4.46). nhan=((P),(Q),(R)).
+            rw, rd, dy = 2.0, 1.1, 1.9
+            def put(name, u, v, w):
+                self._diem(name, *self._p3(u, v, w), nhan=None, moc=False)
+            # (P) trên (w=dy) · (Q) dưới (w=0) — 2 hbh ngang song song
+            for lab, w, mu, tag in [(nhan[0], dy, 'blue!7', 'P'), (nhan[1], 0.0, 'blue!7', 'Q')]:
+                cn = [f'_hsc{tag}{i}' for i in range(4)]
+                for i, (u, v) in enumerate([(-rw, -rd), (rw, -rd), (rw, rd), (-rw, rd)]):
+                    put(cn[i], u, v, w)
+                self.to_mien(*cn, mau=mu)
+                for i in range(4):
+                    self.doan(cn[i], cn[(i + 1) % 4])
+                gx, gy = self.V[cn[1]]; self.ghi_chu(gx + 0.14, gy - 0.22, _m(lab))
+            # giao tuyến a⊂(P) và b⊂(Q), SONG SONG (cùng phương u), lệch v → (R) nghiêng
+            put('_a1', -rw * 0.72, 0.45, dy); put('_a2', rw * 0.72, 0.45, dy)
+            put('_b1', -rw * 0.72, -0.45, 0.0); put('_b2', rw * 0.72, -0.45, 0.0)
+            # mp (R) = hbh chứa a,b (tô nhạt, nghiêng)
+            self.to_mien('_a1', '_a2', '_b2', '_b1', mau='orange!10')
+            self.doan('_a2', '_b2'); self.doan('_b1', '_a1')
+            self.doan('_a1', '_a2', rong='vua'); self.doan('_b1', '_b2', rong='vua')   # a, b
+            ax, ay = self.V['_a2']; self.ghi_chu(ax + 0.12, ay + 0.04, _m('a'))
+            bx2, by2 = self.V['_b2']; self.ghi_chu(bx2 + 0.12, by2 - 0.02, _m('b'))
+            rx, ry = self.V['_b1']; self.ghi_chu(rx - 0.34, ry + 0.30, _m(nhan[2]))
         else:  # cat — 3 mp qua 1 trục chung (quyển sách)
             specs = [((-2.0, 0.0), 'blue!8', nhan[0]),
                      ((2.0, 0.0), 'green!9', nhan[1]),
@@ -262,14 +289,16 @@ class HinhHH11CH04(HinhHH12CH02):
     # ═══════════════════ R-2mp · HAI MẶT PHẲNG ═══════════════════
     def hai_mat_phang(self, quan_he='cat', nhan=('(P)', '(Q)'),
                       nhan_duong=('b', 'a'), goc=(0.0, 0.0),
-                      rw=2.0, rd=1.15, cao=1.9, ve_duong=True):
+                      rw=2.0, rd=1.15, cao=1.9, ve_duong=True, duong2=None):
         """HAI MẶT PHẲNG biểu diễn (schematic, Đ5.9 chế độ 2).
 
         quan_he='cat'  : (P) NGANG + (Q) NGHIÊNG, CẮT nhau theo GIAO TUYẾN b (b⊂(P)).
                          Trong (Q) có đường a SONG SONG b (minh hoạ a∥b ⟹ a∥(P)).
                          (H4.36: định lí đường thẳng song song mặt phẳng.)
         quan_he='song_song': (P) DƯỚI + (Q) TRÊN, hai mp SONG SONG (không giao),
-                         mỗi mp một đường // (b⊂(P), a⊂(Q), a∥b). (Cho B13.)
+                         mỗi mp một đường // (b⊂(P), a⊂(Q), a∥b). (H4.x B13.)
+        duong2      : (chỉ quan_he='cat') tên đường thứ 2 ⊂(Q) CẮT đường a — cho
+                         hình "(α) chứa 2 đường cắt a,b" (H4.41). None=không vẽ.
         nhan        : nhãn 2 mp, ghi ở góc.
         nhan_duong  : (tên đường trong (P)/giao tuyến, tên đường trong (Q)).
         Điểm đặt TÊN để dùng base (doan/giao/diem_giua): giao tuyến/đường-P = <b>1,<b>2;
@@ -303,20 +332,28 @@ class HinhHH11CH04(HinhHH12CH02):
             # đường a ⊂ (Q), song song b (giữa bản lề và mép trên)
             put(f'{an}1', -rw * 0.82, rd * 0.62, cao * 0.5)
             put(f'{an}2', rw * 0.82, rd * 0.62, cao * 0.5)
+            # [B13] đường thứ 2 ⊂(Q) CẮT a (H4.41: (α) chứa 2 đường cắt a,b)
+            if duong2 is not None:
+                put(f'{duong2}1', -rw * 0.5, rd * 0.18, cao * 0.14)
+                put(f'{duong2}2', rw * 0.5, rd * 1.08, cao * 0.9)
             if ve_duong:
-                self.doan(f'{bn}1', f'{bn}2', rong='vua')        # giao tuyến b
+                self.doan(f'{bn}1', f'{bn}2', rong='vua')        # giao tuyến b (hoặc c)
                 self.doan(f'{an}1', f'{an}2', mau='red', rong='vua')  # a
+                if duong2 is not None:
+                    self.doan(f'{duong2}1', f'{duong2}2', mau='red', rong='vua')  # đường 2
             # nhãn
             px, py = self.V[pn[1]]; self.ghi_chu(px + 0.14, py - 0.24, _m(nhan[0]))
             qx, qy = self.V[qbr]; self.ghi_chu(qx + 0.16, qy + 0.04, _m(nhan[1]))
             bx, by = self.V[f'{bn}2']; self.ghi_chu(bx + 0.14, by - 0.02, _m(bn))
             ax, ay = self.V[f'{an}2']; self.ghi_chu(ax + 0.14, ay + 0.02, _m(an), mau='red')
+            if duong2 is not None:
+                d2x, d2y = self.V[f'{duong2}2']; self.ghi_chu(d2x + 0.10, d2y + 0.06, _m(duong2), mau='red')
 
         elif quan_he == 'song_song':
             # (P) dưới · (Q) trên (cùng hướng, cách nhau 'cao')
-            for lab, w, mau in ((nhan[0], 0.0, 'blue!7'), (nhan[1], cao, 'blue!12')):
+            for j, (lab, w, mau) in enumerate(((nhan[0], 0.0, 'blue!7'), (nhan[1], cao, 'blue!12'))):
                 cc = [(-rw, -rd), (rw, -rd), (rw, rd), (-rw, rd)]
-                nn = [f'_{tag}{lab}{i}' for i in range(4)]
+                nn = [f'_{tag}mp{j}c{i}' for i in range(4)]   # tên nội bộ KHÔNG nhúng nhãn LaTeX
                 for i, (u, v) in enumerate(cc):
                     put(nn[i], u, v, w)
                 self.to_mien(*nn, mau=mau)

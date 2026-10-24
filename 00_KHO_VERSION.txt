@@ -1,3 +1,14 @@
+[33v] ba_mp(quan_he='hai_ss_cat') + hai_mat_phang(duong2=) — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33u].
+      Mốc kho: 2026-10-24 (nối tiếp [33u]).
+      • Cho pilot HH11_CH04_B13 "Hai mặt phẳng song song" — 2 gap hình:
+        (1) H4.46: 2 mp SONG SONG + 1 mp CẮT → 2 giao tuyến a∥b. +ba_mp(quan_he='hai_ss_cat'): (P) trên/(Q) dưới song song + (R) nghiêng cắt cả hai, vẽ a=(R)∩(P), b=(R)∩(Q).
+        (2) H4.41: mp (α) nghiêng chứa HAI đường cắt a,b + (β) + giao tuyến. +hai_mat_phang(cat, duong2='b'): đường thứ 2 ⊂(Q) cắt a.
+      • +BUGFIX hai_mat_phang(song_song) [33t]: tên điểm nội bộ nhúng nhãn LaTeX ('(\\alpha)') → TikZ hỏng (ve trả None). Sửa: tên dùng chỉ số, không nhúng nhãn. (Nhánh song_song [33t] chưa ai dùng bài thật → 0 bài cũ dính.)
+      • ba_mp chữ ký KHÔNG đổi (quan_he chuỗi); hai_mat_phang +duong2 (optional) → REGEN bản trích. Template KHÔNG đổi.
+      • ADDITIVE — cat không duong2 BYTE-IDENTICAL (regression: 5786 bytes, B12 render OK). Bài cũ 0 đổi.
+      • Nghiệm thu render-verify B13: H4.41 (2 đường cắt), H4.46 (2mp//+cắt a∥b), H4.x (2mp//), Thalès H4.48 (ba_mp song_song+cat_tuyen có sẵn), lục giác H4.50 (lang_tru_dung da_giac), hộp+4 chéo H4.52. Đạt.
+      • File đổi: hinh_hh11_ch04.py · BAN_TRICH_HAM_HH11_CH04.md (regen) · 00_KHO_VERSION.txt.
+
 [33u] mat_phang.diem_ngoai: nhan=None → điểm NGOÀI ẩn nhãn — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33t].
       Mốc kho: 2026-10-24 (nối tiếp [33t]).
       • Lộ khi QC Vòng 2 B12: vẽ ĐƯỜNG NẰM NGOÀI mặt phẳng (vị trí i/ii đường–mặt, a∥b∥c H4.37, b chéo b' H4.38) cần đặt điểm ngoài ẩn nhãn rồi doan+ghi_chu. Trước: AI workaround gọi _p3/_diem nội bộ (schematic hợp lệ nhưng chạm private).
