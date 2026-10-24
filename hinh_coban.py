@@ -927,11 +927,18 @@ class HinhCoBan:
                 mau = el[3] if len(el)>3 and isinstance(el[3],str) else None
                 net = el[4] if len(el)>4 else 'lien'
                 rong = el[5] if len(el)>5 else None
-                kieu = _kieu_net(mau,net)
-                if rong:
-                    kieu += ',' + {'manh':'thin','vua':'thick',
-                                   'dam':'very thick','rat_dam':'line width=1.6pt'}.get(rong,'')
-                L.append(f'  \\draw[{kieu}] ({C._san(A)})--({C._san(B)});')
+                _rong_kieu = (',' + {'manh':'thin','vua':'thick',
+                                     'dam':'very thick','rat_dam':'line width=1.6pt'}.get(rong,'')) if rong else ''
+                # [33s] ENGINE NÉT KHUẤT: khối bật cờ net_khuat → chia liền/đứt theo che.
+                #        Guard getattr mặc định None ⇒ bài cũ / THCS 0 đổi.
+                _kh = self._kh_doan(A, B) if hasattr(self, '_kh_doan') else None
+                if _kh:
+                    for (xa,ya),(xb,yb),_hid in _kh:
+                        _kieu = _kieu_net(mau, 'dut' if _hid else 'lien') + _rong_kieu
+                        L.append(f'  \\draw[{_kieu}] ({xa:.3f},{ya:.3f})--({xb:.3f},{yb:.3f});')
+                else:
+                    kieu = _kieu_net(mau,net) + _rong_kieu
+                    L.append(f'  \\draw[{kieu}] ({C._san(A)})--({C._san(B)});')
             elif k=='vecto':
                 # [CH04 Vectơ, 2026-10-04] mũi tên ĐÚNG A→B (không kéo dài). ',->' + >=latex (header).
                 A,B = el[1],el[2]

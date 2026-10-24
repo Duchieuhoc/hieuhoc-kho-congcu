@@ -37,6 +37,19 @@ def _m(s):
 class HinhHH11CH04(HinhHH12CH02):
     """Không gian tổng hợp lớp 11 (quan hệ song song). Nối tiếp HinhHH12CH02."""
 
+    # [33s] ENGINE NÉT KHUẤT mặc định BẬT cho chương quan hệ không gian lớp 11
+    #        (hình biểu diễn chuẩn SGK: đường bị khối che = nét đứt, máy tự tính).
+    #        Truyền net_khuat=False để tắt cho ca đặc biệt nếu cần.
+    def tu_dien(self, nhan='ABCD', dinh_tren=None, canh=3.0,
+                goc_o=(0.0, 0.0), hien_nhan=True, net_khuat=True):
+        return super().tu_dien(nhan, dinh_tren=dinh_tren, canh=canh,
+                               goc_o=goc_o, hien_nhan=hien_nhan, net_khuat=net_khuat)
+
+    def chop(self, day, dinh='S', cao=2.6, ten_day=None,
+             goc_o=(0.0, 0.0), hien_nhan=True, net_khuat=True):
+        return super().chop(day, dinh=dinh, cao=cao, ten_day=ten_day,
+                            goc_o=goc_o, hien_nhan=hien_nhan, net_khuat=net_khuat)
+
     # ─────────────── phép chiếu xiên nội bộ (khớp khối nền) ───────────────
     def _p3(self, u, v, w=0.0, goc=(0.0, 0.0)):
         """Chiếu điểm (u=ngang, v=sâu, w=cao) → màn hình. Affine cố định."""

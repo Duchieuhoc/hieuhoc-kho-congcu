@@ -1,3 +1,13 @@
+[33s] ENGINE NÉT KHUẤT TỰ TÍNH (hidden-line) cho khối đa diện — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33r].
+      Mốc kho: 2026-10-24 (nối tiếp [33r]).
+      • LỖI GỐC (thầy báo trực tiếp, QC B10/B11): nét khuất đường phụ/cevian/thiết diện KHÔNG được máy tính — chỉ cạnh KHỐI tự tính (hull). ⇒ đường bị mặt khối che vẫn vẽ LIỀN (sai hình biểu diễn). Thêm lỗi: trung_diem() vẽ ĐÈ đoạn nét liền lên cạnh khuất (AC ở H7 liền dù tu_dien đã đứt). SAI MÔ HÌNH: nét khuất là HÌNH HỌC (máy giữ, Đ5.9), không phải nghĩa người khai net='dut' tay.
+      • QUY TẮC (Giám đốc chốt 24/10): "khối đa diện — phần nào BỊ CHE là nét đứt". Hidden-line thật, máy tự tính.
+      • GIẢI PHÁP: +file MỚI hinh_netkhuat.py (engine che_khuat: đoạn 3D vs các MẶT khối lồi → chia khúc liền/đứt theo che; chiếu xiên 40°/0.5, giữ NGUYÊN vị trí màn). hinh_hh12_ch02: tu_dien/chop +param net_khuat (lưu toạ độ 3D + mặt); override trung_diem/diem_giua/giao/trong_tam/keo_dai truyền độ sâu affine; +_kh_doan. hinh_coban.ve(): hook render 'doan' chia liền/đứt (GUARD getattr mặc định None → THCS/bài cũ 0 đổi). hinh_hh11_ch04: tu_dien/chop mặc định net_khuat=True (chương quan hệ KG).
+      • ADDITIVE — cờ net_khuat MẶC ĐỊNH TẮT ở ch02/khối cũ ⇒ HH12_CH02/CH05 + THCS 0 regression (nghiệm thu: không cờ → _net_khuat=False, _kh_doan=None, hull khuất nguyên 3 cạnh). Chỉ HH11_CH04 bật.
+      • Chữ ký tu_dien/chop +net_khuat (optional) → REGEN BAN_TRICH_HAM_HH11_CH04. Template KHÔNG đổi (v10.48 giữ) → KHÔNG regen API.
+      • NGHIỆM THU đối chiếu phán quyết thầy: H7 AC+CM đứt ✓, H11 BN+BM đứt ✓, H22 NP đứt ✓ (engine KHỚP). B10 rebuild 24 ảnh + B11 23 ảnh, 4 cổng OMML=0. Chóp trơn (H10/H12/H16) KHÔNG đổi.
+      • File đổi: hinh_netkhuat.py (MỚI) · hinh_hh12_ch02.py · hinh_coban.py · hinh_hh11_ch04.py · BAN_TRICH_HAM_HH11_CH04.md (regen) · 00_KHO_VERSION.txt.
+
 [33r] hieuhoc_template.js v10.48 [SỬA NGHIÊM TRỌNG] viDuLyThuyet forward loiGiaiND/viDuLoiGiai — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33q].
       Mốc kho: 2026-10-24 (nối tiếp [33q]).
       • LỖI GỐC (lộ QC Vòng 2 B11): viDuLyThuyet(p) gọi viDu() CHỈ forward dapAn, BỎ loiGiaiND/viDuLoiGiai → mọi VÍ DỤ ② mục ② dùng loiGiaiND MẤT TOÀN BỘ lời giải (chỉ còn đề). HỒI TỐ: B10 cũng dính — ví dụ ② B10 thiếu lời giải, LỌT cả QC V2 (OB) lẫn V3 (thầy). Lỗi uy tín.
