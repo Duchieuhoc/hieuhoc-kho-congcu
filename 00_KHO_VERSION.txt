@@ -1,3 +1,11 @@
+[33u] mat_phang.diem_ngoai: nhan=None → điểm NGOÀI ẩn nhãn — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33t].
+      Mốc kho: 2026-10-24 (nối tiếp [33t]).
+      • Lộ khi QC Vòng 2 B12: vẽ ĐƯỜNG NẰM NGOÀI mặt phẳng (vị trí i/ii đường–mặt, a∥b∥c H4.37, b chéo b' H4.38) cần đặt điểm ngoài ẩn nhãn rồi doan+ghi_chu. Trước: AI workaround gọi _p3/_diem nội bộ (schematic hợp lệ nhưng chạm private).
+      • FIX: mat_phang(diem_ngoai=[(ten,u,v,cao,None),...]) — nhan=None ⇒ moc=False ⇒ điểm ẩn nhãn, dùng doan/ghi_chu vẽ đường ngoài mp bằng API công khai. 1 dòng, ADDITIVE.
+      • CHỮ KÝ mat_phang KHÔNG đổi (diem_ngoai đã có; chỉ mở rộng ngữ nghĩa nhan=None) → KHÔNG regen bản trích. Bài cũ 0 đổi (nhan!=None giữ moc=True y cũ).
+      • Nghiệm thu: render_b12 dọn về API công khai (bỏ _pt); 4 hình (h1a/h1b/vd2/vd3) PIXEL Y HỆT bản [33t]; document.xml B12 khớp tuyệt đối; 4 cổng OMML=0.
+      • File đổi: hinh_hh11_ch04.py · 00_KHO_VERSION.txt.
+
 [33t] +primitive hai_mat_phang (HAI MẶT PHẲNG biểu diễn) — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33s].
       Mốc kho: 2026-10-24 (nối tiếp [33s]).
       • Cho pilot HH11_CH04_B12 "Đường thẳng và mặt phẳng song song" — H4.36 cần HAI MẶT PHẲNG CẮT nhau theo giao tuyến (ngang (P) + nghiêng (Q), a∥b trong (Q) ⟹ a∥(P)). mat_phang cũ chỉ vẽ 1 mp ngang → thiếu.

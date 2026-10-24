@@ -111,7 +111,9 @@ class HinhHH11CH04(HinhHH12CH02):
         for it in (diem_ngoai or []):
             ten, u, v, cao = it[0], it[1], it[2], it[3]
             npos = it[4] if len(it) > 4 else 'above'
-            self._diem(ten, *self._p3(u, v, cao, goc), nhan=npos, moc=True)
+            # [33u] nhan=None → điểm NGOÀI ẩn nhãn (dùng vẽ đường ngoài mp sạch
+            #        qua doan/ghi_chu; thay workaround gọi _p3/_diem nội bộ).
+            self._diem(ten, *self._p3(u, v, cao, goc), nhan=npos, moc=(npos is not None))
         return self
 
     # ═══════════════════ R-3mp · BA MẶT PHẲNG ═══════════════════
