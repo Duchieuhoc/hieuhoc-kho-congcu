@@ -3358,6 +3358,35 @@ function minMax(ten, duoi, than) {
   return _dmath(func);
 }
 
+// A10 [33x] — LÔGARIT — toán tử log/ln ĐỨNG (OMML m:func > m:fName, giống lim/min/max → Word render roman).
+//   logarit(coSo, bieuThuc)             → log_(coSo) bieuThuc   (cơ số = chỉ số dưới, m:sSub)
+//   logarit(null, bieuThuc)             → log bieuThuc           (lôgarit thập phân — không cơ số)
+//   logarit(null, bieuThuc,{ten:'ln'})  → ln bieuThuc            (lôgarit tự nhiên)
+//   coSo & bieuThuc nhận chuỗi|số|OMML (phanSo/canBac/triTuyetDoi/ngoac…) qua _mathChild
+//     → cơ số phân số/căn ra THẬT (hết [object Object] như chiSoDuoi). Trả _dmath → lồng an toàn.
+//   createMathBase ĐÃ tự bọc m:e → KHÔNG bọc kép (bài học KHOFIX ngoac/canBac). m:sSub/m:sub/m:func/m:fName đã whitelist.
+function logarit(coSo, bieuThuc, opts = {}) {
+  const ten = opts.ten === "ln" ? "ln" : "log";
+  let fnameChild;
+  if (ten === "ln" || coSo === null || coSo === undefined || coSo === "") {
+    // log / ln trơn — không cơ số
+    fnameChild = createMathBase({ children: [new MathRunSized(ten)] });
+  } else {
+    // "log" với CƠ SỐ là chỉ số dưới (m:sSub); base "log" qua createMathBase (m:e tự có)
+    fnameChild = new BuilderElement({
+      name: "m:sSub",
+      children: [
+        createMathBase({ children: [new MathRunSized("log")] }),
+        new BuilderElement({ name: "m:sub", children: _mathChild(coSo) }),
+      ],
+    });
+  }
+  const funcName = new BuilderElement({ name: "m:fName", children: [fnameChild] });
+  const base = createMathBase({ children: _mathChild(bieuThuc) });
+  const func = new BuilderElement({ name: "m:func", children: [funcName, base] });
+  return _dmath(func);
+}
+
 /**
  * A9 [33h] — TÍCH PHÂN / NGUYÊN HÀM — toán tử n-ary ∫ (OMML <m:nary>, chr=∫ U+222B).
  *   tichPhan(than)        → ∫ than        (nguyên hàm BẤT ĐỊNH — ẩn cận: subHide/supHide=1)
@@ -3437,7 +3466,7 @@ module.exports = {
   // phần 6 — trang cuối chương
   ghiChuGiangDay, nhatKyCaiTien, bangNguonGoc, trangCuoiChuong,
   // phần 7 — công thức toán thật (OMML), hình vẽ, tiêu đề phần đề kiểm tra
-  luyThua, luyThuaUnicode, phanSo, ngoac, canBac, soGachTren, gioiHan, minMax, tichPhan, theoChan, chiSoDuoi, triTuyetDoi, xacSuatDK, kyHieuGoc, kyHieuVecto, doDaiVecto, doDaiBieuThuc, kyHieuMu, hinhVe, hangHinh, luoiHinh, hinhVeTextBox, paraCoHinhPhai, hePhuongTrinh, paraHePhuongTrinh, tuyenNghiem, paraTuyenNghiem,
+  luyThua, luyThuaUnicode, phanSo, ngoac, canBac, soGachTren, gioiHan, minMax, tichPhan, logarit, theoChan, chiSoDuoi, triTuyetDoi, xacSuatDK, kyHieuGoc, kyHieuVecto, doDaiVecto, doDaiBieuThuc, kyHieuMu, hinhVe, hangHinh, luoiHinh, hinhVeTextBox, paraCoHinhPhai, hePhuongTrinh, paraHePhuongTrinh, tuyenNghiem, paraTuyenNghiem,
   tieuDePhanI_DeKT, tieuDePhanII_DeKT, tieuDePhanIII_DeKT, tieuDePhanIV_DeKT,
   // phần 8 — thư viện pictogram an toàn chuẩn hóa (Bài 2, Bài 50)
   hinhIcon, hinhIconHang, ICON_LIBRARY,

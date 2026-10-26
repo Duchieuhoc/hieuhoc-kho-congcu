@@ -1,3 +1,10 @@
+[33x] logarit: ADD hàm logarit(coSo, bieuThuc, opts) — toán tử log/ln ĐỨNG — OB Đại số THPT, 2026-10-26; DỰNG TRÊN HEAD [33w].
+      Mốc kho: 2026-10-26 (nối tiếp [33w]).
+      • Blocker CUỐI của DS11_CH06_B20 "Hàm số lôgarit": kho thiếu hàm dựng ký hiệu log. chiSoDuoi() hỏng 2 điểm — "log" IN NGHIÊNG (thiếu <m:nor>, SGK đòi ĐỨNG) + cơ số phân số/căn ra [object Object] (chỉ nhận String) → kiemMay CHẶN XUẤT. Bài dùng cơ số phân số/vô tỉ làm cốt lõi (VD2 log₁⁄₂x, BT6.16b log₁⁄₃, SBT6.22 log√3, log₂⁄₃) → không dựng được.
+      • FIX: logarit() nhân bản khuôn minMax/gioiHan (m:func>m:fName → Word render roman/ĐỨNG), đổi m:limLow→m:sSub cho cơ số. coSo & bieuThuc qua _mathChild → nhận OMML (phanSo/canBac/triTuyetDoi/ngoac) → phân số/căn THẬT. coSo=null (hoặc opts.ten='ln') → log/ln trơn không chỉ số dưới. createMathBase tự bọc m:e → KHÔNG double-wrap (bài học KHOFIX ngoac/canBac). Trả _dmath → lồng an toàn trong phanSo/luyThua/ngoac.
+      • NGHIỆM THU 13 ca (log cơ số chữ/số/phân số 1⁄2,1⁄3,2⁄3/căn√3; log & ln trơn; đối số triTuyetDoi/ngoac/phanSo; lồng phanSo+ngoac): 0 [object Object], 0 m:e double-wrap, 0 <0/>, 0 oMath lồng, 0 toán tử nghiêng trong fName, lxml well-formed, node --check sạch. Regression gioiHan/minMax/tichPhan/canBac/luyThua/triTuyetDoi: 0.
+      • Chữ ký MỚI → regen API_REFERENCE (thêm mục logarit). module.exports +logarit.
+
 [33w] phep_chieu_ss: IMPLEMENT elip=True (đường tròn gốc → bóng ELIP) — OB Hình THPT, 2026-10-24; DỰNG TRÊN HEAD [33v].
       Mốc kho: 2026-10-24 (nối tiếp [33v]).
       • Cho pilot HH11_CH04_B14 "Phép chiếu song song": H4.56a khung cửa TRÒN (chấn song vuông) → bóng ELIP + "hình biểu diễn hình tròn là elip" (§3). Tham số elip ĐÃ KHAI từ [33o] nhưng THÂN HÀM BỎ QUA (docstring hứa nhưng no-op) — bug tiềm ẩn/bẫy AI Soạn.

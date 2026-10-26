@@ -115,6 +115,8 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 [33b] TOÁN TỬ GTLN–GTNN: min/max với CHỈ SỐ DƯỚI (limLow) — chuẩn SGK $\min\limits_{D} f(x)$. Mirror gioiHan nhưng tên toán tử truyền vào (ten='min'|'max'). duoi = tập/đoạn ([-1;1], (0;+∞), D, ℝ, 'x\\in D'), than = biểu thức hàm (f(x), y). Nhận chuỗi|số|OMML (phanSo/canBac/ngoac) cho duoi & than — _mathChild gỡ vỏ.
 ### `tichPhan(than, duoi, tren)`
 ### `theoChan(bieuThuc, duoi, tren)`
+### `logarit(coSo, bieuThuc, opts={})`
+[33x] LÔGARIT — toán tử log/ln ĐỨNG (m:func>m:fName, như lim/min/max). `coSo!=null`→ "log" có cơ số là chỉ số dưới (m:sSub); `coSo=null` (hoặc opts.ten='ln')→ log/ln trơn. coSo & bieuThuc nhận chuỗi|số|OMML (phanSo/canBac/triTuyetDoi/ngoac…) qua _mathChild → cơ số phân số/căn ra THẬT (thay chiSoDuoi vốn hỏng [object Object] + "log" nghiêng). Trả _dmath → lồng an toàn. VD: `logarit(phanSo(1,2),"x")`=log₁⁄₂x · `logarit(null,"x",{ten:'ln'})`=ln x · `logarit(null,ngoac("4-x²"),{ten:'ln'})`.
 ### `chiSoDuoi(coSo, chiSo)`
 ### `triTuyetDoi(bieuThuc)`
 ### `xacSuatDK(A, B)`
