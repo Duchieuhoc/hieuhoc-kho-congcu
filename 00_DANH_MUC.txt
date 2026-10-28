@@ -1,14 +1,12 @@
 ================================================================
-CAPNHAT_KHO__33z.zip — Chiều A (OB → Thầy upload GitHub hieuhoc-kho-congcu)
-Dựng trước hàm ký hiệu tổ hợp cho pilot DS10_CH08_B24 · 28/10/2026 · nền HEAD [33y]
+CAPNHAT_KHO__33za.zip — OB → Thầy upload GitHub · 28/10/2026 · nền HEAD [33z]
+Vá format điểm tiêu đề phần (3đ→3,0đ) — chỉ đạo Giám đốc
 ================================================================
 | File | Thao tác |
 |------|----------|
-| hieuhoc_template.js  | ĐÈ — +kyHieuToHop (C_n^k/A_n^k, m:sSubSup), v10.50 [33z]. ADDITIVE. |
-| API_REFERENCE.md     | ĐÈ — regen (+kyHieuToHop). |
-| 00_KHO_VERSION.txt   | ĐÈ — +block [33z]. |
-| 00_MUC_LUC_HAM.md    | ĐÈ — 80 hàm JS, tổng 156, +dòng. |
-| 00_DOC_TRUOC_UPLOAD__33z.md | THÊM — hướng dẫn + CẢNH BÁO chống lệch pha (file CHUNG). ĐỌC TRƯỚC. |
+| hieuhoc_template.js | ĐÈ — v10.51 [33za], +_fmtDiem + 8 chỗ tiêu đề. ADDITIVE. |
+| 00_KHO_VERSION.txt  | ĐÈ — +block [33za]. |
+| 00_DOC_TRUOC_UPLOAD__33za.md | THÊM — hướng dẫn + cảnh báo. ĐỌC TRƯỚC. |
 
-0 regression (B23 rebuild kiemMay sạch). Sau upload kho=[33z] → dựng B24.
+0 regression. KHÔNG regen API. Sau upload kho=[33za] → B25 + gop_chuong hiện "3,0đ".
 ================================================================
