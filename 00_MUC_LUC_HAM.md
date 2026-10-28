@@ -53,13 +53,14 @@
 | `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False, rut_c_tren=0.5, dai=2.2)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B | `hinh_gocdt.py` | method | — |
 | `hai_duong_cat_4goc(ten1='xx′', ten2='yy′', O='O', xoay1=10, xoay2=105, danh_so=True, nhan_dinh=True, prefix='', dai=2.2)` | Hai đường thẳng ten1, ten2 cắt nhau tại đỉnh O | `hinh_gocdt.py` | method | — |
 
-## Theo chương / khác  · 3 hàm
+## Theo chương / khác  · 4 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
 | `ban_song(alpha=35, L_rieng=2.2, L_nuoc=1.6, cao=3.0, nhan_r='\\vec{v}_r', nhan_n='\\vec{v}_n', nhan_v='\\vec{v}')` | H4.17 — thuyền sang sông: hai bờ SONG SONG (d_1 dưới, d_2 trên) + tổng hợp vận tốc | `hinh_hh10_ch04.py` | method | — |
 | `luoi_xien(goc_b=60, dai_b=1.0, m=4, n=5, luoi=True, co_so=True, nhan_a='\\vec{a}', nhan_b='\\vec{b}', vectos=None)` | H4.27/H4.28 — hệ CƠ SỞ XIÊN: a = (1;0) (ngang), b nghiêng 'goc_b'° dài 'dai_b' | `hinh_hh10_ch04.py` | method | — |
 | `mat_nghieng_luc(goc=30, day=6.0, ti_le_C=0.58, L_P=1.9, L_w=1.25, L_F=1.6, nhan_P='\\vec{P}', nhan_w='\\vec{w}', nhan_F='\\vec{F}')` | H4.18 — kéo vật lên mặt dốc nghiêng góc 'goc'° so phương ngang | `hinh_hh10_ch04.py` | method | — |
+| `so_do_cay_dem(goc, con, out='so_do_cay_dem', tra_bytes=False, scale=1.0, dx=2.2, dy=2.0, dem_la=False)` | SƠ ĐỒ HÌNH CÂY ĐẾM (quy tắc cộng/nhân) — nhãn cụm từ tiếng Việt (xelatex), đa tầng/lệch độ sâu, dem_la đánh số lá; TÁCH với so_do_cay (xác suất) | `hinh_ds10_ch08.py` | generator | DS10_CH08 |
 
 ## Hoá học  · 8 hàm
 
@@ -211,4 +212,4 @@
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 75 hàm Python (vẽ hình) + 79 hàm JS (dựng Word) = 154.
+**Thống kê:** 76 hàm Python (vẽ hình) + 79 hàm JS (dựng Word) = 155.

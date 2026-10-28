@@ -1,3 +1,10 @@
+[33y] so_do_cay_dem: ADD module hinh_ds10_ch08.py — SƠ ĐỒ HÌNH CÂY ĐẾM (Đại số tổ hợp) — OB Đại số THPT, 2026-10-28; DỰNG TRÊN HEAD [33x].
+      Mốc kho: 2026-10-28 (nối tiếp [33x]).
+      • Blocker pilot DS10_CH08_B23: kho thiếu hàm vẽ cây ĐẾM. so_do_cay() (hinh_xacsuat) là cây XÁC SUẤT — nhãn math-mode (chỉ \newunicodechar Đ/đ) → rụng dấu Việt + nuốt dấu cách ("riêu cua"→"rieucua"); chốt 2 tầng + độ sâu ĐỒNG ĐỀU → không dựng được H.8.2 (3 tầng, lệch độ sâu).
+      • FIX: module ĐỘC LẬP hinh_ds10_ch08.py (KHÔNG import hinh_core). so_do_cay_dem(goc, con, out, tra_bytes, scale, dx, dy, dem_la): nhãn TEXT tiếng Việt (xelatex + fontspec DejaVu Serif; render path riêng _render_xe — TÁCH hinh_core.render_tikz_doc pdflatex) + đệ quy đa tầng/lệch độ sâu + dem_la đánh số lá + nhãn nền trắng chống cạnh xuyên chữ (OB polish khi thẩm định vá AI Soạn).
+      • NGHIỆM THU 4 cây B23 (H.8.2 3-tầng-lệch · H.8.3 phở/bún · VD3 tàu×vé · TS2 đánh-số-lá): render sạch, 0 "not set up"/"Missing character". ADDITIVE — 0 regression (không đụng file cũ/hinh_core/template).
+      • TÁCH BẠCH với so_do_cay() (cây xác suất, nhãn cạnh) của DS10_CH09/DS12_CH06. Python module (không module.exports). Regen BAN_TRICH_HAM_DS10_CH08 + 1 dòng 00_MUC_LUC_HAM.
+
 [33x] logarit: ADD hàm logarit(coSo, bieuThuc, opts) — toán tử log/ln ĐỨNG — OB Đại số THPT, 2026-10-26; DỰNG TRÊN HEAD [33w].
       Mốc kho: 2026-10-26 (nối tiếp [33w]).
       • Blocker CUỐI của DS11_CH06_B20 "Hàm số lôgarit": kho thiếu hàm dựng ký hiệu log. chiSoDuoi() hỏng 2 điểm — "log" IN NGHIÊNG (thiếu <m:nor>, SGK đòi ĐỨNG) + cơ số phân số/căn ra [object Object] (chỉ nhận String) → kiemMay CHẶN XUẤT. Bài dùng cơ số phân số/vô tỉ làm cốt lõi (VD2 log₁⁄₂x, BT6.16b log₁⁄₃, SBT6.22 log√3, log₂⁄₃) → không dựng được.
