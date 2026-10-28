@@ -1,5 +1,5 @@
-# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.47)
-> **Tự sinh** bởi `sinh_apiref.js` từ template v10.47 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
+# API_REFERENCE.md — Tham chiếu nhanh `hieuhoc_template.js` (v10.50)
+> **Tự sinh** bởi `sinh_apiref.js` từ template v10.50 (2026-09-08) — KHÔNG sửa tay (sửa sẽ mất khi regen). Cập nhật: chạy lại `node sinh_apiref.js hieuhoc_template.js > API_REFERENCE.md`.
 > Bản rút gọn thay template đầy đủ trong Project (tiết kiệm token). AI Soạn GỌI HÀM theo chữ ký dưới; không tự viết OOXML.
 
 ### `tieuDeKhoiTracNghiem()`
@@ -10,7 +10,7 @@
 ### `tieuDePhanIII_TN(soCau, tongDiem)`
 ### `kiemMay(bufOrPath, opts = {})`
 [v9.7] CỬA KIỂM MÁY CHUNG — kiemMay(bufOrPath, opts) Code hóa checklist máy (HP Điều 61). AI Soạn (qua xuatFile) và AI QC (gọi trực tiếp trên file nhận) dùng CHUNG một cửa. Bắt cả failure IM LẶNG.
-### `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })`
+### `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })`
 
 ## patch docPr id — gọi sau Packer.toBuffer()
 ### `patchDocPrIds(docBuffer)`
@@ -114,10 +114,11 @@ Tiêu đề khối "A. PHẦN I - CHỌN ĐÁP ÁN (...)"
 ### `minMax(ten, duoi, than)`
 [33b] TOÁN TỬ GTLN–GTNN: min/max với CHỈ SỐ DƯỚI (limLow) — chuẩn SGK $\min\limits_{D} f(x)$. Mirror gioiHan nhưng tên toán tử truyền vào (ten='min'|'max'). duoi = tập/đoạn ([-1;1], (0;+∞), D, ℝ, 'x\\in D'), than = biểu thức hàm (f(x), y). Nhận chuỗi|số|OMML (phanSo/canBac/ngoac) cho duoi & than — _mathChild gỡ vỏ.
 ### `tichPhan(than, duoi, tren)`
+### `logarit(coSo, bieuThuc, opts = {})`
+A10 [33x] — LÔGARIT — toán tử log/ln ĐỨNG (OMML m:func > m:fName, giống lim/min/max → Word render roman). logarit(coSo, bieuThuc) → log_(coSo) bieuThuc (cơ số = chỉ số dưới, m:sSub) logarit(null, bieuThuc) → log bieuThuc (lôgarit thập phân — không cơ số) logarit(null, bieuThuc,{ten:'ln'}) → ln bieuThuc (lôgarit tự nhiên) coSo & bieuThuc nhận chuỗi|số|OMML (phanSo/canBac/triTuyetDoi/ngoac…) qua _mathChild → cơ số phân số/căn ra THẬT (hết [object Object] như chiSoDuoi). Trả _dmath → lồng an toàn. createMathBase ĐÃ tự bọc m:e → KHÔNG bọc kép (bài học KHOFIX ngoac/canBac). m:sSub/m:sub/m:func/m:fName đã whitelist.
 ### `theoChan(bieuThuc, duoi, tren)`
-### `logarit(coSo, bieuThuc, opts={})`
-[33x] LÔGARIT — toán tử log/ln ĐỨNG (m:func>m:fName, như lim/min/max). `coSo!=null`→ "log" có cơ số là chỉ số dưới (m:sSub); `coSo=null` (hoặc opts.ten='ln')→ log/ln trơn. coSo & bieuThuc nhận chuỗi|số|OMML (phanSo/canBac/triTuyetDoi/ngoac…) qua _mathChild → cơ số phân số/căn ra THẬT (thay chiSoDuoi vốn hỏng [object Object] + "log" nghiêng). Trả _dmath → lồng an toàn. VD: `logarit(phanSo(1,2),"x")`=log₁⁄₂x · `logarit(null,"x",{ten:'ln'})`=ln x · `logarit(null,ngoac("4-x²"),{ten:'ln'})`.
 ### `chiSoDuoi(coSo, chiSo)`
+### `kyHieuToHop(ten, duoi, tren)`
 ### `triTuyetDoi(bieuThuc)`
 ### `xacSuatDK(A, B)`
 ### `kyHieuGoc(tenGoc)`
@@ -153,4 +154,4 @@ Bản tiện dụng — trả 1 Paragraph căn giữa chứa khối tuyển nghi
 `TNR` · `C_BLACK` · `C_RED` · `C_RED_ANSWER` · `C_GRAY` · `C_WHITE` · `SZ_CONTENT` · `SZ_TITLE_BAI` · `SZ_SMALL` · `SZ_MISTAKE` · `TOTAL_W` · `THO_RONG` · `THO_VUA` · `THO_HEP` · `PAGE_SIZE` · `PAGE_MARGIN` · `xuatFile` · `ICON_LIBRARY`
 
 ---
-*Tự sinh: 86 hàm + 18 hằng/tham chiếu · template v10.47 (2026-09-08) · sinh_apiref.js.*
+*Tự sinh: 88 hàm + 18 hằng/tham chiếu · template v10.50 (2026-09-08) · sinh_apiref.js.*

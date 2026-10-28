@@ -1,14 +1,14 @@
 ================================================================
-CAPNHAT_KHO__33y.zip — Chiều A (OB → Thầy upload GitHub hieuhoc-kho-congcu)
-Đóng cửa [SỬA] pilot DS10_CH08_B23 · 28/10/2026 · dựng trên HEAD [33x]
+CAPNHAT_KHO__33z.zip — Chiều A (OB → Thầy upload GitHub hieuhoc-kho-congcu)
+Dựng trước hàm ký hiệu tổ hợp cho pilot DS10_CH08_B24 · 28/10/2026 · nền HEAD [33y]
 ================================================================
-| File | Thao tác | Ghi chú |
-|------|----------|---------|
-| hinh_ds10_ch08.py          | THÊM MỚI | Module sơ đồ hình cây ĐẾM (so_do_cay_dem). |
-| 00_KHO_VERSION.txt         | ĐÈ       | +block [33y] đầu file. |
-| BAN_TRICH_HAM_DS10_CH08.md | THÊM MỚI | Bản trích hàm (AI Soạn đọc). |
-| 00_MUC_LUC_HAM.md          | ĐÈ       | +1 dòng; nhóm "Theo chương/khác" 3→4; tổng 155. |
-| 00_DOC_TRUOC_UPLOAD__33y.md| THÊM     | Hướng dẫn + CẢNH BÁO chống lệch pha. ĐỌC TRƯỚC. |
+| File | Thao tác |
+|------|----------|
+| hieuhoc_template.js  | ĐÈ — +kyHieuToHop (C_n^k/A_n^k, m:sSubSup), v10.50 [33z]. ADDITIVE. |
+| API_REFERENCE.md     | ĐÈ — regen (+kyHieuToHop). |
+| 00_KHO_VERSION.txt   | ĐÈ — +block [33z]. |
+| 00_MUC_LUC_HAM.md    | ĐÈ — 80 hàm JS, tổng 156, +dòng. |
+| 00_DOC_TRUOC_UPLOAD__33z.md | THÊM — hướng dẫn + CẢNH BÁO chống lệch pha (file CHUNG). ĐỌC TRƯỚC. |
 
-ADDITIVE, 0 regression. Sau upload kho = [33y] → AI Soạn mở khoá soạn B23.
+0 regression (B23 rebuild kiemMay sạch). Sau upload kho=[33z] → dựng B24.
 ================================================================

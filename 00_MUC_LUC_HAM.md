@@ -127,7 +127,7 @@
 | `vanhKhan(R='R', r='r', toVanh=True, chuThich=None, nua=False, out='vanh_khan', tra_bytes=False)` | VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R), mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh) | `hinh_tron_ve.py` | method | — |
 | `vien_phan(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH VIÊN PHÂN giới hạn bởi dây AB và cung nhỏ AB (A,B trên đường tròn 'tam') | `hinh_tron_ve.py` | method | — |
 
-## Dựng Word (template JS v10.36)  · 79 hàm
+## Dựng Word (template JS v10.36)  · 80 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -207,9 +207,10 @@
 | `trangCuoiChuong({ dsLopBai, dsPhienBan })` | — | `hieuhoc_template.js` | JS | — |
 | `triTuyetDoi(bieuThuc)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 | `tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })` | Tiêu đề khối "D. TỰ LUẬN (n bài = Xđ)" | `hieuhoc_template.js` | JS | — |
+| `kyHieuToHop(ten, duoi, tren)` | KÝ HIỆU TỔ HỢP/CHỈNH HỢP C_n^k / A_n^k (chỉ số dưới n + trên k cùng căn 'ten', m:sSubSup); ten/duoi/tren nhận string/số/OMML, nestable | `hieuhoc_template.js` | JS | — |
 | `tuyenNghiem(danhSachPT)` | [31q] TUYỂN NGHIỆM — ngoặc vuông "[" (HOẶC) cho nghiệm phương trình LG Mirror hePhuongTrinh nhưng begChr="[" (tuyển: x=... HOẶC x=...). KHÁC hệ "{" (đ | `hieuhoc_template.js` | JS | — |
 | `viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai, dai = false })` | — | `hieuhoc_template.js` | JS | — |
 | `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 76 hàm Python (vẽ hình) + 79 hàm JS (dựng Word) = 155.
+**Thống kê:** 76 hàm Python (vẽ hình) + 80 hàm JS (dựng Word) = 156.

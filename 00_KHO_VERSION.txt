@@ -1,3 +1,10 @@
+[33z] kyHieuToHop: ADD hàm template kyHieuToHop(ten,duoi,tren) — KÝ HIỆU TỔ HỢP/CHỈNH HỢP C_n^k / A_n^k — OB Đại số THPT, 2026-10-28; DỰNG TRÊN HEAD [33y].
+      Mốc kho: 2026-10-28 (nối tiếp [33y]).
+      • Blocker lường trước pilot DS10_CH08_B24 (Hoán vị-Chỉnh hợp-Tổ hợp): template chưa có ký hiệu C_n^k / A_n^k (chỉ có chiSoDuoi cho P_n, luyThua cho mũ). Chỉ số DƯỚI n + chỉ số TRÊN k cùng căn → cần m:sSubSup.
+      • FIX: +kyHieuToHop(ten,duoi,tren) dùng MathSubSuperScript (m:sSubSup). ten/duoi/tren nhận string|number|OMML qua _mathChild (nestable: luyThua(kyHieuToHop('C','n','k'),2) OK). Trả _dmath/_hhComp (gỡ vỏ khi lồng phanSo/luyThua/ngoac). Mirror luyThua/chiSoDuoi. +import MathSubSuperScript. +export. hieuhoc_template.js v10.48[33r]→v10.50[33z].
+      • ADDITIVE — 0 regression (không hàm nào dùng m:sSubSup trước; B23 rebuild lại kiemMay=[]). Whitelist OMML [31za] ĐÃ CÓ sSubSup/sSubSupPr → cửa không chặn.
+      • NGHIỆM THU bài thật: C_7^4 / A_30^4 / C_n^k / A_n^k + lồng luyThua → xuatFile qua kiemMay, 5 sSubSup, 0 <0/>, 0 [object Object], 0 oMath lồng, lxml well-formed. Chữ ký MỚI → regen API_REFERENCE.
+
 [33y] so_do_cay_dem: ADD module hinh_ds10_ch08.py — SƠ ĐỒ HÌNH CÂY ĐẾM (Đại số tổ hợp) — OB Đại số THPT, 2026-10-28; DỰNG TRÊN HEAD [33x].
       Mốc kho: 2026-10-28 (nối tiếp [33x]).
       • Blocker pilot DS10_CH08_B23: kho thiếu hàm vẽ cây ĐẾM. so_do_cay() (hinh_xacsuat) là cây XÁC SUẤT — nhãn math-mode (chỉ \newunicodechar Đ/đ) → rụng dấu Việt + nuốt dấu cách ("riêu cua"→"rieucua"); chốt 2 tầng + độ sâu ĐỒNG ĐỀU → không dựng được H.8.2 (3 tầng, lệch độ sâu).
