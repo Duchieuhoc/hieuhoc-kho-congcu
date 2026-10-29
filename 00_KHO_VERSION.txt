@@ -1,3 +1,17 @@
+[33zb] CH07-vuonggoc: THÊM mạch hình QUAN HỆ VUÔNG GÓC lớp 11 (hinh_hh11_ch07.py) — OB Hình THPT, 2026-10-29; DỰNG TRÊN HEAD [33za].
+      Mốc kho: 2026-10-29 (nối tiếp [33za]).
+      • File MỚI hinh_hh11_ch07.py — class HinhHH11CH07(HinhHH11CH04). 6 primitive đặc thù chương vuông góc:
+        - o_vuong_3d          : ký hiệu ⊥ SCHEMATIC cho hình 3D (vẽ ô vuông theo hướng chiếu thật, KHÔNG ràng PHANH do=90 — vá lỗ hổng: goc_vuong cũ ràng 90° theo góc CHIẾU ⇒ DỪNG trong phối cảnh xiên).
+        - duong_vuong_goc_mp  : đường thẳng ⊥ mặt phẳng (compose trên mat_phang) — trụ cột đt⊥mp / chóp SA⊥đáy.
+        - chop_canh_ben_vuong : chóp có cạnh bên ⊥ đáy (apex thẳng trên 1 đỉnh đáy) — nét khuất tự tính.
+        - goc_nhi_dien        : góc nhị diện (2 nửa mp chung bờ + góc phẳng xOy); vuong=True → ô vuông ⊥.
+        - chop_cut_deu        : chóp cụt đều n cạnh (2 đáy đều ∥ + đường cao nối 2 tâm) — nét khuất tự tính.
+        - lang_tru_xien       : lăng trụ/hộp xiên (cạnh bên không ⊥ đáy) — nét khuất tự tính.
+      • ADDITIVE TUYỆT ĐỐI — file MỚI, 0 đụng file cũ; regression đã test: ch04/hh12_ch02 render nguyên vẹn sau khi nạp module mới.
+      • RENDER-VERIFY (xelatex+pdftoppm): cả 6 primitive + B22 (tứ diện/hộp bằng kho sẵn) — soi mắt đạt chuẩn SGK (nét khuất, ô vuông ⊥, cung nhị diện đúng).
+      • BẢN TRÍCH: BAN_TRICH_HAM_HH11_CH07.md tự sinh qua sinh_bantrich.py (hạ tầng toạ độ ẩn — Đ5.9).
+      • Căn cứ: CHUẨN PHỐI CẢNH 3D (duyệt 12/10) + DE_XUAT_VA_KHO__HH11_CH07 (Lô 1+2). Chỉ đạo Giám đốc 29/10 (push kho).
+
 [33za] fmtDiem-tieuDe: FIX format điểm tiêu đề phần (3đ→3,0đ) — OB Đại số THPT, 2026-10-28; DỰNG TRÊN HEAD [33z].
       Mốc kho: 2026-10-28 (nối tiếp [33z]).
       • Tồn lộ ở QC B23+B24 (mọi bài THPT): tieuDePhanI/II/III_TN + tieuDeKhoiTuLuan + tiêu đề đề KT (A/B/C PHẦN) + tieuDeTuLuan nội suy ${tongDiem}đ thô → nguyên 3.0/2.0 in "3đ"/"2đ" (lệch style "0,25đ"/"2,0đ").
