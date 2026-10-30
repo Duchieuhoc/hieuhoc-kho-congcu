@@ -32,6 +32,36 @@ class HinhHH11CH07(HinhHH11CH04):
         self.tikz.append(('goc_vuong', list(ten), mau))
         return self
 
+    # ══════ R-cunggoc3d · CUNG GÓC SCHEMATIC (phối cảnh) ══════
+    def cung_goc_3d(self, ten, nhan=None, mau='orange', br=6):
+        """Vẽ CUNG đánh dấu GÓC cho hình PHỐI CẢNH — KHÔNG ràng PHANH số đo.
+        Lý do: góc chiếu xiên ≠ góc thật (Đ5.9: máy giữ toạ độ, nghĩa góc do người khai);
+        so_do_goc/goc cũ ràng PHANH số đo → DỪNG trong phối cảnh. Cung vẽ theo hướng
+        CHIẾU thật của 2 cạnh. ten=(canh1, đỉnh, canh2) đã đặt. nhan: nhãn góc (vd 'α',
+        '45°' — chuỗi LaTeX, hiện cạnh cung); None → chỉ cung trơn. br: bán kính cung (mm).
+        → Góc đt–mp (chân hình chiếu), góc giữa 2 đường trong khối, góc cần tính (nhan=None
+        ở hình ĐỀ — Đ35 không lộ số)."""
+        for q in ten:
+            if q not in self.V:
+                raise ValueError(f"[cung_goc_3d] điểm '{q}' chưa đặt.")
+        # cung trơn (hien=False → renderer KHÔNG tự thêm ^circ): (ten, do, hien, mau, br)
+        self.tikz.append(('goc', list(ten), '', False, mau, br))
+        # nhãn góc tự đặt tại phân giác (tránh renderer ép '^\\circ' cho tên góc như α)
+        if nhan:
+            import math as _m
+            c1, d, c2 = ten
+            (ox, oy) = self.V[d]
+            def _u(P):
+                vx, vy = self.V[P][0]-ox, self.V[P][1]-oy
+                L = _m.hypot(vx, vy) or 1.0
+                return vx/L, vy/L
+            u1 = _u(c1); u2 = _u(c2)
+            bx, by = u1[0]+u2[0], u1[1]+u2[1]
+            L = _m.hypot(bx, by) or 1.0
+            r = br/10.0 + 0.28
+            self.ghi_chu(ox + bx/L*r, oy + by/L*r, f'${nhan}$' if not str(nhan).startswith('$') else str(nhan))
+        return self
+
     # ══════ R-dtmp · ĐƯỜNG THẲNG VUÔNG GÓC MẶT PHẲNG ══════
     def duong_vuong_goc_mp(self, S='S', H='H', K='M', nhan_mp='(P)',
                            u=0.0, v=0.0, cao=2.3, rw=2.2, rd=1.4,

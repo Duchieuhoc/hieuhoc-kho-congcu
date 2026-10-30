@@ -25,6 +25,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 | `chop_cut_deu(n=4, canh_lon=3.2, canh_nho=1.7, cao=2.4, ten_duoi=None, ten_tren=None, goc_o=(0.0, 0.0), duong_cao=False, O='O', Ou="O'")` | CHÓP CỤT ĐỀU n cạnh — đáy lớn (dưới) ∥ đáy nhỏ (trên), tâm thẳng trục; mặt bên hình thang cân; nét khuất tự tính (đỉnh sau = đứt). n=3 (tam giác đều) / 4 (tứ giác đều=vuông) / ... canh_lon>canh_nho>0, cao>0. ten_duoi/ten_tren = list tên đỉnh 2 đáy (vd ['A','B','C','D'] / ['A1',...]). duong_cao=True → nối tâm O (đáy lớn) – O' (đáy nhỏ) = đường cao + ô vuông đáy. Đ5.9: máy giữ toạ độ phối cảnh. |
 | `chum_duong(tam, danh_sach, dai=3.0)` | CHÙM ĐƯỜNG THẲNG đồng quy tại 'tam'. danh_sach=[(tên, xoay°), …] — mỗi đường qua tâm, nghiêng 'xoay'° so ngang, dài 'dai' về mỗi phía. Nhãn cạnh 1 đầu. Dùng nhiều đường cắt nhau tại 1 điểm. |
 | `chum_tia(dinh, danh_sach, cung=None)` | cung=[(canh1,canh2,số_đo), ...] để vẽ + kiểm góc giữa 2 tia. |
+| `cung_goc_3d(ten, nhan=None, mau='orange', br=6)` | Vẽ CUNG đánh dấu GÓC cho hình PHỐI CẢNH — KHÔNG ràng PHANH số đo. Lý do: góc chiếu xiên ≠ góc thật (Đ5.9: máy giữ toạ độ, nghĩa góc do người khai); so_do_goc/goc cũ ràng PHANH số đo → DỪNG trong phối cảnh. Cung vẽ theo hướng CHIẾU thật của 2 cạnh. ten=(canh1, đỉnh, canh2) đã đặt. nhan: nhãn góc (vd 'α', '45°' — chuỗi LaTeX, hiện cạnh cung); None → chỉ cung trơn. br: bán kính cung (mm). → Góc đt–mp (chân hình chiếu), góc giữa 2 đường trong khối, góc cần tính (nhan=None ở hình ĐỀ — Đ35 không lộ số). |
 | `dau_bang(A, B, so_vach=1, kiem_bang=None, kieu='thang')` | Đánh dấu CẠNH BẰNG NHAU trên đoạn A,B (đã đặt) bằng 'so_vach' vạch (1/2/3) — vạch khác nhau phân biệt các NHÓM cạnh bằng khác nhau. kieu='thang' (mặc định) = vạch vuông góc; kieu='cheo' = dấu × (chéo) — dùng khi 1 hình có NHIỀU nhóm cạnh bằng vượt quá 3 (SGK H.4.48/8.33 dùng | ‖ × ×× để tách 4+ nhóm). ⚠ Chỉ các đoạn THỰC SỰ bằng nhau mới được cùng ký hiệu — kiem_bang gom nhóm để PHANH kiểm độ dài. Chỉ đánh dấu, không tự nối đoạn. |
 | `dau_goc_bang(goc, so_gach=1, ban_kinh=7, mau='orange', do=None)` | Đánh dấu GÓC (cung + 'so_gach' gạch tick) → thể hiện GÓC TƯƠNG ỨNG / HAI GÓC BẰNG NHAU. Các góc bằng nhau (2 nửa do tia phân giác chia; hoặc góc tương ứng của 2 tam giác) dùng CÙNG so_gach. goc = (canh1, dinh, canh2) đã đặt. do: số đo thật (None → tự tính). PHANH kiểm. [Nhấc từ hinh_gocdt → base mốc 28a: ký hiệu bằng chung mạch tam giác 7→9, cạnh dau_bang/goc_vuong.] |
 | `dau_song_song(A, B, so_mui=1)` | Đánh dấu HƯỚNG SONG SONG trên đoạn A,B (đã đặt) bằng 'so_mui' mũi tên (1/2) — các đoạn cùng số mũi tên = cùng phương (ký hiệu >/>> như SGK). Chỉ đánh dấu. |
@@ -96,6 +97,6 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 68 hàm khai nghĩa (phơi) · 1 cửa render · 16 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 69 hàm khai nghĩa (phơi) · 1 cửa render · 16 hàm hạ tầng (ẩn khỏi bản phát).
 
 > **Nợ:** kho chưa khai `LOP_MODULE` → bản trích chưa ghi lớp áp dụng.

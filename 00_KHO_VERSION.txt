@@ -1,3 +1,14 @@
+[33zc] CH07-cunggoc3d: THÊM cung_goc_3d vào hinh_hh11_ch07 — OB Hình THPT, 2026-10-30; DỰNG TRÊN HEAD [33zb].
+      Mốc kho: 2026-10-30 (nối tiếp [33zb]).
+      • +method cung_goc_3d((c1,dinh,c2), nhan=None, mau='orange', br=6) — CUNG đánh dấu GÓC schematic cho hình phối cảnh.
+        KHÔNG ràng PHANH số đo (so_do_goc/goc cũ ràng số đo theo góc CHIẾU → DỪNG phối cảnh xiên). Vẽ cung theo
+        hướng chiếu thật; nhãn (α / số°) tự đặt tại phân giác (không ép ^circ). Đồng hành o_vuong_3d.
+      • Dùng: GÓC GIỮA ĐƯỜNG THẲNG & MẶT PHẲNG (B24), góc trong khối, góc cần tính (nhan=None ở hình đề — Đ35).
+      • ADDITIVE — chỉ THÊM 1 method; bài cũ 0 đổi; regression đã test (chop_canh_ben_vuong render nguyên vẹn).
+      • Render-verify: góc đt–mp (A ngoài + chân H + O + cung α) đạt chuẩn SGK.
+      • Lộ khi giao B24: phiếu ghi so_do_goc cho góc đt–mp → PHANH-fail (góc chiếu ≠ số đề). Vá cung_goc_3d thay.
+      • BẢN TRÍCH: BAN_TRICH_HAM_HH11_CH07.md tái sinh (có cung_goc_3d).
+
 [33zb] CH07-vuonggoc: THÊM mạch hình QUAN HỆ VUÔNG GÓC lớp 11 (hinh_hh11_ch07.py) — OB Hình THPT, 2026-10-29; DỰNG TRÊN HEAD [33za].
       Mốc kho: 2026-10-29 (nối tiếp [33za]).
       • File MỚI hinh_hh11_ch07.py — class HinhHH11CH07(HinhHH11CH04). 6 primitive đặc thù chương vuông góc:
