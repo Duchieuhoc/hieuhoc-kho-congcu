@@ -1,3 +1,15 @@
+[33zd] CH07-xienchan: MỞ RỘNG lang_tru_xien — GHIM đỉnh trên trên CHÂN CHIẾU + đường cao ⊥ — OB Hình THPT, 2026-10-30; DỰNG TRÊN HEAD [33zc].
+      Mốc kho: 2026-10-30 (nối tiếp [33zc]).
+      • lang_tru_xien +kwargs: apex=, chan=('td',P,Q)|('tam',)|('dinh',P)|('uv',u,v), ten_chan='H',
+        duong_cao=False, o_vuong=True, nhan_chan='below'. Khi apex&chan: 'lech' TỰ TÍNH để đỉnh-trên
+        A' thẳng TRÊN chân F → đường cao A'F vẽ ĐỨNG (⊥ đáy) + ô vuông schematic tại chân.
+      • Gỡ chẩn đoán sai của PHIẾU B27 ("R-khoi-xien CHƯA CÓ"): hàm ĐÃ CÓ từ [33zb]; thiếu là
+        bộ GHIM-chân + đường cao. Mở rộng (bậc ③ QUY_UOC_SUA_KHO), KHÔNG đẻ hàm song song.
+      • Trọng tài bài thật: H.7.95 (A' trên trung điểm AC), H.7.97 (A' trên hình chiếu H),
+        bài 7.31 (A' trên tâm O). Render-verify đạt: A'F đứng, ô vuông ⊥ tại chân.
+      • ADDITIVE — apex=None → hành vi cũ nguyên vẹn; regression lang_tru_xien cũ + chop_cut_deu PASS.
+      • BẢN TRÍCH: BAN_TRICH_HAM_HH11_CH07.md + 00_MUC_LUC_HAM.md tái sinh (có apex/chan).
+
 [33zc] CH07-cunggoc3d: THÊM cung_goc_3d vào hinh_hh11_ch07 — OB Hình THPT, 2026-10-30; DỰNG TRÊN HEAD [33zb].
       Mốc kho: 2026-10-30 (nối tiếp [33zb]).
       • +method cung_goc_3d((c1,dinh,c2), nhan=None, mau='orange', br=6) — CUNG đánh dấu GÓC schematic cho hình phối cảnh.

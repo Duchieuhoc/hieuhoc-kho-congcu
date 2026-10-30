@@ -1,12 +1,12 @@
 # 00_MUC_LUC_HAM — MỤC LỤC HÀM TỔNG (tra "đã-có-chưa" TRƯỚC khi viết)
 
 > **Tự sinh** bởi `sinh_mucluc.py` — TÁI DÙNG `sinh_bantrich.py` (Python) + `API_REFERENCE.md` (output `sinh_apiref.js`, JS). KHÔNG sửa tay.
-> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 06/10/2026.
+> Regen: `python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md`. Sinh ngày 30/10/2026.
 > **LUẬT VÀNG:** trước khi viết hàm mới → tra file này (Ctrl+F theo NGHĨA). Có hàm khớp → GỌI LẠI. Gần giống → MỞ RỘNG. Viết mới là bậc CUỐI.
 
 *Ẩn: hàm hạ tầng (`_…`) + cửa render (`ve`) theo Đ5.9. Base compose per-bài không vào kho → không liệt kê.*
 
-## Đa giác  · 21 hàm
+## Đa giác  · 22 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -31,6 +31,7 @@
 | `tam_giac_deu(A, B, Cc, canh=3.0, xoay=0, goc_o=(0.0, 0.0))` | Tam giác ĐỀU 3 đỉnh: B dưới-trái, C dưới-phải, A đỉnh trên | `hinh_dagiac.py` | method | — |
 | `tam_giac_goc(A, B, Cc, goc_B, goc_C, day=4.0, goc_o=(0.0, 0.0), an_nhan=False)` | Tam giác ABC với GÓC cho sẵn: góc tại B = goc_B, góc tại C = goc_C (góc A tự = 180 − goc_B − goc_C) | `hinh_dagiac.py` | method | — |
 | `tu_giac(A, B, Cc, D, loai=None)` | Tứ giác 4 đỉnh lồi, chiều kim đồng hồ | `hinh_dagiac.py` | method | — |
+| `tu_giac_goc(A, B, Cc, D, goc_A, goc_B, goc_C, ab=4.0, bc=3.0, chieu=-1, goc_o=(0.0, 0.0), danh_dau_goc=False)` | Tứ giác LỒI ABCD biết GÓC TRONG tại A, B, C (góc D tự = 360 − tổng) | `hinh_dagiac.py` | method | — |
 
 ## Số & Đại số (tia số/trục số/toạ độ/diện tích đại số)  · 2 hàm
 
@@ -53,14 +54,49 @@
 | `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False, rut_c_tren=0.5, dai=2.2)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B | `hinh_gocdt.py` | method | — |
 | `hai_duong_cat_4goc(ten1='xx′', ten2='yy′', O='O', xoay1=10, xoay2=105, danh_so=True, nhan_dinh=True, prefix='', dai=2.2)` | Hai đường thẳng ten1, ten2 cắt nhau tại đỉnh O | `hinh_gocdt.py` | method | — |
 
-## Theo chương / khác  · 4 hàm
+## Theo chương / khác  · 39 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
+| `ba_giao_tuyen(quan_he='dong_quy', nhan_mp=('(P)', '(Q)', '(R)'), nhan_gt=('a', 'b', 'c'), goc=(0.0, 0.0))` | ĐỊNH LÍ BA ĐƯỜNG GIAO TUYẾN (H4.23/H4.24): ba mặt phẳng (P),(Q),(R) đôi một cắt nhau theo BA giao tuyến PHÂN BIỆT c=(P)∩(Q), a=(R)∩(P), b=(R)∩(Q) | `hinh_hh11_ch04.py` | method | — |
+| `ba_mp(quan_he='song_song', nhan=('(P)', '(Q)', '(R)'), cat_tuyen=False)` | BA MẶT PHẲNG | `hinh_hh11_ch04.py` | method | — |
 | `ban_song(alpha=35, L_rieng=2.2, L_nuoc=1.6, cao=3.0, nhan_r='\\vec{v}_r', nhan_n='\\vec{v}_n', nhan_v='\\vec{v}')` | H4.17 — thuyền sang sông: hai bờ SONG SONG (d_1 dưới, d_2 trên) + tổng hợp vận tốc | `hinh_hh10_ch04.py` | method | — |
+| `chop(day, dinh='S', cao=2.6, ten_day=None, goc_o=(0.0, 0.0), hien_nhan=True, net_khuat=False)` | CHÓP đáy ĐA GIÁC bất kỳ + 1 đỉnh (apex) trên tâm đáy — phối cảnh xiên, NÉT KHUẤT tự tính theo che | `hinh_hh12_ch02.py` | method | — |
+| `chop(day, dinh='S', cao=2.6, ten_day=None, goc_o=(0.0, 0.0), hien_nhan=True, net_khuat=True)` | CHÓP đáy ĐA GIÁC bất kỳ + 1 đỉnh (apex) trên tâm đáy — phối cảnh xiên, NÉT KHUẤT tự tính theo che | `hinh_hh11_ch04.py` | method | — |
+| `chop_canh_ben_vuong(day, dinh='S', tren='A', cao=2.6, ten_day=None, goc_o=(0.0, 0.0), net_khuat=True, o_vuong=True)` | CHÓP có CẠNH BÊN ⊥ ĐÁY — apex 'dinh' nằm THẲNG TRÊN đỉnh đáy 'tren' (cạnh dinh–tren ⊥ mặt đáy; khác chop chuẩn: apex trên tâm đáy) | `hinh_hh11_ch07.py` | method | — |
+| `chop_cut_deu(n=4, canh_lon=3.2, canh_nho=1.7, cao=2.4, ten_duoi=None, ten_tren=None, goc_o=(0.0, 0.0), duong_cao=False, O='O', Ou="O'")` | CHÓP CỤT ĐỀU n cạnh — đáy lớn (dưới) ∥ đáy nhỏ (trên), tâm thẳng trục; mặt bên hình thang cân; nét khuất tự tính (đỉnh sau = đứt) | `hinh_hh11_ch07.py` | method | — |
+| `cung_goc_3d(ten, nhan=None, mau='orange', br=6)` | Vẽ CUNG đánh dấu GÓC cho hình PHỐI CẢNH — KHÔNG ràng PHANH số đo | `hinh_hh11_ch07.py` | method | — |
+| `diem(ten, x, y, z, nhan='above right', mau=None, moc=True, hop_chieu=False, net_hop='dut', vecto_OM=False, O='O')` | ĐẶT ĐIỂM M theo TỌA ĐỘ (x;y;z) — dữ liệu đề; máy chiếu ra màn hình | `hinh_hh12_oxyz.py` | method | — |
+| `diem_giua(ten, A, B, ti_le=0.5, mau=None, nhan='above')` | Điểm 'ten' nằm giữa A,B | `hinh_hh12_ch02.py` | method | — |
+| `doan_oxyz(A, B, net='lien', mau=None)` | Nối 2 điểm Oxyz đã đặt (tên) — tiện ích; = doan base. | `hinh_hh12_oxyz.py` | method | — |
+| `duong_thang(qua=None, vtcp=None, ten='\\Delta', nhan_u='\\vec u', diem_qua=None, pos=(0.0, 0.0), huong=(2.6, 1.3), ve_vtcp=True)` | ĐƯỜNG THẲNG + VTCP | `hinh_hh12_ch05.py` | method | — |
+| `duong_vuong_goc_mp(S='S', H='H', K='M', nhan_mp='(P)', u=0.0, v=0.0, cao=2.3, rw=2.2, rd=1.4, goc=(0.0, 0.0), net_SH='lien', o_vuong=True, duong=None)` | DỰNG mặt phẳng (P) + đường SH ⊥ (P) tại chân H | `hinh_hh11_ch07.py` | method | — |
+| `giao(ten, dt1, dt2, mau=None)` | ĐIỂM 'ten' = giao của 2 đường (tên) HOẶC 2 đoạn (tuple mút) | `hinh_hh12_ch02.py` | method | — |
+| `goc_nhi_dien(canh='a', O='O', x='x', y='y', goc_mo=62.0, rw=2.3, rd=1.5, xr=1.5, nhan_mat=(None, None), vuong=False, hien_cung=True, goc=(0.0, 0.0))` | GÓC NHỊ DIỆN cạnh 'canh' — 2 nửa mặt phẳng chung bờ (gấp như quyển sách) | `hinh_hh11_ch07.py` | method | — |
+| `hai_duong_thang(quan_he='cheo', ten=('\\Delta_1', '\\Delta_2'), vtcp=True)` | HAI ĐƯỜNG THẲNG schematic: 'cat' | 'song_song' | 'cheo' | 'vuong_goc' | `hinh_hh12_ch05.py` | method | — |
+| `hai_hbh_chung_canh(ten1=('A', 'B', 'C', 'D'), ten2=('A', 'B', 'E', 'F'), goc=(0.0, 0.0))` | HAI HÌNH BÌNH HÀNH chung cạnh AB, không đồng phẳng (H4.16/H4.42): hbh1 = ten1 (nằm ~ngang), hbh2 = ten2 (dựng ~đứng), chung cạnh đầu (A,B) | `hinh_hh11_ch04.py` | method | — |
+| `hai_mat_phang(quan_he='cat', nhan=('(P)', '(Q)'), nhan_duong=('b', 'a'), goc=(0.0, 0.0), rw=2.0, rd=1.15, cao=1.9, ve_duong=True, duong2=None)` | HAI MẶT PHẲNG biểu diễn (schematic, Đ5.9 chế độ 2) | `hinh_hh11_ch04.py` | method | — |
+| `hai_mat_phang(quan_he='cat', nhan=('(P)', '(Q)'), vtpt=True)` | HAI MẶT PHẲNG ở quan hệ: 'song_song' | 'vuong_goc' | 'cat' | `hinh_hh12_ch05.py` | method | — |
+| `he_truc(dai_x=3.2, dai_y=4.2, dai_z=4.2, mp_toado=False, vecto_dv=True, O='O', ten_truc=('x', 'y', 'z'))` | HỆ TRỤC Oxyz: 3 trục đôi một vuông góc (mũi tên + nhãn) + vectơ đơn vị i,j,k | `hinh_hh12_oxyz.py` | method | — |
+| `keo_dai(ten, A, B, dai=None, nhan='below right', ve_doan=True, mau=None)` | KÉO DÀI đoạn A→B QUA B: đặt 'ten' sao cho A, B, ten THẲNG HÀNG và B nằm GIỮA A và 'ten' (ten trên TIA ĐỐI của tia BA) | `hinh_hh12_ch02.py` | method | — |
+| `khoi_hop_oxyz(a, b, c, goc=(0.0, 0.0, 0.0), ten_dinh=None, nhan=None, net_khuat='dut', hien_dinh=True)` | KHỐI HỘP CHỮ NHẬT đặt trong Oxyz, cạnh song song 3 trục (nét khuất tự tính) | `hinh_hh12_oxyz.py` | method | — |
+| `khoi_tu_dinh(dinh, canh, mat=None, to_mat=None, net_khuat='dut', hien_dinh=True, mau_dinh=None)` | KHỐI TỔNG QUÁT trong Oxyz từ TOẠ ĐỘ ĐỈNH (đề cho) + CẠNH (+ MẶT) — tự tính nét khuất | `hinh_hh12_oxyz.py` | method | — |
+| `lang_tru_xien(day, cao=2.4, lech=1.1, ten_duoi=None, ten_tren=None, goc_o=(0.0, 0.0), apex=None, chan=None, ten_chan='H', duong_cao=False, o_vuong=True, nhan_chan='below')` | LĂNG TRỤ/HỘP XIÊN — đáy trên = đáy dưới TỊNH TIẾN theo cạnh bên nghiêng (lệch 'lech' theo phương ngang + lên 'cao'); cạnh bên KHÔNG ⊥ đáy | `hinh_hh11_ch07.py` | method | — |
+| `luoi_mp(nx, ny, nz=0, mau='black!18')` | LƯỚI Ô VUÔNG đơn vị trên MẶT PHẲNG (Oxy) (sàn) — nx×ny ô, để đọc toạ độ (H.2.38/2.39) | `hinh_hh12_oxyz.py` | method | — |
 | `luoi_xien(goc_b=60, dai_b=1.0, m=4, n=5, luoi=True, co_so=True, nhan_a='\\vec{a}', nhan_b='\\vec{b}', vectos=None)` | H4.27/H4.28 — hệ CƠ SỞ XIÊN: a = (1;0) (ngang), b nghiêng 'goc_b'° dài 'dai_b' | `hinh_hh10_ch04.py` | method | — |
+| `mat_cau(tam=(0.0, 0.0, 0.0), R=1.3, nhan='(S)', tam_ten='I', ban_kinh=True, diem=None, duong_kinh=None, rb_ti=0.34)` | MẶT CẦU tâm I(tam) bán kính R — coordinate-tied (toạ độ + R từ đề) | `hinh_hh12_ch05.py` | method | — |
 | `mat_nghieng_luc(goc=30, day=6.0, ti_le_C=0.58, L_P=1.9, L_w=1.25, L_F=1.6, nhan_P='\\vec{P}', nhan_w='\\vec{w}', nhan_F='\\vec{F}')` | H4.18 — kéo vật lên mặt dốc nghiêng góc 'goc'° so phương ngang | `hinh_hh10_ch04.py` | method | — |
-| `so_do_cay_dem(goc, con, out='so_do_cay_dem', tra_bytes=False, scale=1.0, dx=2.2, dy=2.0, dem_la=False)` | SƠ ĐỒ HÌNH CÂY ĐẾM (quy tắc cộng/nhân) — nhãn cụm từ tiếng Việt (xelatex), đa tầng/lệch độ sâu, dem_la đánh số lá; TÁCH với so_do_cay (xác suất) | `hinh_ds10_ch08.py` | generator | DS10_CH08 |
+| `mat_phang(nhan='(P)', goc=(0.0, 0.0), rw=2.0, rd=1.3, mau='blue!8', diem=None, duong=None, diem_ngoai=None, pre=None, to=True)` | MẶT PHẲNG schematic = hình bình hành phối cảnh nghiêng (nền cao w=0) | `hinh_hh11_ch04.py` | method | — |
+| `mat_phang(nhan='(\\alpha)', vtpt=False, nhan_n='\\vec n', cap_vtcp=False, nhan_uv=('\\vec u', '\\vec v'), diem_ngoai=False, mau='blue!9', pos=(0.0, 0.0), rw=1.75, rd=1.15)` | MẶT PHẲNG schematic = hình bình hành phối cảnh (hình bình hành trên nền z=0) | `hinh_hh12_ch05.py` | method | — |
+| `mat_phang_doan_chan(a, b, c, nhan='(\\alpha)', to=True, ten=('A', 'B', 'C'))` | MẶT PHẲNG cắt 3 trục tại A(a;0;0), B(0;b;0), C(0;0;c) — coordinate-tied | `hinh_hh12_ch05.py` | method | — |
+| `nhan_toado(ten, x, y, z, nhan='above right', mau=None, moc=True)` | Đặt + GHI NHÃN TOẠ ĐỘ cho đỉnh (khối 'thả' trong Oxyz — H.2.42) | `hinh_hh12_oxyz.py` | method | — |
+| `o_vuong_3d(ten, mau=None)` | Đánh Ô VUÔNG ⊥ cho hình PHỐI CẢNH — KHÔNG ràng PHANH do=90 | `hinh_hh11_ch07.py` | method | — |
+| `phep_chieu_ss(dinh_goc, canh, cao=2.6, phuong=(0.7, -0.35), ten_goc=None, ten_bong=None, goc=(0.0, 0.0), mp_chieu=True, nhan_mp='(\\alpha)', elip=False)` | PHÉP CHIẾU SONG SONG: hình GỐC (ở độ cao 'cao') đổ bóng xuống mặt phẳng chiếu (sàn, w=0) theo phương chiếu; vẽ tia chiếu đôi một song song | `hinh_hh11_ch04.py` | method | — |
+| `thiet_dien(*dinh, mau='cyan!16', net='lien', mau_vien=None)` | Tô + viền đa giác THIẾT DIỆN theo các đỉnh (tên) đã đặt | `hinh_hh11_ch04.py` | method | — |
+| `trong_tam(ten, *dinh, nhan='right', moc=True, mau=None)` | Đặt TRỌNG TÂM của các đỉnh đã có (trung bình toạ độ — chiếu affine nên trùng trọng tâm hình học) | `hinh_hh12_ch02.py` | method | — |
+| `trung_diem(M, A, B, mau=None)` | M = TRUNG ĐIỂM đoạn AB | `hinh_hh12_ch02.py` | method | — |
+| `tu_dien(nhan='ABCD', dinh_tren=None, canh=3.0, goc_o=(0.0, 0.0), hien_nhan=True, net_khuat=False)` | TỨ DIỆN phối cảnh chuẩn — 4 đỉnh, 6 cạnh (1 cạnh đáy sau KHUẤT nét đứt) | `hinh_hh12_ch02.py` | method | — |
+| `tu_dien(nhan='ABCD', dinh_tren=None, canh=3.0, goc_o=(0.0, 0.0), hien_nhan=True, net_khuat=True)` | TỨ DIỆN phối cảnh chuẩn — 4 đỉnh, 6 cạnh (1 cạnh đáy sau KHUẤT nét đứt) | `hinh_hh11_ch04.py` | method | — |
 
 ## Hoá học  · 8 hàm
 
@@ -94,7 +130,7 @@
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
-| `hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True, duongThang=None, diem=None, vecto=None, chuThich=None, scale=0.72, out='mp_toado', tra_bytes=False)` | MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng né | `hinh_toado.py` | generator | L6→9→THPT |
+| `hinhMatPhangToaDo(xRange=(-5, 5), yRange=(-5, 5), buoc=1, luoi=True, duongThang=None, diem=None, vecto=None, chuThich=None, cungGoc=None, chanVuongGoc=None, duongTron=None, tiepTuyen=None, doan=None, elip=None, hypebol=None, parabol=None, scale=0.72, out='mp_toado', tra_bytes=False)` | MẶT PHẲNG TOẠ ĐỘ Oxy — trục có mũi tên + nhãn O,x,y; lưới mờ tuỳ chọn; đồ thị ĐƯỜNG THẲNG (theo phương trình / 2 điểm) + ĐIỂM có nhãn + đường gióng né | `hinh_toado.py` | generator | L6→9→THPT |
 | `kim_tu_thap(hang, o_canh=0.95)` | KIM TỰ THÁP SỐ (2D) — tháp ô vuông, ô trên gối lệch nửa ô giữa 2 ô dưới | `hinh_toado.py` | method | L6→9→THPT |
 | `nhiet_ke_cot(cot, thang=(-20, 50), buoc=10, don_vi='°C', hien_muc_so=False)` | NHIET KE COT — nhieu thang do DUNG canh nhau, doc muc thuy ngan | `hinh_toado.py` | method | L6→9→THPT |
 | `tia_diem(*args, **kwargs)` | [Đại số] sơ đồ điểm trên đường thẳng — NỀN SẠCH (base hinh_coban mặc định có lưới). | `hinh_toado.py` | method | L6→9→THPT |
@@ -127,7 +163,7 @@
 | `vanhKhan(R='R', r='r', toVanh=True, chuThich=None, nua=False, out='vanh_khan', tra_bytes=False)` | VÀNH KHĂN — hai đường tròn đồng tâm tâm O; bán kính ngoài R, trong r (r<R), mỗi bán kính có nhãn ĐẶT GIỮA đoạn; vành giữa tô nhạt (toVanh) | `hinh_tron_ve.py` | method | — |
 | `vien_phan(tam, A, B, mau='cyan!18', vien=True)` | TÔ MÀU HÌNH VIÊN PHÂN giới hạn bởi dây AB và cung nhỏ AB (A,B trên đường tròn 'tam') | `hinh_tron_ve.py` | method | — |
 
-## Dựng Word (template JS v10.36)  · 80 hàm
+## Dựng Word (template JS v10.50)  · 87 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -139,14 +175,15 @@
 | `bangSoLieu(duLieu, opts = {})` | [28r] 14b. BẢNG SỐ LIỆU TỔNG QUÁT — dữ liệu thực tiễn nhiều cột (dân số, tuổi thọ, hồ, hành tinh, khí hiếm, pizza…) — DS7 dày bảng. GỐC: kho chỉ có bả | `hieuhoc_template.js` | JS | — |
 | `canBac(soHang, bacCan = 2)` | — | `hieuhoc_template.js` | JS | — |
 | `cauTracNghiem({ soCau, cauHoi, dapAn, thamChieu })` | 13. BẢNG ĐÁP ÁN PHẦN I (2 hàng × N cột, N=8 THCS, N=12 THPT) [v9.4] Đáp án Phần I trình bày MỘT DÒNG: "Câu 1 - B; Câu 2 - A; ..." (thay dạng bảng 2 hà | `hieuhoc_template.js` | JS | — |
-| `chiSoDuoi(coSo, chiSo)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
+| `chiSoDuoi(coSo, chiSo)` | — | `hieuhoc_template.js` | JS | — |
 | `danDungSai(soCau, moTa)` | [28m] DÒNG DẪN Đúng/Sai — nhãn "Câu N." TỰ ĐẬM (khớp nhãn câu template tự sinh ở cauTracNghiem/traLoiNgan/tự luận). GỐC: dòng dẫn Đ/S trước đây dựng T | `hieuhoc_template.js` | JS | — |
 | `dangToanDayDu({ saiLamArr, soDang, ghiNhoArr, viDuLoiGiai, loiGiaiND, tenDang, ma, viDuDeBai, viDuCacCau, viDuThamChieu, viDuCoHinh, viDuHinhBenPhai, viDuHinhBenTrai, phanTich, soBai, mucDo, deBai, cacCau, thamChieu })` | Gộp toàn bộ 1 Dạng toán thành 1 lệnh gọi duy nhất — khuyến khích AI Soạn dùng hàm này | `hieuhoc_template.js` | JS | — |
-| `doDaiVecto(ten)` | 22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3  | `hieuhoc_template.js` | JS | — |
+| `doDaiBieuThuc(bieuThuc)` | [33k] Chỉ đạo: vá backlog |a⃗ ± b⃗| (mảng A5 luyện thi _LT). Độ dài của BIỂU THỨC vectơ bất kỳ (nhiều vectơ + toán tử), KHÁC doDaiVecto(1 tên). doDaiB | `hieuhoc_template.js` | JS | — |
+| `doDaiVecto(ten)` | [33k] Chỉ đạo: vá backlog |a⃗ ± b⃗| (mảng A5 luyện thi _LT). Độ dài của BIỂU THỨC vectơ bất kỳ (nhiều vectơ + toán tử), KHÁC doDaiVecto(1 tên). doDaiB | `hieuhoc_template.js` | JS | — |
 | `footerTPC()` | Footer riêng cho tờ phân chương (khác footer file bài học — không số trang) | `hieuhoc_template.js` | JS | — |
 | `ghiChuGiangDay({ dsLopBai } = {})` | — | `hieuhoc_template.js` | JS | — |
 | `ghiNhoNhanh(dongArr, opts = {})` | — | `hieuhoc_template.js` | JS | — |
-| `gioiHan(duoi, than)` | — | `hieuhoc_template.js` | JS | — |
+| `gioiHan(duoi, than)` | [33b] TOÁN TỬ GTLN–GTNN: min/max với CHỈ SỐ DƯỚI (limLow) — chuẩn SGK $\min\limits_{D} f(x)$. Mirror gioiHan nhưng tên toán tử truyền vào (ten='min'|' | `hieuhoc_template.js` | JS | — |
 | `hangHinh(items, { caoCm = 3.2, _tuLuoi = false } = {})` | 22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3  | `hieuhoc_template.js` | JS | — |
 | `hePhuongTrinh(danhSachPT)` | [31q] TUYỂN NGHIỆM — ngoặc vuông "[" (HOẶC) cho nghiệm phương trình LG Mirror hePhuongTrinh nhưng begChr="[" (tuyển: x=... HOẶC x=...). KHÁC hệ "{" (đ | `hieuhoc_template.js` | JS | — |
 | `headerDeKiemTra({ tenDe, phut })` | 16. HEADER ĐỀ KIỂM TRA (tên đề + thời gian + bảng Họ tên/Điểm/NX) | `hieuhoc_template.js` | JS | — |
@@ -159,13 +196,17 @@
 | `hinhVeTextBox({ imageBuffer, rongCm = 6, tiLeGoc, chuThich })` | — | `hieuhoc_template.js` | JS | — |
 | `kiemMay(bufOrPath, opts = {})` | [v9.7] CỬA KIỂM MÁY CHUNG — kiemMay(bufOrPath, opts) Code hóa checklist máy (HP Điều 61). AI Soạn (qua xuatFile) và AI QC (gọi trực tiếp trên file nhậ | `hieuhoc_template.js` | JS | — |
 | `kyHieuGoc(tenGoc)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
-| `kyHieuVecto(ten)` | — | `hieuhoc_template.js` | JS | — |
+| `kyHieuMu(ten)` | 22a2. HÀNG NHIỀU HÌNH (mục ② lý thuyết) — [v10.4] HP Điều 18.1 (sửa 12/08): 2–3 hình NHỎ liên quan xếp 1 hàng, cả cụm căn giữa. `hangHinh`: 1 hàng ≤3  | `hieuhoc_template.js` | JS | — |
+| `kyHieuToHop(ten, duoi, tren)` | — | `hieuhoc_template.js` | JS | — |
+| `kyHieuVecto(ten)` | [33k] Chỉ đạo: vá backlog |a⃗ ± b⃗| (mảng A5 luyện thi _LT). Độ dài của BIỂU THỨC vectơ bất kỳ (nhiều vectơ + toán tử), KHÁC doDaiVecto(1 tên). doDaiB | `hieuhoc_template.js` | JS | — |
 | `layoutCauHoi(cauArr, opts = {})` | — | `hieuhoc_template.js` | JS | — |
+| `logarit(coSo, bieuThuc, opts = {})` | A10 [33x] — LÔGARIT — toán tử log/ln ĐỨNG (OMML m:func > m:fName, giống lim/min/max → Word render roman). logarit(coSo, bieuThuc) → log_(coSo) bieuThu | `hieuhoc_template.js` | JS | — |
 | `loiGiai(noiDung)` | — | `hieuhoc_template.js` | JS | — |
 | `luoiHinh(items, opts = {})` | — | `hieuhoc_template.js` | JS | — |
 | `luyThua(coSo, soMu)` | — | `hieuhoc_template.js` | JS | — |
 | `luyThuaUnicode(coSo, soMu)` | — | `hieuhoc_template.js` | JS | — |
 | `lyThuyet(text)` | 4. LÝ THUYẾT — 1 dòng nội dung thường | `hieuhoc_template.js` | JS | — |
+| `minMax(ten, duoi, than)` | [33b] TOÁN TỬ GTLN–GTNN: min/max với CHỈ SỐ DƯỚI (limLow) — chuẩn SGK $\min\limits_{D} f(x)$. Mirror gioiHan nhưng tên toán tử truyền vào (ten='min'|' | `hieuhoc_template.js` | JS | — |
 | `mucTieu({ kienThuc, kyNang, nangLuc })` | 3. TIÊU ĐỀ MỤC LÝ THUYẾT (dùng trong Kiến thức trọng tâm) | `hieuhoc_template.js` | JS | — |
 | `ngoac(bieuThuc)` | — | `hieuhoc_template.js` | JS | — |
 | `nhanDang(yArr)` | [A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài tập mẫu" và "Lời giải"; gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). | `hieuhoc_template.js` | JS | — |
@@ -181,11 +222,13 @@
 | `phuongPhapGiai(buocArr, opts = {})` | [A.1-mới] Phân tích và hướng dẫn giải — mục A.1 giữa "Bài tập mẫu" và "Lời giải"; gánh nhận dạng + định hướng cách giải (THAY "Phương pháp chung" cũ). | `hieuhoc_template.js` | JS | — |
 | `run(text, opts = {})` | A5 v9.0: hỗ trợ keepLines / keepNext — chống nhảy trang 2 tầng keepLines: giữ toàn bộ đoạn trên cùng 1 trang (không bị bẻ đôi giữa chừng) keepNext: gi | `hieuhoc_template.js` | JS | — |
 | `saiLamThuongGap(loiArr, opts = {})` | — | `hieuhoc_template.js` | JS | — |
-| `soGachTren(noiDung)` | — | `hieuhoc_template.js` | JS | — |
+| `soGachTren(noiDung)` | [33b] TOÁN TỬ GTLN–GTNN: min/max với CHỈ SỐ DƯỚI (limLow) — chuẩn SGK $\min\limits_{D} f(x)$. Mirror gioiHan nhưng tên toán tử truyền vào (ten='min'|' | `hieuhoc_template.js` | JS | — |
 | `tabLine(parts, opts = {})` | A2 v9.0: tab stop thật chia đều 18.4cm (TOTAL_W tính theo twip = 10432 ≈ 18.4cm) Thay khoảng trắng giả bằng \t + tabStops chuẩn — căn đều bất kể font/ | `hieuhoc_template.js` | JS | — |
 | `taoTaiLieu({ soBai, tenBai, lop, children })` | [v9.4] CỬA VÀO DUY NHẤT — dựng sẵn TOÀN BỘ KHUNG (khổ giấy, lề, header, footer). AI Soạn CHỈ đưa nội dung + thông tin bài; hàm lo hết định dạng trang. | `hieuhoc_template.js` | JS | — |
 | `taoTaiLieuDeKT({ tenDe, children, headerFooter = true })` | taoTaiLieuDeKT — dựng Document cho ĐỀ KIỂM TRA (thay khối Document tự dựng trong build script mỗi đề). Header/footer đề KT tự gắn (ĐÚNG MẪU headerFoot | `hieuhoc_template.js` | JS | — |
 | `tenBaiHoc({ soBai, tenBai, tiet, sgkTr, sbtTr, ma })` | 3. TIÊU ĐỀ MỤC LÝ THUYẾT (dùng trong Kiến thức trọng tâm) | `hieuhoc_template.js` | JS | — |
+| `theoChan(bieuThuc, duoi, tren)` | — | `hieuhoc_template.js` | JS | — |
+| `tichPhan(than, duoi, tren)` | A10 [33x] — LÔGARIT — toán tử log/ln ĐỨNG (OMML m:func > m:fName, giống lim/min/max → Word render roman). logarit(coSo, bieuThuc) → log_(coSo) bieuThu | `hieuhoc_template.js` | JS | — |
 | `tieuDeDang({ soDang, tenDang, ma })` | — | `hieuhoc_template.js` | JS | — |
 | `tieuDeKhoiTracNghiem()` | [V12.1 · 29y] SƠ ĐỒ KHỐI ④ BÀI TẬP VỀ NHÀ — 2 KHỐI: A. Trắc nghiệm (Phần I/II/III con) + B. Tự luận Thay sơ đồ PHẲNG cũ A/B/C/D (tieuDePhanI/II/III +  | `hieuhoc_template.js` | JS | — |
 | `tieuDeKhoiTuLuan(soBai, tongDiem)` | — | `hieuhoc_template.js` | JS | — |
@@ -207,10 +250,10 @@
 | `trangCuoiChuong({ dsLopBai, dsPhienBan })` | — | `hieuhoc_template.js` | JS | — |
 | `triTuyetDoi(bieuThuc)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 | `tuLuanBTVN({ soBai, mucDo, diem, deBai, cacCau, thamChieu, loiGiaiND, coHinh, hinhBenTrai, hinhBenPhai, anLoiGiai })` | Tiêu đề khối "D. TỰ LUẬN (n bài = Xđ)" | `hieuhoc_template.js` | JS | — |
-| `kyHieuToHop(ten, duoi, tren)` | KÝ HIỆU TỔ HỢP/CHỈNH HỢP C_n^k / A_n^k (chỉ số dưới n + trên k cùng căn 'ten', m:sSubSup); ten/duoi/tren nhận string/số/OMML, nestable | `hieuhoc_template.js` | JS | — |
 | `tuyenNghiem(danhSachPT)` | [31q] TUYỂN NGHIỆM — ngoặc vuông "[" (HOẶC) cho nghiệm phương trình LG Mirror hePhuongTrinh nhưng begChr="[" (tuyển: x=... HOẶC x=...). KHÁC hệ "{" (đ | `hieuhoc_template.js` | JS | — |
 | `viDu({ nhan = "Ví dụ", deBai, cacCau, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenTrai, hinhBenPhai, dai = false })` | — | `hieuhoc_template.js` | JS | — |
-| `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
+| `viDuLyThuyet({ cacCau, deBai, nhan, dapAn, loiGiaiND, viDuLoiGiai, thamChieu, coHinh, hinhBenPhai, hinhBenTrai })` | — | `hieuhoc_template.js` | JS | — |
+| `xacSuatDK(A, B)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 76 hàm Python (vẽ hình) + 80 hàm JS (dựng Word) = 156.
+**Thống kê:** 112 hàm Python (vẽ hình) + 87 hàm JS (dựng Word) = 199.

@@ -1,12 +1,15 @@
 ================================================================
-CAPNHAT_KHO__33za.zip — OB → Thầy upload GitHub · 28/10/2026 · nền HEAD [33z]
-Vá format điểm tiêu đề phần (3đ→3,0đ) — chỉ đạo Giám đốc
+00_DANH_MUC — CAPNHAT_KHO__HH11_CH07__33zd
 ================================================================
-| File | Thao tác |
-|------|----------|
-| hieuhoc_template.js | ĐÈ — v10.51 [33za], +_fmtDiem + 8 chỗ tiêu đề. ADDITIVE. |
-| 00_KHO_VERSION.txt  | ĐÈ — +block [33za]. |
-| 00_DOC_TRUOC_UPLOAD__33za.md | THÊM — hướng dẫn + cảnh báo. ĐỌC TRƯỚC. |
+Gói: CAPNHAT_KHO__HH11_CH07__33zd.zip
+Chiều: A (OB → thầy → PUSH GitHub hieuhoc-kho-congcu)
+Mốc: [33zc] → [33zd] · 2026-10-30
 
-0 regression. KHÔNG regen API. Sau upload kho=[33za] → B25 + gop_chuong hiện "3,0đ".
+[NỘI DUNG — đều là file ĐÃ SỬA, upload ĐÈ]
+  hinh_hh11_ch07.py ................ SỬA  (lang_tru_xien +ghim chân + đường cao ⊥)
+  00_KHO_VERSION.txt ............... SỬA  (bump [33zd] + CHANGELOG)
+  BAN_TRICH_HAM_HH11_CH07.md ....... SỬA  (tái sinh — có apex/chan)
+  00_MUC_LUC_HAM.md ................ SỬA  (tái sinh)
+  00_DOC_TRUOC_UPLOAD__33zd.md ..... HƯỚNG DẪN push (đọc trước)
+  00_DANH_MUC.txt .................. (file này)
 ================================================================

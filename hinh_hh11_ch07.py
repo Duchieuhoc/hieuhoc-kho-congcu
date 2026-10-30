@@ -266,11 +266,26 @@ class HinhHH11CH07(HinhHH11CH04):
 
     # ══════ R-khoi-xien · LĂNG TRỤ XIÊN (cạnh bên KHÔNG ⊥ đáy) ══════
     def lang_tru_xien(self, day, cao=2.4, lech=1.1, ten_duoi=None,
-                      ten_tren=None, goc_o=(0.0, 0.0)):
+                      ten_tren=None, goc_o=(0.0, 0.0),
+                      apex=None, chan=None, ten_chan='H',
+                      duong_cao=False, o_vuong=True, nhan_chan='below'):
         """LĂNG TRỤ/HỘP XIÊN — đáy trên = đáy dưới TỊNH TIẾN theo cạnh bên nghiêng
         (lệch 'lech' theo phương ngang + lên 'cao'); cạnh bên KHÔNG ⊥ đáy. day như
         chop ('chu_nhat'/'binh_hanh'/'tam_giac'/'da_giac'). ten_duoi/ten_tren = tên
-        đỉnh 2 đáy. Nét khuất tự tính (đỉnh sau đứt). Đ5.9: máy giữ toạ độ."""
+        đỉnh 2 đáy. Nét khuất tự tính (đỉnh sau đứt). Đ5.9: máy giữ toạ độ.
+
+        GHIM ĐỈNH TRÊN TRÊN CHÂN CHIẾU (mở rộng [33zd], cho H.7.95/7.97/bài 7.31):
+          apex = tên đỉnh ĐÁY DƯỚI (vd 'A') mà đỉnh-trên tương ứng (A') sẽ nằm THẲNG
+                 TRÊN một điểm chân F trong mặt đáy → đường cao A'F ⊥ đáy (vẽ đứng).
+          chan = SPEC điểm chân F (máy tự tính toạ độ — Đ5.9):
+                 ('td', P, Q)  → F = trung điểm cạnh PQ của đáy   (H.7.95: ('td','A','C'))
+                 ('tam',)      → F = tâm (trọng tâm) đáy           (bài 7.31)
+                 ('dinh', P)   → F ≡ đỉnh đáy P
+                 ('uv', u, v)  → F = điểm (u,v) trong mặt đáy      (H.7.97: chân hình chiếu)
+          Khi (apex & chan): 'lech' TỰ TÍNH để A' thẳng trên F (bỏ qua 'lech' truyền vào).
+          ten_chan = tên điểm chân (mặc định 'H'); 'dinh' dùng luôn tên đỉnh P.
+          duong_cao=True → vẽ đoạn A'–F nét đứt (đường cao) + o_vuong=True đánh ô vuông ⊥ tại F.
+          ADDITIVE: apex=None → hành vi cũ nguyên vẹn (0 regression)."""
         import math
         from hinh_khoihop import _day_polygon, _hull
         pts, _ = _day_polygon(day)
@@ -280,11 +295,34 @@ class HinhHH11CH07(HinhHH11CH04):
         self._nen_luoi = False
         ox, oy = goc_o
         fb = [self._p3(u, v, 0.0, (ox, oy)) for (u, v) in pts]
+        dn = list(ten_duoi) if ten_duoi else [f'_xd{i}' for i in range(n)]
+        tn = list(ten_tren) if ten_tren else [f'_xt{i}' for i in range(n)]
+
+        # ── [33zd] GHIM đỉnh trên trên chân chiếu → tự tính 'lech' cho A'F đứng ──
+        F = None; k_apex = None
+        if apex is not None and chan is not None:
+            if not ten_duoi:
+                raise ValueError("[lang_tru_xien] apex/chan cần ten_duoi để định danh đỉnh.")
+            if apex not in dn:
+                raise ValueError(f"[lang_tru_xien] apex '{apex}' không có trong ten_duoi.")
+            k_apex = dn.index(apex)
+            kind = chan[0]
+            if kind == 'td':
+                i, j = dn.index(chan[1]), dn.index(chan[2])
+                F = ((fb[i][0] + fb[j][0]) / 2.0, (fb[i][1] + fb[j][1]) / 2.0)
+            elif kind == 'tam':
+                F = (sum(p[0] for p in fb) / n, sum(p[1] for p in fb) / n)
+            elif kind == 'dinh':
+                F = fb[dn.index(chan[1])]; ten_chan = chan[1]
+            elif kind == 'uv':
+                F = self._p3(chan[1], chan[2], 0.0, (ox, oy))
+            else:
+                raise ValueError(f"[lang_tru_xien] chan loại '{kind}' chưa hỗ trợ.")
+            lech = F[0] - fb[k_apex][0]            # A' thẳng trên F (cùng hoành độ màn)
+
         ft = [self._p3(u + lech, v, cao, (ox, oy)) for (u, v) in pts]   # tịnh tiến xiên
         hull = _hull(fb + ft)
         hid = [(round(fb[i][0], 4), round(fb[i][1], 4)) not in hull for i in range(n)]
-        dn = list(ten_duoi) if ten_duoi else [f'_xd{i}' for i in range(n)]
-        tn = list(ten_tren) if ten_tren else [f'_xt{i}' for i in range(n)]
         gx = sum(p[0] for p in fb) / n; gy = sum(p[1] for p in fb) / n
         gxt = sum(p[0] for p in ft) / n; gyt = sum(p[1] for p in ft) / n
         for i in range(n):
@@ -300,4 +338,15 @@ class HinhHH11CH07(HinhHH11CH04):
             self.doan(dn[i], dn[j], net=('dut' if (hid[i] or hid[j]) else 'lien'))
             self.doan(tn[i], tn[j])
             self.doan(dn[i], tn[i], net=('dut' if hid[i] else 'lien'))
+
+        # ── [33zd] đường cao A'–F (đứng) + ô vuông ⊥ tại chân ──
+        if F is not None and duong_cao:
+            apex_top = tn[k_apex]
+            if chan[0] != 'dinh':
+                self._diem(ten_chan, F[0], F[1], nhan=nhan_chan, moc=True)
+            # điểm đáy làm hướng cạnh đáy tại chân (đánh ô vuông ⊥)
+            ref = chan[2] if chan[0] == 'td' else dn[(k_apex + 1) % n]
+            self.doan(apex_top, ten_chan, net='dut')
+            if o_vuong and ten_chan != ref:
+                self.o_vuong_3d((apex_top, ten_chan, ref))
         return self
