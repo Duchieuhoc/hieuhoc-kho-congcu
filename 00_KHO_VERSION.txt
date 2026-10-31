@@ -1,3 +1,12 @@
+[33ze] CH09-daoham: +4 builder hình ĐẠO HÀM vào hinh_ds11_giaitich.py — OB Đại số THPT, 2026-10-31; DỰNG TRÊN HEAD [33zd]. ADDITIVE (0 đụng 3 hàm cũ Ch5; regression huu_ti+tamgiac+bacthang PASS).
+      Mốc kho: 2026-10-31 (nối tiếp [33zd]).
+      • tia_so_vi_tri    — tia số vị trí vật 2 mốc + ngoặc đo s(t)-s(t0) (H9.2). Schematic, nhãn tiếng Việt.
+      • do_thi_cat_tiep  — cung lồi f(x)=-0.18(x-1)(x-7) + cát tuyến PQ (đỏ) + tiếp tuyến tại P (teal) + gióng đứt (H9.3). Máy tự tính tọa độ/hệ số góc.
+      • cau_parabol_doc  — sơ đồ cầu parabol y=H(1-(x/W)^2) + tiếp tuyến tại P + cung góc dốc + chiều cao '?' (H9.5).
+      • parabol_2tiep    — parabol úp y=-k·x(x-q) + 2 tiếp tuyến nét đứt L1 tại P(O), L2 tại Q (H9.6b, BT 9.5). Không lộ số (Đ41.4).
+      • +_render_doc_vn: xelatex (fontspec Latin Modern → đủ dấu tiếng Việt) → lùi pdflatex. hieuhoc_template.js KHÔNG đổi (vẫn [33za]).
+      • Render-verify 4 hình ĐẠT (soi mắt): sạch, đúng ý nghĩa SGK, VERIFY Đ5.9. BẢN TRÍCH: BAN_TRICH_HAM_DS11_CH05__giaitich.md tái sinh (gồm 7 hàm).
+      • Trọng tài bài thật: PILOT DS11_CH09_B31 (H9.2/9.3/9.5/9.6b). Mốc kho yêu cầu B31 = [33ze].
 [33zd] CH07-xienchan: MỞ RỘNG lang_tru_xien — GHIM đỉnh trên trên CHÂN CHIẾU + đường cao ⊥ — OB Hình THPT, 2026-10-30; DỰNG TRÊN HEAD [33zc].
       Mốc kho: 2026-10-30 (nối tiếp [33zc]).
       • lang_tru_xien +kwargs: apex=, chan=('td',P,Q)|('tam',)|('dinh',P)|('uv',u,v), ten_chan='H',

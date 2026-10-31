@@ -1,15 +1,19 @@
-================================================================
-00_DANH_MUC — CAPNHAT_KHO__HH11_CH07__33zd
-================================================================
-Gói: CAPNHAT_KHO__HH11_CH07__33zd.zip
-Chiều: A (OB → thầy → PUSH GitHub hieuhoc-kho-congcu)
-Mốc: [33zc] → [33zd] · 2026-10-30
+=== 00_DANH_MUC.txt — CAPNHAT_KHO__2026-10-31.zip ===
+Chiều: OB Đại số THPT -> Giám đốc PUSH GitHub (hieuhoc-kho-congcu), Commit changes.
+Mốc mới: [33ze] (2026-10-31) — nối tiếp [33zd]. ADDITIVE.
+Lý do: PILOT DS11_CH09_B31 lộ 4 builder hình đạo hàm còn thiếu -> OB vá.
 
-[NỘI DUNG — đều là file ĐÃ SỬA, upload ĐÈ]
-  hinh_hh11_ch07.py ................ SỬA  (lang_tru_xien +ghim chân + đường cao ⊥)
-  00_KHO_VERSION.txt ............... SỬA  (bump [33zd] + CHANGELOG)
-  BAN_TRICH_HAM_HH11_CH07.md ....... SỬA  (tái sinh — có apex/chan)
-  00_MUC_LUC_HAM.md ................ SỬA  (tái sinh)
-  00_DOC_TRUOC_UPLOAD__33zd.md ..... HƯỚNG DẪN push (đọc trước)
-  00_DANH_MUC.txt .................. (file này)
-================================================================
+| File | Trạng thái | Ghi chú |
+|------|-----------|---------|
+| hinh_ds11_giaitich.py              | SỬA (ADDITIVE) | +4 hàm (tia_so_vi_tri · do_thi_cat_tiep · cau_parabol_doc · parabol_2tiep) + _render_doc_vn. 3 hàm cũ Ch5 NGUYÊN (regression PASS). |
+| BAN_TRICH_HAM_DS11_CH05__giaitich.md | SỬA (tái sinh) | Nay liệt kê 7 hàm (gồm 4 mới). Sinh bằng sinh_bantrich.py. |
+| 00_KHO_VERSION.txt                 | SỬA (bump)     | +khối [33ze] ở đầu. Mốc kho: 2026-10-31. |
+| 00_DANH_MUC.txt                    | MỚI            | File này. |
+
+KHÔNG đổi: hieuhoc_template.js (vẫn [33za] v10.51) · mọi file hình/môn khác.
+
+--- VIỆC GIÁM ĐỐC ---
+1. Push 3 file (hinh_ds11_giaitich.py + BAN_TRICH + 00_KHO_VERSION.txt) đè lên GitHub repo hieuhoc-kho-congcu (web: Upload files -> Commit changes).
+2. Sau push: HEAD kho = [33ze]. AI Soạn re-bụng kho (BUNG_KHO) là có 4 builder.
+3. Thả lại gói GIAO_AISOAN__DS11_CH09_B31__L1 (bản refresh kèm trong phiên này) sang chat AI Soạn.
+=== HẾT ===

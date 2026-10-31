@@ -1,34 +1,26 @@
-# BẢN TRÍCH HÀM — ĐỒ THỊ GIẢI TÍCH THPT (hinh_ds11_giaitich.py) · kho [32c]
-> import: `import hinh_ds11_giaitich as GT`. Render → PNG; build.js nhúng `H.hinhVe({ imageBuffer: buf })` (gọi hàm `tra_bytes=True`).
-> Triết lý Đ5.9: hàm nhận NGHĨA (hệ số hàm / tọa độ), máy TỰ dựng đường cong (pgfplots) + TỰ tính chân đường cao — KHÔNG nhập điểm tay, KHÔNG nhúng ảnh SGK (Đ42).
-> Chương: DS11_CH05 (Giới hạn. Hàm số liên tục). Nghiệm thu pilot DS11_CH05_B16.
+# BẢN TRÍCH HÀM VẼ — DS11_CH05 — tự sinh từ `hinh_ds11_giaitich.py` (module one-shot)
 
-## do_thi_huu_ti(dang='doi_truc', a=1.0, b=2.0, c=1.0, k=1.0, xmin=None, xmax=None, ymin=None, ymax=None, nhan=None, hien_tc=True, out='dothi_ht', tra_bytes=False, scale=1.0)   ← [32b]
-Đồ thị HÀM HỮU TỈ (pgfplots — đường cong sinh thẳng từ công thức; PHANH nội sinh: tiệm cận phải nằm trong khung). 2 nhánh tách qua tiệm cận đứng (không nối nét qua tiệm cận).
-- **`dang='doi_truc'`** — $y = a + \dfrac{b}{x-c}$ (hyperbol dời trục). **TCĐ** $x=c$ (đứt dọc), **TCN** $y=a$ (đứt ngang). *(H5.4: `a=1,b=2,c=1`.)*
-- **`dang='nghich_dao_binh'`** — $y = \dfrac{k}{(x-c)^2}$. $k>0$: hàm chữ "U", 2 nhánh trên $Ox$. **TCĐ** $x=c$, **TCN** $y=0$. *(H5.6: `k=1,c=0` → $y=1/x^2$.)*
-- `xmin/xmax/ymin/ymax`: khung. None → tự chọn (doi_truc: $x\in[-8;8]$, $y\in[a-4;a+4]$; nghich_dao_binh: $x\in[-3.2;3.2]$, $y\in[-0.6;5]$). Chỉnh khi cần ôm trọn.
-- `hien_tc`: vẽ tiệm cận đứt nét + nhãn `$x=c$`/`$y=a$`. **Tự BỎ nét trùng trục** khi `c=0` (TCĐ ≡ $Oy$) hoặc TCN `=0` (≡ $Ox$) — tránh vẽ đè trục.
-- `nhan`: nhãn đường cong (None → tự sinh từ công thức). Truyền tường minh nếu muốn dạng khác.
-- Trọng tài: SGK H5.4 ($y=1+\frac{2}{x-1}$), H5.6 ($y=1/x^2$). Dùng được cho mọi $y=a+\frac{b}{x-c}$ và $y=k/(x-c)^2$ khác (VD/BT giới hạn tại vô cực / vô cực tại một điểm).
+> **Cho AI Soạn.** Module BIỂU ĐỒ/MÔ HÌNH (thống kê & xác suất): mỗi hàm nhận DỮ LIỆU THẬT → trả PNG. Không theo lối builder `h.ve()` của hình học.
+> Tự sinh bằng introspect `hinh_ds11_giaitich.py` qua `sinh_bantrich.py` — KHÔNG sửa tay.
+> Sinh ngày 30/10/2026. AI Soạn khai nghĩa theo phiếu → GỌI HÀM → nhúng qua `H.hinhVe`.
 
-## tam_giac_toa_do(a=2.0, ten_O='O', ten_A='A', ten_B='B', ten_H='H', nhan_h='h', hien_duong_cao=True, out='tamgiac_td', tra_bytes=False, scale=1.0)   ← [32b]
-TAM GIÁC VUÔNG $OAB$ TRÊN HỆ $Oxy$ (H5.5). $O=(0;0)$, $A=(a;0)$ trên $Ox$, $B=(0;1)$ trên $Oy$; **vuông tại $O$** (ô vuông nhỏ, Đ41.1 — KHÔNG ghi 90°). Đường cao $OH$ hạ từ $O$ ⟂ $AB$, chân $H$ trên $AB$, nhãn độ dài $OH=h$.
-- `a`: hoành độ điểm $A$ (số > 0). **Máy TỰ tính** $H=\left(\dfrac{a}{1+a^2};\dfrac{a^2}{1+a^2}\right)$ = chân đường vuông góc; **PHANH** kiểm $H\in AB$ và $OH\perp AB$ trước khi vẽ. *(Độ dài nét là HIỂN THỊ, không phải dữ liệu — $a$ chỉ để dựng hình minh họa; đáp số "$h$ theo $a$" HS tự tính.)*
-- `ten_O/A/B/H`, `nhan_h`: nhãn (mặc định $O,A,B,H,h$).
-- `hien_duong_cao`: vẽ $OH$ (đứt đỏ) + chân $H$ + ô vuông góc tại $H$ + nhãn $h$. Đặt `False` nếu chỉ cần tam giác trần.
-- Trọng tài: SGK H5.5 (Vận dụng tr.115 — giới hạn khi $a\to0$ / $a\to+\infty$).
+Import trong script bài: `import hinh_ds11_giaitich as BD`.
+Gọi hàm với `tra_bytes=True` để lấy PNG buffer: `buf = BD.bieu_do_cot(...); H.hinhVe({ imageBuffer: buf })`.
 
 ---
-> **Lưu ý đặt hình (HP Đ18):** đồ thị hữu tỉ khổ ~11×9cm > 8cm → căn giữa dòng riêng (Đ18 ngoại lệ 1). Tam giác tọa độ nhỏ → neo phải mặc định. Hình minh họa lý thuyết (HĐ/Vận dụng) — KHÔNG lộ đáp án (Đ35): H5.5 chỉ dựng setup (tam giác + đường cao), KHÔNG ghi giá trị $h$ hay kết quả giới hạn.
-> **Nghiệm thu [32b]:** 3 hình render + soi mắt QC V2 ĐẠT (đúng toán · trong chương · khớp khai nghĩa NGUON B16 · không lộ đáp án). pdflatex + pgfplots, dpi=200.
 
-## do_thi_bac_thang(doan, diem_dac=None, diem_ho=None, nhan_ham=None, xmax=1.3, ymax=1.4, xticks=(0.5,1.0), yticks=(0.5,1.0), xtick_lab=None, ytick_lab=None, out='bacthang', tra_bytes=False, scale=3.4)   ← [32c]
-ĐỒ THỊ HÀM BẬC THANG / PIECEWISE-LINEAR (H5.7 — minh họa **liên tục / gián đoạn**). Đường thẳng từng đoạn + điểm đặc/hở (tikz). Máy chỉ VẼ nghĩa đã khai (Đ5.9) — KHÔNG tự sinh điểm.
-- `doan`: list đoạn thẳng `[[(x1,y1),(x2,y2)], ...]` — vẽ đường LIỀN trong từng đoạn (không nối giữa 2 đoạn → thể hiện bước nhảy).
-- `diem_dac`: `[(x,y),...]` chấm ĐẶC (điểm **thuộc** đồ thị). `diem_ho`: `[(x,y),...]` vòng tròn RỖNG nền trắng (điểm **không thuộc** — điểm hở gián đoạn).
-- `xticks/yticks`: mốc chia trục (số); `xtick_lab/ytick_lab`: nhãn tường minh (None → tự format phân số đẹp, vd 0.5 → $\frac12$).
-- `nhan_ham`: nhãn hàm góc trên-phải (vd `r'y=f(x)'`). Khổ nhỏ (~4.5cm) → dùng `H.hangHinh([...])` ghép 2 đồ thị cạnh nhau (Đ18.1).
-- **H5.7:** f liền (gọi: `doan=[[(0,0),(0.5,1)],[(0.5,1),(1,1)]], diem_dac=[(0,0),(1,1)], nhan_ham='y=f(x)'`) · g gián đoạn (`doan=[[(0,0),(0.5,0.5)],[(0.5,1),(1,1)]], diem_dac=[(0,0),(0.5,0.5),(1,1)], diem_ho=[(0.5,1)], nhan_ham='y=g(x)'`).
-- Trọng tài: SGK H5.7 (HĐ2 — hàm liên tục/gián đoạn tại $x=\frac12$). **Dùng cho mọi đồ thị bậc thang / hàm nhiều công thức khác.**
-- **🔴 H5.8 (IVT — đường cong cắt Ox) KHÔNG dựng ở [32c]:** IVT không bắt buộc (SGV) → KHO⑦; khi cần dựng bài IVT thì báo OB bổ hàm.
+## HÀM BIỂU ĐỒ / MÔ HÌNH — AI Soạn GỌI theo phiếu
+
+| Hàm (chữ ký) | Dùng khi |
+|---|---|
+| `cau_parabol_doc(W=4.0, H=2.0, xP=-2.2, nhan_nua='200 m', nhan_doc='Độ dốc tại $P$', nhan_cao='?', ten_A='A', ten_B='B', ten_P='P', out='cau_parabol', tra_bytes=False, scale=1.0)` | SƠ ĐỒ CẦU VƯỢT PARABOL (H9.5). Cung úp y=H(1-(x/W)^2) nối A(-W,0),B(W,0), đỉnh (0,H). P trên cung (xP<0) + tiếp tuyến tại P + cung góc 'độ dốc tại P'; mũi tên đứt '?' từ đỉnh xuống nền; nhịp 2 nửa 'nhan_nua'. Máy TỰ tính hệ số góc tiếp tuyến (Đ5.9). |
+| `do_thi_bac_thang(doan, diem_dac=None, diem_ho=None, nhan_ham=None, xmax=1.3, ymax=1.4, xticks=(0.5, 1.0), yticks=(0.5, 1.0), xtick_lab=None, ytick_lab=None, out='bacthang', tra_bytes=False, scale=3.4)` | ĐỒ THỊ HÀM BẬC THANG / PIECEWISE-LINEAR (H5.7 — minh họa liên tục/gián đoạn). doan: list đoạn thẳng [[(x1,y1),(x2,y2)], ...] — vẽ đường LIỀN từng đoạn (nối trong 1 đoạn). diem_dac: [(x,y),...] chấm ĐẶC (điểm thuộc đồ thị). diem_ho: [(x,y),...] vòng RỖNG (điểm KHÔNG thuộc — điểm hở). xticks/yticks: mốc chia (số); xtick_lab/ytick_lab: nhãn tường minh (None → tự format phân số đẹp). nhan_ham: nhãn hàm (vd r'y=f(x)') góc trên-phải. Máy chỉ VẼ nghĩa đã khai — không tự sinh điểm. |
+| `do_thi_cat_tiep(x0=2.2, xQ=5.0, nhan_P='P', nhan_Q='Q', nhan_tt='t', nhan_ham='y=f(x)', out='cat_tiep', tra_bytes=False, scale=1.0)` | CÁT TUYẾN & TIẾP TUYẾN (H9.3 — khi Q→P, cát tuyến PQ dần về tiếp tuyến tại P). Cung lồi cố định f(x)=-0.18(x-1)(x-7) (máy TỰ tính tọa độ + hệ số góc, Đ5.9). P(x0;f(x0)), Q(xQ;f(xQ)), 1<x0<xQ<7. Cát tuyến (đỏ) qua P,Q + tiếp tuyến (teal) tại P hệ số góc f'(x0). Gióng đứt x0,x→Ox và f(x0)→Oy. Hình LÝ THUYẾT. |
+| `do_thi_huu_ti(dang='doi_truc', a=1.0, b=2.0, c=1.0, k=1.0, xmin=None, xmax=None, ymin=None, ymax=None, nhan=None, hien_tc=True, out='dothi_ht', tra_bytes=False, scale=1.0)` | ĐỒ THỊ HÀM HỮU TỈ (pgfplots — máy dựng đường cong thẳng từ công thức; PHANH nội sinh). dang='doi_truc' : y = a + b/(x-c). Hyperbol dời trục. TCĐ x=c (đứng), TCN y=a (ngang). 2 nhánh. (H5.4: a=1,b=2,c=1) dang='nghich_dao_binh' : y = k/(x-c)^2. Hàm chữ U (k>0: 2 nhánh trên Ox). TCĐ x=c, TCN y=0. (H5.6: k=1,c=0) hien_tc: vẽ tiệm cận đứt nét (bỏ nét trùng trục khi c=0 / a=0). nhan: nhãn đường cong (None→tự sinh). |
+| `parabol_2tiep(k=0.22, q=3.6, net='dut', nhan=('L_1', 'L_2'), ten_P='P', ten_Q='Q', out='parabol_2tiep', tra_bytes=False, scale=1.0)` | PARABOL ÚP + 2 TIẾP TUYẾN NÉT ĐỨT (H9.6b — đường ray tàu lượn, dùng ở BT 9.5). y=-k x(x-q): P=O=(0;0), Q=(q;0) trên Ox. L1 tiếp tuyến tại P (dốc lên), L2 tại Q (dốc xuống) — nét đứt. Máy TỰ tính hệ số góc tiếp tuyến (Đ5.9). Hình đề KHÔNG lộ kết quả: không ghi giá trị số (Đ41.4). |
+| `tam_giac_toa_do(a=2.0, ten_O='O', ten_A='A', ten_B='B', ten_H='H', nhan_h='h', hien_duong_cao=True, out='tamgiac_td', tra_bytes=False, scale=1.0)` | TAM GIÁC VUÔNG OAB TRÊN HỆ Oxy (H5.5). O=(0;0), A=(a;0) trên Ox, B=(0;1) trên Oy; vuông tại O. Đường cao OH hạ từ O vuông góc xuống cạnh huyền AB, chân H trên AB, OH=h. Máy TỰ tính H = foot(O, AB) từ tọa độ (Đ5.9 VERIFY); PHANH: kiểm OH⊥AB + H∈AB. |
+| `tia_so_vi_tri(ten_truc='s', xP=3.0, xQ=7.0, L=9.0, nhan_P='Vị trí tại $t_0$', nhan_Q='Vị trí tại $t$', nhan_doan='$s(t)-s(t_0)$', out='tia_vitri', tra_bytes=False, scale=1.0)` | TIA SỐ VỊ TRÍ VẬT (H9.2 — minh họa quãng đường đi được từ t0 đến t). Trục ngang 'ten_truc', gốc 0, KHÔNG vạch số. 2 mốc vị trí (0<xP<xQ<L, danh nghĩa không tỉ lệ) có mũi tên chỉ XUỐNG + nhãn trên; đoạn [P;Q] đo bằng ngoặc dưới (nhan_doan). Schematic — không dữ liệu số để PHANH; chỉ kiểm thứ tự mốc. |
+
+---
+
+**Thống kê:** 7 hàm biểu đồ/mô hình (one-shot, phơi cho AI Soạn).
