@@ -1,3 +1,11 @@
+[33zi] hinh_bpt.py MỚI — MIỀN NGHIỆM BPT/hệ BPT bậc nhất hai ẩn (DS10_CH02). OB Đại số THPT, 2026-11-01; DỰNG TRÊN HEAD [33zh].
+      Generator ĐỘC LẬP (mẫu hinh_tap_hop [31d]): 1 hàm mien_nghiem(bpt, diem, khung, nhan_duong, ten_mien) — TikZ + render xelatex (đủ dấu Việt).
+      Tính đa giác miền nghiệm bằng clip Sutherland-Hodgman (giấu toạ độ vẽ, Đ5.9: AI Soạn khai BPT (a,b,c,dau) + điểm, máy tự tính miền + vẽ).
+      Bờ nét LIỀN (<=,>=) / nét ĐỨT (<,>); trục Oxy đen mũi tên; miền tô xanh; đỉnh + nhãn. Bờ trùng trục (x=0/y=0) không đè đỏ.
+      ADDITIVE: file MỚI, 0 đụng kho cũ (template v10.52 [33zh] KHÔNG đổi → KHÔNG regen API). +BAN_TRICH_HAM_DS10_CH02__bpt.md.
+      Nghiệm thu pilot B03: 3 ca render thật ĐẠT — nửa mp (H.2.2), tam giác nét đứt (H.2.4), tứ giác tối ưu (H.2.7).
+      Mốc kho: 2026-11-01 (nối tiếp [33zh]).
+
 [33zh] KHOFIX-logarit: hieuhoc_template.js v10.51[33za]→v10.52[33zh] — logarit() ln/log trơn sinh <m:fName><m:e> (sai chuẩn OOXML → Word chối mở; pandoc nuốt tên hàm). FIX: fName nhận MathRunSized trực tiếp (bỏ createMathBase). +CỬA kiemMay bắt m:e-trong-fName. Lộ OB QC DS11_CH09_B32(4)+B33(7) — Đại số THPT, 2026-10-31; DỰNG TRÊN HEAD [33zg]=3fee6ba. CHỈ SỬA-LỖI+GUARD, chữ ký 0 đổi → KHÔNG regen API. Nghiệm thu: B32/B33 rebuild fName sạch, cửa chặn bản lỗi, MỞ WORD THẬT ĐẠT (Giám đốc xác nhận).
 [33zg] CH09-daoham-ONTAP: +1 builder đọc đồ thị (doc_ba_do_thi H9.10) vào hinh_ds11_giaitich.py — OB Đại số THPT, 2026-10-31; DỰNG TRÊN HEAD [33zf]. ADDITIVE (0 đụng 6 hàm trước; regression 6 builder PASS).
       Mốc kho: 2026-10-31 (nối tiếp [33zf]).
