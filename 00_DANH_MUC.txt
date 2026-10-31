@@ -1,19 +1,18 @@
-=== 00_DANH_MUC.txt — CAPNHAT_KHO__2026-10-31.zip ===
-Chiều: OB Đại số THPT -> Giám đốc PUSH GitHub (hieuhoc-kho-congcu), Commit changes.
-Mốc mới: [33ze] (2026-10-31) — nối tiếp [33zd]. ADDITIVE.
-Lý do: PILOT DS11_CH09_B31 lộ 4 builder hình đạo hàm còn thiếu -> OB vá.
+=== 00_DANH_MUC.txt — CAPNHAT_KHO__2026-10-31b.zip ===
+Chiều: OB ĐS THPT -> Giám đốc PUSH GitHub (hieuhoc-kho-congcu), Commit changes.
+Mốc mới: [33zf] (2026-10-31) — nối tiếp [33ze] (3bf3e78). ADDITIVE.
+Lý do: chuẩn bị B32/B33 — thêm 2 builder sơ đồ đạo hàm (H9.7, H9.8).
 
 | File | Trạng thái | Ghi chú |
 |------|-----------|---------|
-| hinh_ds11_giaitich.py              | SỬA (ADDITIVE) | +4 hàm (tia_so_vi_tri · do_thi_cat_tiep · cau_parabol_doc · parabol_2tiep) + _render_doc_vn. 3 hàm cũ Ch5 NGUYÊN (regression PASS). |
-| BAN_TRICH_HAM_DS11_CH05__giaitich.md | SỬA (tái sinh) | Nay liệt kê 7 hàm (gồm 4 mới). Sinh bằng sinh_bantrich.py. |
-| 00_KHO_VERSION.txt                 | SỬA (bump)     | +khối [33ze] ở đầu. Mốc kho: 2026-10-31. |
+| hinh_ds11_giaitich.py              | SỬA (ADDITIVE) | +2 hàm: vat_phong_dung (H9.7) · so_do_ham_hop (H9.8). 7 hàm trước NGUYÊN (regression PASS). |
+| BAN_TRICH_HAM_DS11_CH05__giaitich.md | SỬA (tái sinh) | Nay 9 hàm (3 Ch5 + 4 [33ze] + 2 [33zf]). |
+| 00_KHO_VERSION.txt                 | SỬA (bump)     | +khối [33zf] đầu. |
 | 00_DANH_MUC.txt                    | MỚI            | File này. |
 
-KHÔNG đổi: hieuhoc_template.js (vẫn [33za] v10.51) · mọi file hình/môn khác.
+KHÔNG đổi: hieuhoc_template.js (vẫn [33za] v10.51).
 
 --- VIỆC GIÁM ĐỐC ---
-1. Push 3 file (hinh_ds11_giaitich.py + BAN_TRICH + 00_KHO_VERSION.txt) đè lên GitHub repo hieuhoc-kho-congcu (web: Upload files -> Commit changes).
-2. Sau push: HEAD kho = [33ze]. AI Soạn re-bụng kho (BUNG_KHO) là có 4 builder.
-3. Thả lại gói GIAO_AISOAN__DS11_CH09_B31__L1 (bản refresh kèm trong phiên này) sang chat AI Soạn.
+1. Push 3 file (hinh_ds11_giaitich.py + BAN_TRICH + 00_KHO_VERSION.txt) đè GitHub -> HEAD [33zf].
+2. Sau push: thả 2 gói GIAO_AISOAN (B32, B33) sang chat AI Soạn (tuần tự — B32 trước để soi 2 builder mới, B33 sau).
 === HẾT ===

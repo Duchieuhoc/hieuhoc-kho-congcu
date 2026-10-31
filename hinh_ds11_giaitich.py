@@ -354,3 +354,66 @@ def parabol_2tiep(k=0.22, q=3.6, net='dut', nhan=('L_1', 'L_2'),
          r'\fill (%g,0) circle (1.6pt) node[below right,font=\footnotesize]{$%s$};' % (q, ten_Q),
          r'\end{tikzpicture}']
     return _render_doc_vn('\n'.join(b), out, tra_bytes, dpi=200)
+
+
+# ═══════════════════════════════════════════════════════════════════
+# [33zf] 2026-10-31 — Ông Bụt Đại số THPT · chuẩn bị B32/B33 (DS11_CH09).
+#   +2 builder sơ đồ — ADDITIVE (nối [33ze]). Render qua _render_doc_vn (xelatex).
+#     • vat_phong_dung   — sơ đồ vật phóng thẳng đứng: nền đất + v0 ↑ + độ cao h (H9.7, B32).
+#     • so_do_ham_hop    — sơ đồ hàm hợp 3 trục x→u=g(x)→y=f(u), cung f∘g (H9.8, B32).
+#   (H9.9 con lắc lò xo B33: ảnh trang trí → KHÔNG dựng, nêu bằng lời — Đ42.)
+# ═══════════════════════════════════════════════════════════════════
+
+def vat_phong_dung(nhan_v0=r'$\vec{v}_0$', nhan_h='h', ten_O='O', H=3.0,
+                   out='vat_phong', tra_bytes=False, scale=1.0):
+    """SƠ ĐỒ VẬT PHÓNG THẲNG ĐỨNG (H9.7, B32 mở đầu). Nền đất gạch chéo tại O; quả bóng ở
+       mặt đất + mũi tên vận tốc ban đầu v0 hướng LÊN; trục độ cao h (đứt) thẳng đứng bên
+       cạnh; nhãn h. Schematic (không dữ liệu số). KHÔNG nhúng ảnh SGK (Đ42)."""
+    b = [r'\begin{tikzpicture}[scale=%g,>={Stealth[length=2.6mm]}]' % scale,
+         # nền đất (đường ngang) + gạch chéo
+         r'\draw[line width=0.9pt] (-1.4,0) -- (1.6,0);',
+         r'\foreach \i in {-1.2,-0.9,...,1.4} {\draw[line width=0.5pt] (\i,0) -- (\i-0.22,-0.22);}',
+         r'\node[below right,font=\footnotesize] at (0.04,-0.04) {$%s$};' % ten_O,
+         # trục độ cao h (đứt) thẳng đứng bên phải
+         r'\draw[->,dashed,line width=0.8pt] (1.15,0) -- (1.15,%g);' % H,
+         r'\node[right,font=\footnotesize] at (1.2,%g) {$%s$};' % (H * 0.82, nhan_h),
+         # đường phóng (đứt) từ O lên
+         r'\draw[gray,dashed,line width=0.6pt] (0,0) -- (0,%g);' % H,
+         # quả bóng ở mặt đất
+         r'\fill[blue!70] (0,0.12) circle (3pt);',
+         # mũi tên v0 hướng lên
+         r'\draw[->,red,line width=1pt] (0,0.26) -- (0,1.25);',
+         r'\node[red,right,font=\footnotesize] at (0.08,0.95) {%s};' % nhan_v0,
+         r'\end{tikzpicture}']
+    return _render_doc_vn('\n'.join(b), out, tra_bytes, dpi=200)
+
+
+def so_do_ham_hop(nhan_g='g', nhan_f='f', nhan_x='x', nhan_u='u=g(x)',
+                  nhan_y='y=f(u)', nhan_hop='y=f(g(x))', out='ham_hop',
+                  tra_bytes=False, scale=1.0):
+    """SƠ ĐỒ HÀM SỐ HỢP (H9.8, B32). Ba trục ngang xếp dọc: trục 1 có điểm x; cung g đưa
+       sang trục 2 điểm u=g(x); cung f đưa sang trục 3 điểm y=f(u); cung đứt dưới y=f(g(x))
+       nối thẳng trục 1 → trục 3. Minh họa khái niệm f∘g. Schematic."""
+    y1, y2, y3 = 2.4, 1.2, 0.0
+    xA, xB, xC = 0.0, 2.6, 5.2          # gốc trái 3 trục
+    px = xA + 1.0                        # điểm x trên trục 1
+    pu = xB + 1.3                        # điểm u trên trục 2
+    py = xC + 1.3                        # điểm y trên trục 3
+    b = [r'\begin{tikzpicture}[scale=%g,>={Stealth[length=2.2mm]}]' % scale,
+         # 3 trục ngang
+         r'\draw[->,line width=0.8pt] (%g,%g) -- (%g,%g);' % (xA - 0.3, y1, xA + 2.3, y1),
+         r'\draw[->,line width=0.8pt] (%g,%g) -- (%g,%g);' % (xB - 0.3, y2, xB + 2.3, y2),
+         r'\draw[->,line width=0.8pt] (%g,%g) -- (%g,%g);' % (xC - 0.3, y3, xC + 2.3, y3),
+         # điểm x, u, y
+         r'\fill (%g,%g) circle (1.5pt) node[below,font=\footnotesize]{$%s$};' % (px, y1, nhan_x),
+         r'\fill (%g,%g) circle (1.5pt) node[below,font=\footnotesize]{$%s$};' % (pu, y2, nhan_u),
+         r'\fill (%g,%g) circle (1.5pt) node[below,font=\footnotesize]{$%s$};' % (py, y3, nhan_y),
+         # cung g: x -> u
+         r'\draw[->,red,line width=0.9pt] (%g,%g) to[bend left=28] node[above,font=\footnotesize,red]{$%s$} (%g,%g);' % (px, y1 + 0.05, nhan_g, pu, y2 + 0.08),
+         # cung f: u -> y
+         r'\draw[->,red,line width=0.9pt] (%g,%g) to[bend left=28] node[above,font=\footnotesize,red]{$%s$} (%g,%g);' % (pu, y2 + 0.05, nhan_f, py, y3 + 0.08),
+         # cung đứt hàm hợp: x -> y (nhãn tách riêng, đặt dưới cho khỏi đè đường)
+         r'\draw[->,blue,dashed,line width=0.8pt] (%g,%g) to[bend right=30] (%g,%g);' % (px, y1 - 0.1, py, y3 - 0.12),
+         r'\node[blue,font=\footnotesize] at (%g,%g) {$%s$};' % ((px + py) / 2.0 - 0.3, y3 - 0.85, nhan_hop),
+         r'\end{tikzpicture}']
+    return _render_doc_vn('\n'.join(b), out, tra_bytes, dpi=200)

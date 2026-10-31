@@ -1,3 +1,9 @@
+[33zf] CH09-daoham-B32/33: +2 builder sơ đồ (vat_phong_dung H9.7 · so_do_ham_hop H9.8) vào hinh_ds11_giaitich.py — OB Đại số THPT, 2026-10-31; DỰNG TRÊN HEAD [33ze]. ADDITIVE (0 đụng 6 hàm trước; regression tia_so_vi_tri+do_thi_cat_tiep PASS).
+      Mốc kho: 2026-10-31 (nối tiếp [33ze]).
+      • vat_phong_dung — sơ đồ vật phóng thẳng đứng: nền đất gạch chéo + quả bóng + v0 ↑ + trục độ cao h đứt (B32 mở đầu, H9.7).
+      • so_do_ham_hop  — 3 trục ngang x→u=g(x)→y=f(u), cung g/f (đỏ) + cung đứt f∘g (xanh) (B32 §3, H9.8). Nhãn tiếng Việt/toán qua xelatex.
+      • H9.9 con lắc lò xo (B33 mở đầu): ảnh TRANG TRÍ → KHÔNG dựng (Đ42, nêu bằng lời). Quyết định OB 31/10.
+      • Render-verify 2 hình ĐẠT (soi mắt). BẢN TRÍCH: BAN_TRICH_HAM_DS11_CH05__giaitich.md tái sinh (9 hàm). Mốc kho yêu cầu B32/B33 = [33zf]. template.js vẫn [33za].
 [33ze] CH09-daoham: +4 builder hình ĐẠO HÀM vào hinh_ds11_giaitich.py — OB Đại số THPT, 2026-10-31; DỰNG TRÊN HEAD [33zd]. ADDITIVE (0 đụng 3 hàm cũ Ch5; regression huu_ti+tamgiac+bacthang PASS).
       Mốc kho: 2026-10-31 (nối tiếp [33zd]).
       • tia_so_vi_tri    — tia số vị trí vật 2 mốc + ngoặc đo s(t)-s(t0) (H9.2). Schematic, nhãn tiếng Việt.
