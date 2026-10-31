@@ -1,3 +1,8 @@
+[33zg] CH09-daoham-ONTAP: +1 builder đọc đồ thị (doc_ba_do_thi H9.10) vào hinh_ds11_giaitich.py — OB Đại số THPT, 2026-10-31; DỰNG TRÊN HEAD [33zf]. ADDITIVE (0 đụng 6 hàm trước; regression 6 builder PASS).
+      Mốc kho: 2026-10-31 (nối tiếp [33zf]).
+      • doc_ba_do_thi — 3 đồ thị vị trí–vận tốc–gia tốc trên 1 hệ Oty (SGK 9.32, H9.10). MÁY TỰ TÍNH Đấ0.9: vận tốc bướu v=t²(6-t)², vị trí=nguyên hàm (chữ S), gia tốc=v' (lên rồi lao xuống). Nhãn TRUNG TÍNH a/b/c (KHÔNG lộ đáp, đ0.41.4).
+      • Render-verify ĐẠT (soi mắt: a lên-xuống, b bướu, c chữ S — đúng quan hệ đạo hàm). BẢN TRÍCH: BAN_TRICH_HAM_DS11_CH05__giaitich.md tái sinh (10 hàm). Mốc kho yêu cầu ONTAP CH09 = [33zg]. template.js vẫn [33za].
+
 [33zf] CH09-daoham-B32/33: +2 builder sơ đồ (vat_phong_dung H9.7 · so_do_ham_hop H9.8) vào hinh_ds11_giaitich.py — OB Đại số THPT, 2026-10-31; DỰNG TRÊN HEAD [33ze]. ADDITIVE (0 đụng 6 hàm trước; regression tia_so_vi_tri+do_thi_cat_tiep PASS).
       Mốc kho: 2026-10-31 (nối tiếp [33ze]).
       • vat_phong_dung — sơ đồ vật phóng thẳng đứng: nền đất gạch chéo + quả bóng + v0 ↑ + trục độ cao h đứt (B32 mở đầu, H9.7).

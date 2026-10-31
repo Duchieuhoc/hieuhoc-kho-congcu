@@ -388,6 +388,32 @@ def vat_phong_dung(nhan_v0=r'$\vec{v}_0$', nhan_h='h', ten_O='O', H=3.0,
     return _render_doc_vn('\n'.join(b), out, tra_bytes, dpi=200)
 
 
+def doc_ba_do_thi(out='ba_do_thi', tra_bytes=False, scale=1.0):
+    r"""BA ĐỒ THỊ VỊ TRÍ–VẬN TỐC–GIA TỐC (H9.10 — SGK 9.32, bài đọc đồ thị).
+       MÁY TỰ TÍNH (Đ5.9): chọn hàm VẬN TỐC bướu v(t)=t^2(6-t)^2 trên [0;6];
+       VỊ TRÍ = nguyên hàm p(t)=12t^3-3t^4+t^5/5 (chữ S bão hòa);
+       GIA TỐC = v'(t)=4t^3-36t^2+72t (lên rồi lao xuống, cắt 0 tại đỉnh bướu).
+       3 đường chuẩn hóa biên độ để nằm gọn; NHÃN TRUNG TÍNH a/b/c (KHÔNG lộ
+       vị trí/vận tốc/gia tốc — đó là đáp, Đ41.4). Đề yêu cầu HS tự gán."""
+    sp, sv, sa = 3.0 / 259.2, 2.2 / 81.0, 1.5 / 41.56   # hệ số chuẩn hóa biên độ
+    b = [r'\begin{tikzpicture}[scale=%g]' % scale,
+         r'\begin{axis}[axis lines=middle, axis line style={-{Stealth[length=2mm]}},',
+         r'  xlabel={$t$}, ylabel={$y$}, xlabel style={anchor=north west}, ylabel style={anchor=south east},',
+         r'  xmin=0, xmax=6.6, ymin=-3.0, ymax=3.3, width=12cm, height=8.6cm,',
+         r'  xtick=\empty, ytick=\empty, clip=false,]',
+         # a = gia tốc (xanh dương): v' = 4t^3-36t^2+72t
+         r'\addplot[blue,line width=1.1pt,samples=200,domain=0:6]{%g*(4*x^3-36*x^2+72*x)};' % sa,
+         r'\node[blue,font=\small] at (axis cs:1.25,1.9){$a$};',
+         # b = vận tốc (xanh lá): bướu t^2(6-t)^2
+         r'\addplot[green!55!black,line width=1.1pt,samples=200,domain=0:6]{%g*x^2*(6-x)^2};' % sv,
+         r'\node[green!55!black,font=\small] at (axis cs:3.0,2.5){$b$};',
+         # c = vị trí (đỏ): nguyên hàm 12t^3-3t^4+t^5/5 (chữ S)
+         r'\addplot[red,line width=1.1pt,samples=200,domain=0:6]{%g*(12*x^3-3*x^4+x^5/5)};' % sp,
+         r'\node[red,font=\small] at (axis cs:4.35,2.78){$c$};',
+         r'\end{axis}\end{tikzpicture}']
+    return _render_doc_vn('\n'.join(b), out, tra_bytes, dpi=200)
+
+
 def so_do_ham_hop(nhan_g='g', nhan_f='f', nhan_x='x', nhan_u='u=g(x)',
                   nhan_y='y=f(u)', nhan_hop='y=f(g(x))', out='ham_hop',
                   tra_bytes=False, scale=1.0):
