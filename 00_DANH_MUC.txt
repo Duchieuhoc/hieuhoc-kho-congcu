@@ -1,5 +1,11 @@
-00_DANH_MUC — UPLOAD_KHO_bieudo_33zj
-- 00_DOC_TRUOC_UPLOAD__bieudo_33zj.md
-- bieudo_xstk.py (28KB, +2 hàm)
-- BAN_TRICH_HAM_DS6__bieudo.md (13 hàm)
-- 00_KHO_VERSION.txt (mốc 2026-11-03, [33zj])
+00_DANH_MUC — CAPNHAT_KHO [33zk] · 2026-11-03
+Thầy: UPLOAD ĐÈ GitHub (Duchieuhoc/hieuhoc-kho-congcu) → Commit changes.
+
+| File | Thay đổi |
+|------|----------|
+| bieudo_xstk.py | +1 tham số bieu_do_doan_thang(gioi_han_dung=(min,max)) — đặt giới hạn trục đứng tùy ý. ADDITIVE, mặc định None = hành vi cũ. |
+| 00_KHO_VERSION.txt | +entry [33zk] (đầu file). |
+| BAN_TRICH_HAM_DS6__bieudo.md | Tái sinh (13 hàm, có gioi_han_dung). |
+
+— Lý do: ⑤ Tổng kết DS8_CH05 bài 5.24 "cùng dữ liệu khác trục đứng" (a:0–8 / b:2–18).
+— Sau push: kho ra mốc mới; PIN SHA vào 00_HOSO_BAI của ⑤ khi LƯU_BÀI.

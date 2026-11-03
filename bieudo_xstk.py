@@ -471,7 +471,7 @@ def bieu_do_quat(nhan, phan_tram, tieu_de="", mau=None, out="bd_quat", tra_bytes
 _MARKERS = ["o", "s", "D", "^", "v"]
 def bieu_do_doan_thang(truc, gia_tri=None, duong=None, nhan_truc_dung="", nhan_truc_ngang="",
                        tieu_de="", hien_nhan=True, so_nguyen=True, bat_dau_0=True, cach_deu=True, vi_tri=None, dao_truc_dung=False,
-                       out="bd_doan_thang", tra_bytes=False):
+                       gioi_han_dung=None, out="bd_doan_thang", tra_bytes=False):
     """Biểu đồ đoạn thẳng (biểu diễn thay đổi theo thời gian). truc=[nhãn trục ngang].
     MỘT đường: gia_tri=[...]. NHIỀU đường: duong=[{'ten','gia_tri':[...]}, ...] (có chú giải).
     bat_dau_0=True → trục đứng từ 0 (đúng chuẩn, tránh bẫy gốc≠0).
@@ -500,7 +500,9 @@ def bieu_do_doan_thang(truc, gia_tri=None, duong=None, nhan_truc_dung="", nhan_t
     ax.set_xticks(pos); ax.set_xticklabels([str(t) for t in truc])
     ax.set_ylabel(nhan_truc_dung); ax.set_xlabel(nhan_truc_ngang)
     ax.yaxis.grid(True, color=_GRID, linewidth=0.7); ax.set_axisbelow(True)
-    if bat_dau_0:
+    if gioi_han_dung is not None:   # đặt (min,max) trục đứng tùy ý — cho bài "cùng dữ liệu khác trục" (5.24)
+        ax.set_ylim(gioi_han_dung[0], gioi_han_dung[1])
+    elif bat_dau_0:
         ax.set_ylim(0, vmax * 1.14)
     if so_nguyen and all(float(v).is_integer() for v in tat_ca):
         ax.yaxis.get_major_locator().set_params(integer=True)

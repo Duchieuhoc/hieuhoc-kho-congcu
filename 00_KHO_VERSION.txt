@@ -1,3 +1,9 @@
+[33zk] bieudo_xstk.py +1 THAM SỐ — bieu_do_doan_thang(gioi_han_dung=(min,max)) đặt giới hạn trục đứng tùy ý. OB Đại số THCS, 2026-11-03; cho ⑤ Tổng kết DS8_CH05 (bài 5.24 "cùng dữ liệu khác trục đứng": a trục 0–8 / b trục 2–18 → đường khác hình dạng).
+      ADDITIVE: +1 param optional (trước out=); mặc định None = hành vi CŨ (bat_dau_0 quyết định) → tương thích ngược, 0 đổi 13 hàm + helper.
+      Render-verify ĐẠT: TK1a (0–8) đường lấp đầy/dốc vs TK1b (2–18) đường nén/thoải — cùng data [3,2,3,4,5,4,6,7,8,7,6,8]. Các bài khác render lại OK.
+      BẢN TRÍCH: BAN_TRICH_HAM_DS6__bieudo.md tái sinh. template.js KHÔNG đổi → KHÔNG regen API.
+      Mốc kho: 2026-11-03 (nối tiếp [33zj]).
+
 [33zj] bieudo_xstk.py +2 HÀM — bieu_do_quat (quạt tròn %) + bieu_do_doan_thang (đoạn thẳng 1/nhiều đường). OB Đại số THCS, 2026-11-03; cho DS8_CH05 Thống kê (dùng chung lớp 7·8·9 + THPT).
       +2 THAM SỐ (để dạy 2 BẪY ĐỌC của B20): bieu_do_cot(goc_truc_dung=None) — gốc trục đứng ≠ 0; bieu_do_doan_thang(cach_deu=True / vi_tri=None / dao_truc_dung=False) — trục ngang không đều (mốc/nhãn ngày) + đảo trục đứng (xếp hạng). Cả hai mặc định = hành vi CŨ → tương thích ngược.
       ADDITIVE: THÊM 2 hàm cuối file + 2 param optional; 0 đổi hành vi mặc định của 11 hàm cũ + helper. Quạt: nan từ 12h theo chiều kim, % trắng trên nan (dấu phẩy VN), chú giải phải. Đoạn thẳng: gốc trục 0 (bat_dau_0=True, tránh bẫy gốc≠0), marker khác màu/đường, nhãn giá trị.
