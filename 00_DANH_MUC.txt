@@ -1,11 +1,5 @@
-CAPNHAT_KHO__33zi — 2026-11-01 (OB Đại số THPT)
-Đích: Giám đốc UPLOAD ĐÈ lên GitHub (hieuhoc-kho-congcu), Commit changes.
-Nối tiếp HEAD [33zh]. Một-máy-sửa: chỉ OB Đại số thao tác kho lúc này.
-
-FILE — trạng thái — ghi chú:
-- hinh_bpt.py                      — MỚI  — generator miền nghiệm BPT/hệ BPT (DS10_CH02). ADDITIVE.
-- BAN_TRICH_HAM_DS10_CH02__bpt.md  — MỚI  — bản trích cho AI Soạn (chữ ký mien_nghiem).
-- 00_KHO_VERSION.txt               — THAY — +khối [33zi] đầu file (nối [33zh]).
-
-KHÔNG đụng: hieuhoc_template.js (v10.52 [33zh] giữ nguyên) · API_REFERENCE (chữ ký template 0 đổi) · kho hình khác.
-Sau upload: fetch lại + chạy thật (python3 -c "import hinh_bpt; hinh_bpt.mien_nghiem(...)") xác nhận GitHub đúng.
+00_DANH_MUC — UPLOAD_KHO_bieudo_33zj
+- 00_DOC_TRUOC_UPLOAD__bieudo_33zj.md
+- bieudo_xstk.py (28KB, +2 hàm)
+- BAN_TRICH_HAM_DS6__bieudo.md (13 hàm)
+- 00_KHO_VERSION.txt (mốc 2026-11-03, [33zj])

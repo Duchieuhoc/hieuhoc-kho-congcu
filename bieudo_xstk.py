@@ -71,7 +71,7 @@ def _kiem_glyph(bt):
 # ───────────────────────── BIỂU ĐỒ CỘT ─────────────────────────
 def bieu_do_cot(danh_muc, gia_tri, nhan_truc_dung="", nhan_truc_ngang="",
                 tieu_de="", huong="dung", hien_nhan=True, mau=None,
-                so_nguyen=True, out="bd_cot", tra_bytes=False):
+                so_nguyen=True, goc_truc_dung=None, out="bd_cot", tra_bytes=False):
     """Biểu đồ cột. Tự xử lí CỘT ÂM (giá trị <0 dưới trục). huong='ngang' → thanh ngang."""
     mau = mau or _C1
     co_am = any(v < 0 for v in gia_tri)
@@ -97,6 +97,8 @@ def bieu_do_cot(danh_muc, gia_tri, nhan_truc_dung="", nhan_truc_ngang="",
         if co_am: ax.axhline(0, color="#333", linewidth=0.9)
         if so_nguyen and all(float(v).is_integer() for v in gia_tri):
             ax.yaxis.get_major_locator().set_params(integer=True)
+        if goc_truc_dung is not None:
+            ax.set_ylim(bottom=goc_truc_dung)  # gốc trục ≠ 0 (minh họa bẫy đọc)
         if hien_nhan:
             for x, v in zip(pos, gia_tri):
                 ax.text(x, v + (0.02 if v >= 0 else -0.02) * biendo, _fmt(v),
@@ -431,4 +433,80 @@ def bieu_do_tan_so_tuong_doi(mocs, tan_so_tuong_doi, nhan_truc_dung="Tần số 
                     ha="center", va="bottom", fontsize=9)
     if tieu_de:
         ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
+    return _xuat(fig, out, tra_bytes)
+
+
+# ════════════════════ BỔ SUNG 2026-11-03 (DS8_CH05 Thống kê) ════════════════════
+# ADDITIVE: hai hàm biểu đồ còn thiếu cho mạch Thống kê lớp 7·8 (dự phóng THPT).
+# Dùng chung helper sẵn có (_fig_ax, _xuat, _fmt, _C1, _BO, _GRID, Wedge, np).
+
+# ──────────────────────── BIỂU ĐỒ HÌNH QUẠT TRÒN ────────────────────────
+def bieu_do_quat(nhan, phan_tram, tieu_de="", mau=None, out="bd_quat", tra_bytes=False):
+    """Biểu đồ hình quạt tròn (%). nhan=[...], phan_tram=[...] (tổng ~100).
+    % in trên mỗi hình quạt (dấu phẩy VN), chú giải bên phải.
+    Nan đầu bắt đầu từ đỉnh (12 giờ), đi THEO chiều kim đồng hồ (như SGK).
+    Trả PNG (hoặc bytes nếu tra_bytes=True). Nhúng Word qua H.hinhVe."""
+    mau = mau or _BO
+    tong = float(sum(phan_tram)) or 1.0
+    fig, ax = _fig_ax(6.4, 4.2)
+    ax.set_aspect("equal")
+    goc0 = 90.0
+    for i, p in enumerate(phan_tram):
+        goc1 = goc0 - p / tong * 360.0
+        ax.add_patch(Wedge((0, 0), 1.0, goc1, goc0,
+                           facecolor=mau[i % len(mau)], edgecolor="white", linewidth=1.3))
+        gm = np.radians((goc0 + goc1) / 2.0)
+        ax.text(0.60 * np.cos(gm), 0.60 * np.sin(gm), f"{_fmt(p)}%",
+                ha="center", va="center", fontsize=10, color="white", fontweight="bold")
+        goc0 = goc1
+    ax.set_xlim(-1.25, 1.25); ax.set_ylim(-1.25, 1.35); ax.axis("off")
+    from matplotlib.patches import Patch
+    handles = [Patch(facecolor=mau[i % len(mau)], label=nhan[i]) for i in range(len(nhan))]
+    ax.legend(handles=handles, frameon=False, fontsize=9,
+              loc="center left", bbox_to_anchor=(1.0, 0.5))
+    if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
+    return _xuat(fig, out, tra_bytes)
+
+# ──────────────────────── BIỂU ĐỒ ĐOẠN THẲNG ────────────────────────
+_MARKERS = ["o", "s", "D", "^", "v"]
+def bieu_do_doan_thang(truc, gia_tri=None, duong=None, nhan_truc_dung="", nhan_truc_ngang="",
+                       tieu_de="", hien_nhan=True, so_nguyen=True, bat_dau_0=True, cach_deu=True, vi_tri=None, dao_truc_dung=False,
+                       out="bd_doan_thang", tra_bytes=False):
+    """Biểu đồ đoạn thẳng (biểu diễn thay đổi theo thời gian). truc=[nhãn trục ngang].
+    MỘT đường: gia_tri=[...]. NHIỀU đường: duong=[{'ten','gia_tri':[...]}, ...] (có chú giải).
+    bat_dau_0=True → trục đứng từ 0 (đúng chuẩn, tránh bẫy gốc≠0).
+    Trả PNG (hoặc bytes nếu tra_bytes=True). Nhúng Word qua H.hinhVe."""
+    if duong is None:
+        duong = [{"ten": "", "gia_tri": gia_tri}]
+    nhieu = len(duong) > 1 or bool(duong and duong[0].get("ten"))
+    n = len(truc)
+    if vi_tri is not None:    # vị trí x tùy chọn (nhãn ngày/tháng không đều — H5.12)
+        pos = list(vi_tri)
+    elif not cach_deu:        # trục ngang theo GIÁ TRỊ THẬT → khoảng cách không đều (bẫy đọc)
+        try: pos = [float(t) for t in truc]
+        except (TypeError, ValueError): pos = list(range(n))
+    else:
+        pos = list(range(n))
+    tat_ca = [v for d in duong for v in d["gia_tri"]]
+    vmax = max(tat_ca) or 1
+    fig, ax = _fig_ax(max(5.8, 0.7 * n + 2.2), 4.2)
+    for j, d in enumerate(duong):
+        ax.plot(pos, d["gia_tri"], marker=_MARKERS[j % len(_MARKERS)], markersize=6,
+                linewidth=1.8, color=_BO[j % len(_BO)], label=d.get("ten", ""))
+        if hien_nhan:
+            for x, v in zip(pos, d["gia_tri"]):
+                ax.text(x, v + 0.022 * vmax, _fmt(v), ha="center", va="bottom",
+                        fontsize=8, color=_BO[j % len(_BO)])
+    ax.set_xticks(pos); ax.set_xticklabels([str(t) for t in truc])
+    ax.set_ylabel(nhan_truc_dung); ax.set_xlabel(nhan_truc_ngang)
+    ax.yaxis.grid(True, color=_GRID, linewidth=0.7); ax.set_axisbelow(True)
+    if bat_dau_0:
+        ax.set_ylim(0, vmax * 1.14)
+    if so_nguyen and all(float(v).is_integer() for v in tat_ca):
+        ax.yaxis.get_major_locator().set_params(integer=True)
+    if dao_truc_dung:         # đảo trục đứng (vd xếp hạng: hạng nhỏ ở trên) — H5.13
+        ax.invert_yaxis()
+    if nhieu:
+        ax.legend(frameon=False, fontsize=9, loc="best")
+    if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
     return _xuat(fig, out, tra_bytes)
