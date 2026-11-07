@@ -1,11 +1,10 @@
-00_DANH_MUC — CAPNHAT_KHO [33zk] · 2026-11-03
-Thầy: UPLOAD ĐÈ GitHub (Duchieuhoc/hieuhoc-kho-congcu) → Commit changes.
-
-| File | Thay đổi |
-|------|----------|
-| bieudo_xstk.py | +1 tham số bieu_do_doan_thang(gioi_han_dung=(min,max)) — đặt giới hạn trục đứng tùy ý. ADDITIVE, mặc định None = hành vi cũ. |
-| 00_KHO_VERSION.txt | +entry [33zk] (đầu file). |
-| BAN_TRICH_HAM_DS6__bieudo.md | Tái sinh (13 hàm, có gioi_han_dung). |
-
-— Lý do: ⑤ Tổng kết DS8_CH05 bài 5.24 "cùng dữ liệu khác trục đứng" (a:0–8 / b:2–18).
-— Sau push: kho ra mốc mới; PIN SHA vào 00_HOSO_BAI của ⑤ khi LƯU_BÀI.
+CAPNHAT_KHO__33zn — thầy UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes
+===================================================================
+  bieudo_xstk.py ............ THAY · vá nhãn quạt nhỏ ra ngoài vành (bieu_do_quat)
+  00_KHO_VERSION.txt ........ THAY · +dòng mốc [33zn] trên đầu
+  00_CAPNHAT_KHO__33zn.md ... THÊM · mô tả vá (lỗi/cách vá/ADDITIVE)
+  00_DANH_MUC.txt ........... THÊM · file này
+-------------------------------------------------------------------
+ADDITIVE, tương thích ngược: chỉ cải thiện vị trí nhãn quạt <5%; chữ ký
+bieu_do_quat KHÔNG đổi → bài cũ (pin SHA cũ) không ảnh hưởng; BAN_TRICH_HAM
+không đổi (khỏi regen). Sau push: mốc kho ra 33zn.

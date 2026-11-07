@@ -1,3 +1,5 @@
+[33zn] bieudo_xstk.py — nhãn quạt nhỏ ra ngoài vành (chống chồng). 2026-11-07. Xem 00_CAPNHAT_KHO__33zn.md.
+
 [33zm] bieudo_xstk.py — VÒNG QUAY: mũi tên KHÔNG trùm nhãn ô đích. OB Đại số THCS, 2026-11-07; phát hiện khi QC B42 (DS6_CH09 mô hình xác suất).
       LỖI: nhãn ô đặt ở 0,62R, mũi tên dài 0,7R cùng tia → đầu mũi tên CHE nhãn ô đích (ô "3" bị che hẳn, "Nai" che một phần).
       VÁ: trong vong_quay, rút mũi tên 0,7R → 0,55R (head_length 0,12→0,10) → đầu dừng TRƯỚC nhãn ô (0,62R), nhãn đọc rõ, vẫn chỉ đúng hướng ô.

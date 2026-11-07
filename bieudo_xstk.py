@@ -463,15 +463,36 @@ def bieu_do_quat(nhan, phan_tram, tieu_de="", mau=None, out="bd_quat", tra_bytes
     fig, ax = _fig_ax(6.4, 4.2)
     ax.set_aspect("equal")
     goc0 = 90.0
+    NGUONG_NGOAI = 5.0  # [33zn] quạt < 5% -> nhãn ra NGOÀI vành (tránh chồng nhãn quạt nhỏ)
+    nhan_ngoai = []     # (goc_giua_rad, "x%")
     for i, p in enumerate(phan_tram):
         goc1 = goc0 - p / tong * 360.0
         ax.add_patch(Wedge((0, 0), 1.0, goc1, goc0,
                            facecolor=mau[i % len(mau)], edgecolor="white", linewidth=1.3))
         gm = np.radians((goc0 + goc1) / 2.0)
-        ax.text(0.60 * np.cos(gm), 0.60 * np.sin(gm), f"{_fmt(p)}%",
-                ha="center", va="center", fontsize=10, color="white", fontweight="bold")
+        if p / tong * 100.0 >= NGUONG_NGOAI:
+            ax.text(0.60 * np.cos(gm), 0.60 * np.sin(gm), f"{_fmt(p)}%",
+                    ha="center", va="center", fontsize=10, color="white", fontweight="bold")
+        else:
+            nhan_ngoai.append((gm, f"{_fmt(p)}%"))
         goc0 = goc1
-    ax.set_xlim(-1.25, 1.25); ax.set_ylim(-1.25, 1.35); ax.axis("off")
+    # [33zn] nhãn quạt nhỏ: đặt NGOÀI vành, màu đen, có đường dẫn mảnh; tách y chống chồng
+    if nhan_ngoai:
+        for ben in (1, -1):  # 1 = phải, -1 = trái
+            nhom = [(gm, t) for gm, t in nhan_ngoai if (np.cos(gm) >= 0) == (ben == 1)]
+            nhom.sort(key=lambda it: np.sin(it[0]), reverse=True)
+            ys = [np.sin(gm) for gm, _ in nhom]
+            dymin = 0.17  # khoảng cách y tối thiểu giữa 2 nhãn ngoài cùng bên
+            for k in range(1, len(ys)):
+                if ys[k - 1] - ys[k] < dymin:
+                    ys[k] = ys[k - 1] - dymin
+            for (gm, t), yT in zip(nhom, ys):
+                ax.annotate(t, xy=(np.cos(gm), np.sin(gm)), xytext=(ben * 1.33, yT),
+                            ha=("left" if ben == 1 else "right"), va="center",
+                            fontsize=9, color="#222222", fontweight="bold",
+                            arrowprops=dict(arrowstyle="-", color="#999999",
+                                            lw=0.8, shrinkA=0, shrinkB=2))
+    ax.set_xlim(-1.65, 1.65); ax.set_ylim(-1.3, 1.4); ax.axis("off")
     from matplotlib.patches import Patch
     handles = [Patch(facecolor=mau[i % len(mau)], label=nhan[i]) for i in range(len(nhan))]
     ax.legend(handles=handles, frameon=False, fontsize=9,
