@@ -1,3 +1,11 @@
+[33zl] bieudo_xstk.py — NHÃN VẠCH TRỤC DÙNG DẤU PHẨY (chuẩn trình bày VN). OB Đại số THCS, 2026-11-07; phát hiện khi QC B41 (DS6_CH09 cột kép).
+      LỖI: trước đây chỉ NHÃN GIÁ TRỊ trên cột dùng phẩy (_fmt); VẠCH TRỤC để matplotlib mặc định → "17.5", "0.0" (dấu chấm) ở biểu đồ thập phân (so_nguyen=False) và thanh ngang (huong='ngang'). Vi phạm chuẩn số thập phân VN.
+      VÁ: thêm helper `_ap_truc_phay(ax, huong)` (FuncFormatter → _fmt) áp cho TRỤC GIÁ TRỊ trong bieu_do_cot + bieu_do_cot_kep + bieu_do_doan_thang (cả 'dung' và 'ngang'). Số nguyên không đổi; phụ: "0.0"→"0", "5.0"→"5" gọn hơn.
+      ADDITIVE: chỉ thêm formatter hiển thị, KHÔNG đổi số liệu/chữ ký → tương thích ngược hoàn toàn. Render-verify ĐẠT: H2 ngang "0;2,5;5;7,5…17,5" · H6a độ mặn "…20" · đoạn thẳng thập phân — đều phẩy.
+      BẢN TRÍCH: chữ ký KHÔNG đổi → bản trích không đổi. template.js KHÔNG đổi.
+      Mốc kho: 2026-11-07 (nối tiếp [33zk]).
+      RÀ LẠI (khi có dịp): B40 (DS6_CH09) + các bài DS8_CH05 có biểu đồ thập phân/ngang/đoạn thẳng — vạch trục bản cũ còn dấu chấm; dựng lại khi tiện (không chặn: nhãn giá trị đã đúng).
+
 [33zk] bieudo_xstk.py +1 THAM SỐ — bieu_do_doan_thang(gioi_han_dung=(min,max)) đặt giới hạn trục đứng tùy ý. OB Đại số THCS, 2026-11-03; cho ⑤ Tổng kết DS8_CH05 (bài 5.24 "cùng dữ liệu khác trục đứng": a trục 0–8 / b trục 2–18 → đường khác hình dạng).
       ADDITIVE: +1 param optional (trước out=); mặc định None = hành vi CŨ (bat_dau_0 quyết định) → tương thích ngược, 0 đổi 13 hàm + helper.
       Render-verify ĐẠT: TK1a (0–8) đường lấp đầy/dốc vs TK1b (2–18) đường nén/thoải — cùng data [3,2,3,4,5,4,6,7,8,7,6,8]. Các bài khác render lại OK.

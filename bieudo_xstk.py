@@ -40,6 +40,14 @@ def _xuat(fig, out, tra_bytes):
 def _fmt(v):
     return f"{v:g}".replace("-", "−").replace(".", ",")
 
+from matplotlib.ticker import FuncFormatter as _FuncFormatter
+def _ap_truc_phay(ax, huong="dung"):
+    """[33 OB 07/11] Áp dấu PHẨY cho NHÃN VẠCH trục giá trị (chuẩn trình bày VN).
+    Trước đây chỉ nhãn giá trị trên cột dùng phẩy; vạch trục để matplotlib mặc định → '17.5'.
+    huong='dung' → trục đứng (y); huong='ngang' → trục ngang (x). Số nguyên không đổi."""
+    truc = ax.xaxis if huong == "ngang" else ax.yaxis
+    truc.set_major_formatter(_FuncFormatter(lambda v, _pos: _fmt(v)))
+
 # ── Bộ BIỂU TƯỢNG AN TOÀN (có glyph trong DejaVu Sans) cho bieu_do_tranh ──
 #   Emoji plane (🚗📕⚽👦…) CHƯA có font đen trong môi trường → sẽ ra ô vuông.
 #   Ánh xạ icon SGK → biểu tượng an toàn; khoá luôn ghi TÊN VẬT THẬT nên nghĩa không mất.
@@ -103,6 +111,7 @@ def bieu_do_cot(danh_muc, gia_tri, nhan_truc_dung="", nhan_truc_ngang="",
             for x, v in zip(pos, gia_tri):
                 ax.text(x, v + (0.02 if v >= 0 else -0.02) * biendo, _fmt(v),
                         ha="center", va="bottom" if v >= 0 else "top", fontsize=9)
+    _ap_truc_phay(ax, huong)
     if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
     return _xuat(fig, out, tra_bytes)
 
@@ -145,6 +154,7 @@ def bieu_do_cot_kep(danh_muc, nhom, nhan_truc_dung="", nhan_truc_ngang="",
         if co_am: ax.axhline(0, color="#333", linewidth=0.9)
         if so_nguyen and all(float(v).is_integer() for v in tat_ca):
             ax.yaxis.get_major_locator().set_params(integer=True)
+    _ap_truc_phay(ax, huong)
     ax.legend(frameon=False, fontsize=9, loc="best")
     if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
     return _xuat(fig, out, tra_bytes)
@@ -508,6 +518,7 @@ def bieu_do_doan_thang(truc, gia_tri=None, duong=None, nhan_truc_dung="", nhan_t
         ax.yaxis.get_major_locator().set_params(integer=True)
     if dao_truc_dung:         # đảo trục đứng (vd xếp hạng: hạng nhỏ ở trên) — H5.13
         ax.invert_yaxis()
+    _ap_truc_phay(ax, "dung")
     if nhieu:
         ax.legend(frameon=False, fontsize=9, loc="best")
     if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
