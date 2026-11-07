@@ -211,8 +211,10 @@ def vong_quay(o, mui_ten_chi_vao=None, tieu_de="", out="vong_quay", tra_bytes=Fa
             tam_chi = mid
         start -= g
     if tam_chi is None: tam_chi = np.radians(60)
-    ax.add_patch(FancyArrow(0, 0, 0.7 * np.cos(tam_chi), 0.7 * np.sin(tam_chi),
-                            width=0.02, head_width=0.09, head_length=0.12,
+    # [33zm 07/11] Rút mũi tên về 0,55R (trước nhãn ô 0,62R) để KHÔNG trùm nhãn ô đích
+    #   (lỗi lộ khi QC B42: ô "3"/"Nai" bị đầu mũi tên che). Vẫn chỉ rõ hướng vào ô.
+    ax.add_patch(FancyArrow(0, 0, 0.55 * np.cos(tam_chi), 0.55 * np.sin(tam_chi),
+                            width=0.02, head_width=0.09, head_length=0.10,
                             length_includes_head=True, color="#222", zorder=6))
     ax.add_patch(Circle((0, 0), 0.05, color="#222", zorder=7))
     ax.set_xlim(-1.15, 1.15); ax.set_ylim(-1.15, 1.15)

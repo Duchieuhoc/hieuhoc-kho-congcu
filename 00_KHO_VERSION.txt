@@ -1,3 +1,9 @@
+[33zm] bieudo_xstk.py — VÒNG QUAY: mũi tên KHÔNG trùm nhãn ô đích. OB Đại số THCS, 2026-11-07; phát hiện khi QC B42 (DS6_CH09 mô hình xác suất).
+      LỖI: nhãn ô đặt ở 0,62R, mũi tên dài 0,7R cùng tia → đầu mũi tên CHE nhãn ô đích (ô "3" bị che hẳn, "Nai" che một phần).
+      VÁ: trong vong_quay, rút mũi tên 0,7R → 0,55R (head_length 0,12→0,10) → đầu dừng TRƯỚC nhãn ô (0,62R), nhãn đọc rõ, vẫn chỉ đúng hướng ô.
+      ADDITIVE: chỉ đổi độ dài mũi tên, KHÔNG đổi chữ ký/số liệu → tương thích ngược. Render-verify ĐẠT (vq_lt2→"3" rõ, vq_926→"Nai" rõ).
+      (Gói này GỒM CẢ 33zl — nếu chưa upload 33zl thì file bieudo_xstk.py này thay luôn.)
+
 [33zl] bieudo_xstk.py — NHÃN VẠCH TRỤC DÙNG DẤU PHẨY (chuẩn trình bày VN). OB Đại số THCS, 2026-11-07; phát hiện khi QC B41 (DS6_CH09 cột kép).
       LỖI: trước đây chỉ NHÃN GIÁ TRỊ trên cột dùng phẩy (_fmt); VẠCH TRỤC để matplotlib mặc định → "17.5", "0.0" (dấu chấm) ở biểu đồ thập phân (so_nguyen=False) và thanh ngang (huong='ngang'). Vi phạm chuẩn số thập phân VN.
       VÁ: thêm helper `_ap_truc_phay(ax, huong)` (FuncFormatter → _fmt) áp cho TRỤC GIÁ TRỊ trong bieu_do_cot + bieu_do_cot_kep + bieu_do_doan_thang (cả 'dung' và 'ngang'). Số nguyên không đổi; phụ: "0.0"→"0", "5.0"→"5" gọn hơn.
