@@ -1,3 +1,10 @@
+[33zo] bieudo_xstk.py — VÒNG QUAY: nhãn ô TỰ CHỌN màu chữ (đen/trắng) theo độ sáng nền. OB Đại số THCS, 2026-11-09; phát hiện khi chuẩn bị nguồn DS7_CH08 (SBT Hình 8.2 — tấm bìa 6 chữ A–F tô màu xám/xanh/TRẮNG).
+      LỖI: nhãn ô hard-code color="white" → ô tô màu SÁNG (trắng #EEEEEE, vàng nhạt) có chữ trắng → nhãn gần như không đọc được (ô "C","F" khuất hẳn).
+      VÁ: +helper `_mau_chu_tuong_phan(mau)` (luminance 0.299R+0.587G+0.114B; >0,6 → chữ #222, else trắng); áp cho nhãn ô trong vong_quay.
+      ADDITIVE: KHÔNG đổi chữ ký vong_quay, KHÔNG đổi màu nền/số liệu → tương thích ngược (ô đậm vẫn chữ trắng y cũ). Render-verify ĐẠT: SBT H8.2 (A/D xám·B/E xanh·C/F trắng) chữ đọc rõ cả 6 ô; SGK H8.3 (6 số palette mặc định) không đổi.
+      BẢN TRÍCH: chữ ký KHÔNG đổi → BAN_TRICH_HAM_XACSUAT.md KHÔNG đổi. template.js KHÔNG đổi → KHÔNG regen API.
+      Mốc kho: 2026-11-09 (nối tiếp [33zn]).
+
 [33zn] bieudo_xstk.py — nhãn quạt nhỏ ra ngoài vành (chống chồng). 2026-11-07. Xem 00_CAPNHAT_KHO__33zn.md.
 
 [33zm] bieudo_xstk.py — VÒNG QUAY: mũi tên KHÔNG trùm nhãn ô đích. OB Đại số THCS, 2026-11-07; phát hiện khi QC B42 (DS6_CH09 mô hình xác suất).

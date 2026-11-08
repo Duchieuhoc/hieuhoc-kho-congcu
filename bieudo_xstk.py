@@ -193,6 +193,14 @@ def bieu_do_tranh(hang, moi_icon, bieu_tuong="●", mau_icon=_C1,
     return _xuat(fig, out, tra_bytes)
 
 # ───────────────────── MÔ HÌNH XÁC SUẤT ─────────────────────
+def _mau_chu_tuong_phan(mau):
+    """[33zo 09/11] Chọn màu chữ nhãn (đen/trắng) theo độ sáng nền ô vòng quay.
+    Nền sáng (trắng/vàng nhạt) → chữ ĐEN; nền đậm → chữ TRẮNG. Dùng cho vong_quay."""
+    import matplotlib.colors as _mc
+    r, g, b = _mc.to_rgb(mau)
+    lum = 0.299 * r + 0.587 * g + 0.114 * b   # độ sáng cảm thụ
+    return "#222222" if lum > 0.6 else "white"
+
 def vong_quay(o, mui_ten_chi_vao=None, tieu_de="", out="vong_quay", tra_bytes=False):
     """Vòng quay/tấm bìa. o=[{'nhan','mau'?,'ti_le'?}]. mui_ten_chi_vao = nhãn ô mũi tên chỉ."""
     n = len(o)
@@ -206,7 +214,8 @@ def vong_quay(o, mui_ten_chi_vao=None, tieu_de="", out="vong_quay", tra_bytes=Fa
                            edgecolor="white", linewidth=1.4))
         mid = np.radians(start - g / 2)
         ax.text(0.62 * np.cos(mid), 0.62 * np.sin(mid), str(x["nhan"]),
-                ha="center", va="center", fontsize=11, fontweight="bold", color="white")
+                ha="center", va="center", fontsize=11, fontweight="bold",
+                color=_mau_chu_tuong_phan(mau))
         if mui_ten_chi_vao is not None and str(x["nhan"]) == str(mui_ten_chi_vao):
             tam_chi = mid
         start -= g

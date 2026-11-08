@@ -1,10 +1,7 @@
-CAPNHAT_KHO__33zn — thầy UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes
-===================================================================
-  bieudo_xstk.py ............ THAY · vá nhãn quạt nhỏ ra ngoài vành (bieu_do_quat)
-  00_KHO_VERSION.txt ........ THAY · +dòng mốc [33zn] trên đầu
-  00_CAPNHAT_KHO__33zn.md ... THÊM · mô tả vá (lỗi/cách vá/ADDITIVE)
-  00_DANH_MUC.txt ........... THÊM · file này
--------------------------------------------------------------------
-ADDITIVE, tương thích ngược: chỉ cải thiện vị trí nhãn quạt <5%; chữ ký
-bieu_do_quat KHÔNG đổi → bài cũ (pin SHA cũ) không ảnh hưởng; BAN_TRICH_HAM
-không đổi (khỏi regen). Sau push: mốc kho ra 33zn.
+CAPNHAT_KHO__33zo — OB Đại số · 2026-11-09 · thầy UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes
+─────────────────────────────────────────────────────────────────────
+bieudo_xstk.py      — THAY (vá 33zo: nhãn vòng quay tự chọn màu tương phản)
+00_KHO_VERSION.txt  — THAY (bump mốc 33zo ở đầu)
+─────────────────────────────────────────────────────────────────────
+Không đổi: chữ ký hàm → BAN_TRICH_HAM_XACSUAT.md giữ nguyên; hieuhoc_template.js giữ nguyên → KHÔNG regen API_REFERENCE.
+Sau push: mốc kho yêu cầu cho DS7_CH08 = 33zo (hoặc mới hơn).
