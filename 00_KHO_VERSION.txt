@@ -1,3 +1,14 @@
+[33zp] bieudo_xstk.py — ĐỌC ĐỒ THỊ THỰC TẾ: +3 hàm vẽ (đường cong mượt · điểm rời rạc 2 trục lệch tỉ lệ · gấp khúc liền lưới đều). OB Đại số THCS, 2026-11-09; MỞ KHÓA 3 bài HOÃN của DS8_CH07_B27 (SGK 7.22/7.23 + SBT 7.24 → đích ⑤/LTC).
+      THIẾU (trước đây): kho chỉ có bieu_do_doan_thang (biểu đồ THỐNG KÊ — vạch theo mục) + hinhMatPhangToaDo (TikZ — 1 thang chung) → KHÔNG vẽ được: đường cong mượt (nhiệt độ), 2 trục LỆCH tỉ lệ (tuổi–cân nặng), đỉnh thập phân sát nhau (vận tốc 4,2·7,4·7,6·9,1 chồng nhãn).
+      BỔ (ADDITIVE — 3 HÀM MỚI, KHÔNG đụng hàm cũ):
+        · do_thi_duong_cong(moc, giong, …) — nội suy PCHIP (đơn điệu từng đoạn, lên đỉnh rồi xuống MƯỢT, KHÔNG vọt lố/bướu giả). → SGK 7.23 nhiệt độ theo giờ.
+        · mp_toado_diem(diem, buoc_ngang, buoc_dung, …) — điểm rời rạc CÓ NHÃN TÊN; matplotlib tự scale 2 trục độc lập → "1 đơn vị trục tung = k lần trục hoành" hiện TỰ NHIÊN khi buoc_dung≠buoc_ngang. → SGK 7.22 tuổi–cân nặng (ô lưới = 1 tuổi × 5 kg).
+        · do_thi_gap_khuc(moc, giong, …) — gấp khúc LIỀN trên lưới Oxy ĐỀU; đỉnh thập phân ĐỌC ÁP LƯỚI (không gắn nhãn đỉnh → HẾT chồng chữ). → SBT Vd2 cân nặng cả đời + SBT 7.24 vận tốc–thời gian.
+        + helper nội bộ _ve_truc_oxy (khung Oxy SGK: lưới mờ, vạch phẩy VN, mũi tên, chữ O) — ẨN khỏi bản trích (prefix _).
+      TƯƠNG THÍCH NGƯỢC: toàn bộ hàm cũ GIỮ NGUYÊN chữ ký + hành vi (đã thử revert, không chỉnh bieu_do_doan_thang). Render-verify 4 hình H8/H9/H11/H14 — soi 4/4 ĐẠT. bieu_do_doan_thang chạy lại sạch (regression OK).
+      BẢN TRÍCH: BAN_TRICH_HAM_DS6__bieudo.md REGENERATE bằng sinh_bantrich.py (13→16 hàm; 3 hàm mới tự lấy docstring). template.js KHÔNG đổi → KHÔNG regen API_REFERENCE.
+      Mốc kho: 2026-11-09 (nối tiếp [33zo]).
+
 [33zo] bieudo_xstk.py — VÒNG QUAY: nhãn ô TỰ CHỌN màu chữ (đen/trắng) theo độ sáng nền. OB Đại số THCS, 2026-11-09; phát hiện khi chuẩn bị nguồn DS7_CH08 (SBT Hình 8.2 — tấm bìa 6 chữ A–F tô màu xám/xanh/TRẮNG).
       LỖI: nhãn ô hard-code color="white" → ô tô màu SÁNG (trắng #EEEEEE, vàng nhạt) có chữ trắng → nhãn gần như không đọc được (ô "C","F" khuất hẳn).
       VÁ: +helper `_mau_chu_tuong_phan(mau)` (luminance 0.299R+0.587G+0.114B; >0,6 → chữ #222, else trắng); áp cho nhãn ô trong vong_quay.

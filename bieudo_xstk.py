@@ -555,3 +555,117 @@ def bieu_do_doan_thang(truc, gia_tri=None, duong=None, nhan_truc_dung="", nhan_t
         ax.legend(frameon=False, fontsize=9, loc="best")
     if tieu_de: ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
     return _xuat(fig, out, tra_bytes)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# [33zp] ĐỌC ĐỒ THỊ THỰC TẾ — đường cong mượt + điểm rời rạc 2 trục lệch tỉ lệ
+#   OB Đại số THCS, 2026-11-09. Bổ cho DS8_CH07_B27 (hoãn SGK 7.22/7.23 → ⑤/LTC).
+#   ADDITIVE: 2 HÀM MỚI (không đụng hàm cũ) → tương thích ngược hoàn toàn.
+# ═══════════════════════════════════════════════════════════════════════════
+def _ve_truc_oxy(ax, xlo, xhi, ylo, yhi, buoc_ngang, buoc_dung,
+                 nhan_ngang, nhan_dung):
+    """Khung Oxy kiểu SGK: lưới mờ, vạch + nhãn (dấu phẩy VN), mũi tên 2 đầu, chữ O."""
+    ax.set_xlim(xlo, xhi); ax.set_ylim(ylo, yhi)
+    xt = np.arange(0, xhi + 1e-9, buoc_ngang)
+    yt = np.arange(0, yhi + 1e-9, buoc_dung)
+    ax.set_xticks(xt[xt > 1e-9]); ax.set_yticks(yt[yt > 1e-9])
+    ax.grid(True, color=_GRID, linewidth=0.7); ax.set_axisbelow(True)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    ax.spines["left"].set_position(("data", 0))
+    ax.spines["bottom"].set_position(("data", 0))
+    _ap_truc_phay(ax, "ngang"); _ap_truc_phay(ax, "dung")
+    ax.tick_params(labelsize=8)
+    # mũi tên đầu trục
+    ax.plot(xhi, 0, ">k", clip_on=False, markersize=6)
+    ax.plot(0, yhi, "^k", clip_on=False, markersize=6)
+    ax.text(-0.02 * xhi, -0.03 * yhi, "O", ha="right", va="top", fontsize=10)
+    # tên trục ĐẶT TRÊN đường trục (không lẫn với nhãn vạch bên dưới/bên trái)
+    if nhan_ngang:
+        ax.text(xhi, 0.03 * yhi, nhan_ngang, ha="right", va="bottom", fontsize=9)
+    if nhan_dung:
+        ax.text(0.02 * xhi, yhi, nhan_dung, ha="left", va="top", fontsize=9)
+
+
+from scipy.interpolate import PchipInterpolator as _Pchip
+def do_thi_duong_cong(moc, nhan_truc_ngang="", nhan_truc_dung="", tieu_de="",
+                      giong=None, mau=None, x_max=None, y_max=None,
+                      buoc_ngang=1, buoc_dung=1, out="dt_cong", tra_bytes=False):
+    """ĐỒ THỊ HÀM SỐ dạng ĐƯỜNG CONG MƯỢT LIỀN đi qua các mốc (đọc đồ thị thực tế:
+    nhiệt độ theo giờ SGK 7.23, …). moc=[(x,y),…] đọc từ đồ thị (x TĂNG DẦN).
+    Nội suy PCHIP: giữ đơn điệu từng đoạn → lên đỉnh rồi xuống MƯỢT, KHÔNG vọt lố
+    (không bướu giả như spline bậc 3). giong=[(x,y),…] vẽ nét đứt gióng + chấm mốc
+    chốt (vd (4;5) SGK). buoc_ngang/buoc_dung bước vạch. Trả PNG/bytes."""
+    xs = np.array([p[0] for p in moc], float)
+    ys = np.array([p[1] for p in moc], float)
+    mau = mau or _C1
+    f = _Pchip(xs, ys)
+    xx = np.linspace(xs[0], xs[-1], 400)
+    fig, ax = _fig_ax(6.0, 4.3)
+    xhi = x_max if x_max is not None else xs[-1] + buoc_ngang
+    yhi = y_max if y_max is not None else float(max(ys)) + buoc_dung
+    _ve_truc_oxy(ax, -0.03 * xhi, xhi * 1.06, -0.03 * yhi, yhi * 1.06,
+                 buoc_ngang, buoc_dung, nhan_truc_ngang, nhan_truc_dung)
+    ax.plot(xx, f(xx), color=mau, linewidth=2.1, zorder=4)
+    for gx, gy in (giong or []):
+        ax.plot([gx, gx], [0, gy], color="#8A8A8A", ls="--", lw=0.9, zorder=2)
+        ax.plot([0, gx], [gy, gy], color="#8A8A8A", ls="--", lw=0.9, zorder=2)
+        ax.plot(gx, gy, "o", color=mau, markersize=5, zorder=5)
+    if tieu_de:
+        ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
+    return _xuat(fig, out, tra_bytes)
+
+
+def mp_toado_diem(diem, nhan_truc_ngang="", nhan_truc_dung="", tieu_de="",
+                  x_max=None, y_max=None, buoc_ngang=1, buoc_dung=1,
+                  giong=False, mau=None, out="mp_diem", tra_bytes=False):
+    """ĐIỂM RỜI RẠC CÓ NHÃN TÊN trên mặt phẳng toạ độ — HAI TRỤC LỆCH TỈ LỆ.
+    matplotlib tự scale 2 trục độc lập → 'một đơn vị trục tung = k lần trục hoành'
+    hiện ra TỰ NHIÊN khi buoc_dung ≠ buoc_ngang (vd SGK 7.22 tuổi–cân nặng:
+    buoc_ngang=1 (tuổi), buoc_dung=5 (kg) → mỗi ô lưới = 1 tuổi × 5 kg).
+    diem=[{'x','y','ten','mau'?,'lech'?:(dx,dy) lệch nhãn}]. giong=True → mỗi điểm
+    gióng nét đứt xuống 2 trục (đọc toạ độ). Trả PNG/bytes."""
+    xs = [d["x"] for d in diem]; ys = [d["y"] for d in diem]
+    fig, ax = _fig_ax(6.0, 4.6)
+    xhi = x_max if x_max is not None else max(xs) + buoc_ngang
+    yhi = y_max if y_max is not None else max(ys) + buoc_dung
+    _ve_truc_oxy(ax, -0.03 * xhi, xhi * 1.06, -0.03 * yhi, yhi * 1.06,
+                 buoc_ngang, buoc_dung, nhan_truc_ngang, nhan_truc_dung)
+    for d in diem:
+        c = d.get("mau") or _C1
+        if giong:
+            ax.plot([d["x"], d["x"]], [0, d["y"]], color="#8A8A8A", ls="--", lw=0.9, zorder=2)
+            ax.plot([0, d["x"]], [d["y"], d["y"]], color="#8A8A8A", ls="--", lw=0.9, zorder=2)
+        ax.plot(d["x"], d["y"], "o", color=c, markersize=6, zorder=5)
+        dx, dy = d.get("lech", (0.10 * buoc_ngang, 0.10 * buoc_dung))
+        ax.annotate(d.get("ten", ""), (d["x"], d["y"]), xytext=(d["x"] + dx, d["y"] + dy),
+                    fontsize=9, color=c, fontweight="bold", zorder=6)
+    if tieu_de:
+        ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
+    return _xuat(fig, out, tra_bytes)
+
+
+def do_thi_gap_khuc(moc, nhan_truc_ngang="", nhan_truc_dung="", tieu_de="",
+                    giong=None, cham_dinh=True, mau=None, x_max=None, y_max=None,
+                    buoc_ngang=1, buoc_dung=1, out="dt_gapkhuc", tra_bytes=False):
+    """ĐỒ THỊ ĐƯỜNG GẤP KHÚC LIỀN trên lưới Oxy (đọc đồ thị thực tế liên tục:
+    cân nặng cả đời SBT Vd2, vận tốc–thời gian SBT 7.24, …). moc=[(x,y),…] các ĐỈNH
+    theo thứ tự (nối thẳng liền). Khác bieu_do_doan_thang (biểu đồ THỐNG KÊ, vạch
+    theo mục): hàm này vẽ TRỤC SỐ ĐỀU (vạch nguyên cách buoc_ngang) nên ĐỈNH THẬP
+    PHÂN (4,2 · 7,4 · 9,1) ĐỌC ÁP LƯỚI, KHÔNG gắn nhãn lên đỉnh → không chồng chữ.
+    cham_dinh=True chấm đỉnh; giong=[(x,y),…] nét đứt gióng mốc chốt. Trả PNG/bytes."""
+    xs = [p[0] for p in moc]; ys = [p[1] for p in moc]
+    mau = mau or _C1
+    fig, ax = _fig_ax(6.4, 4.3)
+    xhi = x_max if x_max is not None else max(xs) + buoc_ngang
+    yhi = y_max if y_max is not None else max(ys) + buoc_dung
+    _ve_truc_oxy(ax, -0.03 * xhi, xhi * 1.06, -0.03 * yhi, yhi * 1.06,
+                 buoc_ngang, buoc_dung, nhan_truc_ngang, nhan_truc_dung)
+    ax.plot(xs, ys, color=mau, linewidth=2.0, zorder=4,
+            marker="o" if cham_dinh else None, markersize=5)
+    for gx, gy in (giong or []):
+        ax.plot([gx, gx], [0, gy], color="#8A8A8A", ls="--", lw=0.9, zorder=2)
+        ax.plot([0, gx], [gy, gy], color="#8A8A8A", ls="--", lw=0.9, zorder=2)
+    if tieu_de:
+        ax.set_title(tieu_de, fontsize=11, fontweight="bold", pad=10)
+    return _xuat(fig, out, tra_bytes)
