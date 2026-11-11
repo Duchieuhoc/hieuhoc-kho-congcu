@@ -362,6 +362,62 @@ class HinhDaGiac(hinh_coban.HinhCoBan):
         if to:
             self.tikz.append(('to_mien', dinh, to))
         return self
+    def phoi_canh(self, O, bo_diem, k, noi_canh=None, net_tia='dut', mau_tia=None,
+                  nhan_O='below left', kin=False, to_nguon=None, to_anh=None):
+        """HÌNH PHỐI CẢNH / VỊ TỰ tâm O tỉ số k  (Bài 37 — hình đồng dạng phối cảnh).
+        Mỗi đỉnh NGUỒN P(x,y) sinh đỉnh ẢNH P' tại  O + k·(P − O)  (thẳng hàng O–P–P',
+        đúng phép vị tự). Tia NÉT ĐỨT từ O qua mỗi cặp đỉnh (kéo tới đỉnh XA O hơn) =
+        chùm tia đồng quy về tâm phối cảnh O.
+
+        O        = (ten, x, y): tâm phối cảnh (toạ độ đơn vị vẽ).
+        bo_diem  = list (ten_nguon, x, y, ten_anh): đỉnh nguồn + tên ảnh tương ứng,
+                   xếp theo THỨ TỰ CHU VI (để nối cạnh / tô miền).
+        k        = tỉ số vị tự (>0, ≠1). k>1: ảnh LỚN, xa O hơn; 0<k<1: ảnh NHỎ, gần O.
+        noi_canh = list cạnh [(ten_i, ten_j), …] nối trên hình NGUỒN; hình ẢNH nối y hệt
+                   theo ánh xạ nguồn→ảnh. None → tự nối chu vi theo bo_diem (kin=True để khép).
+                   Dùng [] cho cặp ĐIỂM rời (không nối). Cặp ĐOẠN: 1 cạnh.
+        net_tia  = 'dut' (mặc định) | 'lien'; mau_tia = màu chùm tia (None = mặc định).
+        to_nguon/to_anh = màu tô miền nguồn/ảnh (None = chỉ đường bao).
+        PHANH: mỗi bộ (O, nguồn, ảnh) khai thang_hang → kiểm chùm tia đồng quy đúng tâm.
+
+        VD tam giác vị tự tâm O k=2 (HĐ1):
+          h.phoi_canh(('O',10,2),
+                      [("A'",6,4,'A'), ("B'",5,1.5,'B'), ("C'",6.5,0.5,'C')], k=2, kin=True)
+        VD đoạn phối cảnh k=1/2 (Bài 9.29): bo_diem 2 đỉnh (A,B nguồn lớn → A'',B'' ảnh nhỏ),
+          noi_canh=[('A','B')], k=0.5."""
+        if k <= 0 or abs(k - 1) < 1e-9:
+            raise ValueError('[PHANH DỪNG] phoi_canh cần k>0 và k≠1 (k=1 là phép đồng nhất, '
+                             'ảnh trùng nguồn — không có hình phối cảnh).')
+        On, Ox, Oy = O
+        self._diem(On, Ox, Oy, nhan_O, moc=True)
+
+        def _anchor(dx, dy):
+            ax = 'right' if dx > 0.30 else ('left' if dx < -0.30 else '')
+            ay = 'above' if dy > 0.30 else ('below' if dy < -0.30 else '')
+            return (ay + ' ' + ax).strip() or 'above'
+
+        anh = {}
+        for (sn, sx, sy, an) in bo_diem:
+            self._diem(sn, sx, sy, _anchor(sx - Ox, sy - Oy), moc=True)
+            ax_, ay_ = Ox + k*(sx - Ox), Oy + k*(sy - Oy)
+            self._diem(an, ax_, ay_, _anchor(ax_ - Ox, ay_ - Oy), moc=True)
+            anh[sn] = an
+            xa = an if k > 1 else sn                       # đỉnh xa O hơn → mút tia
+            self.doan(On, xa, net=net_tia, mau=mau_tia)    # tia đứt qua đỉnh gần, tới đỉnh xa
+            self.rb.append({'loai': 'thang_hang', 'diem': [On, sn, an]})
+
+        if noi_canh is None:                               # tự nối chu vi theo bo_diem
+            src = [d[0] for d in bo_diem]
+            noi_canh = [(src[i], src[(i+1) % len(src)])
+                        for i in range(len(src) - (0 if kin else 1))]
+        for (i, j) in noi_canh:
+            self.doan(i, j)                                # cạnh hình nguồn (nét liền)
+            self.doan(anh[i], anh[j])                      # cạnh hình ảnh (nét liền)
+        if to_nguon:
+            self.tikz.append(('to_mien', [d[0] for d in bo_diem], to_nguon))
+        if to_anh:
+            self.tikz.append(('to_mien', [d[3] for d in bo_diem], to_anh))
+        return self
     def chu_so_7doan(self, so, x0=0.0, y0=0.0, rong=1.0, cao=2.0, mau=None, rong_net='dam'):
         """CHỮ SỐ kiểu 7-ĐOẠN (0..9) — cho bài TÂM đối xứng (lật nửa vòng 6↔9, giữ 0/1/2/5/8).
         Vẽ tại góc dưới-trái (x0,y0); rộng 'rong', cao 'cao' (đơn vị vẽ, mặc định 1×2 ô).
