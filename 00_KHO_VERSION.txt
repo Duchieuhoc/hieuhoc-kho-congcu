@@ -1,3 +1,10 @@
+[33zq] hieuhoc_template.js v10.53 — _RE_TOAN +∽ (U+223D SIMILAR TO = ký hiệu ĐỒNG DẠNG) → route Cambria Math (font-proof). OB Hình THCS, 2026-11-11; lộ khi OB QC Vòng 2 HH8_CH09_B34 (bài đồng dạng ĐẦU TIÊN, 46× ∽).
+      LỖI: ∽ không nằm trong _RE_GLYPH lẫn _RE_TOAN → rơi Times New Roman; TNR nhiều máy THIẾU glyph U+223D → tofu ▯ trên Word (lxml/LibreOffice/kiemMay lọt vì không kiểm font). Các chương trước chỉ dùng = (tam giác bằng nhau) nên chưa chạm.
+      VÁ: thêm ∽ vào cuối lớp ký tự _RE_TOAN (dòng 578) → ∽ định tuyến FONT_TOAN = Cambria Math (font đi kèm mọi bản Office Win/Mac). Phần chữ vẫn TNR, góc vẫn kyHieuGoc (OMML).
+      ADDITIVE 1 ký tự font-route — bài cũ 0 đổi (không bài nào dùng ∽ trước B34); chữ ký hàm KHÔNG đổi → KHÔNG regen BAN_TRICH/API. Cùng cơ chế [31c/31e/31m/32j/32o].
+      NGHIỆM THU: node --check sạch; ∽ match _RE_TOAN=true, △ vẫn ngoài (Segoe); docx B34-L1 (AI Soạn vá local trước) đã xác nhận 46/46 ∽ = Cambria Math. Mọi bài đồng dạng sau (B35→Ôn tập + THPT) hưởng trực tiếp.
+      Mốc kho: 2026-11-11 (nối tiếp [33zp]).
+
 [33zp] bieudo_xstk.py — ĐỌC ĐỒ THỊ THỰC TẾ: +3 hàm vẽ (đường cong mượt · điểm rời rạc 2 trục lệch tỉ lệ · gấp khúc liền lưới đều). OB Đại số THCS, 2026-11-09; MỞ KHÓA 3 bài HOÃN của DS8_CH07_B27 (SGK 7.22/7.23 + SBT 7.24 → đích ⑤/LTC).
       THIẾU (trước đây): kho chỉ có bieu_do_doan_thang (biểu đồ THỐNG KÊ — vạch theo mục) + hinhMatPhangToaDo (TikZ — 1 thang chung) → KHÔNG vẽ được: đường cong mượt (nhiệt độ), 2 trục LỆCH tỉ lệ (tuổi–cân nặng), đỉnh thập phân sát nhau (vận tốc 4,2·7,4·7,6·9,1 chồng nhãn).
       BỔ (ADDITIVE — 3 HÀM MỚI, KHÔNG đụng hàm cũ):

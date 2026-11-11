@@ -1,0 +1,20 @@
+ĐẨY LÊN KHO — [33zq] (2026-11-11) · OB Hình
+========================================================
+Nội dung: hieuhoc_template.js v10.52 → v10.53 — _RE_TOAN +∽ (ký hiệu đồng dạng) → Cambria Math (font-proof).
+Lý do: lộ ở HH8_CH09_B34 (bài đồng dạng đầu tiên, 46× ∽); TNR thiếu glyph U+223D → tofu ▯ trên Word.
+
+CÁCH ĐẨY (chọn 1):
+
+(A) Upload đè trên GitHub web (nhanh, đúng thói quen kho):
+    Vào repo Duchieuhoc/hieuhoc-kho-congcu → Add file → Upload files → kéo 3 file:
+       • hieuhoc_template.js        (ĐÈ bản cũ)
+       • 00_KHO_VERSION.txt         (ĐÈ — đã thêm block [33zq] ở đầu)
+       • 00_CAPNHAT_KHO__33zq.md    (file MỚI)
+    Commit message: "[33zq] template v10.53: _RE_TOAN +∽ -> Cambria Math (font-proof); lo B34"
+
+(B) Áp bằng git (nếu làm từ máy có repo):
+    git apply KHO_FIX_33zq__template_similar.patch   (hoặc: git am < ...patch)
+    rồi git push.
+
+KIỂM SAU KHI ĐẨY: mốc kho mới = [33zq]; phiên AI Soạn sau clone kho KHÔNG cần vá local ∽ nữa.
+ADDITIVE — bài cũ 0 đổi; KHÔNG regen BAN_TRICH/API.
