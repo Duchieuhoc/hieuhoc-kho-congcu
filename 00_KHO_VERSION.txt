@@ -1,3 +1,10 @@
+[33zu] hinh_khoihop.py +khai_trien_chop() — KHAI TRIỂN (net) HÌNH CHÓP ĐỀU cho Chương X Toán 8 (HH8_CH10). OB Hình THCS, 2026-11-12.
+      BỐI CẢNH: Pha A HH8_CH10 "Một số hình khối trong thực tiễn". Soi kho: chóp 3D phối cảnh + khối ghép ĐÃ ĐỦ (chop/tu_dien/trong_tam/lang_tru_dung/khoi_hop_* — tầng HinhHH12CH02 kế thừa HinhKhoiHop). LỖ HỔNG DUY NHẤT: net (khai triển) CHÓP — kho có khai_trien_hop/khai_trien_lang_tru, THIẾU chóp.
+      THÊM: khai_trien_chop(loai, a, b, nhan=None, nhan_canh_ben=None, goc_o, ten) — đáy đa giác đều ở GIỮA + mặt bên tam giác cân GẤP RA NGOÀI; _ve_net tự phân loại nếp gấp (đứt)/bao ngoài (liền). loai='tam_giac' (b=a → TAM GIÁC LỚN chia 4) | 'tu_giac' (NGÔI SAO 4 cánh). ADDITIVE thuần (compose base, KHÔNG luật PHANH mới, KHÔNG op renderer mới) → 0 regression.
+      NGHIỆM THU: render 3 mode — H10.4 cánh quạt (a=4,b=5) · H10.14 tam giác chia 4 (a=b=4) · H10.20 sao 4 cánh tứ giác (a=4,b=6) — khớp SGK.
+      Chữ ký lớp HinhHH12CH02 thêm hàm → SINH BAN_TRICH_HAM_HH8_CH10 (từ hinh_hh12_ch02). CH10 dùng: import hinh_hh12_ch02 as H10; h=H10.HinhHH12CH02().
+      Mốc kho: 2026-11-12 (nối tiếp [33zt]).
+
 [33zt] hinh_coban.py trung_diem(+so_vach) — SỬA LỖI DẤU BẰNG (ký hiệu đoạn bằng nhau). hieuhoc_template.js header v10.55 → v10.56. OB Hình THCS, 2026-11-12; Giám đốc phát hiện khi soi hình Ôn tập Chương IX.
       LỖI: trung_diem luôn phát 'gach_bang' = 1 vạch CỨNG. Hình có NHIỀU trung điểm (vd M=tđ AH, N=tđ BH, P=tđ CH với AH≠BH≠CH) → mọi cặp nửa trùng 1 vạch → NGẦM HIỂU tất cả đoạn bằng nhau (SAI). Thấy ở Hình 3 (AN=NB vs AM=MC), Hình 4 (AM=MH vs HN=NB), Hình 6 (3 cặp).
       SỬA: trung_diem(M, A, B, mau=None, so_vach=1) — thêm so_vach; phát 'dau_bang_n' (đã hỗ trợ 1/2/3 vạch) thay 'gach_bang'. Các cặp trung điểm KHÁC nhóm trong 1 hình → truyền so_vach khác nhau (1,2,3). ADDITIVE, mặc định so_vach=1 (tương thích ngược — bài cũ 1 trung điểm giữ nguyên).

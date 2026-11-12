@@ -1,7 +1,8 @@
-CAPNHAT_KHO__33zo — OB Đại số · 2026-11-09 · thầy UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes
-─────────────────────────────────────────────────────────────────────
-bieudo_xstk.py      — THAY (vá 33zo: nhãn vòng quay tự chọn màu tương phản)
-00_KHO_VERSION.txt  — THAY (bump mốc 33zo ở đầu)
-─────────────────────────────────────────────────────────────────────
-Không đổi: chữ ký hàm → BAN_TRICH_HAM_XACSUAT.md giữ nguyên; hieuhoc_template.js giữ nguyên → KHÔNG regen API_REFERENCE.
-Sau push: mốc kho yêu cầu cho DS7_CH08 = 33zo (hoặc mới hơn).
+GÓI VÁ KHO — HH8_CH10 (mốc [33zu], 2026-11-12) — thầy UPLOAD đè lên GitHub Duchieuhoc/hieuhoc-kho-congcu
+─────────────────────────────────────────────────────────────
+1. hinh_khoihop.py          — ĐÈ (thêm method khai_trien_chop vào class HinhKhoiHop; phần còn lại nguyên)
+2. 00_KHO_VERSION.txt       — ĐÈ (thêm mục [33zu] đầu file)
+3. BAN_TRICH_HAM_HH8_CH10.md — MỚI (bản trích cho AI Soạn CH10, sinh từ hinh_hh12_ch02)
+─────────────────────────────────────────────────────────────
+Cách upload: GitHub web → repo hieuhoc-kho-congcu → Add file / kéo-thả 3 file → Commit.
+Sau upload: mốc kho GitHub = 2026-11-12 [33zu]. Luật CH10 ghi "mốc kho yêu cầu: 2026-11-12".

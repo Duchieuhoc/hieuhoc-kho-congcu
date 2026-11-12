@@ -574,6 +574,71 @@ class HinhKhoiHop(HinhCoBan):
                 self.ghi_chu(ox + (xcum[i] + xcum[i + 1]) / 2, oy + cao / 2, f'({i + 1})')
         return self
 
+    def khai_trien_chop(self, loai, a, b, nhan=None, nhan_canh_ben=None,
+                        goc_o=(0.0, 0.0), ten='KC'):
+        """KHAI TRIỂN (net) HÌNH CHÓP ĐỀU — đáy đa giác đều ở GIỮA + các mặt bên là
+        tam giác cân GẤP RA NGOÀI mỗi cạnh đáy (H10.4·10.14·10.20·10.26·10.39 · SBT
+        10.6·10.14·10.17). Nếp gấp (cạnh đáy chung đáy↔cánh) NÉT ĐỨT; bao ngoài nét
+        liền — _ve_net tự phân loại theo trùng cạnh.
+
+        loai : 'tam_giac' (chóp tam giác đều — đáy tam giác đều, 3 cánh) |
+               'tu_giac'   (chóp tứ giác đều — đáy hình vuông, 4 cánh).
+        a    : độ dài CẠNH ĐÁY (độ dài VẼ) > 0.
+        b    : độ dài CẠNH BÊN (cạnh mặt bên nối đỉnh chóp) — quyết chiều cao cánh
+               = √(b² − (a/2)²); cần b > a/2. ĐẶC BIỆT: loai='tam_giac' với b = a →
+               net là TAM GIÁC LỚN chia 4 tam giác đều (H10.14·10.39·SBT10.6·10.17).
+        nhan : dict {'a': '5 cm'} ghi số đo 1 cạnh đáy (trên nếp gấp).
+        nhan_canh_ben : nhãn 1 cạnh bên (vd '6 cm') ghi trên cạnh xiên 1 cánh.
+        goc_o, ten : dời net + tiền tố tên đỉnh (ẩn) — đặt >1 net/1 hình.
+        Máy tự tính toạ độ (Đ5.9).
+        """
+        if loai not in ('tam_giac', 'tu_giac'):
+            raise ValueError("[khai_trien_chop] loai ∈ {'tam_giac','tu_giac'}")
+        if not (a > 0 and b > 0):
+            raise ValueError("[khai_trien_chop] a, b đều phải > 0")
+        if b <= a / 2:
+            raise ValueError("[khai_trien_chop] cần b > a/2 (cánh mới khép được)")
+        self._nen_luoi = False
+        ox, oy = goc_o
+        p = ten
+        h_canh = math.sqrt(b * b - (a / 2.0) ** 2)      # chiều cao mặt bên từ cạnh đáy
+        # đỉnh đáy đa giác đều, tâm (0,0)
+        if loai == 'tam_giac':
+            R = a / math.sqrt(3.0); angs = [90, 210, 330]
+        else:
+            R = a / math.sqrt(2.0); angs = [45, 135, 225, 315]
+        base = []
+        for i, ad in enumerate(angs):
+            t = math.radians(ad)
+            nm = f'{p}d{i}'
+            self._diem(nm, ox + R * math.cos(t), oy + R * math.sin(t), nhan=None, moc=False)
+            base.append(nm)
+        n = len(base)
+        faces = [base[:]]
+        apex = []
+        for i in range(n):
+            A, B = base[i], base[(i + 1) % n]
+            (xa, ya), (xb, yb) = self.V[A], self.V[B]
+            mx, my = (xa + xb) / 2.0, (ya + yb) / 2.0        # trung điểm cạnh đáy
+            dx, dy = mx - ox, my - oy                        # hướng ra ngoài (tâm→trung điểm)
+            dn = math.hypot(dx, dy) or 1.0
+            q = f'{p}q{i}'
+            self._diem(q, mx + dx / dn * h_canh, my + dy / dn * h_canh,
+                       nhan=None, moc=False)
+            apex.append(q)
+            faces.append([A, B, q])
+        self._ve_net(faces)
+        # nhãn số đo
+        nhan = nhan or {}
+        if nhan.get('a'):
+            (xa, ya), (xb, yb) = self.V[base[0]], self.V[base[1]]
+            mx, my = (xa + xb) / 2.0, (ya + yb) / 2.0
+            self.ghi_chu(ox + (mx - ox) * 0.6, oy + (my - oy) * 0.6, _mathwrap(nhan['a']))
+        if nhan_canh_ben:
+            (xb, yb) = self.V[base[1]]; (xq, yq) = self.V[apex[0]]
+            self.ghi_chu((xb + xq) / 2.0 + 0.14, (yb + yq) / 2.0, _mathwrap(nhan_canh_ben))
+        return self
+
     def khoi_hop_chia_o(self, dai, rong, cao, o_roi=True, nhan_donvi='1 dm',
                         goc_o=(0.0, 0.0), ten='CO'):
         """KHỐI HỘP CHỮ NHẬT chia dai×rong×cao Ô ĐƠN VỊ (H10.8 — giới thiệu thể tích: hộp 5×2×4).
