@@ -281,3 +281,6 @@ class HinhOxyz(HinhCoBan):
         """Nối 2 điểm Oxyz đã đặt (tên) — tiện ích; = doan base."""
         self.doan(A, B, net=net, mau=mau)
         return self
+
+# [33zv] alias chuẩn 'Hinh'
+Hinh = HinhOxyz

@@ -258,3 +258,65 @@ class HinhHH12CH02(HinhKhoiHop):
                 vx, vy = mx - gx, my - gy; L = math.hypot(vx, vy) or 1.0
                 self.ghi_chu(mx + vx / L * 0.34, my + vy / L * 0.34, canh_nhan[i])
         return self
+
+    def bat_dien(self, day, cao_tren=2.6, cao_duoi=2.6, dinh_tren='S',
+                 dinh_duoi="S'", ten_day=None, goc_o=(0.0, 0.0)):
+        """BÁT DIỆN / SONG-CHÓP — hai chóp đáy ĐA GIÁC CHUNG ĐÁY, một đỉnh LÊN
+        (dinh_tren) một đỉnh XUỐNG (dinh_duoi) — vd 2 chóp tứ giác đều ghép đáy
+        (SBT 10.20 · H.10.23). Phối cảnh xiên, NÉT KHUẤT tự tính theo bao lồi.
+        day/ten_day/goc_o như `chop`. cao_tren, cao_duoi > 0 (độ dài VẼ).
+        Máy tự tính toạ độ (Đ5.9)."""
+        pts, canh_nhan = _day_polygon(day)
+        n = len(pts)
+        if n < 3:
+            raise ValueError("[bat_dien] đáy cần ≥ 3 đỉnh")
+        if not (cao_tren > 0 and cao_duoi > 0):
+            raise ValueError("[bat_dien] cao_tren, cao_duoi phải > 0")
+        self._nen_luoi = False
+        ox, oy = goc_o
+        c = math.cos(math.radians(_GOC_SAU)); s = math.sin(math.radians(_GOC_SAU))
+        floor = [(ox + u + _CO_SAU * v * c, oy + _CO_SAU * v * s) for (u, v) in pts]
+        gx = sum(x for x, _ in floor) / n
+        gy = sum(y for _, y in floor) / n
+        apex_t = (gx, gy + cao_tren)
+        apex_d = (gx, gy - cao_duoi)
+        if ten_day:
+            if len(ten_day) != n:
+                raise ValueError(f"[bat_dien] ten_day cần đủ {n} tên")
+            dnames = list(ten_day)
+        else:
+            dnames = [f'_d{i}' for i in range(n)]
+        show = bool(ten_day)
+        # bao lồi của TOÀN khối (đáy ∪ 2 apex) → đỉnh đáy nằm trong = KHUẤT
+        hull = _hull(floor + [apex_t, apex_d])
+        kh = [(round(floor[i][0], 4), round(floor[i][1], 4)) not in hull for i in range(n)]
+        for i in range(n):
+            x, y = floor[i]
+            dx, dy = x - gx, y - gy
+            if abs(dx) >= abs(dy):
+                pos = 'right' if dx >= 0 else 'left'
+            else:
+                pos = 'above' if dy >= 0 else 'below'
+            self._diem(dnames[i], x, y, nhan=(pos if show else None), moc=show)
+        self._diem(dinh_tren, apex_t[0], apex_t[1], nhan='above', moc=True)
+        self._diem(dinh_duoi, apex_d[0], apex_d[1], nhan='below', moc=True)
+        # cạnh đáy: đứt nếu 1 trong 2 đỉnh khuất
+        for i in range(n):
+            j = (i + 1) % n
+            self.doan(dnames[i], dnames[j], net=('dut' if (kh[i] or kh[j]) else 'lien'))
+        # cạnh bên tới CẢ hai đỉnh: đứt nếu đỉnh đáy khuất
+        for i in range(n):
+            self.doan(dinh_tren, dnames[i], net=('dut' if kh[i] else 'lien'))
+            self.doan(dinh_duoi, dnames[i], net=('dut' if kh[i] else 'lien'))
+        # nhãn cạnh đáy (nếu khai)
+        for i in range(n):
+            if canh_nhan[i]:
+                (x1, y1), (x2, y2) = floor[i], floor[(i + 1) % n]
+                mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+                vx, vy = mx - gx, my - gy; L = math.hypot(vx, vy) or 1.0
+                self.ghi_chu(mx + vx / L * 0.34, my + vy / L * 0.34, canh_nhan[i])
+        return self
+
+
+# [33zv] alias chuẩn 'Hinh' cho cửa quét / sinh_bantrich (đồng bộ mọi module hinh_*)
+Hinh = HinhHH12CH02

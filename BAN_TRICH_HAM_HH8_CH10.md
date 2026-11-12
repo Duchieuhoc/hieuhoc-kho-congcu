@@ -15,6 +15,7 @@ Mỗi hàm nhận NGHĨA (tên đỉnh/tia, số đo, loại quan hệ). Máy t�
 
 | Hàm (chữ ký) | Dùng khi |
 |---|---|
+| `bat_dien(day, cao_tren=2.6, cao_duoi=2.6, dinh_tren='S', dinh_duoi="S'", ten_day=None, goc_o=(0.0, 0.0))` | BÁT DIỆN / SONG-CHÓP — hai chóp đáy ĐA GIÁC CHUNG ĐÁY, một đỉnh LÊN (dinh_tren) một đỉnh XUỐNG (dinh_duoi) — vd 2 chóp tứ giác đều ghép đáy (SBT 10.20 · H.10.23). Phối cảnh xiên, NÉT KHUẤT tự tính theo bao lồi. day/ten_day/goc_o như `chop`. cao_tren, cao_duoi > 0 (độ dài VẼ). Máy tự tính toạ độ (Đ5.9). |
 | `chan_phan_giac(D, A, B, C, nhan='below', mau=None, ve_doan=True)` | D = CHÂN đường phân giác TRONG góc A trên cạnh BC (giao tia phân giác góc A với BC). A,B,C đã đặt. Máy tính theo định lí đường phân giác: BD/DC = AB/AC (KHÔNG cho toạ độ). Mặc định vẽ đoạn A–D. PHANH kiểm D thẳng hàng B,C. Dùng: đường phân giác đơn (AD), và tâm nội tiếp (giao 2 đường A–D, B–E). dau_goc_bang(('B','A','D')) & (('D','A','C')) gọi SAU để đánh dấu 2 góc bằng. mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `chan_phan_giac_canh(ten, dinh, tia1, tia2, cat, nhan='above', mau=None, ve_doan=True, danh_dau_nua_goc=False)` | ten = CHÂN tia phân giác của góc (tia1·dinh·tia2) trên ĐOẠN 'cat'=(P,Q). Khác chan_phan_giac (chân rơi trên cạnh NẰM GIỮA hai tia): hàm này hạ chân phân giác lên MỘT CẠNH BẤT KỲ đã dựng (vd HBH ABCD: phân giác góc D (hai tia DA, DC) CẮT cạnh AB tại E → chan_phan_giac_canh('E','D','A','Cc', cat=('A','B'))). dinh,tia1,tia2 và 2 mút 'cat' đã đặt. Máy dựng hướng phân giác = unit(dinh→tia1)+unit(dinh→tia2) rồi giao với đường mang 'cat' (KHÔNG cho toạ độ). TỰ KIỂM góc(tia1·dinh·ten)=góc(ten·dinh·tia2) (dựng sai → raise). PHANH kiểm ten thẳng hàng P,Q. ve_doan → vẽ đoạn dinh–ten. danh_dau_nua_goc → 2 cung nửa góc bằng (gọi dau_goc_bang sau cũng được). mau='red' → chấm đỏ (điểm dựng ở lời giải). |
 | `chan_vuong_goc(ten, P, A, B, nhan='below', mau=None, ve_doan=True, o_vuong=True)` | Đặt 'ten' = CHÂN ĐƯỜNG VUÔNG GÓC (hình chiếu) của P lên đường thẳng AB. P, A, B đã đặt. Máy tự tính (KHÔNG cho toạ độ). Mặc định vẽ đoạn P–ten + ô vuông tại chân. PHANH kiểm ten thẳng hàng A,B và góc P-ten-(mốc) = 90°. Chân có thể NẰM NGOÀI đoạn AB (dùng thang_hang, không ép nằm giữa). Dùng: chân vuông góc từ điểm xuống tia/cạnh (H.4.50 MA⊥Ox; H.4.54 O xuống dây; đường cao tam giác). mau='red' → chấm đỏ + đoạn/ô vuông đỏ (điểm dựng ở lời giải). ve_doan=False: chỉ đặt điểm (không kẻ P–ten). o_vuong=False: bỏ ô vuông. |
@@ -84,6 +85,6 @@ Các hàm hạ tầng (nhận tọa độ thô hoặc cần điểm đặt trư�
 
 ---
 
-**Thống kê:** 56 hàm khai nghĩa (phơi) · 1 cửa render · 15 hàm hạ tầng (ẩn khỏi bản phát).
+**Thống kê:** 57 hàm khai nghĩa (phơi) · 1 cửa render · 15 hàm hạ tầng (ẩn khỏi bản phát).
 
 > **Nợ:** kho chưa khai `LOP_MODULE` → bản trích chưa ghi lớp áp dụng.

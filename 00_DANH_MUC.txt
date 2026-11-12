@@ -1,8 +1,10 @@
-GÓI VÁ KHO — HH8_CH10 (mốc [33zu], 2026-11-12) — thầy UPLOAD đè lên GitHub Duchieuhoc/hieuhoc-kho-congcu
+GÓI VÁ KHO — [33zv] (2026-11-13) — thầy UPLOAD đè lên GitHub Duchieuhoc/hieuhoc-kho-congcu
 ─────────────────────────────────────────────────────────────
-1. hinh_khoihop.py          — ĐÈ (thêm method khai_trien_chop vào class HinhKhoiHop; phần còn lại nguyên)
-2. 00_KHO_VERSION.txt       — ĐÈ (thêm mục [33zu] đầu file)
-3. BAN_TRICH_HAM_HH8_CH10.md — MỚI (bản trích cho AI Soạn CH10, sinh từ hinh_hh12_ch02)
+1. hinh_hh12_ch02.py   — ĐÈ (thêm method bat_dien + alias 'Hinh = HinhHH12CH02' cuối file)
+2. hinh_hh12_ch05.py   — ĐÈ (thêm alias 'Hinh = HinhCh05')
+3. hinh_hh12_oxyz.py   — ĐÈ (thêm alias 'Hinh = HinhOxyz')
+4. 00_KHO_VERSION.txt  — ĐÈ (thêm mục [33zv] đầu file)
+5. BAN_TRICH_HAM_HH8_CH10.md — ĐÈ (sinh lại, có bat_dien)
 ─────────────────────────────────────────────────────────────
-Cách upload: GitHub web → repo hieuhoc-kho-congcu → Add file / kéo-thả 3 file → Commit.
-Sau upload: mốc kho GitHub = 2026-11-12 [33zu]. Luật CH10 ghi "mốc kho yêu cầu: 2026-11-12".
+Sửa 2 [SỬA] AI Soạn báo ở QC Ôn tập: S1 (thiếu alias Hinh → shim) + S2 (bát diện SBT 10.20).
+Sau upload: mốc kho GitHub = 2026-11-13 [33zv]. ADDITIVE thuần → các bài B38/B39/Ôn tập đã dựng KHÔNG ảnh hưởng.

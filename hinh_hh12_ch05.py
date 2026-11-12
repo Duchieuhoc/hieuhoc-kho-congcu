@@ -298,3 +298,6 @@ def _m(s):
     if s == '':
         return ''
     return s if '$' in s else ('$' + s + '$')
+
+# [33zv] alias chuẩn 'Hinh'
+Hinh = HinhCh05

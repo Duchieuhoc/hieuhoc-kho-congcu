@@ -1,3 +1,9 @@
+[33zv] hinh_hh12_ch02.py +bat_dien() (song-chóp/BÁT DIỆN) + alias chuẩn 'Hinh'. OB Hình THCS, 2026-11-13.
+      BỐI CẢNH: QC Ôn tập HH8_CH10 — AI báo 2 [SỬA]: (S1) hinh_hh12_ch02 thiếu `Hinh = HinhHH12CH02` → cua_quet_hinh.py + sinh_bantrich gãy (phải shim mỗi bài); (S2) chop ép cao>0 → không dựng được bát diện (2 chóp tứ giác đều ghép ĐÁY, SBT 10.20 / H.10.23).
+      THÊM: (1) alias module-level `Hinh = HinhHH12CH02` (+ `Hinh=HinhCh05` cho hinh_hh12_ch05, `Hinh=HinhOxyz` cho hinh_hh12_oxyz) — ADDITIVE, cửa quét/sinh_bantrich chạy thẳng, BỎ shim. (2) `bat_dien(day, cao_tren, cao_duoi, dinh_tren, dinh_duoi, ten_day, goc_o)` — 2 chóp chung đáy (đỉnh LÊN + XUỐNG), nét khuất tự tính theo bao lồi. ADDITIVE, KHÔNG đụng `chop` → 0 regression.
+      NGHIỆM THU: import + alias OK (Hinh=HinhHH12CH02); render bát diện (đáy vuông a=4, cao±4) — song-chóp S/T, đáy ABCD nét đứt, silhouette liền — khớp SBT H.10.23.
+      SINH LẠI BAN_TRICH_HAM_HH8_CH10 (có bat_dien). Mốc kho: 2026-11-13 (nối tiếp [33zu]).
+
 [33zu] hinh_khoihop.py +khai_trien_chop() — KHAI TRIỂN (net) HÌNH CHÓP ĐỀU cho Chương X Toán 8 (HH8_CH10). OB Hình THCS, 2026-11-12.
       BỐI CẢNH: Pha A HH8_CH10 "Một số hình khối trong thực tiễn". Soi kho: chóp 3D phối cảnh + khối ghép ĐÃ ĐỦ (chop/tu_dien/trong_tam/lang_tru_dung/khoi_hop_* — tầng HinhHH12CH02 kế thừa HinhKhoiHop). LỖ HỔNG DUY NHẤT: net (khai triển) CHÓP — kho có khai_trien_hop/khai_trien_lang_tru, THIẾU chóp.
       THÊM: khai_trien_chop(loai, a, b, nhan=None, nhan_canh_ben=None, goc_o, ten) — đáy đa giác đều ở GIỮA + mặt bên tam giác cân GẤP RA NGOÀI; _ve_net tự phân loại nếp gấp (đứt)/bao ngoài (liền). loai='tam_giac' (b=a → TAM GIÁC LỚN chia 4) | 'tu_giac' (NGÔI SAO 4 cánh). ADDITIVE thuần (compose base, KHÔNG luật PHANH mới, KHÔNG op renderer mới) → 0 regression.
