@@ -1,3 +1,16 @@
+[33zs] hinh_dagiac.py +so_do_tu_duy() — PRIMITIVE SƠ ĐỒ TƯ DUY KẺ KHUNG (hộp chữ nhật phân cấp) cho mục ② TỔNG KẾT / ÔN TẬP CHƯƠNG. hieuhoc_template.js header v10.54 → v10.55. OB Hình THCS, 2026-11-12; theo chỉ đạo Giám đốc (ôn tập có sơ đồ tư duy, kiểu KẺ KHUNG chuẩn VN).
+      THÊM: HinhDaGiac.so_do_tu_duy(trung_tam, nhanh, mau='blue', scale=1.0) ⇒ Hinh.so_do_tu_duy. Hộp TÂM (trái) → hộp NHÁNH (giữa) → hộp Ý CON (phải), nối bằng đường thể hiện QUAN HỆ phân cấp. nhanh = list: chuỗi (nhánh lá) HOẶC (nhãn,[con,…]). mau = TÊN MÀU TRẦN ('blue','teal','orange'…, tự pha !xx — KHÔNG truyền !nn). Render XELATEX + Latin Modern Roman (đủ dấu Việt); thiếu → lùi pdflatex. Nhãn tự escape + tự xuống dòng theo bề rộng hộp.
+      LƯU Ý: KHÔNG phải bong bóng mindmap TikZ — mà là hộp chữ nhật nối đường (sơ đồ tư duy chuẩn VN, thể hiện quan hệ).
+      ADDITIVE — hàm MỚI, bài cũ 0 đổi. Generator độc lập (nhãn-chữ, KHÔNG PHANH, như la_ban). Chữ ký hàm MỚI → REGEN BAN_TRICH_HAM_HH8_CH09.
+      NGHIỆM THU: render tổng kết Chương IX (tâm 'TAM GIÁC ĐỒNG DẠNG' + 5 nhánh + ý con) — hộp phân cấp, đường nối rõ quan hệ, đủ dấu tiếng Việt. node require(template) OK.
+      Mốc kho: 2026-11-12 (nối tiếp [33zr]).
+
+[33zr] hinh_dagiac.py +phoi_canh() — PRIMITIVE VỊ TỰ / PHỐI CẢNH tâm O tỉ số k (Bài 37 HH8_CH09 "Hình đồng dạng"). hieuhoc_template.js header v10.53 → v10.54. OB Hình THCS, 2026-11-11; dựng TRƯỚC khi giao B37.
+      THÊM: HinhDaGiac.phoi_canh(O, bo_diem, k, noi_canh=None, net_tia='dut', …) ⇒ Hinh.phoi_canh. Đỉnh ảnh = O+k·(P−O) (thẳng hàng, đúng vị tự); tia đứt O→đỉnh-xa; PHANH thang_hang mỗi bộ (O,nguồn,ảnh).
+      ADDITIVE — hàm MỚI, bài cũ 0 đổi. Chữ ký hàm MỚI → REGEN BAN_TRICH_HAM_HH8_CH09.
+      NGHIỆM THU: 3 ca render PHANH sạch; Bài 37 QC Vòng 2 ĐẠT dùng thực chiến.
+      Mốc kho: 2026-11-11 (nối tiếp [33zq]).
+
 [33zq] hieuhoc_template.js v10.53 — _RE_TOAN +∽ (U+223D SIMILAR TO = ký hiệu ĐỒNG DẠNG) → route Cambria Math (font-proof). OB Hình THCS, 2026-11-11; lộ khi OB QC Vòng 2 HH8_CH09_B34 (bài đồng dạng ĐẦU TIÊN, 46× ∽).
       LỖI: ∽ không nằm trong _RE_GLYPH lẫn _RE_TOAN → rơi Times New Roman; TNR nhiều máy THIẾU glyph U+223D → tofu ▯ trên Word (lxml/LibreOffice/kiemMay lọt vì không kiểm font). Các chương trước chỉ dùng = (tam giác bằng nhau) nên chưa chạm.
       VÁ: thêm ∽ vào cuối lớp ký tự _RE_TOAN (dòng 578) → ∽ định tuyến FONT_TOAN = Cambria Math (font đi kèm mọi bản Office Win/Mac). Phần chữ vẫn TNR, góc vẫn kyHieuGoc (OMML).

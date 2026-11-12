@@ -611,3 +611,101 @@ def la_ban(goc_O='O', huong=None, dai=3.0, scale=1.0, out='la_ban', tra_bytes=Fa
     return _HC_dg.render_tikz_doc('\n'.join(L), out, tra_bytes)
 
 HinhDaGiac.la_ban = staticmethod(la_ban)
+
+
+# ═══════ [33zs] SƠ ĐỒ TƯ DUY KẺ KHUNG (hộp phân cấp) — tổng kết chương, OB Hình 2026-11-12 ═══════
+#   Mục ② Ôn tập/Tổng kết chương: hộp chữ nhật nối bằng đường, PHÂN CẤP trái→phải thể hiện
+#   QUAN HỆ (title → nhánh → ý con) — KIỂU SƠ ĐỒ TƯ DUY chuẩn VN (không phải bong bóng mindmap).
+#   Render qua XELATEX (đủ dấu tiếng Việt). Generator ĐỘC LẬP (nhãn-chữ, KHÔNG toạ-độ-số PHANH).
+import subprocess as _sp_mm, os as _os_mm
+def so_do_tu_duy(trung_tam, nhanh, mau='blue', scale=1.0,
+                 out='so_do_tu_duy', tra_bytes=False):
+    """SƠ ĐỒ TƯ DUY KẺ KHUNG (hộp chữ nhật phân cấp, nối đường) — mục ② TỔNG KẾT / ÔN TẬP CHƯƠNG.
+    Hộp TÂM (trái) → các hộp NHÁNH (giữa) → hộp Ý CON (phải), nối bằng đường thể hiện quan hệ.
+    Hệ thống kiến thức, KHÔNG lý thuyết mới.
+
+    trung_tam : chuỗi khái niệm trung tâm (vd 'TAM GIÁC ĐỒNG DẠNG'). Tự xuống dòng theo bề rộng
+                hộp — KHÔNG tự thêm '\\\\'.
+    nhanh     : list; MỖI phần tử là:
+                  • chuỗi            → nhánh LÁ (không có ý con)
+                  • (nhãn, [con,…])  → nhánh có các Ý CON (list chuỗi)
+    mau       : màu chủ đạo (TikZ: 'blue','teal','orange','purple'… — tự pha !xx).
+    scale     : phóng/thu.
+    Render xelatex + Latin Modern Roman (ĐỦ DẤU tiếng Việt); thiếu xelatex → lùi pdflatex
+    (rớt dấu, an toàn). Nhãn tự escape ký tự LaTeX đặc biệt."""
+    def _esc(s):
+        s = str(s)
+        for a, b in [('\\', r'\textbackslash '), ('&', r'\&'), ('%', r'\%'),
+                     ('#', r'\#'), ('_', r'\_'), ('{', r'\{'), ('}', r'\}'),
+                     ('$', r'\$'), ('^', r'\textasciicircum '), ('~', r'\textasciitilde ')]:
+            s = s.replace(a, b)
+        return s
+    ROWH, GAP, X0, X1, X2 = 1.18, 0.55, 0.0, 5.3, 10.4
+    branch_mid = []
+    r = 0.0
+    rows = []   # (ci-index) → (x, y, text)
+    plan = []   # per nhánh: ('con', lbl, [child texts]) hoặc ('la', lbl)
+    for item in nhanh:
+        if isinstance(item, (tuple, list)) and len(item) == 2 and isinstance(item[1], (list, tuple)) and item[1]:
+            lbl, cons = item
+            ys = []
+            crows = []
+            for c in cons:
+                rows.append((X2, -r, _esc(c)))
+                crows.append(len(rows) - 1)
+                ys.append(-r)
+                r += ROWH
+            branch_mid.append(sum(ys) / len(ys))
+            plan.append(('con', _esc(lbl), crows))
+            r += GAP
+        else:
+            lbl = item[0] if isinstance(item, (tuple, list)) else item
+            branch_mid.append(-r)
+            plan.append(('la', _esc(lbl), []))
+            r += ROWH + GAP
+    title_y = sum(branch_mid) / len(branch_mid) if branch_mid else 0.0
+    L = [r'\documentclass[border=10pt]{standalone}',
+         r'\usepackage{fontspec}\setmainfont{Latin Modern Roman}',
+         r'\usepackage{tikz}\usetikzlibrary{positioning,calc}',
+         r'\begin{document}',
+         r'\begin{tikzpicture}[scale=%g,' % scale,
+         r'  box/.style={draw=%s!60,line width=0.8pt,rounded corners=2pt,align=center,inner sep=4pt,font=\small},' % mau,
+         r'  tbox/.style={draw=%s!80,fill=%s!15,line width=1.2pt,rounded corners=3pt,align=center,inner sep=6pt,font=\bfseries},' % (mau, mau),
+         r'  bbox/.style={draw=%s!70,fill=%s!8,line width=1.0pt,rounded corners=2pt,align=center,inner sep=5pt,font=\small\bfseries},' % (mau, mau),
+         r'  lnk/.style={draw=%s!55,line width=0.8pt}]' % mau,
+         r'\node[tbox,text width=2.7cm] (T) at (%g,%g) {%s};' % (X0, title_y, _esc(trung_tam))]
+    for ci, (x, y, t) in enumerate(rows):
+        L.append(r'\node[box,text width=3.2cm] (C%d) at (%g,%g) {%s};' % (ci, x, y, t))
+    for bi, (kind, lbl, crows) in enumerate(plan):
+        L.append(r'\node[bbox,text width=3.1cm] (B%d) at (%g,%g) {%s};' % (bi, X1, branch_mid[bi], lbl))
+        L.append(r'\draw[lnk] (T.east) -- (B%d.west);' % bi)
+        for ci in crows:
+            L.append(r'\draw[lnk] (B%d.east) -- (C%d.west);' % (bi, ci))
+    L += [r'\end{tikzpicture}', r'\end{document}']
+    tex = '\n'.join(L)
+    for _e in ('.pdf', '-1.png'):
+        try: _os_mm.remove('/tmp/%s%s' % (out, _e))
+        except OSError: pass
+    open('/tmp/%s.tex' % out, 'w').write(tex)
+    try:
+        _sp_mm.run(['xelatex', '-interaction=nonstopmode', '%s.tex' % out],
+                   cwd='/tmp', capture_output=True)
+    except (FileNotFoundError, OSError):
+        pass
+    if not _os_mm.path.exists('/tmp/%s.pdf' % out):
+        tex2 = tex.replace(r'\usepackage{fontspec}\setmainfont{Latin Modern Roman}',
+                           r'\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}')
+        open('/tmp/%s.tex' % out, 'w').write(tex2)
+        try:
+            _sp_mm.run(['pdflatex', '-interaction=nonstopmode', '%s.tex' % out],
+                       cwd='/tmp', capture_output=True)
+        except (FileNotFoundError, OSError):
+            pass
+    _sp_mm.run(['pdftoppm', '-png', '-r', '170', '%s.pdf' % out, out],
+               cwd='/tmp', capture_output=True)
+    png = '/tmp/%s-1.png' % out
+    if not _os_mm.path.exists(png):
+        return None
+    return open(png, 'rb').read() if tra_bytes else png
+
+HinhDaGiac.so_do_tu_duy = staticmethod(so_do_tu_duy)
