@@ -1,14 +1,16 @@
-[33zs] hinh_dagiac.py +so_do_tu_duy() — PRIMITIVE SƠ ĐỒ TƯ DUY KẺ KHUNG (hộp chữ nhật phân cấp) cho mục ② TỔNG KẾT / ÔN TẬP CHƯƠNG. hieuhoc_template.js header v10.54 → v10.55. OB Hình THCS, 2026-11-12; theo chỉ đạo Giám đốc (ôn tập có sơ đồ tư duy, kiểu KẺ KHUNG chuẩn VN).
-      THÊM: HinhDaGiac.so_do_tu_duy(trung_tam, nhanh, mau='blue', scale=1.0) ⇒ Hinh.so_do_tu_duy. Hộp TÂM (trái) → hộp NHÁNH (giữa) → hộp Ý CON (phải), nối bằng đường thể hiện QUAN HỆ phân cấp. nhanh = list: chuỗi (nhánh lá) HOẶC (nhãn,[con,…]). mau = TÊN MÀU TRẦN ('blue','teal','orange'…, tự pha !xx — KHÔNG truyền !nn). Render XELATEX + Latin Modern Roman (đủ dấu Việt); thiếu → lùi pdflatex. Nhãn tự escape + tự xuống dòng theo bề rộng hộp.
-      LƯU Ý: KHÔNG phải bong bóng mindmap TikZ — mà là hộp chữ nhật nối đường (sơ đồ tư duy chuẩn VN, thể hiện quan hệ).
-      ADDITIVE — hàm MỚI, bài cũ 0 đổi. Generator độc lập (nhãn-chữ, KHÔNG PHANH, như la_ban). Chữ ký hàm MỚI → REGEN BAN_TRICH_HAM_HH8_CH09.
-      NGHIỆM THU: render tổng kết Chương IX (tâm 'TAM GIÁC ĐỒNG DẠNG' + 5 nhánh + ý con) — hộp phân cấp, đường nối rõ quan hệ, đủ dấu tiếng Việt. node require(template) OK.
+[33zt] hinh_coban.py trung_diem(+so_vach) — SỬA LỖI DẤU BẰNG (ký hiệu đoạn bằng nhau). hieuhoc_template.js header v10.55 → v10.56. OB Hình THCS, 2026-11-12; Giám đốc phát hiện khi soi hình Ôn tập Chương IX.
+      LỖI: trung_diem luôn phát 'gach_bang' = 1 vạch CỨNG. Hình có NHIỀU trung điểm (vd M=tđ AH, N=tđ BH, P=tđ CH với AH≠BH≠CH) → mọi cặp nửa trùng 1 vạch → NGẦM HIỂU tất cả đoạn bằng nhau (SAI). Thấy ở Hình 3 (AN=NB vs AM=MC), Hình 4 (AM=MH vs HN=NB), Hình 6 (3 cặp).
+      SỬA: trung_diem(M, A, B, mau=None, so_vach=1) — thêm so_vach; phát 'dau_bang_n' (đã hỗ trợ 1/2/3 vạch) thay 'gach_bang'. Các cặp trung điểm KHÁC nhóm trong 1 hình → truyền so_vach khác nhau (1,2,3). ADDITIVE, mặc định so_vach=1 (tương thích ngược — bài cũ 1 trung điểm giữ nguyên).
+      Chữ ký hàm đổi → REGEN BAN_TRICH_HAM_HH8_CH09.
+      NGHIỆM THU: dựng lại Hình 3/4/6 Ôn tập — AM=MH (1 vạch) / HN=NB (2 vạch) / HP=PC (3 vạch) phân biệt rõ, đúng.
+      Mốc kho: 2026-11-12 (nối tiếp [33zs]).
+
+[33zs] hinh_dagiac.py +so_do_tu_duy() — SƠ ĐỒ TƯ DUY KẺ KHUNG (hộp chữ nhật phân cấp nối đường) cho ② TỔNG KẾT/ÔN TẬP CHƯƠNG. template v10.54→v10.55. OB 2026-11-12.
+      so_do_tu_duy(trung_tam, nhanh, mau='blue', scale): hộp TÂM→NHÁNH→Ý CON, nối đường thể hiện quan hệ. mau = tên màu trần. Render XELATEX + Latin Modern (đủ dấu Việt). KHÔNG phải bong bóng mindmap. Chữ ký MỚI → REGEN BAN_TRICH. Nghiệm thu: tổng kết Chương IX render sạch.
       Mốc kho: 2026-11-12 (nối tiếp [33zr]).
 
-[33zr] hinh_dagiac.py +phoi_canh() — PRIMITIVE VỊ TỰ / PHỐI CẢNH tâm O tỉ số k (Bài 37 HH8_CH09 "Hình đồng dạng"). hieuhoc_template.js header v10.53 → v10.54. OB Hình THCS, 2026-11-11; dựng TRƯỚC khi giao B37.
-      THÊM: HinhDaGiac.phoi_canh(O, bo_diem, k, noi_canh=None, net_tia='dut', …) ⇒ Hinh.phoi_canh. Đỉnh ảnh = O+k·(P−O) (thẳng hàng, đúng vị tự); tia đứt O→đỉnh-xa; PHANH thang_hang mỗi bộ (O,nguồn,ảnh).
-      ADDITIVE — hàm MỚI, bài cũ 0 đổi. Chữ ký hàm MỚI → REGEN BAN_TRICH_HAM_HH8_CH09.
-      NGHIỆM THU: 3 ca render PHANH sạch; Bài 37 QC Vòng 2 ĐẠT dùng thực chiến.
+[33zr] hinh_dagiac.py +phoi_canh() — PRIMITIVE VỊ TỰ/PHỐI CẢNH tâm O tỉ số k (Bài 37). template v10.53→v10.54. OB 2026-11-11.
+      phoi_canh(O, bo_diem, k, noi_canh=None, …): ảnh=O+k·(P−O), tia đứt đồng quy, PHANH thang_hang. ADDITIVE. Nghiệm thu B37 QC ĐẠT thực chiến + Ôn tập 9.69.
       Mốc kho: 2026-11-11 (nối tiếp [33zq]).
 
 [33zq] hieuhoc_template.js v10.53 — _RE_TOAN +∽ (U+223D SIMILAR TO = ký hiệu ĐỒNG DẠNG) → route Cambria Math (font-proof). OB Hình THCS, 2026-11-11; lộ khi OB QC Vòng 2 HH8_CH09_B34 (bài đồng dạng ĐẦU TIÊN, 46× ∽).

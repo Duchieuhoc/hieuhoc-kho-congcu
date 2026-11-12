@@ -73,9 +73,12 @@ class HinhCoBan:
         return rA, rB, (dx,dy), (ax,ay)
     def _mot_diem_duong(self, ten):     # 2 điểm mốc của 1 đường (để kiểm/giao)
         return self.duong_data[ten]
-    def trung_diem(self, M, A, B, mau=None):
+    def trung_diem(self, M, A, B, mau=None, so_vach=1):
         """M = TRUNG ĐIỂM đoạn AB. M chưa đặt → tự đặt tại chính giữa A,B. Vẽ đoạn AB + gạch bằng
-        2 nửa (A–M = M–B) + ràng buộc thẳng hàng A,M,B (PHANH). mau='red' → chấm đỏ (điểm dựng ở lời giải)."""
+        2 nửa (A–M = M–B) + ràng buộc thẳng hàng A,M,B (PHANH). mau='red' → chấm đỏ (điểm dựng ở lời giải).
+        so_vach (1/2/3): số vạch của 2 nửa — ⚠ khi 1 HÌNH có NHIỀU trung điểm của các đoạn KHÔNG bằng
+        nhau (vd M trung điểm AH, N trung điểm BH với AH≠BH), PHẢI dùng so_vach KHÁC nhau cho từng cặp
+        (1, 2, 3…) để không ngầm hiểu mọi nửa bằng nhau. Mặc định 1 (tương thích ngược)."""
         if M not in self.V:            # [12/08 vá lỗi cũ] tự đặt M tại trung điểm nếu chưa đặt
             (ax,ay),(bx,by) = self.V[A], self.V[B]
             self._diem(M, (ax+bx)/2, (ay+by)/2, 'above', moc=True, mau=mau)
@@ -84,7 +87,9 @@ class HinhCoBan:
         self.rb.append({'loai':'trung_diem','M':M,'doan':(A,B)})
         self.rb.append({'loai':'thang_hang','diem':[A,M,B]})
         self.tikz.append(('doan', A, B, False))
-        self.tikz.append(('gach_bang', A, M)); self.tikz.append(('gach_bang', M, B))
+        sv = int(so_vach)                                    # [33zt] số vạch phân biệt nhóm trung điểm
+        self.tikz.append(('dau_bang_n', A, M, sv, 'thang'))
+        self.tikz.append(('dau_bang_n', M, B, sv, 'thang'))
         return self
     def trung_truc(self, A, B, tam='O', dai_AB=4.0, nhan_d='d', hien_nhan_d=True,
                    M=None, cao=3.0, ve_MA_MB=False, ve_toO=False,
