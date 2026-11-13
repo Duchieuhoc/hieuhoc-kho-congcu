@@ -9,10 +9,14 @@
 # ═══════════════════════════════════════════════════════════════════
 import hinh_toado
 import hinh_core as _HC   # helper render_tikz_doc (generator độc lập)
+from hinh_khoihop import HinhKhoiHop   # [DS9C3·2026-11-13] bắc cầu khối hộp/lập phương vào mạch đại số
 
 
-class Hinh(hinh_toado.Hinh):
-    """Entry Đại số — kế thừa primitive toạ độ (hinh_toado.Hinh) + phần thuần đại số."""
+class Hinh(hinh_toado.Hinh, HinhKhoiHop):
+    """Entry Đại số — kế thừa primitive toạ độ (hinh_toado.Hinh) + khối hộp 3D
+    (HinhKhoiHop: khoi_hop_chu_nhat/khoi_hop_chia_o/khoi_lap_phuong_chia_o…) + phần thuần đại số.
+    [DS9C3] Bắc cầu HinhKhoiHop: thể tích/căn bậc ba lớp 9 (khối lập phương, thùng không nắp)
+    dùng chung mạch khối hộp đã dựng cho DS8_CH01 — KHÔNG viết hàm vẽ trùng."""
 
     def dung_can_hai(self, canh=2, nhan_diem='A', nhan_can=None):
         """DỰNG √2 TRÊN TRỤC SỐ bằng compa — SGK Toán 7 Hình 2.3 (2 panel a/b).
