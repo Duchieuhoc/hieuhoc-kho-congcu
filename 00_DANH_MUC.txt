@@ -1,7 +1,17 @@
-CAPNHAT_KHO__33zk — 2026-11-16 (OB Đại số THPT) — vá TRÌNH BÀY hinh_bpt (gộp, QC pilot B03/B04).
-Đích: Giám đốc UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes. Nối HEAD [33zv].
-GỘP, DÙNG THAY CAPNHAT_KHO__33zj (nếu chưa upload 33zj → upload thẳng 33zk này).
-- hinh_bpt.py  THAY — [33zk]: nhãn đường tránh gốc O + canh khung bám đỉnh + ten_mien tránh gốc. ADDITIVE.
-- BAN_TRICH_HAM_DS10_CH02__bpt.md  THAY — regen.
-- 00_KHO_VERSION.txt  THAY — +[33zk].
-KHÔNG đụng template/kho khác.
+CAPNHAT_KHO__33zl — cập nhật kho GitHub (hieuhoc-kho-congcu)
+============================================================
+Loại: CAPNHAT_KHO (→ GitHub). Ngày 2026-11-16 · OB Đại số THPT.
+THAY: 33zk, 33zj, 33zi (cộng dồn — chỉ upload 1 file này).
+
+FILE:
+- hinh_bpt.py [33zl]                  — generator miền nghiệm BPT/hệ BPT (nghiệm thu B03+B04).
+- BAN_TRICH_HAM_DS10_CH02__bpt.md     — bản trích chữ ký hàm (0 đổi so với 33zk).
+- 00_KHO_VERSION.txt                  — dấu mốc [33zl].
+- 00_DANH_MUC.txt                     — file này.
+
+CÁCH ĐẨY (CHỐNG CLOBBER):
+  git clone --depth 1 <repo> → đè hinh_bpt.py + 00_KHO_VERSION.txt bằng bản [33zl] → commit/push.
+  Một thời điểm MỘT máy sửa file chung.
+
+VÁ [33zl] so với 33zk: SO LE vị trí nhãn đường (cycle t = 0.72/0.44/0.86/0.58/0.32) → 2 đường gần
+  song song (vd H11 B04: x+2y=8 vs x+y=5) không còn đè nhãn. Lỗi hình thức, ADDITIVE, lợi mọi hình sau.

@@ -205,6 +205,8 @@ def mien_nghiem(bpt, diem=None, khung=None, nhan_duong=None, ten_mien=None,
     P.append(r'\node[below left] at (0,0) {$O$};')
 
     # --- 3) các đường bờ (nét liền nếu ≤,≥ ; nét đứt nếu <,>) ---
+    _T_CYCLE = [0.72, 0.44, 0.86, 0.58, 0.32]   # [33zl] so le vị trí nhãn → tránh đè khi 2 đường gần song song
+    _lab_k = 0
     for i, (a, b, c, dau) in enumerate(bpt):
         # bờ trùng trục toạ độ (x=0 ≡ Oy ; y=0 ≡ Ox) → để trục đen lo, không vẽ đè đỏ
         if abs(c) < _EPS and (abs(b) < _EPS or abs(a) < _EPS):
@@ -217,11 +219,13 @@ def mien_nghiem(bpt, diem=None, khung=None, nhan_duong=None, ten_mien=None,
                  % (sty, _fmt(pts[0][0]), _fmt(pts[0][1]),
                     _fmt(pts[1][0]), _fmt(pts[1][1])))
         if nhan_duong and i < len(nhan_duong) and nhan_duong[i]:
-            # [33zj] đặt nhãn lệch 72% về đầu CAO của đoạn (tránh đè gốc O khi đường qua O)
+            # [33zj] đặt nhãn lệch về đầu CAO của đoạn (tránh đè gốc O khi đường qua O)
+            # [33zl] so le t theo thứ tự nhãn → 2 đường gần song song không đè nhãn
             p0, p1 = pts[0], pts[1]
             if p0[1] > p1[1]:
                 p0, p1 = p1, p0            # p1 = đầu có tung độ lớn hơn
-            t = 0.72
+            t = _T_CYCLE[_lab_k % len(_T_CYCLE)]
+            _lab_k += 1
             mx = p0[0] + t * (p1[0] - p0[0])
             my = p0[1] + t * (p1[1] - p0[1])
             P.append(r'\node[font=\small, hhbo, fill=white, inner sep=1pt] at (%s,%s) {%s};'
