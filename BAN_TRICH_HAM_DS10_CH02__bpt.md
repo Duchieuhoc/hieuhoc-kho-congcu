@@ -2,7 +2,7 @@
 
 > **Cho AI Soạn.** Module BIỂU ĐỒ/MÔ HÌNH (thống kê & xác suất): mỗi hàm nhận DỮ LIỆU THẬT → trả PNG. Không theo lối builder `h.ve()` của hình học.
 > Tự sinh bằng introspect `hinh_bpt.py` qua `sinh_bantrich.py` — KHÔNG sửa tay.
-> Sinh ngày 31/10/2026. AI Soạn khai nghĩa theo phiếu → GỌI HÀM → nhúng qua `H.hinhVe`.
+> Sinh ngày 16/11/2026. AI Soạn khai nghĩa theo phiếu → GỌI HÀM → nhúng qua `H.hinhVe`.
 
 Import trong script bài: `import hinh_bpt as BD`.
 Gọi hàm với `tra_bytes=True` để lấy PNG buffer: `buf = BD.bieu_do_cot(...); H.hinhVe({ imageBuffer: buf })`.

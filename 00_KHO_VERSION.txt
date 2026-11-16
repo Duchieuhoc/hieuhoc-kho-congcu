@@ -1,3 +1,11 @@
+[33zk] hinh_bpt.py — 3 vá TRÌNH BÀY (gộp, QC pilot B03/B04). OB Đại số THPT, 2026-11-16; nối HEAD [33zv].
+      (1) Nhãn ĐƯỜNG dời 72% về đầu cao → không đè gốc O (ca đường qua O: H3 5x-7y, H8 3x-y).
+      (2) Canh KHUNG bám đỉnh miền (điểm khai) + gốc, bỏ giao-đường-đôi-một ở xa → miền không dồn góc, nhãn đỉnh hết chồng (ngũ giác/đa giác nhiều cạnh).
+      (3) Nhãn ten_mien dời khi tâm miền ≈ gốc O (miền đối xứng qua O, vd hình vuông nghiêng SBT 2.8).
+      Nhãn ĐIỂM subscript: dùng 'M_0' ascii → $M_0$ (sửa render script bài). ADDITIVE, chữ ký 0 đổi → KHÔNG regen API.
+      Nghiệm thu: B03 (4 ca) + B04 ca khó (ngũ giác SBT 2.9, hình vuông nghiêng SBT 2.8) render thật ĐẠT.
+      Mốc kho: 2026-11-16 (nối [33zi]).
+
 [33zv] hinh_hh12_ch02.py +bat_dien() (song-chóp/BÁT DIỆN) + alias chuẩn 'Hinh'. OB Hình THCS, 2026-11-13.
       BỐI CẢNH: QC Ôn tập HH8_CH10 — AI báo 2 [SỬA]: (S1) hinh_hh12_ch02 thiếu `Hinh = HinhHH12CH02` → cua_quet_hinh.py + sinh_bantrich gãy (phải shim mỗi bài); (S2) chop ép cao>0 → không dựng được bát diện (2 chóp tứ giác đều ghép ĐÁY, SBT 10.20 / H.10.23).
       THÊM: (1) alias module-level `Hinh = HinhHH12CH02` (+ `Hinh=HinhCh05` cho hinh_hh12_ch05, `Hinh=HinhOxyz` cho hinh_hh12_oxyz) — ADDITIVE, cửa quét/sinh_bantrich chạy thẳng, BỎ shim. (2) `bat_dien(day, cao_tren, cao_duoi, dinh_tren, dinh_duoi, ten_day, goc_o)` — 2 chóp chung đáy (đỉnh LÊN + XUỐNG), nét khuất tự tính theo bao lồi. ADDITIVE, KHÔNG đụng `chop` → 0 regression.

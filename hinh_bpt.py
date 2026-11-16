@@ -164,22 +164,17 @@ def mien_nghiem(bpt, diem=None, khung=None, nhan_duong=None, ten_mien=None,
         raise ValueError('[mien_nghiem] cần ít nhất 1 bất phương trình')
     diem = list(diem or [])
 
-    # --- tự canh khung nếu thiếu: từ giao các đường đôi một + giao trục + điểm ---
+    # --- tự canh khung nếu thiếu ---
+    #   [33zk] bám ĐỈNH miền (điểm AI Soạn khai) + gốc, KHÔNG lấy giao-đường-đôi-một
+    #   (giao ngoài miền làm phình khung → miền dồn góc, nhãn chồng). Đủ ≥3 đỉnh = đa
+    #   giác đóng → bao đỉnh là chuẩn; <3 đỉnh (nửa mp) → thêm giao trục để thấy đường.
     if khung is None:
-        xs, ys = [0.0], [0.0]
-        for (x, y, _n) in diem:
-            xs.append(x); ys.append(y)
-        n = len(bpt)
-        for i in range(n):
-            a1, b1, c1, _ = bpt[i]
-            if abs(a1) > _EPS: xs.append(c1 / a1)   # giao trục Ox (y=0)
-            if abs(b1) > _EPS: ys.append(c1 / b1)   # giao trục Oy (x=0)
-            for j in range(i + 1, n):
-                a2, b2, c2, _ = bpt[j]
-                det = a1 * b2 - a2 * b1
-                if abs(det) > _EPS:
-                    xs.append((c1 * b2 - c2 * b1) / det)
-                    ys.append((a1 * c2 - a2 * c1) / det)
+        pts = [(0.0, 0.0)] + [(x, y) for (x, y, _n) in diem]
+        if len(diem) < 3:
+            for (a, b, c, _d) in bpt:
+                if abs(a) > _EPS: pts.append((c / a, 0.0))   # giao trục Ox
+                if abs(b) > _EPS: pts.append((0.0, c / b))   # giao trục Oy
+        xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
         xmn, xmx, ymn, ymx = min(xs), max(xs), min(ys), max(ys)
         dx = max(xmx - xmn, 1.0) * 0.12 + 1
         dy = max(ymx - ymn, 1.0) * 0.12 + 1
@@ -222,8 +217,13 @@ def mien_nghiem(bpt, diem=None, khung=None, nhan_duong=None, ten_mien=None,
                  % (sty, _fmt(pts[0][0]), _fmt(pts[0][1]),
                     _fmt(pts[1][0]), _fmt(pts[1][1])))
         if nhan_duong and i < len(nhan_duong) and nhan_duong[i]:
-            mx = (pts[0][0] + pts[1][0]) / 2
-            my = (pts[0][1] + pts[1][1]) / 2
+            # [33zj] đặt nhãn lệch 72% về đầu CAO của đoạn (tránh đè gốc O khi đường qua O)
+            p0, p1 = pts[0], pts[1]
+            if p0[1] > p1[1]:
+                p0, p1 = p1, p0            # p1 = đầu có tung độ lớn hơn
+            t = 0.72
+            mx = p0[0] + t * (p1[0] - p0[0])
+            my = p0[1] + t * (p1[1] - p0[1])
             P.append(r'\node[font=\small, hhbo, fill=white, inner sep=1pt] at (%s,%s) {%s};'
                      % (_fmt(mx), _fmt(my), _bocmath(nhan_duong[i])))
 
@@ -231,6 +231,9 @@ def mien_nghiem(bpt, diem=None, khung=None, nhan_duong=None, ten_mien=None,
     if ten_mien and co_bpt_thuc and len(poly) >= 3:
         cx = sum(p[0] for p in poly) / len(poly)
         cy = sum(p[1] for p in poly) / len(poly)
+        # [33zk] tâm miền ≈ gốc O (miền đối xứng qua O) → dời nhãn tránh đè chữ O
+        if abs(cx) < 0.12 * (xmax - xmin) and abs(cy) < 0.12 * (ymax - ymin):
+            cx += 0.22 * (xmax - xmin)
         P.append(r'\node[font=\itshape] at (%s,%s) {%s};'
                  % (_fmt(cx), _fmt(cy), _bocmath(ten_mien)))
 

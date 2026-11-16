@@ -1,10 +1,7 @@
-GÓI VÁ KHO — [33zv] (2026-11-13) — thầy UPLOAD đè lên GitHub Duchieuhoc/hieuhoc-kho-congcu
-─────────────────────────────────────────────────────────────
-1. hinh_hh12_ch02.py   — ĐÈ (thêm method bat_dien + alias 'Hinh = HinhHH12CH02' cuối file)
-2. hinh_hh12_ch05.py   — ĐÈ (thêm alias 'Hinh = HinhCh05')
-3. hinh_hh12_oxyz.py   — ĐÈ (thêm alias 'Hinh = HinhOxyz')
-4. 00_KHO_VERSION.txt  — ĐÈ (thêm mục [33zv] đầu file)
-5. BAN_TRICH_HAM_HH8_CH10.md — ĐÈ (sinh lại, có bat_dien)
-─────────────────────────────────────────────────────────────
-Sửa 2 [SỬA] AI Soạn báo ở QC Ôn tập: S1 (thiếu alias Hinh → shim) + S2 (bát diện SBT 10.20).
-Sau upload: mốc kho GitHub = 2026-11-13 [33zv]. ADDITIVE thuần → các bài B38/B39/Ôn tập đã dựng KHÔNG ảnh hưởng.
+CAPNHAT_KHO__33zk — 2026-11-16 (OB Đại số THPT) — vá TRÌNH BÀY hinh_bpt (gộp, QC pilot B03/B04).
+Đích: Giám đốc UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes. Nối HEAD [33zv].
+GỘP, DÙNG THAY CAPNHAT_KHO__33zj (nếu chưa upload 33zj → upload thẳng 33zk này).
+- hinh_bpt.py  THAY — [33zk]: nhãn đường tránh gốc O + canh khung bám đỉnh + ten_mien tránh gốc. ADDITIVE.
+- BAN_TRICH_HAM_DS10_CH02__bpt.md  THAY — regen.
+- 00_KHO_VERSION.txt  THAY — +[33zk].
+KHÔNG đụng template/kho khác.
