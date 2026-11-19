@@ -23,6 +23,7 @@ NHOM = {
     'hinh_gocdt':   'Góc & đường thẳng',
     'hinh_doixung': 'Đối xứng', 'hinh_tamgiac': 'Tam giác',
     'hinh_khoihop': 'Khối / không gian', 'hinh_phang': 'Hình phẳng (luật/đo)',
+    'hinh_hh9_ch10': 'Khối tròn xoay (trụ · nón · cầu)',
     'hinh_hoa_ch01':'Hoá học', 'hinh_hoa_ch02': 'Hoá học',
 }
 def _nhom(mod): return NHOM.get(mod, 'Theo chương / khác')
@@ -53,6 +54,16 @@ def quet_python():
                         and _c.__module__ == mod.__name__):
                     Hinh = _c; break
         if Hinh is None:
+            # [33zl] Module MỘT-PHÁT không class (vd hinh_hh9_ch10 khối tròn xoay) —
+            #   trước đây bị bỏ, vô hình trong mục lục "tra đã-có-chưa". Liệt kê hàm
+            #   module-level công khai (bỏ '_…') để khép lỗ hổng tra trùng.
+            for name, func in inspect.getmembers(mod, inspect.isfunction):
+                if name.startswith('_') or getattr(func, '__module__', None) != mod.__name__:
+                    continue
+                mota = SB._mo_ta_tu_docstring(func)
+                mota = (mota or '').split('. ')[0][:150]
+                rows.append((_nhom(mod_name), SB._chu_ky(name, func), mota,
+                             mod_name + '.py', _kieu(name), _tang(mod_name)))
             continue
         try:
             src = inspect.getsource(mod).splitlines()

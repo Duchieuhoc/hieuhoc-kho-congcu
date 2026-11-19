@@ -1,3 +1,8 @@
+[33zw ĐỀ XUẤT — thầy gán lại nếu trùng] hinh_hh9_ch10.py MỚI — mạch HÌNH KHỐI TRÒN XOAY (trụ·nón·cầu), 14 hàm một-phát cho HH9_CH10. OB Hình THCS, 2026-11-19.
+  +BAN_TRICH_HAM_HH9_CH10.md · regen 00_MUC_LUC_HAM.md (+category "Khối tròn xoay (trụ·nón·cầu)").
+  Vá generic ADDITIVE: sinh_bantrich.py (header one-shot trung tính) + sinh_mucluc.py (liệt kê module không-class).
+  KHÔNG đụng hieuhoc_template.js / hinh_core.py / kho chương khác / chữ ký cũ. Smoke import 0 lỗi; render 14/14 sạch.
+
 [33zl] hinh_bpt.py — 4 vá TRÌNH BÀY (gộp, QC pilot B03/B04). OB Đại số THPT, 2026-11-16; nối HEAD [33zv].
   Cộng dồn: [33zi] gốc → [33zj] nhãn đường tránh gốc O → [33zk] canh khung bám đỉnh + ten_mien tránh O
             → [33zl] SO LE vị trí nhãn đường (tránh đè khi 2 đường gần song song, lộ ở H11 B04).

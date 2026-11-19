@@ -59,18 +59,19 @@ def _ban_trich_module_funcs(mod, ten_module, ma_chuong):
     L = []
     L.append(f"# BẢN TRÍCH HÀM VẼ{td} — tự sinh từ `{ten_module}.py` (module one-shot)")
     L.append("")
-    L.append(f"> **Cho AI Soạn.** Module BIỂU ĐỒ/MÔ HÌNH (thống kê & xác suất): mỗi hàm "
-             f"nhận DỮ LIỆU THẬT → trả PNG. Không theo lối builder `h.ve()` của hình học.")
+    _vd = sorted(khai)[0][0].split('(')[0] if khai else 'ham'
+    L.append(f"> **Cho AI Soạn.** Module HÀM MỘT-PHÁT: mỗi hàm nhận DỮ LIỆU/KÍCH THƯỚC THẬT "
+             f"→ trả PNG (biểu đồ, mô hình, hoặc hình khối). Không theo lối builder `h.ve()`.")
     L.append(f"> Tự sinh bằng introspect `{ten_module}.py` qua `sinh_bantrich.py` — KHÔNG sửa tay.")
     L.append(f"> Sinh ngày {ngay}. AI Soạn khai nghĩa theo phiếu → GỌI HÀM → nhúng qua `H.hinhVe`.")
     L.append("")
     L.append(f"Import trong script bài: `import {ten_module} as {alias}`.")
     L.append(f"Gọi hàm với `tra_bytes=True` để lấy PNG buffer: "
-             f"`buf = {alias}.bieu_do_cot(...); H.hinhVe({{ imageBuffer: buf }})`.")
+             f"`buf = {alias}.{_vd}(...); H.hinhVe({{ imageBuffer: buf }})`.")
     L.append("")
     L.append("---")
     L.append("")
-    L.append("## HÀM BIỂU ĐỒ / MÔ HÌNH — AI Soạn GỌI theo phiếu")
+    L.append("## HÀM — AI Soạn GỌI theo phiếu")
     L.append("")
     L.append("| Hàm (chữ ký) | Dùng khi |")
     L.append("|---|---|")
@@ -79,7 +80,7 @@ def _ban_trich_module_funcs(mod, ten_module, ma_chuong):
     L.append("")
     L.append("---")
     L.append("")
-    L.append(f"**Thống kê:** {len(khai)} hàm biểu đồ/mô hình (one-shot, phơi cho AI Soạn).")
+    L.append(f"**Thống kê:** {len(khai)} hàm một-phát (phơi cho AI Soạn).")
     return "\n".join(L)
 
 def sinh(ten_module, ma_chuong=None, noi_bo=False):

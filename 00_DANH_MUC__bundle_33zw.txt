@@ -1,0 +1,17 @@
+# BUNDLE KHO [33zw ĐỀ XUẤT] — mạch hình khối tròn xoay HH9_CH10
+# OB Hình THCS · 2026-11-19 · để Giám đốc PUSH lên github.com/Duchieuhoc/hieuhoc-kho-congcu
+#
+# CÁCH DÙNG (thầy):
+#   1) Giải nén, copy ĐÈ 7 file vào thư mục kho.
+#   2) (khuyến nghị) chạy lại: python3 sinh_mucluc.py > 00_MUC_LUC_HAM.md  (xác nhận khớp)
+#   3) Nếu mốc 33zw trùng với luồng khác → đổi tên mốc trong 00_KHO_VERSION.txt + 00_CAPNHAT_KHO__*.md.
+#   4) git add -A && git commit && git push.
+#
+# FILE TRONG BUNDLE:
+hinh_hh9_ch10.py              # MỚI — 14 hàm khối tròn xoay (trụ/nón/cầu/khai triển/ghép khối)
+BAN_TRICH_HAM_HH9_CH10.md     # MỚI — bản trích (sinh tự động)
+00_MUC_LUC_HAM.md             # REGEN — +category "Khối tròn xoay (trụ·nón·cầu) · 14 hàm"
+sinh_bantrich.py              # VÁ generic — header one-shot trung tính (ADDITIVE)
+sinh_mucluc.py                # VÁ generic — liệt kê module không-class + NHOM entry (ADDITIVE)
+00_KHO_VERSION.txt            # BUMP — chèn mốc 33zw lên đầu
+00_CAPNHAT_KHO__33zw.md       # MỚI — changelog chi tiết
