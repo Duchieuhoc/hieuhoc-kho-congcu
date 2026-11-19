@@ -140,7 +140,7 @@
 | `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False, rut_c_tren=0.5, dai=2.2)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B | `hinh_gocdt.py` | method | — |
 | `hai_duong_cat_4goc(ten1='xx′', ten2='yy′', O='O', xoay1=10, xoay2=105, danh_so=True, nhan_dinh=True, prefix='', dai=2.2)` | Hai đường thẳng ten1, ten2 cắt nhau tại đỉnh O | `hinh_gocdt.py` | method | — |
 
-## Khối tròn xoay (trụ · nón · cầu)  · 21 hàm
+## Khối tròn xoay (trụ · nón · cầu)  · 22 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -159,6 +159,7 @@
 | `nua_cau_non(R=1.2, h_non=2.4, nhan=None, up=True, out='nuacau_non', tra_bytes=False)` | GHÉP: NÓN + NỬA CẦU chung đáy — ốc quế kem (H10.39): nón chúc XUỐNG, vòm cầu trên | `hinh_hh9_ch10.py` | method | — |
 | `nua_cau_tru(R=1.3, h=2.2, nhan=None, out='nuacau_tru', tra_bytes=False)` | GHÉP: hình TRỤ (dưới) + NỬA HÌNH CẦU (vòm trên) — H10.37a. | `hinh_hh9_ch10.py` | method | — |
 | `tamgiac_quay(R=1.5, h=2.8, ten=('S', 'O', 'A'), hien_non=True, o_vuong=True, out='tg_quay', tra_bytes=False)` | TAM GIÁC VUÔNG quay quanh CẠNH GÓC VUÔNG (trục đứng) sinh HÌNH NÓN (H10.9a) | `hinh_hh9_ch10.py` | method | — |
+| `them_caption(anh, chu_thich, out='fig_caption', tra_bytes=False, mau='#555')` | Nướng dòng CHÚ THÍCH "Hình N…" căn giữa DƯỚI ảnh (nền trong suốt) — cho hình NEO PHẢI (text-wrap) vốn không nhận chuThich qua template | `hinh_hh9_ch10.py` | method | — |
 | `tru_chua_cau(R=1.2, n=3, nhan=None, out='tru_chua_cau', tra_bytes=False)` | HỘP/TRỤ chứa n quả CẦU xếp dọc khít (H10.29 bóng tennis · H10.7-SBT) — trụ đứng, cao = n·2R, mỗi cầu bán kính R | `hinh_hh9_ch10.py` | method | — |
 | `tru_khoan_non(R=1.3, h=2.4, nhan=None, out='tru_khoan_non', tra_bytes=False)` | HÌNH TRỤ bị KHOAN mất phần hình NÓN (đáy nón = đáy trên trụ, đỉnh ở tâm đáy dưới) — H10.28. | `hinh_hh9_ch10.py` | method | — |
 | `tru_khoet_2cau(R=1.2, h=3.0, nhan=None, out='tru_khoet_2cau', tra_bytes=False)` | TRỤ khoét 2 NỬA CẦU hai đầu (H10.8-SBT): đường tròn đáy trụ = đường tròn lớn mỗi nửa cầu (bán kính nửa cầu = R) | `hinh_hh9_ch10.py` | method | — |
@@ -325,4 +326,4 @@
 | `xacSuatDK(A, B)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 176 hàm Python (vẽ hình) + 87 hàm JS (dựng Word) = 263.
+**Thống kê:** 177 hàm Python (vẽ hình) + 87 hàm JS (dựng Word) = 264.

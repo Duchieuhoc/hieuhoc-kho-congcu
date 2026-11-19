@@ -28,6 +28,7 @@ Gọi hàm với `tra_bytes=True` để lấy PNG buffer: `buf = BD.bon_xang(...
 | `nua_cau_non(R=1.2, h_non=2.4, nhan=None, up=True, out='nuacau_non', tra_bytes=False)` | GHÉP: NÓN + NỬA CẦU chung đáy — ốc quế kem (H10.39): nón chúc XUỐNG, vòm cầu trên. up=True: nón đỉnh dưới, nửa cầu vòm trên (kem). up=False: nón trên. |
 | `nua_cau_tru(R=1.3, h=2.2, nhan=None, out='nuacau_tru', tra_bytes=False)` | GHÉP: hình TRỤ (dưới) + NỬA HÌNH CẦU (vòm trên) — H10.37a. |
 | `tamgiac_quay(R=1.5, h=2.8, ten=('S', 'O', 'A'), hien_non=True, o_vuong=True, out='tg_quay', tra_bytes=False)` | TAM GIÁC VUÔNG quay quanh CẠNH GÓC VUÔNG (trục đứng) sinh HÌNH NÓN (H10.9a). ten=(đỉnh trên S, chân vuông O, đỉnh ngoài A). |
+| `them_caption(anh, chu_thich, out='fig_caption', tra_bytes=False, mau='#555')` | Nướng dòng CHÚ THÍCH "Hình N…" căn giữa DƯỚI ảnh (nền trong suốt) — cho hình NEO PHẢI (text-wrap) vốn không nhận chuThich qua template. Thay workaround Pillow per-bài: AI Soạn gọi `K.them_caption(K.hinh_tru(...), "Hình 5. …")`. anh : đường dẫn PNG hoặc bytes (kết quả 1 hàm hình). chu_thich: chuỗi caption. Trả về đường dẫn PNG (hoặc bytes nếu tra_bytes) — ảnh gốc + dải caption dưới. |
 | `tru_chua_cau(R=1.2, n=3, nhan=None, out='tru_chua_cau', tra_bytes=False)` | HỘP/TRỤ chứa n quả CẦU xếp dọc khít (H10.29 bóng tennis · H10.7-SBT) — trụ đứng, cao = n·2R, mỗi cầu bán kính R. nhan={'R','d'} (d = đường kính cầu). |
 | `tru_khoan_non(R=1.3, h=2.4, nhan=None, out='tru_khoan_non', tra_bytes=False)` | HÌNH TRỤ bị KHOAN mất phần hình NÓN (đáy nón = đáy trên trụ, đỉnh ở tâm đáy dưới) — H10.28. |
 | `tru_khoet_2cau(R=1.2, h=3.0, nhan=None, out='tru_khoet_2cau', tra_bytes=False)` | TRỤ khoét 2 NỬA CẦU hai đầu (H10.8-SBT): đường tròn đáy trụ = đường tròn lớn mỗi nửa cầu (bán kính nửa cầu = R). Vòm khoét nét đứt (lõm vào trong). |
@@ -37,4 +38,4 @@ Gọi hàm với `tra_bytes=True` để lấy PNG buffer: `buf = BD.bon_xang(...
 
 ---
 
-**Thống kê:** 21 hàm một-phát (phơi cho AI Soạn).
+**Thống kê:** 22 hàm một-phát (phơi cho AI Soạn).

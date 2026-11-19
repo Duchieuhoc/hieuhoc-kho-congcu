@@ -104,6 +104,31 @@ def _xuat(fig, out, tra_bytes):
     return open(png, "rb").read() if tra_bytes else png
 
 
+def them_caption(anh, chu_thich, out="fig_caption", tra_bytes=False, mau="#555"):
+    """Nướng dòng CHÚ THÍCH "Hình N…" căn giữa DƯỚI ảnh (nền trong suốt) — cho hình
+    NEO PHẢI (text-wrap) vốn không nhận chuThich qua template. Thay workaround Pillow
+    per-bài: AI Soạn gọi `K.them_caption(K.hinh_tru(...), "Hình 5. …")`.
+
+    anh : đường dẫn PNG hoặc bytes (kết quả 1 hàm hình). chu_thich: chuỗi caption.
+    Trả về đường dẫn PNG (hoặc bytes nếu tra_bytes) — ảnh gốc + dải caption dưới.
+    """
+    import io
+    import matplotlib.image as _mpimg
+    if isinstance(anh, (bytes, bytearray)):
+        im = _mpimg.imread(io.BytesIO(anh), format="png")
+    else:
+        im = _mpimg.imread(anh)
+    h, w = im.shape[0], im.shape[1]
+    fig = plt.figure(figsize=(w / 200, (h * 1.14) / 200), dpi=200)
+    ax_im = fig.add_axes([0, 0.12, 1, 0.88]); ax_im.imshow(im); ax_im.axis("off")
+    fig.text(0.5, 0.055, str(chu_thich), ha="center", va="center",
+             fontsize=max(9, int(w * 0.022)), style="italic", color=mau)
+    png = f"/tmp/{out}.png"
+    fig.savefig(png, dpi=200, bbox_inches="tight", pad_inches=0.06, transparent=True)
+    plt.close(fig)
+    return open(png, "rb").read() if tra_bytes else png
+
+
 # ═══════════════════════════════════════════════════════════════════
 # 1) HÌNH TRỤ
 # ═══════════════════════════════════════════════════════════════════
