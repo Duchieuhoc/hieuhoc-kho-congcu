@@ -140,24 +140,30 @@
 | `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False, rut_c_tren=0.5, dai=2.2)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B | `hinh_gocdt.py` | method | — |
 | `hai_duong_cat_4goc(ten1='xx′', ten2='yy′', O='O', xoay1=10, xoay2=105, danh_so=True, nhan_dinh=True, prefix='', dai=2.2)` | Hai đường thẳng ten1, ten2 cắt nhau tại đỉnh O | `hinh_gocdt.py` | method | — |
 
-## Khối tròn xoay (trụ · nón · cầu)  · 15 hàm
+## Khối tròn xoay (trụ · nón · cầu)  · 21 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
 | `bon_xang(R=1.0, L=3.2, nhan=None, out='bon_xang', tra_bytes=False)` | BỒN NẰM NGANG — trụ nằm ngang dài L + 2 NỬA CẦU hai đầu (H10.32). | `hinh_hh9_ch10.py` | method | — |
 | `cat_cau(R=1.7, cao=0.0, nhan_mc='R', qua_tam=True, tam='O', nhan_mp='(P)', out='cat_cau', tra_bytes=False)` | MẶT CẦU cắt bởi mặt phẳng → mặt cắt là hình tròn | `hinh_hh9_ch10.py` | method | — |
+| `cau_trong_lapphuong(a='a', canh=3.0, tam='O', out='cau_lapphuong', tra_bytes=False)` | HÌNH CẦU nội tiếp LẬP PHƯƠNG (H10.4-SBT): cầu tiếp xúc 6 mặt, bán kính a/2, tâm = tâm lập phương | `hinh_hh9_ch10.py` | method | — |
+| `ghep_ncau_tru_non(R=1.1, h_tru=1.6, h_non=1.8, nhan=None, out='ghep_ncau_tru_non', tra_bytes=False)` | GHÉP 3 TẦNG (H10.37c): NỬA CẦU (vòm trên) + TRỤ (giữa) + NÓN (chúc xuống, dưới). | `hinh_hh9_ch10.py` | method | — |
 | `hcn_quay(R=1.3, h=2.8, ten=("O'", 'A', 'B', 'O'), hien_tru=True, out='hcn_quay', tra_bytes=False)` | HÌNH CHỮ NHẬT quay quanh một CẠNH (trục đứng) sinh HÌNH TRỤ (H10.3) | `hinh_hh9_ch10.py` | method | — |
 | `hinh_cau(R=1.6, nhan_R=None, tam='O', hien_tam=True, hien_xichdao=True, duong_kinh=None, diem=None, out='cau', tra_bytes=False)` | HÌNH CẦU / MẶT CẦU phối cảnh (viền tròn + xích đạo elip) | `hinh_hh9_ch10.py` | generator | — |
 | `hinh_non(R=1.6, h=3.0, nhan_R=None, nhan_h=None, nhan_l=None, dinh='S', tam='O', trai='A', phai='B', hien_dinh_ten=True, hien_tam=True, hien_trai_phai=False, o_vuong=True, out='non', tra_bytes=False)` | HÌNH NÓN phối cảnh đứng (đỉnh trên, đáy elip, 2 đường sinh biên) | `hinh_hh9_ch10.py` | generator | — |
 | `hinh_tru(R=1.4, h=3.0, nhan_R=None, nhan_h=None, nhan_l=None, tam_tren="O'", tam_duoi='O', dinh_tren=None, dinh_duoi=None, hien_truc=True, out='tru', tra_bytes=False)` | HÌNH TRỤ phối cảnh đứng (2 đáy elip + 2 đường sinh biên) | `hinh_hh9_ch10.py` | generator | — |
 | `khai_trien_non(R=1.0, l=2.6, nhan_l=None, nhan_R=None, dinh='S', out='kt_non', tra_bytes=False)` | KHAI TRIỂN hình nón = hình quạt tròn (bán kính l, cung = 2πR) + hình tròn đáy (bán kính R). | `hinh_hh9_ch10.py` | method | — |
 | `khai_trien_tru(R=0.9, h=2.4, nhan_cv=None, nhan_h=None, nhan_R=None, out='kt_tru', tra_bytes=False)` | KHAI TRIỂN hình trụ = hình chữ nhật (rộng = chu vi 2πR, cao = h) + 2 hình tròn đáy. | `hinh_hh9_ch10.py` | method | — |
+| `mu_non_vanh(R_non=1.1, l=2.4, R_vanh=1.9, nhan=None, out='mu_non_vanh', tra_bytes=False)` | MŨ (chú hề) = hình NÓN + VÀNH (hình vành khăn phẳng) — H10.31 | `hinh_hh9_ch10.py` | method | — |
 | `non_trong_lapphuong(a='a', canh=3.2, dinh='O', out='non_lapphuong', tra_bytes=False)` | HÌNH NÓN nội tiếp trong LẬP PHƯƠNG (H10.38): đỉnh = tâm O mặt trên ABCD, đáy = hình tròn nội tiếp mặt đáy A'B'C'D' (tiếp xúc 4 cạnh) | `hinh_hh9_ch10.py` | method | — |
 | `nua_cau_non(R=1.2, h_non=2.4, nhan=None, up=True, out='nuacau_non', tra_bytes=False)` | GHÉP: NÓN + NỬA CẦU chung đáy — ốc quế kem (H10.39): nón chúc XUỐNG, vòm cầu trên | `hinh_hh9_ch10.py` | method | — |
 | `nua_cau_tru(R=1.3, h=2.2, nhan=None, out='nuacau_tru', tra_bytes=False)` | GHÉP: hình TRỤ (dưới) + NỬA HÌNH CẦU (vòm trên) — H10.37a. | `hinh_hh9_ch10.py` | method | — |
 | `tamgiac_quay(R=1.5, h=2.8, ten=('S', 'O', 'A'), hien_non=True, o_vuong=True, out='tg_quay', tra_bytes=False)` | TAM GIÁC VUÔNG quay quanh CẠNH GÓC VUÔNG (trục đứng) sinh HÌNH NÓN (H10.9a) | `hinh_hh9_ch10.py` | method | — |
+| `tru_chua_cau(R=1.2, n=3, nhan=None, out='tru_chua_cau', tra_bytes=False)` | HỘP/TRỤ chứa n quả CẦU xếp dọc khít (H10.29 bóng tennis · H10.7-SBT) — trụ đứng, cao = n·2R, mỗi cầu bán kính R | `hinh_hh9_ch10.py` | method | — |
 | `tru_khoan_non(R=1.3, h=2.4, nhan=None, out='tru_khoan_non', tra_bytes=False)` | HÌNH TRỤ bị KHOAN mất phần hình NÓN (đáy nón = đáy trên trụ, đỉnh ở tâm đáy dưới) — H10.28. | `hinh_hh9_ch10.py` | method | — |
+| `tru_khoet_2cau(R=1.2, h=3.0, nhan=None, out='tru_khoet_2cau', tra_bytes=False)` | TRỤ khoét 2 NỬA CẦU hai đầu (H10.8-SBT): đường tròn đáy trụ = đường tròn lớn mỗi nửa cầu (bán kính nửa cầu = R) | `hinh_hh9_ch10.py` | method | — |
 | `tru_non(R=1.3, h_tru=2.0, h_non=1.8, nhan=None, out='tru_non', tra_bytes=False)` | GHÉP: hình TRỤ (dưới) + hình NÓN (trên, chung đáy) — H10.16 dụng cụ | `hinh_hh9_ch10.py` | method | — |
+| `tru_trong_hop(R=1.0, L=3.4, nhan=None, out='tru_trong_hop', tra_bytes=False)` | HÌNH TRỤ (bóng đèn) đặt khít trong HỘP CHỮ NHẬT (H10.4/10.15) — trụ nằm ngang, hộp đáy vuông cạnh 2R, dài L | `hinh_hh9_ch10.py` | method | — |
 | `vong_bi(R=1.6, r=0.9, h=1.3, nhan=None, out='vong_bi', tra_bytes=False)` | VÒNG BI / ỐNG TRỤ RỖNG — trụ ngoài R khoét trụ trong r, cao h (H10.30). | `hinh_hh9_ch10.py` | method | — |
 
 ## Hoá học  · 8 hàm
@@ -319,4 +325,4 @@
 | `xacSuatDK(A, B)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 170 hàm Python (vẽ hình) + 87 hàm JS (dựng Word) = 257.
+**Thống kê:** 176 hàm Python (vẽ hình) + 87 hàm JS (dựng Word) = 263.

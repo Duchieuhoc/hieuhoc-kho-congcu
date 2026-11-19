@@ -1,0 +1,7 @@
+# BUNDLE KHO [33zy ĐỀ XUẤT · nối 33zx] — +6 hàm ghép khối (chương X đủ hình)
+# Copy ĐÈ 4 file vào kho → git commit && push.
+hinh_hh9_ch10.py            # +6 hàm ghép (21 hàm)
+BAN_TRICH_HAM_HH9_CH10.md   # regen 21 hàm
+00_MUC_LUC_HAM.md           # regen 21 hàm
+00_KHO_VERSION.txt          # chèn mốc 33zy
+00_CAPNHAT_KHO__33zy.md     # changelog

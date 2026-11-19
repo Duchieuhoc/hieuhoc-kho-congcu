@@ -1,3 +1,5 @@
+[33zy ĐỀ XUẤT · nối 33zx] hinh_hh9_ch10.py +6 hàm GHÉP KHỐI: tru_chua_cau · cau_trong_lapphuong · tru_khoet_2cau · tru_trong_hop · mu_non_vanh · ghep_ncau_tru_non. Tổng 21 hàm — PHỦ TRỌN mọi hình ghép chương X (AI Soạn 0 phải vẽ tay). OB Hình THCS, 2026-11-19. ADDITIVE.
+
 [33zx ĐỀ XUẤT — nối 33zw] hinh_hh9_ch10.py +1 hàm `non_trong_lapphuong` (nón nội tiếp lập phương, bài 10.27/H10.38). Tổng 15 hàm. Regen BAN_TRICH + mục lục (15 hàm). OB Hình THCS, 2026-11-19. ADDITIVE, 0 đổi hàm cũ.
 
 [33zw ĐỀ XUẤT — thầy gán lại nếu trùng] hinh_hh9_ch10.py MỚI — mạch HÌNH KHỐI TRÒN XOAY (trụ·nón·cầu), 14 hàm một-phát cho HH9_CH10. OB Hình THCS, 2026-11-19.

@@ -613,6 +613,185 @@ def non_trong_lapphuong(a="a", canh=3.2, dinh="O", out="non_lapphuong", tra_byte
     return _xuat(fig, out, tra_bytes)
 
 
+def _cau_tai(ax, cx, cy, R, mau="#15407a", xichdao=True):
+    """Vẽ 1 quả cầu tâm (cx,cy) bán kính R: viền tròn + xích đạo (trước liền/sau đứt)."""
+    _cung_elip(ax, cx, cy, R, R, 0, 360, net="lien", mau=mau)
+    if xichdao:
+        be = R * _DEP
+        _cung_elip(ax, cx, cy, R, be, 180, 360, net="lien", mau=mau)
+        _cung_elip(ax, cx, cy, R, be, 0, 180, net="dut", mau=mau)
+
+
+def tru_chua_cau(R=1.2, n=3, nhan=None, out="tru_chua_cau", tra_bytes=False):
+    """HỘP/TRỤ chứa n quả CẦU xếp dọc khít (H10.29 bóng tennis · H10.7-SBT) — trụ đứng,
+    cao = n·2R, mỗi cầu bán kính R. nhan={'R','d'} (d = đường kính cầu)."""
+    nhan = nhan or {}
+    h = n * 2 * R
+    fig, ax = plt.subplots(figsize=(2.8, 4.6)); ax.set_aspect("equal"); ax.axis("off")
+    b = R * _DEP
+    _cung_elip(ax, 0, h, R, b, 0, 360, net="lien")       # miệng trên
+    _elip_day(ax, 0, 0, R, b)                             # đáy
+    _than_tru(ax, R, 0, h)
+    for k in range(n):                                    # n cầu xếp dọc
+        _cau_tai(ax, 0, R + 2 * R * k, R)
+    if "R" in nhan or "d" in nhan:
+        lab = nhan.get("d") or nhan.get("R")
+        _doan(ax, (0, R), (R, R), mau="#c62828")
+        _nhan(ax, R / 2, R, lab, dy=0.14, mau="#c62828")
+    if "h" in nhan:
+        _doan(ax, (R + 0.35, 0), (R + 0.35, h), net="dut", mau="#888", lw=1.0)
+        _nhan(ax, R + 0.35, h / 2, nhan["h"], dx=0.14, ha="left")
+    _khung(ax, [-R, R], [-b, h + b])
+    return _xuat(fig, out, tra_bytes)
+
+
+def cau_trong_lapphuong(a="a", canh=3.0, tam="O", out="cau_lapphuong", tra_bytes=False):
+    """HÌNH CẦU nội tiếp LẬP PHƯƠNG (H10.4-SBT): cầu tiếp xúc 6 mặt, bán kính a/2,
+    tâm = tâm lập phương. Phối cảnh xiên cavalier."""
+    S = float(canh)
+    ANG = math.radians(40.0); CO = 0.5
+    def PP(x, y, z): return (x + CO * z * math.cos(ANG), y + CO * z * math.sin(ANG))
+    fig, ax = plt.subplots(figsize=(3.8, 4.0)); ax.set_aspect("equal"); ax.axis("off")
+    P = {"A": (0, S, 0), "B": (S, S, 0), "C": (S, S, S), "D": (0, S, S),
+         "Ap": (0, 0, 0), "Bp": (S, 0, 0), "Cp": (S, 0, S), "Dp": (0, 0, S)}
+    khuat = {("Ap", "Dp"), ("Cp", "Dp"), ("D", "Dp")}
+    for p, q in [("A", "B"), ("B", "C"), ("C", "D"), ("D", "A"), ("Ap", "Bp"), ("Bp", "Cp"),
+                 ("Cp", "Dp"), ("Dp", "Ap"), ("A", "Ap"), ("B", "Bp"), ("C", "Cp"), ("D", "Dp")]:
+        _doan(ax, PP(*P[p]), PP(*P[q]), net=("dut" if (p, q) in khuat or (q, p) in khuat else "lien"))
+    # cầu nội tiếp: tâm lập phương, bán kính S/2 (màn hình)
+    Cx, Cy = PP(S / 2, S / 2, S / 2)
+    _cau_tai(ax, Cx, Cy, S / 2 * 0.98)
+    _cham(ax, Cx, Cy); _nhan(ax, Cx, Cy, tam, dx=0.12, dy=-0.12, ha="left", va="top", fs=14)
+    for nm, pos, dx, dy, ha, va in (("A", "A", -0.08, 0.08, "right", "bottom"),
+                                    ("B", "B", 0.08, 0.06, "left", "bottom"),
+                                    ("C", "C", 0.12, 0.04, "left", "center"),
+                                    ("D", "D", -0.1, 0.06, "right", "bottom"),
+                                    ("A'", "Ap", -0.08, -0.1, "right", "top"),
+                                    ("B'", "Bp", 0.08, -0.1, "left", "top"),
+                                    ("C'", "Cp", 0.12, 0, "left", "center"),
+                                    ("D'", "Dp", -0.1, -0.06, "right", "top")):
+        px, py = PP(*P[pos]); _nhan(ax, px, py, nm, dx=dx, dy=dy, ha=ha, va=va, fs=14)
+    if a:
+        mx, my = [(PP(*P["A"])[i] + PP(*P["B"])[i]) / 2 for i in (0, 1)]
+        _nhan(ax, mx, my, a, dy=0.16, fs=15)
+    allpts = [PP(*v) for v in P.values()]
+    _khung(ax, [p[0] for p in allpts], [p[1] for p in allpts], m=0.5)
+    return _xuat(fig, out, tra_bytes)
+
+
+def tru_khoet_2cau(R=1.2, h=3.0, nhan=None, out="tru_khoet_2cau", tra_bytes=False):
+    """TRỤ khoét 2 NỬA CẦU hai đầu (H10.8-SBT): đường tròn đáy trụ = đường tròn lớn mỗi
+    nửa cầu (bán kính nửa cầu = R). Vòm khoét nét đứt (lõm vào trong)."""
+    nhan = nhan or {}
+    fig, ax = plt.subplots(figsize=(2.8, 4.4)); ax.set_aspect("equal"); ax.axis("off")
+    b = R * _DEP
+    _than_tru(ax, R, 0, h)
+    _cung_elip(ax, 0, h, R, b, 0, 360, net="lien")       # miệng trên
+    _elip_day(ax, 0, 0, R, b)                             # đáy
+    # nửa cầu khoét trên (lõm xuống) + dưới (lõm lên) — nét đứt
+    _cung_elip(ax, 0, h, R, R, 180, 360, net="dut", lw=1.15)   # vòm khoét trên (xuống)
+    _cung_elip(ax, 0, 0, R, R, 0, 180, net="dut", lw=1.15)     # vòm khoét dưới (lên)
+    if "R" in nhan:
+        _doan(ax, (0, h / 2), (R, h / 2), mau="#c62828"); _nhan(ax, R / 2, h / 2, nhan["R"], dy=0.14, mau="#c62828")
+    if "h" in nhan:
+        _doan(ax, (R + 0.35, 0), (R + 0.35, h), net="dut", mau="#888", lw=1.0)
+        _nhan(ax, R + 0.35, h / 2, nhan["h"], dx=0.14, ha="left")
+    _khung(ax, [-R, R], [-R, h + R])
+    return _xuat(fig, out, tra_bytes)
+
+
+def tru_trong_hop(R=1.0, L=3.4, nhan=None, out="tru_trong_hop", tra_bytes=False):
+    """HÌNH TRỤ (bóng đèn) đặt khít trong HỘP CHỮ NHẬT (H10.4/10.15) — trụ nằm ngang,
+    hộp đáy vuông cạnh 2R, dài L. Phối cảnh xiên cavalier."""
+    nhan = nhan or {}
+    s = 2 * R
+    ANG = math.radians(40.0); CO = 0.5
+    def PP(x, y, z): return (x + CO * z * math.cos(ANG), y + CO * z * math.sin(ANG))
+    fig, ax = plt.subplots(figsize=(5.2, 2.8)); ax.set_aspect("equal"); ax.axis("off")
+    # hộp: trục dài theo x (0..L), tiết diện vuông s×s (y cao, z sâu)
+    V = {}
+    for name, (x, y, z) in {"a": (0, 0, 0), "b": (L, 0, 0), "c": (L, s, 0), "d": (0, s, 0),
+                            "e": (0, 0, s), "f": (L, 0, s), "g": (L, s, s), "h": (0, s, s)}.items():
+        V[name] = PP(x, y, z)
+    khuat = {("a", "e"), ("e", "f"), ("e", "h")}
+    for p, q in [("a", "b"), ("b", "c"), ("c", "d"), ("d", "a"), ("e", "f"), ("f", "g"),
+                 ("g", "h"), ("h", "e"), ("a", "e"), ("b", "f"), ("c", "g"), ("d", "h")]:
+        _doan(ax, V[p], V[q], net=("dut" if (p, q) in khuat or (q, p) in khuat else "lien"), lw=1.3)
+    # trụ bên trong: trục ngang tâm tiết diện (y=R, z=R), bán kính R; 2 đáy elip đứng ở x=0,L
+    cyl = R
+    yC, zC = R, R
+    def cap(xc):
+        cx, cy = PP(xc, yC, zC)
+        _cung_elip(ax, cx, cy, cyl * CO * math.cos(ANG) * 0 + cyl * 0.42, cyl, 0, 360, net="lien")
+        return cx, cy
+    # đường sinh trên/dưới của trụ
+    top0 = PP(0, yC + cyl, zC); top1 = PP(L, yC + cyl, zC)
+    bot0 = PP(0, yC - cyl, zC); bot1 = PP(L, yC - cyl, zC)
+    _doan(ax, top0, top1); _doan(ax, bot0, bot1)
+    cap(0); cap(L)
+    if "L" in nhan:
+        _nhan(ax, (V["a"][0] + V["b"][0]) / 2, V["a"][1] - 0.3, nhan["L"], va="top")
+    if "canh" in nhan:
+        _nhan(ax, V["b"][0] + 0.2, (V["b"][1] + V["c"][1]) / 2, nhan["canh"], ha="left")
+    allpts = list(V.values()) + [top0, top1, bot0, bot1]
+    _khung(ax, [p[0] for p in allpts], [p[1] for p in allpts], m=0.4)
+    return _xuat(fig, out, tra_bytes)
+
+
+def mu_non_vanh(R_non=1.1, l=2.4, R_vanh=1.9, nhan=None, out="mu_non_vanh", tra_bytes=False):
+    """MŨ (chú hề) = hình NÓN + VÀNH (hình vành khăn phẳng) — H10.31.
+    R_non bán kính đáy nón, l đường sinh, R_vanh bán kính ngoài vành."""
+    nhan = nhan or {}
+    fig, ax = plt.subplots(figsize=(4.0, 3.8)); ax.set_aspect("equal"); ax.axis("off")
+    h = math.sqrt(max(l * l - R_non * R_non, 0.04))
+    bn = R_non * _DEP
+    # vành khăn phẳng (elip ngoài R_vanh + elip trong R_non) tại y=0
+    _cung_elip(ax, 0, 0, R_vanh, R_vanh * _DEP, 0, 360, net="lien")
+    _cung_elip(ax, 0, 0, R_non, bn, 0, 360, net="lien")
+    # nón mọc lên từ vành trong
+    S = (0, h)
+    _doan(ax, S, (-R_non, 0)); _doan(ax, S, (R_non, 0))
+    _cung_elip(ax, 0, 0, R_non, bn, 0, 180, net="dut")   # vành trong nửa sau (bị nón che)
+    if "l" in nhan:
+        _nhan(ax, R_non / 2, h / 2, nhan["l"], dx=0.16, ha="left")
+    if "R_non" in nhan:
+        _nhan(ax, R_non / 2, 0, nhan["R_non"], dy=-0.2, va="top")
+    if "D_vanh" in nhan:
+        ax.annotate("", xy=(R_vanh, -R_vanh * _DEP - 0.3), xytext=(-R_vanh, -R_vanh * _DEP - 0.3),
+                    arrowprops=dict(arrowstyle="<->", color="#777", lw=1.0))
+        _nhan(ax, 0, -R_vanh * _DEP - 0.3, nhan["D_vanh"], dy=-0.2, va="top")
+    _khung(ax, [-R_vanh, R_vanh], [-R_vanh * _DEP, h])
+    return _xuat(fig, out, tra_bytes)
+
+
+def ghep_ncau_tru_non(R=1.1, h_tru=1.6, h_non=1.8, nhan=None, out="ghep_ncau_tru_non", tra_bytes=False):
+    """GHÉP 3 TẦNG (H10.37c): NỬA CẦU (vòm trên) + TRỤ (giữa) + NÓN (chúc xuống, dưới)."""
+    nhan = nhan or {}
+    fig, ax = plt.subplots(figsize=(3.0, 4.8)); ax.set_aspect("equal"); ax.axis("off")
+    b = R * _DEP
+    yb = 0.0                    # đỉnh nón dưới cùng
+    yj1 = h_non                 # giao nón–trụ
+    yj2 = h_non + h_tru         # giao trụ–nửa cầu
+    # nón dưới (đỉnh ở 0)
+    _doan(ax, (0, yb), (-R, yj1)); _doan(ax, (0, yb), (R, yj1))
+    _cung_elip(ax, 0, yj1, R, b, 180, 360, net="lien"); _cung_elip(ax, 0, yj1, R, b, 0, 180, net="dut")
+    # trụ giữa
+    _than_tru(ax, R, yj1, yj2)
+    _cung_elip(ax, 0, yj2, R, b, 180, 360, net="lien"); _cung_elip(ax, 0, yj2, R, b, 0, 180, net="dut")
+    # nửa cầu vòm trên
+    _cung_elip(ax, 0, yj2, R, R, 0, 180, net="lien")
+    if "R" in nhan:
+        _doan(ax, (0, yj2), (R, yj2)); _nhan(ax, R / 2, yj2, nhan["R"], dy=0.14)
+    if "h_tru" in nhan:
+        _doan(ax, (R + 0.35, yj1), (R + 0.35, yj2), net="dut", mau="#888", lw=1.0)
+        _nhan(ax, R + 0.35, (yj1 + yj2) / 2, nhan["h_tru"], dx=0.14, ha="left")
+    if "h_non" in nhan:
+        _doan(ax, (-R - 0.35, yb), (-R - 0.35, yj1), net="dut", mau="#888", lw=1.0)
+        _nhan(ax, -R - 0.35, yj1 / 2, nhan["h_non"], dx=-0.14, ha="right")
+    _khung(ax, [-R, R], [yb, yj2 + R])
+    return _xuat(fig, out, tra_bytes)
+
+
 # ─────────── smoke test khi chạy trực tiếp ───────────
 if __name__ == "__main__":
     R = {}
