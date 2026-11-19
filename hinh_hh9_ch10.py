@@ -559,6 +559,60 @@ def tru_khoan_non(R=1.3, h=2.4, nhan=None, out="tru_khoan_non", tra_bytes=False)
     return _xuat(fig, out, tra_bytes)
 
 
+def non_trong_lapphuong(a="a", canh=3.2, dinh="O", out="non_lapphuong", tra_bytes=False):
+    """HÌNH NÓN nội tiếp trong LẬP PHƯƠNG (H10.38): đỉnh = tâm O mặt trên ABCD,
+    đáy = hình tròn nội tiếp mặt đáy A'B'C'D' (tiếp xúc 4 cạnh). Phối cảnh xiên cavalier.
+
+    a    : nhãn cạnh (hiển thị 3 cạnh), vd 'a'. canh : độ dài VẼ.
+    dinh : tên đỉnh nón (tâm mặt trên), mặc định 'O'.
+    """
+    S = float(canh)
+    ANG = math.radians(40.0); CO = 0.5
+    def PP(x, y, z): return (x + CO * z * math.cos(ANG), y + CO * z * math.sin(ANG))
+    fig, ax = plt.subplots(figsize=(3.8, 4.0)); ax.set_aspect("equal"); ax.axis("off")
+    P = {
+        "A": (0, S, 0), "B": (S, S, 0), "C": (S, S, S), "D": (0, S, S),
+        "Ap": (0, 0, 0), "Bp": (S, 0, 0), "Cp": (S, 0, S), "Dp": (0, 0, S),
+    }
+    def seg(p, q, dut=False, mau=_MAU_NET, lw=None):
+        _doan(ax, PP(*P[p]), PP(*P[q]), net=("dut" if dut else "lien"), mau=mau,
+              lw=lw or (_LW_KHUAT if dut else _LW))
+    khuat = {("Ap", "Dp"), ("Cp", "Dp"), ("D", "Dp")}     # đỉnh khuất = D'(0,0,S)
+    canh_lp = [("A", "B"), ("B", "C"), ("C", "D"), ("D", "A"),
+               ("Ap", "Bp"), ("Bp", "Cp"), ("Cp", "Dp"), ("Dp", "Ap"),
+               ("A", "Ap"), ("B", "Bp"), ("C", "Cp"), ("D", "Dp")]
+    for p, q in canh_lp:
+        seg(p, q, dut=((p, q) in khuat or (q, p) in khuat))
+    for p, q in (("A", "C"), ("B", "D")):                  # chéo mặt trên định vị O
+        _doan(ax, PP(*P[p]), PP(*P[q]), net="dut", mau="#888", lw=1.0)
+    Ox, Oy = PP(S / 2, S, S / 2)
+    _cham(ax, Ox, Oy); _nhan(ax, Ox, Oy, dinh, dy=0.16, va="bottom")
+    r = S / 2
+    pts = [PP(S / 2 + r * math.cos(math.radians(t)), 0, S / 2 + r * math.sin(math.radians(t)))
+           for t in range(0, 361, 6)]
+    ax.plot([p[0] for p in pts], [p[1] for p in pts], "-", lw=_LW, color=_MAU_NET, zorder=5)
+    pL = min(pts, key=lambda p: p[0]); pR = max(pts, key=lambda p: p[0])
+    _doan(ax, (Ox, Oy), pL, net="dut", lw=1.15); _doan(ax, (Ox, Oy), pR, net="dut", lw=1.15)
+    for nm, pos, dx, dy, ha, va in (("A", "A", -0.1, -0.12, "right", "top"),
+                                    ("B", "B", 0.1, -0.12, "left", "top"),
+                                    ("C", "C", 0.12, 0.06, "left", "bottom"),
+                                    ("D", "D", -0.12, 0.06, "right", "bottom"),
+                                    ("A'", "Ap", -0.1, -0.12, "right", "top"),
+                                    ("B'", "Bp", 0.1, -0.12, "left", "top"),
+                                    ("C'", "Cp", 0.12, 0.0, "left", "center"),
+                                    ("D'", "Dp", -0.12, 0.06, "right", "bottom")):
+        px, py = PP(*P[pos]); _nhan(ax, px, py, nm, dx=dx, dy=dy, ha=ha, va=va, fs=15)
+    if a:
+        for pa, pb, dx, dy, ha in (("A", "B", 0, 0.16, "center"),
+                                   ("A", "Ap", -0.16, 0, "right"),
+                                   ("D", "C", 0, 0.14, "center")):
+            mx, my = [(PP(*P[pa])[i] + PP(*P[pb])[i]) / 2 for i in (0, 1)]
+            _nhan(ax, mx, my, a, dx=dx, dy=dy, ha=ha, fs=15)
+    allpts = [PP(*v) for v in P.values()] + pts
+    _khung(ax, [p[0] for p in allpts], [p[1] for p in allpts], m=0.5)
+    return _xuat(fig, out, tra_bytes)
+
+
 # ─────────── smoke test khi chạy trực tiếp ───────────
 if __name__ == "__main__":
     R = {}

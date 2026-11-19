@@ -21,6 +21,7 @@ Gọi hàm với `tra_bytes=True` để lấy PNG buffer: `buf = BD.bon_xang(...
 | `hinh_tru(R=1.4, h=3.0, nhan_R=None, nhan_h=None, nhan_l=None, tam_tren="O'", tam_duoi='O', dinh_tren=None, dinh_duoi=None, hien_truc=True, out='tru', tra_bytes=False)` | HÌNH TRỤ phối cảnh đứng (2 đáy elip + 2 đường sinh biên). R, h : bán kính đáy, chiều cao (độ dài VẼ, đơn vị ô). >0. nhan_R : nhãn bán kính đáy (vẽ đoạn O→mép phải đáy dưới). None=ẩn. nhan_h : nhãn chiều cao (trục O'O). None=ẩn nhãn (trục vẫn vẽ nếu hien_truc). nhan_l : nhãn 1 đường sinh (cạnh biên phải). None=ẩn. tam_tren/tam_duoi : tên 2 tâm đáy (mặc định O', O). '' = không ghi. dinh_tren/dinh_duoi : tên điểm mép phải đáy trên/dưới (vd 'A'/'B' khi cần l=AB). hien_truc : vẽ trục O'O (nét đứt) hay không. |
 | `khai_trien_non(R=1.0, l=2.6, nhan_l=None, nhan_R=None, dinh='S', out='kt_non', tra_bytes=False)` | KHAI TRIỂN hình nón = hình quạt tròn (bán kính l, cung = 2πR) + hình tròn đáy (bán kính R). |
 | `khai_trien_tru(R=0.9, h=2.4, nhan_cv=None, nhan_h=None, nhan_R=None, out='kt_tru', tra_bytes=False)` | KHAI TRIỂN hình trụ = hình chữ nhật (rộng = chu vi 2πR, cao = h) + 2 hình tròn đáy. |
+| `non_trong_lapphuong(a='a', canh=3.2, dinh='O', out='non_lapphuong', tra_bytes=False)` | HÌNH NÓN nội tiếp trong LẬP PHƯƠNG (H10.38): đỉnh = tâm O mặt trên ABCD, đáy = hình tròn nội tiếp mặt đáy A'B'C'D' (tiếp xúc 4 cạnh). Phối cảnh xiên cavalier. a : nhãn cạnh (hiển thị 3 cạnh), vd 'a'. canh : độ dài VẼ. dinh : tên đỉnh nón (tâm mặt trên), mặc định 'O'. |
 | `nua_cau_non(R=1.2, h_non=2.4, nhan=None, up=True, out='nuacau_non', tra_bytes=False)` | GHÉP: NÓN + NỬA CẦU chung đáy — ốc quế kem (H10.39): nón chúc XUỐNG, vòm cầu trên. up=True: nón đỉnh dưới, nửa cầu vòm trên (kem). up=False: nón trên. |
 | `nua_cau_tru(R=1.3, h=2.2, nhan=None, out='nuacau_tru', tra_bytes=False)` | GHÉP: hình TRỤ (dưới) + NỬA HÌNH CẦU (vòm trên) — H10.37a. |
 | `tamgiac_quay(R=1.5, h=2.8, ten=('S', 'O', 'A'), hien_non=True, o_vuong=True, out='tg_quay', tra_bytes=False)` | TAM GIÁC VUÔNG quay quanh CẠNH GÓC VUÔNG (trục đứng) sinh HÌNH NÓN (H10.9a). ten=(đỉnh trên S, chân vuông O, đỉnh ngoài A). |
@@ -30,4 +31,4 @@ Gọi hàm với `tra_bytes=True` để lấy PNG buffer: `buf = BD.bon_xang(...
 
 ---
 
-**Thống kê:** 14 hàm một-phát (phơi cho AI Soạn).
+**Thống kê:** 15 hàm một-phát (phơi cho AI Soạn).

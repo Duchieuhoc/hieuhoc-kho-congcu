@@ -1,3 +1,5 @@
+[33zx ĐỀ XUẤT — nối 33zw] hinh_hh9_ch10.py +1 hàm `non_trong_lapphuong` (nón nội tiếp lập phương, bài 10.27/H10.38). Tổng 15 hàm. Regen BAN_TRICH + mục lục (15 hàm). OB Hình THCS, 2026-11-19. ADDITIVE, 0 đổi hàm cũ.
+
 [33zw ĐỀ XUẤT — thầy gán lại nếu trùng] hinh_hh9_ch10.py MỚI — mạch HÌNH KHỐI TRÒN XOAY (trụ·nón·cầu), 14 hàm một-phát cho HH9_CH10. OB Hình THCS, 2026-11-19.
   +BAN_TRICH_HAM_HH9_CH10.md · regen 00_MUC_LUC_HAM.md (+category "Khối tròn xoay (trụ·nón·cầu)").
   Vá generic ADDITIVE: sinh_bantrich.py (header one-shot trung tính) + sinh_mucluc.py (liệt kê module không-class).

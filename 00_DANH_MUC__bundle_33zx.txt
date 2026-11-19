@@ -1,0 +1,7 @@
+# BUNDLE KHO [33zx ĐỀ XUẤT · nối 33zw] — +non_trong_lapphuong
+# Copy ĐÈ 4 file vào kho (nối sau 33zw đã push), rồi git commit && push.
+hinh_hh9_ch10.py            # +1 hàm non_trong_lapphuong (15 hàm)
+BAN_TRICH_HAM_HH9_CH10.md   # regen 15 hàm
+00_MUC_LUC_HAM.md           # regen 15 hàm
+00_KHO_VERSION.txt          # chèn mốc 33zx
+00_CAPNHAT_KHO__33zx.md     # changelog
