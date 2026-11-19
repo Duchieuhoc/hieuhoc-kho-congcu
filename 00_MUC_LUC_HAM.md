@@ -140,7 +140,7 @@
 | `cat_tuyen_2duong(a='a', b='b', c='c', A='A', B='B', song_song=True, xoay_ab=8, xoay_c=108, khoang=1.9, danh_so=True, nhan_dinh=True, danh_dau_ss=False, rut_c_tren=0.5, dai=2.2)` | Cát tuyến c cắt đường a (trên) tại A và đường b (dưới) tại B | `hinh_gocdt.py` | method | — |
 | `hai_duong_cat_4goc(ten1='xx′', ten2='yy′', O='O', xoay1=10, xoay2=105, danh_so=True, nhan_dinh=True, prefix='', dai=2.2)` | Hai đường thẳng ten1, ten2 cắt nhau tại đỉnh O | `hinh_gocdt.py` | method | — |
 
-## Khối tròn xoay (trụ · nón · cầu)  · 22 hàm
+## Khối tròn xoay (trụ · nón · cầu)  · 23 hàm
 
 | Hàm | Nghĩa | File | Kiểu | Tầng |
 |---|---|---|---|---|
@@ -156,6 +156,7 @@
 | `khai_trien_tru(R=0.9, h=2.4, nhan_cv=None, nhan_h=None, nhan_R=None, out='kt_tru', tra_bytes=False)` | KHAI TRIỂN hình trụ = hình chữ nhật (rộng = chu vi 2πR, cao = h) + 2 hình tròn đáy. | `hinh_hh9_ch10.py` | method | — |
 | `mu_non_vanh(R_non=1.1, l=2.4, R_vanh=1.9, nhan=None, out='mu_non_vanh', tra_bytes=False)` | MŨ (chú hề) = hình NÓN + VÀNH (hình vành khăn phẳng) — H10.31 | `hinh_hh9_ch10.py` | method | — |
 | `non_trong_lapphuong(a='a', canh=3.2, dinh='O', out='non_lapphuong', tra_bytes=False)` | HÌNH NÓN nội tiếp trong LẬP PHƯƠNG (H10.38): đỉnh = tâm O mặt trên ABCD, đáy = hình tròn nội tiếp mặt đáy A'B'C'D' (tiếp xúc 4 cạnh) | `hinh_hh9_ch10.py` | method | — |
+| `nua_cau(R=1.6, nhan_R=None, up=True, mat_phang=False, tam='O', out='nua_cau', tra_bytes=False)` | NỬA HÌNH CẦU đứng độc lập (vòm / chao đèn / bát) — H chao đèn, mái vòm | `hinh_hh9_ch10.py` | method | — |
 | `nua_cau_non(R=1.2, h_non=2.4, nhan=None, up=True, out='nuacau_non', tra_bytes=False)` | GHÉP: NÓN + NỬA CẦU chung đáy — ốc quế kem (H10.39): nón chúc XUỐNG, vòm cầu trên | `hinh_hh9_ch10.py` | method | — |
 | `nua_cau_tru(R=1.3, h=2.2, nhan=None, out='nuacau_tru', tra_bytes=False)` | GHÉP: hình TRỤ (dưới) + NỬA HÌNH CẦU (vòm trên) — H10.37a. | `hinh_hh9_ch10.py` | method | — |
 | `tamgiac_quay(R=1.5, h=2.8, ten=('S', 'O', 'A'), hien_non=True, o_vuong=True, out='tg_quay', tra_bytes=False)` | TAM GIÁC VUÔNG quay quanh CẠNH GÓC VUÔNG (trục đứng) sinh HÌNH NÓN (H10.9a) | `hinh_hh9_ch10.py` | method | — |
@@ -326,4 +327,4 @@
 | `xacSuatDK(A, B)` | 21.4. KÝ HIỆU GÓC — OMML chuẩn SGK KNTT Việt Nam | `hieuhoc_template.js` | JS | — |
 
 ---
-**Thống kê:** 177 hàm Python (vẽ hình) + 87 hàm JS (dựng Word) = 264.
+**Thống kê:** 178 hàm Python (vẽ hình) + 87 hàm JS (dựng Word) = 265.

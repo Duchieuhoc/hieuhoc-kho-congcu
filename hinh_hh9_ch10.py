@@ -231,6 +231,34 @@ def hinh_non(R=1.6, h=3.0, nhan_R=None, nhan_h=None, nhan_l=None,
     return _xuat(fig, out, tra_bytes)
 
 
+def nua_cau(R=1.6, nhan_R=None, up=True, mat_phang=False, tam="O",
+            out="nua_cau", tra_bytes=False):
+    """NỬA HÌNH CẦU đứng độc lập (vòm / chao đèn / bát) — H chao đèn, mái vòm.
+
+    up=True  : vòm hướng LÊN (mặt phẳng tròn ở dưới, cung cong phía trên).
+    up=False : vòm hướng XUỐNG (chao đèn treo: mặt phẳng tròn ở trên, cong phía dưới).
+    mat_phang: tô nhạt mặt cắt tròn (đĩa phẳng). nhan_R: nhãn bán kính trên đĩa.
+    """
+    fig, ax = plt.subplots(figsize=(3.4, 2.6)); ax.set_aspect("equal"); ax.axis("off")
+    b = R * _DEP
+    s = 1 if up else -1
+    # đĩa phẳng (mặt cắt tròn) tại y=0: elip — nửa trước liền, nửa sau đứt
+    _cung_elip(ax, 0, 0, R, b, 180, 360, net="lien", mau="#15407a")
+    _cung_elip(ax, 0, 0, R, b, 0, 180, net="dut", mau="#15407a")
+    if mat_phang:
+        import numpy as _np
+        th = _np.linspace(0, 2 * _np.pi, 60)
+        ax.fill(R * _np.cos(th), b * _np.sin(th), color="#9ab7e0", alpha=0.25, zorder=1)
+    # vòm = nửa đường tròn bán kính R (lên hoặc xuống)
+    _cung_elip(ax, 0, 0, R, R, 0, 180, net="lien", mau="#15407a") if up \
+        else _cung_elip(ax, 0, 0, R, R, 180, 360, net="lien", mau="#15407a")
+    if nhan_R is not None:
+        _doan(ax, (0, 0), (R, 0), mau="#c62828"); _cham(ax, 0, 0)
+        _nhan(ax, R / 2, 0, nhan_R, dy=0.16 * s, mau="#c62828")
+    _khung(ax, [-R, R], [min(0, s * R), max(0, s * R)])
+    return _xuat(fig, out, tra_bytes)
+
+
 # ═══════════════════════════════════════════════════════════════════
 # 3) HÌNH CẦU (bản lớp 9 — không hệ trục Oxyz)
 # ═══════════════════════════════════════════════════════════════════
