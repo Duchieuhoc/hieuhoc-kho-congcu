@@ -963,7 +963,7 @@ function tenBaiHoc({ soBai, tenBai, tiet, sgkTr, sbtTr, ma }) {
     para([
       run(`Thời lượng: ${tiet} tiết  |  SGK trang ${sgkTr}  |  SBT trang ${sbtTr}  |  Mã: `,
         { italic: true, size: SZ_SMALL }),
-      run(ma, { italic: true, bold: true, size: SZ_SMALL }),
+      run(ma, { italic: true, size: SZ_SMALL, color: "999999" }),
     ], { align: AlignmentType.CENTER, before: 0, after: 20 }),
   ];
 }

@@ -1,17 +1,24 @@
-CAPNHAT_KHO__33zl — cập nhật kho GitHub (hieuhoc-kho-congcu)
-============================================================
-Loại: CAPNHAT_KHO (→ GitHub). Ngày 2026-11-16 · OB Đại số THPT.
-THAY: 33zk, 33zj, 33zi (cộng dồn — chỉ upload 1 file này).
+========================================================================
+00_DANH_MUC.txt  —  CAPNHAT_KHO__34b
+Đích: THẦY UPLOAD ĐÈ GitHub (hieuhoc-kho-congcu), Commit changes
+Đóng gói: 2026-11-21 · OB Vật Lý
+========================================================================
 
-FILE:
-- hinh_bpt.py [33zl]                  — generator miền nghiệm BPT/hệ BPT (nghiệm thu B03+B04).
-- BAN_TRICH_HAM_DS10_CH02__bpt.md     — bản trích chữ ký hàm (0 đổi so với 33zk).
-- 00_KHO_VERSION.txt                  — dấu mốc [33zl].
-- 00_DANH_MUC.txt                     — file này.
+FILE                     THAY/THÊM   GHI CHÚ
+------------------------------------------------------------------------
+hieuhoc_template.js      THAY        tenBaiHoc(): mã định danh italic+BOLD
+                                     → italic + XÁM #999999 (bỏ bold), HP Đ57.
+                                     Chữ ký hàm KHÔNG đổi → KHÔNG regen
+                                     BAN_TRICH/API. Cosmetic, bài cũ 0 hỏng.
+00_KHO_VERSION.txt       THAY        +dòng mốc 34b ở đầu.
+------------------------------------------------------------------------
 
-CÁCH ĐẨY (CHỐNG CLOBBER):
-  git clone --depth 1 <repo> → đè hinh_bpt.py + 00_KHO_VERSION.txt bằng bản [33zl] → commit/push.
-  Một thời điểm MỘT máy sửa file chung.
-
-VÁ [33zl] so với 33zk: SO LE vị trí nhãn đường (cycle t = 0.72/0.44/0.86/0.58/0.32) → 2 đường gần
-  song song (vd H11 B04: x+2y=8 vs x+y=5) không còn đè nhãn. Lỗi hình thức, ADDITIVE, lợi mọi hình sau.
+CÁCH LÀM:
+  1. Upload đè 2 file này vào repo GitHub hieuhoc-kho-congcu → Commit changes.
+  2. (Không cần regen BAN_TRICH — chữ ký không đổi.)
+  3. Mốc kho sau push = 34b. Mốc yêu cầu trong luật GIỮ ≥ 2026-09-15 (29b)
+     — vá 34b chỉ cosmetic, KHÔNG nâng sàn mốc yêu cầu (bài vẫn soạn được
+     trên kho ≥ 29b; chỉ khác màu mã). Nếu muốn mọi bài mới có mã xám,
+     có thể nâng "mốc kho yêu cầu" lên 34b khi tiện.
+  4. Sau push: điền SHA commit 34b vào 00_HOSO_BAI.txt của LUU_BAI__VL8_CH00_B01.
+========================================================================
