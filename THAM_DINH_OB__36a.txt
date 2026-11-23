@@ -1,0 +1,37 @@
+===========================================================
+THẨM ĐỊNH OB — module hinh_hoa_ch06.py (mốc 36a)
+OB Hóa QC · 2026-11-24 · KẾT LUẬN: ✅ ĐẠT — DUYỆT PUSH
+===========================================================
+
+Căn cứ: thẩm định khi QC Vòng 2 bài HOA9_CH06_B18.
+
+ĐÃ KIỂM:
+- Bụng kho GitHub HEAD (mốc 34b) + nạp module 36a → render 5/5
+  hình sạch (Fe_O2 · Na_Cl2 · Fe_Cl2 · mạch điện · thìa nhiệt).
+- Chạy kiemtra_hinh_hoa_ch06.py: ĐẠT 5/5 + PHANH bắt tên lạ (raise).
+- Dựng docx HOA9_CH06_B18 qua kiemMay: SẠCH; 4 hình = 4 blip.
+- ADDITIVE: KHÔNG đụng hieuhoc_template.js / hinh_core.py /
+  hinh_hoa_ch01,ch02 / chữ ký hàm cũ. 0 regen API (template không đổi).
+- 4 hình dùng trong B18 đã soi mắt: khớp đề, không lộ đáp án
+  (mạch điện để vật thử "(?)"), text chỉ ký hiệu hoá.
+
+⚠️ MỐC: HEAD hiện ở 34b → 36a BỎ TRỐNG 35 (vô hại, không đụng).
+   Giữ 36a. Nếu muốn liền mạch có thể gán 35a — nhưng không cần.
+
+-----------------------------------------------------------
+THẦY PUSH GITHUB (Duchieuhoc/hieuhoc-kho-congcu) — 4 FILE:
+-----------------------------------------------------------
+  1. hinh_hoa_ch06.py            (module mới)
+  2. BAN_TRICH_HAM_HOA9_CH06.md  (bản trích hàm)
+  3. 00_MUC_LUC_HAM.md           (regen — 182 hàm Python)
+  4. 00_KHO_VERSION.txt          (thêm log mốc 36a ở đầu)
+  (+ kiemtra_hinh_hoa_ch06.py nếu muốn giữ test trong repo)
+Commit message gợi ý: "36a: +hinh_hoa_ch06 (HÓA9 CH06 dụng cụ TN)"
+
+SAU PUSH:
+- Đổi "Mốc kho yêu cầu" khối Hóa 9 → [36a] / 2026-11-23
+  (Instructions AI Soạn Hóa + field ⚠️ trong 00_LUAT gói giao).
+- Từ phiên sau AI Soạn tự bụng kho là đủ dụng cụ cho B18.
+- B19–B21 apparatus KHÁC (ống nghiệm/cốc · lò điện phân–gang–thổi
+  · cột lọc than) → bổ module tiếp khi tới lượt.
+===========================================================
