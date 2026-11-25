@@ -1,0 +1,32 @@
+===========================================================
+THẨM ĐỊNH OB — hinh_hoa_ch06.py (mốc 36d, bản ĐỦ B18–B21)
+OB Hóa QC · 2026-11-24 · KẾT LUẬN: ✅ ĐẠT — DUYỆT PUSH
+===========================================================
+Căn cứ: thẩm định khi QC Vòng 2 các bài B19, B20, B21.
+
+ĐÃ KIỂM:
+- 36d là bản CUMULATIVE (THAY/GỘP 36a..36c): 10 hàm phơi, 4 họ sơ đồ
+  (bình khí B18 · ống nghiệm B19 · 3 sơ đồ công nghiệp B20 · cột lọc than B21).
+- Chạy kiemtra_hinh_hoa_ch06.py: ĐẠT render 11/11 + PHANH bắt tên lạ (2 ca).
+- Rebuild B19/B20/B21 với 36d → 3 docx qua kiemMay SẠCH; blip khớp số hình (2/3/1).
+- ADDITIVE, 0 đổi hàm cũ; KHÔNG đụng template / hinh_core / kho chương khác.
+- Đã soi 6 hình: khớp đề, không lộ đáp án, text chỉ ASCII/ký hiệu hoá.
+- CALLOUT SỐ + chú giải tiếng Việt in dưới hình (B20, B21): hợp lý — pdflatex
+  không dựng được dấu tiếng Việt trong TikZ; callout ①②③ + .CHU_GIAI để build
+  in chú giải bằng Word. Chấp nhận (checkpoint Giám đốc giao tự quyết 24/11).
+
+-----------------------------------------------------------
+THẦY PUSH GITHUB (Duchieuhoc/hieuhoc-kho-congcu) — 4 FILE (ĐÈ bản 36a):
+  1. hinh_hoa_ch06.py            (bản ĐỦ 10 hàm — đè bản 36a 4 hàm)
+  2. BAN_TRICH_HAM_HOA9_CH06.md  (regen 10 hàm)
+  3. 00_MUC_LUC_HAM.md           (regen)
+  4. 00_KHO_VERSION.txt          (thêm log 36d ở đầu)
+  (+ kiemtra_hinh_hoa_ch06.py nếu giữ test trong repo)
+Commit: "36d: hinh_hoa_ch06 ĐỦ B18-B21 (gộp 36a..36c)"
+
+SAU PUSH:
+- Đổi "Mốc kho yêu cầu" khối Hóa 9 → [36d].
+- QUAY LẠI điền SHA (git rev-parse HEAD) vào 00_HOSO_BAI của LUU_BAI B18–B21
+  (hiện ghi "CHỜ").
+- Chương VI nay ĐỦ dụng cụ — các bài sau (nếu có) tự bụng là chạy.
+===========================================================
