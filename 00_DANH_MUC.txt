@@ -1,21 +1,17 @@
-GÓI: CAPNHAT_KHO__36a  (OB kiểm → thầy PUSH GitHub Duchieuhoc/hieuhoc-kho-congcu)
-Mốc: [36a] · 2026-11-23 · Môn: Hóa THCS · ADDITIVE (0 đổi hàm cũ)
+# CAPNHAT_KHO__33zu  (OB Đại số -> Thầy PUSH GitHub hieuhoc-kho-congcu)
+# Nền: HEAD 5e3c9f8 (2026-11-24). Thay đổi ADDITIVE, 0 đổi chữ ký hàm.
 
-FILE — LOẠI — GHI CHÚ
-  hinh_hoa_ch06.py              MỚI    Entry chương Hóa 9 Chương VI: 4 hàm sơ đồ thí nghiệm (bình khí + mạch điện + thìa nhiệt).
-  BAN_TRICH_HAM_HOA9_CH06.md    MỚI    Bản trích hàm cho AI Soạn — tự sinh (sinh_bantrich.py hinh_hoa_ch06 HOA9_CH06).
-  00_MUC_LUC_HAM.md             THAY   Regen (sinh_mucluc.py) — nay 182 hàm Python.
-  00_KHO_VERSION.txt            THAY   Thêm mốc [36a] ở đầu log.
-  00_CAPNHAT_KHO__36a.md        MỚI    Ghi chú cập nhật (vì sao · thêm gì · nghiệm thu · thầy làm gì).
-  kiemtra_hinh_hoa_ch06.py      MỚI    OB chạy để kiểm TRƯỚC khi push (import + render 5/5 + PHANH). KHÔNG push file này.
-  00_DANH_MUC.txt               —      File này.
+FILE ĐỔI (push đè GitHub + Commit):
+  hieuhoc_template.js   : v10.56 -> v10.57 [33zu] — run() chặn MẢNG + kiemMay +2 cửa (run rỗng, tag không-namespace).
+  API_REFERENCE.md      : regen v10.57 (88 hàm) — sync + bổ 5 hàm khối ④ (Project đang kẹt v10.25).
+  00_KHO_VERSION.txt    : prepend entry [33zu]; GIỮ NGUYÊN ĐỀ XUẤT máy khác (36a/34b/34a).
 
-OB KIỂM TRƯỚC KHI PUSH (§7 checklist kho):
-  1. Bụng kho (GitHub HEAD) → đặt hinh_hoa_ch06.py vào ~/kho.
-  2. cd ~/kho && python3 kiemtra_hinh_hoa_ch06.py   → phải "ĐẠT — render 5/5".
-  3. (tuỳ) rebuild B18 từ gói NOP_OB để xác nhận bài khớp.
-  → Đạt thì UPLOAD ĐÈ GitHub 4 file: hinh_hoa_ch06.py · BAN_TRICH_HAM_HOA9_CH06.md ·
-    00_MUC_LUC_HAM.md · 00_KHO_VERSION.txt. (KHÔNG push kiemtra_*.py và 00_DANH_MUC.txt.)
-  → Đặt "Mốc kho yêu cầu" khối Hóa 9 = [36a] / 2026-11-23 trong luật.
+⚠️ ONE-WRITER (file CHUNG hieuhoc_template.js):
+  - Diff OB Đại số CHỈ thêm: guard run(MẢNG) + 2 cửa kiemMay. KHÔNG đụng tenBaiHoc/hàm khác.
+  - ĐỀ XUẤT 34b (OB Vật Lý) sửa tenBaiHoc mã xám — nếu chưa push, Thầy áp CẢ HAI (không xung đột: khác hàm).
+  - Trước khi push: xác nhận các Project cùng giữ cùng bản; nếu máy Hình/Lý/Hóa có sửa template chưa đồng bộ → HỢP NHẤT trước, KHÔNG đè mù.
 
-KHÔNG đụng: hieuhoc_template.js · API_REFERENCE · hinh_core.py · kho chương khác · chữ ký hàm cũ.
+NẠP PROJECT (CHUNG mọi Project OB + AI Soạn 4 môn):
+  API_REFERENCE.md  -> nạp đè Project (xoá bản cũ v10.25). File token-saver; AI Soạn vẫn bụng kho GitHub có template thật.
+
+SAU PUSH: kho ra mốc mới; PIN SHA mới vào 00_HOSO_BAI các bài phụ thuộc (B24 đã lưu với mốc nền 5e3c9f8 — không ảnh hưởng).
