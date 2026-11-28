@@ -21,3 +21,10 @@
 
 ## SAU KHI PUSH
 - Điền SHA (`git rev-parse HEAD`) vào `00_LUAT.txt` của `GIAO_AISOAN__HOA9_CH08` (đang ghi mốc 38a / SHA CHỜ).
+
+## BỔ SUNG (khép sổ version — đáp 🔴 [SỬA-KHO] của AI Soạn B26/B27)
+Đã khép bù vào `00_KHO_VERSION.txt` 3 mốc Hóa trước đó bị thiếu (đỉnh log còn 34b):
+- **38a** hinh_hoa_ch08.py (chương VIII) — gói này.
+- **37a** hinh_hoa_ch07.py (chương VII) — đã push trước.
+- **36d** hinh_hoa_ch06.py (chương VI) — đã push trước.
+→ Gói này kèm `00_KHO_VERSION.txt` đã khép. Thầy push là sổ về đúng đỉnh 38a; nhớ điền SHA vào 00_LUAT.
